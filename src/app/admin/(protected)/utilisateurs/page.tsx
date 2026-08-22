@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 
@@ -26,9 +27,12 @@ export default async function UtilisateursPage() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Usuarios</h1>
-        <p className="text-sm text-ink-soft">
-          Crear / editar cuentas de empleados — próximamente
-        </p>
+        <Link
+          href="/admin/utilisateurs/nuevo"
+          className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
+        >
+          Nuevo usuario
+        </Link>
       </div>
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}

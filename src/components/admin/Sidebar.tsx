@@ -4,6 +4,7 @@ import { LogoutButton } from "@/components/admin/LogoutButton";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Panel", adminOnly: false },
+  { href: "/admin/demandes", label: "Solicitudes", adminOnly: false },
   { href: "/admin/reservations", label: "Reservas", adminOnly: false },
   { href: "/admin/vehicules", label: "Vehículos", adminOnly: false },
   { href: "/admin/clients", label: "Clientes", adminOnly: false },

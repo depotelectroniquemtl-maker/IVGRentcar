@@ -54,8 +54,8 @@ export default async function HomePage({
       <section className="bg-black/[0.03] py-16">
         <Container>
           <h2 className="mb-8 text-2xl font-bold text-ink">{tWhy("title")}</h2>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {[1, 2, 3].map((i) => (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[1, 2, 3, 4].map((i) => (
               <div key={i} className="rounded-lg bg-white p-6 shadow-sm">
                 <h3 className="mb-2 font-semibold text-brand">
                   {tWhy(`item${i}_title` as "item1_title")}

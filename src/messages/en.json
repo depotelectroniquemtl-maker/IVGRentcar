@@ -5,8 +5,11 @@
     "nav": {
       "home": "Home",
       "flotte": "Fleet & rates",
+      "lasTerrenas": "Las Terrenas",
+      "faq": "FAQ",
       "contact": "Contact"
     },
+    "reservar_cta": "Book now",
     "footer": {
       "rights": "All rights reserved.",
       "address": "Plaza Italia #35, Avenida Juan Pablo Duarte, Las Terrenas, D.R."
@@ -24,13 +27,15 @@
       "see_all": "See all vehicles and rates"
     },
     "why": {
-      "title": "Why choose us?",
-      "item1_title": "Card payment",
-      "item1_text": "We accept card payment directly at our office.",
-      "item2_title": "Varied fleet",
-      "item2_text": "From scooters to 4x4 SUVs for up to 7 people.",
-      "item3_title": "Fast response",
-      "item3_text": "Immediate reply on WhatsApp, every day."
+      "title": "Why choose us",
+      "item1_title": "Direct service",
+      "item1_text": "Talk to a real local team from your first question to your return.",
+      "item2_title": "The right ride",
+      "item2_text": "Choose the format that fits your trip, group and sense of adventure.",
+      "item3_title": "Flexible requests",
+      "item3_text": "Tell us when and where you need your vehicle—we'll confirm availability.",
+      "item4_title": "Clear before you go",
+      "item4_text": "Rates, deposit, coverage and requirements are confirmed before pickup."
     }
   },
   "flotte": {
@@ -46,6 +51,65 @@
     "capacity_persons": "{count} people",
     "payment_note": "We accept card payment.",
     "reserve": "Book on WhatsApp"
+  },
+  "lasTerrenas": {
+    "title": "Las Terrenas",
+    "intro": "Wake up by the beach, find a hidden lunch spot, follow the coast and take the long way home. Your own set of wheels turns every day into an open itinerary.",
+    "places_title": "Featured spots",
+    "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Samaná Peninsula"],
+    "cta": "See fleet & rates"
+  },
+  "faq": {
+    "title": "Frequently asked questions",
+    "subtitle": "Everything you need to know before booking your vehicle.",
+    "items": [
+      {
+        "question": "What do I need to rent?",
+        "answer": "A valid driver's license, passport or ID, and a security deposit may be required. Exact requirements vary by vehicle and are confirmed before booking."
+      },
+      {
+        "question": "Is insurance included?",
+        "answer": "Coverage details and any deductible are explained in your quote and rental agreement."
+      },
+      {
+        "question": "Can you deliver the vehicle?",
+        "answer": "Delivery may be available depending on location and schedule."
+      },
+      {
+        "question": "How do I confirm my reservation?",
+        "answer": "After your request, IVJ confirms availability, total price, deposit and the steps required to secure the vehicle."
+      },
+      {
+        "question": "What's the fuel and cancellation policy?",
+        "answer": "Fuel, cancellation, late-return and damage policies are provided with your final rental terms, before you confirm."
+      }
+    ]
+  },
+  "reservar": {
+    "title": "Request a reservation",
+    "subtitle": "Tell us what you need — we'll confirm availability, price and the steps to secure your vehicle.",
+    "field_nombre": "Full name",
+    "field_whatsapp": "WhatsApp",
+    "field_email": "Email (optional)",
+    "field_categoria": "Vehicle category",
+    "field_categoria_placeholder": "Select a category",
+    "field_fecha_inicio": "Start date",
+    "field_fecha_fin": "End date",
+    "field_lugar": "Pickup location (optional)",
+    "field_notas": "Notes (optional)",
+    "submit": "Send request",
+    "submitting": "Sending…",
+    "checking_availability": "Checking availability…",
+    "available": "Available",
+    "unavailable": "Not available for these dates — try another category or different dates.",
+    "error_dates": "The end date must be on or after the start date.",
+    "checking_error": "Couldn't check availability.",
+    "error_submit": "Couldn't send the request. Please try again or message us on WhatsApp.",
+    "success_title": "Request sent!",
+    "success_text": "We'll get in touch with you shortly. You can also message us directly on WhatsApp to confirm faster:",
+    "whatsapp_cta": "Confirm on WhatsApp",
+    "whatsapp_message": "Hi, I'd like to confirm my reservation request: {categoria}, from {inicio} to {fin}. Name: {nombre}.",
+    "new_request": "Send another request"
   },
   "contact": {
     "title": "Contact",

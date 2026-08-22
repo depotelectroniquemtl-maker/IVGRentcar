@@ -5,8 +5,11 @@
     "nav": {
       "home": "Inicio",
       "flotte": "Flota y tarifas",
+      "lasTerrenas": "Las Terrenas",
+      "faq": "Preguntas frecuentes",
       "contact": "Contacto"
     },
+    "reservar_cta": "Reservar",
     "footer": {
       "rights": "Todos los derechos reservados.",
       "address": "Plaza Italia #35, Avenida Juan Pablo Duarte, Las Terrenas, R.D."
@@ -24,13 +27,15 @@
       "see_all": "Ver todos los vehículos y tarifas"
     },
     "why": {
-      "title": "¿Por qué elegirnos?",
-      "item1_title": "Pago con tarjeta",
-      "item1_text": "Aceptamos pago con tarjeta directamente en nuestras oficinas.",
-      "item2_title": "Flota variada",
-      "item2_text": "Desde scooters hasta camionetas 4x4 para 7 personas.",
-      "item3_title": "Atención rápida",
-      "item3_text": "Respuesta inmediata por WhatsApp, todos los días."
+      "title": "Por qué elegirnos",
+      "item1_title": "Atención directa",
+      "item1_text": "Habla con un equipo local real, desde tu primera pregunta hasta la devolución.",
+      "item2_title": "El vehículo correcto",
+      "item2_text": "Elige el formato que se ajusta a tu viaje, tu grupo y tu espíritu de aventura.",
+      "item3_title": "Solicitudes flexibles",
+      "item3_text": "Dinos cuándo y dónde necesitas tu vehículo — confirmamos la disponibilidad.",
+      "item4_title": "Todo claro antes de salir",
+      "item4_text": "Tarifas, depósito, cobertura y requisitos se confirman antes de la entrega."
     }
   },
   "flotte": {
@@ -46,6 +51,65 @@
     "capacity_persons": "{count} personas",
     "payment_note": "Aceptamos pago con tarjeta.",
     "reserve": "Reservar por WhatsApp"
+  },
+  "lasTerrenas": {
+    "title": "Las Terrenas",
+    "intro": "Despierta junto a la playa, descubre un lugar escondido para almorzar, sigue la costa y regresa por el camino largo. Tu propio vehículo convierte cada día en un itinerario abierto.",
+    "places_title": "Lugares destacados",
+    "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Península de Samaná"],
+    "cta": "Ver flota y tarifas"
+  },
+  "faq": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Todo lo que necesitas saber antes de reservar tu vehículo.",
+    "items": [
+      {
+        "question": "¿Qué necesito para alquilar?",
+        "answer": "Se puede requerir una licencia de conducir válida, pasaporte o cédula, y un depósito de garantía. Los requisitos exactos varían según el vehículo y se confirman antes de la reserva."
+      },
+      {
+        "question": "¿El seguro está incluido?",
+        "answer": "Los detalles de cobertura y cualquier deducible se explican en tu cotización y en el contrato de alquiler."
+      },
+      {
+        "question": "¿Pueden entregar el vehículo?",
+        "answer": "La entrega puede estar disponible según la ubicación y el horario."
+      },
+      {
+        "question": "¿Cómo confirmo mi reserva?",
+        "answer": "Después de tu solicitud, IVJ confirma la disponibilidad, el precio total, el depósito y los pasos necesarios para asegurar el vehículo."
+      },
+      {
+        "question": "¿Cuál es la política de combustible y cancelación?",
+        "answer": "Las políticas de combustible, cancelación, devolución tardía y daños se entregan junto con los términos finales del alquiler, antes de confirmar."
+      }
+    ]
+  },
+  "reservar": {
+    "title": "Solicitar una reserva",
+    "subtitle": "Cuéntanos qué necesitas — confirmamos disponibilidad, precio y los pasos para asegurar tu vehículo.",
+    "field_nombre": "Nombre completo",
+    "field_whatsapp": "WhatsApp",
+    "field_email": "Correo (opcional)",
+    "field_categoria": "Categoría de vehículo",
+    "field_categoria_placeholder": "Selecciona una categoría",
+    "field_fecha_inicio": "Fecha de inicio",
+    "field_fecha_fin": "Fecha de fin",
+    "field_lugar": "Lugar de entrega (opcional)",
+    "field_notas": "Notas (opcional)",
+    "submit": "Enviar solicitud",
+    "submitting": "Enviando…",
+    "checking_availability": "Verificando disponibilidad…",
+    "available": "Disponible",
+    "unavailable": "No disponible para estas fechas — prueba otra categoría o cambia las fechas.",
+    "error_dates": "La fecha de fin debe ser posterior o igual a la fecha de inicio.",
+    "checking_error": "No se pudo verificar la disponibilidad.",
+    "error_submit": "No se pudo enviar la solicitud. Intenta de nuevo o escríbenos por WhatsApp.",
+    "success_title": "¡Solicitud enviada!",
+    "success_text": "Nos pondremos en contacto contigo pronto. También puedes escribirnos directamente por WhatsApp para confirmar más rápido:",
+    "whatsapp_cta": "Confirmar por WhatsApp",
+    "whatsapp_message": "Hola, quiero confirmar mi solicitud de reserva: {categoria}, del {inicio} al {fin}. Nombre: {nombre}.",
+    "new_request": "Enviar otra solicitud"
   },
   "contact": {
     "title": "Contacto",

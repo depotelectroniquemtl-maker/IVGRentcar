@@ -91,6 +91,59 @@ export type Database = {
           },
         ]
       }
+      demandes_reservation: {
+        Row: {
+          categorie_id: string
+          created_at: string
+          date_debut: string
+          date_fin: string
+          email: string | null
+          id: string
+          lieu_prise_en_charge: string | null
+          nom: string
+          notes: string | null
+          statut: string
+          updated_at: string
+          whatsapp: string
+        }
+        Insert: {
+          categorie_id: string
+          created_at?: string
+          date_debut: string
+          date_fin: string
+          email?: string | null
+          id?: string
+          lieu_prise_en_charge?: string | null
+          nom: string
+          notes?: string | null
+          statut?: string
+          updated_at?: string
+          whatsapp: string
+        }
+        Update: {
+          categorie_id?: string
+          created_at?: string
+          date_debut?: string
+          date_fin?: string
+          email?: string | null
+          id?: string
+          lieu_prise_en_charge?: string | null
+          nom?: string
+          notes?: string | null
+          statut?: string
+          updated_at?: string
+          whatsapp?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "demandes_reservation_categorie_id_fkey"
+            columns: ["categorie_id"]
+            isOneToOne: false
+            referencedRelation: "categories_vehicules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -377,6 +430,14 @@ export type Database = {
       }
     }
     Functions: {
+      disponibilite_categorie: {
+        Args: {
+          p_categorie_id: string
+          p_date_debut: string
+          p_date_fin: string
+        }
+        Returns: boolean
+      }
       est_admin: { Args: never; Returns: boolean }
       est_staff: { Args: never; Returns: boolean }
     }

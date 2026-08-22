@@ -13,8 +13,9 @@ export async function VideoSection() {
           muted
           loop
           playsInline
+          preload="metadata"
           poster="/fleet/quad-road.JPG"
-          className="aspect-[9/16] w-full object-cover sm:aspect-video"
+          className="aspect-video w-full object-cover"
         >
           <source src="/video/quad-tour.mp4" type="video/mp4" />
         </video>
@@ -29,8 +30,9 @@ export async function VideoSection() {
           muted
           loop
           playsInline
+          preload="metadata"
           poster="/video/ivj-logo.jpg"
-          className="aspect-[9/16] w-full object-cover sm:aspect-video"
+          className="aspect-video w-full object-cover"
         >
           <source src="/video/ivj-shop.mp4" type="video/mp4" />
         </video>

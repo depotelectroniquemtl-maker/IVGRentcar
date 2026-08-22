@@ -10,6 +10,7 @@ import { SealBadge } from "@/components/site/SealBadge";
 export async function LasTerrenasBanner() {
   const t = await getTranslations("lasTerrenas");
   const gallery = t.raw("gallery") as { caption: string }[];
+  const places = t.raw("places") as string[];
 
   return (
     <section className="relative isolate overflow-hidden">
@@ -31,7 +32,17 @@ export async function LasTerrenasBanner() {
           <h2 className="text-4xl font-extrabold leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl">
             {t("title")}
           </h2>
-          <p className="mt-6 max-w-md text-lg leading-relaxed text-white/90">{t("intro")}</p>
+          <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/90">{t("intro")}</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {places.map((place) => (
+              <span
+                key={place}
+                className="rounded-full border border-white/50 bg-[#001c2866] px-3.5 py-2 text-xs text-white backdrop-blur-sm"
+              >
+                ↗ {place}
+              </span>
+            ))}
+          </div>
           <p className="mt-8 text-xs text-white/70">{t("photo_credit")}</p>
         </div>
 

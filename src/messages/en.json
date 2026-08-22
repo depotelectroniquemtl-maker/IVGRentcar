@@ -67,12 +67,49 @@
     "reserve": "Book on WhatsApp",
     "from": "From",
     "per_day": "/day",
-    "no_photo": "Photo coming soon"
+    "no_photo": "Photo coming soon",
+    "amenity_ac": "Air conditioning",
+    "amenity_on_request": "Availability on request",
+    "card_cta": "Book",
+    "vehicle_copy": {
+      "Hyundai": {
+        "title": "Compact and practical",
+        "description": "A convenient car for town trips and everyday driving."
+      },
+      "Changan": {
+        "title": "Versatile crossover",
+        "description": "A practical choice for your stay and local journeys."
+      },
+      "Tucson 4x4": {
+        "title": "Space and capability",
+        "description": "A larger option for families, luggage and longer trips."
+      },
+      "Chevrolet 4x4": {
+        "title": "Comfort for the road",
+        "description": "Ask IVJ for the exact model and current availability."
+      },
+      "Suzuki XL 7 Personas": {
+        "title": "Family-friendly space",
+        "description": "A practical vehicle for getting around Las Terrenas comfortably."
+      },
+      "Kia Seltos 2026": {
+        "title": "New arrival",
+        "description": "A clean, spacious SUV for couples, families and luggage."
+      },
+      "Quad 4 Roues 300cc": {
+        "title": "For your adventures",
+        "description": "Ask us about the quad models currently available."
+      },
+      "Pasola 175cc": {
+        "title": "Light and easy",
+        "description": "A nimble option for quick trips around town."
+      }
+    }
   },
   "lasTerrenas": {
     "kicker": "Welcome to paradise",
     "title": "Las Terrenas is better with the freedom to roam.",
-    "intro": "Wake up by the beach, find a hidden lunch spot, follow the coast and take the long way home.",
+    "intro": "Wake up by the beach, find a hidden lunch spot, follow the coast and take the long way home. Your own set of wheels turns every day into an open itinerary.",
     "places_title": "Featured spots",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Samaná Peninsula"],
     "cta": "See fleet & rates",

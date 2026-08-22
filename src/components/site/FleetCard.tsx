@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { FLEET_IMAGES } from "@/lib/fleet-images";
 import type { CategorieAvecTarifs } from "@/lib/types";
 
@@ -11,23 +12,41 @@ function formatUsd(value: number | null) {
   return value.toFixed(0);
 }
 
+// Reprend la structure de carte véhicule de l'ancien site (classe .vehicle) : badge
+// numéroté sur la photo, étiquette de catégorie en majuscules accent rouge, titre
+// accrocheur, description, puces de caractéristiques, ligne d'action à deux éléments.
 // Photos réelles quand disponibles (mini-carrousel auto si plusieurs angles, ex: Kia
 // Seltos) ; visuel générique sinon (ex: Pasola 175cc, pas de photo fournie).
-export function FleetCard({ categorie }: { categorie: CategorieAvecTarifs }) {
+export function FleetCard({
+  categorie,
+  index,
+}: {
+  categorie: CategorieAvecTarifs;
+  index: number;
+}) {
   const t = useTranslations("flotte");
   const images = FLEET_IMAGES[categorie.nom];
-  const [index, setIndex] = useState(0);
+  const vehicleCopy = t.raw("vehicle_copy") as Record<
+    string,
+    { title: string; description: string }
+  >;
+  const copy = vehicleCopy[categorie.nom];
+  const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {
     if (!images || images.length < 2) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % images.length), 3000);
+    const id = setInterval(
+      () => setCarouselIndex((i) => (i + 1) % images.length),
+      3000,
+    );
     return () => clearInterval(id);
   }, [images]);
 
   const startingPrice = formatUsd(categorie.tarifs["1_3_jours"]);
+  const isCar = categorie.type === "voiture";
 
   return (
-    <div className="overflow-hidden rounded-lg bg-white shadow-sm">
+    <div className="overflow-hidden rounded-lg border border-black/5 bg-white shadow-sm">
       <div className="relative aspect-[4/3] w-full bg-black/5">
         {images ? (
           images.map((src, i) => (
@@ -38,7 +57,7 @@ export function FleetCard({ categorie }: { categorie: CategorieAvecTarifs }) {
               fill
               sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
               className={`object-cover transition-opacity duration-700 ${
-                i === index ? "opacity-100" : "opacity-0"
+                i === carouselIndex ? "opacity-100" : "opacity-0"
               }`}
             />
           ))
@@ -60,22 +79,43 @@ export function FleetCard({ categorie }: { categorie: CategorieAvecTarifs }) {
             <span className="px-4 text-center text-xs font-medium">{t("no_photo")}</span>
           </div>
         )}
+        <span className="absolute left-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-xs font-black text-white backdrop-blur-sm">
+          {String(index + 1).padStart(2, "0")}
+        </span>
       </div>
 
-      <div className="flex flex-col gap-1 p-4">
-        <h3 className="font-semibold text-ink">{categorie.nom}</h3>
-        {categorie.capacite_personnes && (
-          <p className="text-sm text-ink-soft">
-            {t("capacity_persons", { count: categorie.capacite_personnes })}
-          </p>
-        )}
-        {startingPrice && (
-          <p className="mt-2 text-sm">
-            <span className="text-ink-soft">{t("from")} </span>
-            <span className="font-bold text-brand">US$ {startingPrice}</span>
-            <span className="text-ink-soft">{t("per_day")}</span>
-          </p>
-        )}
+      <div className="flex flex-col gap-2 p-5">
+        <p className="text-[11px] font-black uppercase tracking-wider text-brand">
+          {categorie.nom}
+        </p>
+        {copy && <h3 className="text-xl font-bold leading-tight text-ink">{copy.title}</h3>}
+        {copy && <p className="text-sm leading-relaxed text-ink-soft">{copy.description}</p>}
+
+        <div className="mt-1 flex flex-wrap gap-2">
+          {categorie.capacite_personnes && (
+            <span className="rounded bg-black/[0.04] px-2 py-1 text-[11px] text-ink-soft">
+              {t("capacity_persons", { count: categorie.capacite_personnes })}
+            </span>
+          )}
+          <span className="rounded bg-black/[0.04] px-2 py-1 text-[11px] text-ink-soft">
+            {isCar ? t("amenity_ac") : t("amenity_on_request")}
+          </span>
+        </div>
+
+        <div className="mt-3 flex items-center justify-between border-t border-black/10 pt-3">
+          {startingPrice ? (
+            <p className="text-sm">
+              <span className="text-ink-soft">{t("from")} </span>
+              <span className="font-bold text-brand">US$ {startingPrice}</span>
+              <span className="text-ink-soft">{t("per_day")}</span>
+            </p>
+          ) : (
+            <span />
+          )}
+          <Link href="/reservar" className="text-xs font-bold text-ink hover:text-brand">
+            {t("card_cta")} →
+          </Link>
+        </div>
       </div>
     </div>
   );

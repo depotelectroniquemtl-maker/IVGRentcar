@@ -67,7 +67,44 @@
     "reserve": "Reservar por WhatsApp",
     "from": "Desde",
     "per_day": "/día",
-    "no_photo": "Foto próximamente"
+    "no_photo": "Foto próximamente",
+    "amenity_ac": "Aire acondicionado",
+    "amenity_on_request": "Según disponibilidad",
+    "card_cta": "Reservar",
+    "vehicle_copy": {
+      "Hyundai": {
+        "title": "Compacto y práctico",
+        "description": "Un carro conveniente para el pueblo y los viajes diarios."
+      },
+      "Changan": {
+        "title": "Crossover versátil",
+        "description": "Una opción práctica para tu estadía y recorridos locales."
+      },
+      "Tucson 4x4": {
+        "title": "Espacio y capacidad",
+        "description": "Una opción amplia para familias, equipaje y viajes largos."
+      },
+      "Chevrolet 4x4": {
+        "title": "Comodidad en la carretera",
+        "description": "Consulta con IVJ el modelo exacto y la disponibilidad."
+      },
+      "Suzuki XL 7 Personas": {
+        "title": "Práctico para familias",
+        "description": "Un vehículo cómodo para moverte por Las Terrenas."
+      },
+      "Kia Seltos 2026": {
+        "title": "Nueva llegada",
+        "description": "Un SUV limpio y espacioso para parejas, familias y equipaje."
+      },
+      "Quad 4 Roues 300cc": {
+        "title": "Para tus aventuras",
+        "description": "Pregúntanos por los modelos de quad disponibles."
+      },
+      "Pasola 175cc": {
+        "title": "Ligera y práctica",
+        "description": "Una opción ágil para moverte rápido por el pueblo."
+      }
+    }
   },
   "lasTerrenas": {
     "kicker": "Bienvenido al paraíso",

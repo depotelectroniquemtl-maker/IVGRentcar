@@ -2,20 +2,22 @@
 
 import { useState, type ChangeEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 
 const STATUTS = ["nouvelle", "contactee", "convertie", "rejetee"] as const;
 
-const STATUT_LABELS: Record<(typeof STATUTS)[number], string> = {
-  nouvelle: "Nueva",
-  contactee: "Contactada",
-  convertie: "Convertida",
-  rejetee: "Rechazada",
-};
-
 export function DemandeStatutSelect({ id, statut }: { id: string; statut: string }) {
   const router = useRouter();
+  const t = useTranslations("admin.demandes");
   const [loading, setLoading] = useState(false);
+
+  const STATUT_LABELS: Record<(typeof STATUTS)[number], string> = {
+    nouvelle: t("statut_nouvelle"),
+    contactee: t("statut_contactee"),
+    convertie: t("statut_convertie"),
+    rejetee: t("statut_rejetee"),
+  };
 
   async function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setLoading(true);

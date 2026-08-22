@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getAdminTranslator } from "@/lib/admin-i18n";
 import { ClienteForm } from "@/components/admin/ClienteForm";
 
 export default async function EditarClientePage({
@@ -9,6 +10,7 @@ export default async function EditarClientePage({
 }) {
   const { id } = await params;
   const supabase = createClient();
+  const t = await getAdminTranslator("admin.clients");
 
   const { data: cliente } = await supabase
     .from("clients")
@@ -20,7 +22,7 @@ export default async function EditarClientePage({
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">Editar cliente — {cliente.nom}</h1>
+      <h1 className="text-2xl font-bold text-ink">{t("edit_title", { nom: cliente.nom })}</h1>
       <ClienteForm cliente={cliente} />
     </div>
   );

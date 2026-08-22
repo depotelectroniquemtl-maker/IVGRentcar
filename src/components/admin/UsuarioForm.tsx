@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createEmploye } from "@/app/admin/(protected)/utilisateurs/actions";
 
 const inputClass =
@@ -10,6 +11,8 @@ const labelClass = "mb-1 block font-medium text-ink";
 
 export function UsuarioForm() {
   const router = useRouter();
+  const t = useTranslations("admin.utilisateurs");
+  const tCommon = useTranslations("admin.common");
 
   const [nom, setNom] = useState("");
   const [email, setEmail] = useState("");
@@ -39,7 +42,7 @@ export function UsuarioForm() {
   return (
     <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
       <label className="block text-sm">
-        <span className={labelClass}>Nombre completo</span>
+        <span className={labelClass}>{t("field_nombre")}</span>
         <input
           type="text"
           required
@@ -50,7 +53,7 @@ export function UsuarioForm() {
       </label>
 
       <label className="block text-sm">
-        <span className={labelClass}>Correo</span>
+        <span className={labelClass}>{t("field_correo")}</span>
         <input
           type="email"
           required
@@ -61,7 +64,7 @@ export function UsuarioForm() {
       </label>
 
       <label className="block text-sm">
-        <span className={labelClass}>Contraseña temporal</span>
+        <span className={labelClass}>{t("field_password")}</span>
         <input
           type="password"
           required
@@ -70,20 +73,18 @@ export function UsuarioForm() {
           onChange={(e) => setPassword(e.target.value)}
           className={inputClass}
         />
-        <span className="mt-1 block text-xs text-ink-soft">
-          Mínimo 6 caracteres. Compártela con el empleado por un canal seguro.
-        </span>
+        <span className="mt-1 block text-xs text-ink-soft">{t("field_password_hint")}</span>
       </label>
 
       <label className="block text-sm">
-        <span className={labelClass}>Rol</span>
+        <span className={labelClass}>{t("field_rol")}</span>
         <select
           value={role}
           onChange={(e) => setRole(e.target.value as "admin" | "employe")}
           className={`${inputClass} bg-white`}
         >
-          <option value="employe">Empleado</option>
-          <option value="admin">Admin</option>
+          <option value="employe">{tCommon("role_employe")}</option>
+          <option value="admin">{tCommon("role_admin")}</option>
         </select>
       </label>
 
@@ -94,7 +95,7 @@ export function UsuarioForm() {
         disabled={loading}
         className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
       >
-        {loading ? "Creando…" : "Crear usuario"}
+        {loading ? t("creating") : t("submit_create")}
       </button>
     </form>
   );

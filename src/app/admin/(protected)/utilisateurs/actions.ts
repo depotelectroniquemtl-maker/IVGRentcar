@@ -2,6 +2,7 @@
 
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { getAdminTranslator } from "@/lib/admin-i18n";
 
 type RoleStaff = "admin" | "employe";
 
@@ -22,7 +23,8 @@ export async function createEmploye({
 }): Promise<{ error: string | null }> {
   const profile = await getCurrentProfile();
   if (profile?.role !== "admin") {
-    return { error: "Acceso restringido a administradores." };
+    const tCommon = await getAdminTranslator("admin.common");
+    return { error: tCommon("access_restricted") };
   }
 
   const admin = createAdminClient();

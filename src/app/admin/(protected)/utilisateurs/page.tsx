@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
+import { getAdminTranslator } from "@/lib/admin-i18n";
 
 // Écran réservé aux admins — la vérification se fait ici, côté serveur (pas seulement en
 // cachant le lien dans la Sidebar). Un employé qui arriverait quand même sur cette URL
@@ -8,15 +9,17 @@ import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 // l'empêcherait de voir les autres comptes.
 export default async function UtilisateursPage() {
   const profile = await getCurrentProfile();
+  const tCommon = await getAdminTranslator("admin.common");
 
   if (profile?.role !== "admin") {
     return (
       <div className="rounded-lg bg-white p-6 shadow-sm">
-        <p className="text-ink">Acceso restringido a administradores.</p>
+        <p className="text-ink">{tCommon("access_restricted")}</p>
       </div>
     );
   }
 
+  const t = await getAdminTranslator("admin.utilisateurs");
   const supabase = createClient();
   const { data: usuarios, error } = await supabase
     .from("profiles")
@@ -26,12 +29,12 @@ export default async function UtilisateursPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink">Usuarios</h1>
+        <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
         <Link
           href="/admin/utilisateurs/nuevo"
           className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
         >
-          Nuevo usuario
+          {t("new")}
         </Link>
       </div>
 
@@ -41,8 +44,8 @@ export default async function UtilisateursPage() {
         <table className="w-full min-w-[420px] text-left text-sm">
           <thead className="bg-black/5 text-ink-soft">
             <tr>
-              <th className="px-4 py-3">Nombre</th>
-              <th className="px-4 py-3">Rol</th>
+              <th className="px-4 py-3">{t("col_nombre")}</th>
+              <th className="px-4 py-3">{t("col_rol")}</th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +53,7 @@ export default async function UtilisateursPage() {
               <tr key={u.id} className="border-t border-black/5">
                 <td className="px-4 py-3 font-medium text-ink">{u.nom}</td>
                 <td className="px-4 py-3">
-                  {u.role === "admin" ? "Admin" : "Empleado"}
+                  {u.role === "admin" ? tCommon("role_admin") : tCommon("role_employe")}
                 </td>
               </tr>
             ))}

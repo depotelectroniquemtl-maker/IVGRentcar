@@ -2,15 +2,10 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 
 const STATUTS = ["en_attente", "confirmee", "annulee"] as const;
-
-const STATUT_LABELS: Record<(typeof STATUTS)[number], string> = {
-  en_attente: "Pendiente",
-  confirmee: "Confirmada",
-  annulee: "Anulada",
-};
 
 const inputClass =
   "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
@@ -24,6 +19,14 @@ export function ReservationForm({
   vehicules: { id: string; plaque: string; categorie_nom: string }[];
 }) {
   const router = useRouter();
+  const t = useTranslations("admin.reservations");
+  const tCommon = useTranslations("admin.common");
+
+  const STATUT_LABELS: Record<(typeof STATUTS)[number], string> = {
+    en_attente: tCommon("reservation_statut_en_attente"),
+    confirmee: tCommon("reservation_statut_confirmee"),
+    annulee: tCommon("reservation_statut_annulee"),
+  };
 
   const [clientId, setClientId] = useState("");
   const [vehiculeId, setVehiculeId] = useState("");
@@ -61,11 +64,7 @@ export function ReservationForm({
     if (error) {
       // Contrainte "pas_de_chevauchement" (exclusion GiST) — deux réservations actives
       // qui se chevauchent sur le même véhicule sont rejetées au niveau base de données.
-      setError(
-        error.code === "23P01"
-          ? "Ese vehículo ya tiene una reserva que se cruza con esas fechas."
-          : error.message,
-      );
+      setError(error.code === "23P01" ? t("error_overlap") : error.message);
       setLoading(false);
       return;
     }
@@ -77,7 +76,7 @@ export function ReservationForm({
   return (
     <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
       <label className="block text-sm">
-        <span className={labelClass}>Cliente</span>
+        <span className={labelClass}>{t("field_cliente")}</span>
         <select
           required
           value={clientId}
@@ -85,7 +84,7 @@ export function ReservationForm({
           className={`${inputClass} bg-white`}
         >
           <option value="" disabled>
-            Selecciona un cliente
+            {t("field_cliente_placeholder")}
           </option>
           {clients.map((c) => (
             <option key={c.id} value={c.id}>
@@ -96,7 +95,7 @@ export function ReservationForm({
       </label>
 
       <label className="block text-sm">
-        <span className={labelClass}>Vehículo</span>
+        <span className={labelClass}>{t("field_vehiculo")}</span>
         <select
           required
           value={vehiculeId}
@@ -104,7 +103,7 @@ export function ReservationForm({
           className={`${inputClass} bg-white`}
         >
           <option value="" disabled>
-            Selecciona un vehículo
+            {t("field_vehiculo_placeholder")}
           </option>
           {vehicules.map((v) => (
             <option key={v.id} value={v.id}>
@@ -116,7 +115,7 @@ export function ReservationForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block text-sm">
-          <span className={labelClass}>Fecha de inicio</span>
+          <span className={labelClass}>{t("field_fecha_inicio")}</span>
           <input
             type="date"
             required
@@ -127,7 +126,7 @@ export function ReservationForm({
         </label>
 
         <label className="block text-sm">
-          <span className={labelClass}>Fecha de fin</span>
+          <span className={labelClass}>{t("field_fecha_fin")}</span>
           <input
             type="date"
             required
@@ -138,15 +137,11 @@ export function ReservationForm({
         </label>
       </div>
 
-      {!fechasValidas && (
-        <p className="text-sm text-red-600">
-          La fecha de fin debe ser posterior o igual a la fecha de inicio.
-        </p>
-      )}
+      {!fechasValidas && <p className="text-sm text-red-600">{t("error_fechas")}</p>}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block text-sm">
-          <span className={labelClass}>Precio total (US$)</span>
+          <span className={labelClass}>{t("field_precio")}</span>
           <input
             type="number"
             min={0}
@@ -158,7 +153,7 @@ export function ReservationForm({
         </label>
 
         <label className="block text-sm">
-          <span className={labelClass}>Depósito (US$)</span>
+          <span className={labelClass}>{t("field_deposito")}</span>
           <input
             type="number"
             min={0}
@@ -171,7 +166,7 @@ export function ReservationForm({
       </div>
 
       <label className="block text-sm">
-        <span className={labelClass}>Estado</span>
+        <span className={labelClass}>{t("field_estado")}</span>
         <select
           value={statut}
           onChange={(e) => setStatut(e.target.value as (typeof STATUTS)[number])}
@@ -186,7 +181,7 @@ export function ReservationForm({
       </label>
 
       <label className="block text-sm">
-        <span className={labelClass}>Notas</span>
+        <span className={labelClass}>{t("field_notas")}</span>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -202,7 +197,7 @@ export function ReservationForm({
         disabled={loading || !fechasValidas}
         className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
       >
-        {loading ? "Guardando…" : "Crear reserva"}
+        {loading ? tCommon("saving") : t("submit_create")}
       </button>
     </form>
   );

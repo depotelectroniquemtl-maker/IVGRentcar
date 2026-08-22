@@ -2,15 +2,10 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 
 const ETATS = ["disponible", "maintenance", "hors_service"] as const;
-
-const ETAT_LABELS: Record<(typeof ETATS)[number], string> = {
-  disponible: "Disponible",
-  maintenance: "Mantenimiento",
-  hors_service: "Fuera de servicio",
-};
 
 const inputClass =
   "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
@@ -34,7 +29,15 @@ export function VehiculeForm({
   vehicule?: Vehicule;
 }) {
   const router = useRouter();
+  const t = useTranslations("admin.vehicules");
+  const tCommon = useTranslations("admin.common");
   const editing = Boolean(vehicule);
+
+  const ETAT_LABELS: Record<(typeof ETATS)[number], string> = {
+    disponible: tCommon("vehicule_etat_disponible"),
+    maintenance: tCommon("vehicule_etat_maintenance"),
+    hors_service: tCommon("vehicule_etat_hors_service"),
+  };
 
   const [categorieId, setCategorieId] = useState(vehicule?.categorie_id ?? "");
   const [plaque, setPlaque] = useState(vehicule?.plaque ?? "");
@@ -66,11 +69,7 @@ export function VehiculeForm({
       : await supabase.from("vehicules").insert(payload);
 
     if (error) {
-      setError(
-        error.code === "23505"
-          ? "Ya existe un vehículo con esa placa."
-          : error.message,
-      );
+      setError(error.code === "23505" ? t("error_duplicate_plaque") : error.message);
       setLoading(false);
       return;
     }
@@ -82,7 +81,7 @@ export function VehiculeForm({
   return (
     <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
       <label className="block text-sm">
-        <span className={labelClass}>Categoría</span>
+        <span className={labelClass}>{t("field_categoria")}</span>
         <select
           required
           value={categorieId}
@@ -90,7 +89,7 @@ export function VehiculeForm({
           className={`${inputClass} bg-white`}
         >
           <option value="" disabled>
-            Selecciona una categoría
+            {t("field_categoria_placeholder")}
           </option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
@@ -102,7 +101,7 @@ export function VehiculeForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block text-sm">
-          <span className={labelClass}>Placa</span>
+          <span className={labelClass}>{t("field_placa")}</span>
           <input
             type="text"
             required
@@ -113,7 +112,7 @@ export function VehiculeForm({
         </label>
 
         <label className="block text-sm">
-          <span className={labelClass}>Año</span>
+          <span className={labelClass}>{t("field_anio")}</span>
           <input
             type="number"
             value={annee}
@@ -124,7 +123,7 @@ export function VehiculeForm({
       </div>
 
       <label className="block text-sm">
-        <span className={labelClass}>Estado operacional</span>
+        <span className={labelClass}>{t("field_estado")}</span>
         <select
           value={etat}
           onChange={(e) => setEtat(e.target.value)}
@@ -139,7 +138,7 @@ export function VehiculeForm({
       </label>
 
       <label className="block text-sm">
-        <span className={labelClass}>Notas</span>
+        <span className={labelClass}>{t("field_notas")}</span>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -155,7 +154,7 @@ export function VehiculeForm({
           onChange={(e) => setActif(e.target.checked)}
           className="h-4 w-4 rounded border-black/20"
         />
-        <span className="font-medium text-ink">Activo</span>
+        <span className="font-medium text-ink">{t("field_activo")}</span>
       </label>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
@@ -165,7 +164,7 @@ export function VehiculeForm({
         disabled={loading}
         className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
       >
-        {loading ? "Guardando…" : editing ? "Guardar cambios" : "Crear vehículo"}
+        {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
       </button>
     </form>
   );

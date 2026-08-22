@@ -2,10 +2,13 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { AdminLocaleSwitcher } from "@/components/admin/AdminLocaleSwitcher";
 
 export default function LoginPage() {
   const router = useRouter();
+  const t = useTranslations("admin.login");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -20,7 +23,7 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-      setError("Correo o contraseña incorrectos.");
+      setError(t("error"));
       setLoading(false);
       return;
     }
@@ -30,7 +33,11 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-ink px-4">
+    <div className="relative flex min-h-screen items-center justify-center bg-ink px-4">
+      <div className="absolute right-4 top-4">
+        <AdminLocaleSwitcher />
+      </div>
+
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-sm rounded-lg bg-white p-8 shadow-lg"
@@ -38,12 +45,10 @@ export default function LoginPage() {
         <p className="mb-1 text-center font-bold text-ink">
           <span className="text-brand">I.V.J</span> Polanco
         </p>
-        <h1 className="mb-6 text-center text-sm text-ink-soft">
-          Panel interno — inicio de sesión
-        </h1>
+        <h1 className="mb-6 text-center text-sm text-ink-soft">{t("subtitle")}</h1>
 
         <label className="mb-3 block text-sm">
-          <span className="mb-1 block font-medium text-ink">Correo</span>
+          <span className="mb-1 block font-medium text-ink">{t("email")}</span>
           <input
             type="email"
             required
@@ -54,7 +59,7 @@ export default function LoginPage() {
         </label>
 
         <label className="mb-4 block text-sm">
-          <span className="mb-1 block font-medium text-ink">Contraseña</span>
+          <span className="mb-1 block font-medium text-ink">{t("password")}</span>
           <input
             type="password"
             required
@@ -71,7 +76,7 @@ export default function LoginPage() {
           disabled={loading}
           className="w-full rounded-md bg-brand px-4 py-2 font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
         >
-          {loading ? "Conectando…" : "Iniciar sesión"}
+          {loading ? t("connecting") : t("submit")}
         </button>
       </form>
     </div>

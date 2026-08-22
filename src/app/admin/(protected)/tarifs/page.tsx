@@ -1,11 +1,14 @@
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
+import { getAdminTranslator } from "@/lib/admin-i18n";
 import { TarifaInput } from "@/components/admin/TarifaInput";
 
 export default async function TarifsPage() {
   const supabase = createClient();
   const profile = await getCurrentProfile();
   const esAdmin = profile?.role === "admin";
+  const t = await getAdminTranslator("admin.tarifs");
+  const tCommon = await getAdminTranslator("admin.common");
 
   const { data: categories, error } = await supabase
     .from("categories_vehicules")
@@ -15,12 +18,10 @@ export default async function TarifsPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink">Tarifas</h1>
-        {esAdmin ? (
-          <p className="text-sm text-ink-soft">Haz clic en un precio para editarlo</p>
-        ) : (
-          <p className="text-sm text-ink-soft">Solo lectura — contacta a un admin para modificar</p>
-        )}
+        <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
+        <p className="text-sm text-ink-soft">
+          {esAdmin ? t("subtitle_admin") : t("subtitle_readonly")}
+        </p>
       </div>
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
@@ -29,17 +30,17 @@ export default async function TarifsPage() {
         <table className="w-full min-w-[560px] text-left text-sm">
           <thead className="bg-black/5 text-ink-soft">
             <tr>
-              <th className="px-4 py-3">Categoría</th>
-              <th className="px-4 py-3">1-3 días</th>
-              <th className="px-4 py-3">4+ días</th>
-              <th className="px-4 py-3">15+ días</th>
-              <th className="px-4 py-3">Activo</th>
+              <th className="px-4 py-3">{t("col_categoria")}</th>
+              <th className="px-4 py-3">{t("col_1_3")}</th>
+              <th className="px-4 py-3">{t("col_4_plus")}</th>
+              <th className="px-4 py-3">{t("col_15_plus")}</th>
+              <th className="px-4 py-3">{t("col_activo")}</th>
             </tr>
           </thead>
           <tbody>
             {categories?.map((cat) => {
               const tarifs = Object.fromEntries(
-                (cat.tarifs ?? []).map((t) => [t.palier, t]),
+                (cat.tarifs ?? []).map((tarif) => [tarif.palier, tarif]),
               ) as Record<string, { id: string; prix_usd: number }>;
               return (
                 <tr key={cat.id} className="border-t border-black/5">
@@ -49,11 +50,11 @@ export default async function TarifsPage() {
                       {tarifs[palier] && esAdmin ? (
                         <TarifaInput id={tarifs[palier].id} prixInicial={tarifs[palier].prix_usd} />
                       ) : (
-                        <span>US$ {tarifs[palier]?.prix_usd ?? "—"}</span>
+                        <span>US$ {tarifs[palier]?.prix_usd ?? tCommon("dash")}</span>
                       )}
                     </td>
                   ))}
-                  <td className="px-4 py-3">{cat.actif ? "Sí" : "No"}</td>
+                  <td className="px-4 py-3">{cat.actif ? tCommon("yes") : tCommon("no")}</td>
                 </tr>
               );
             })}

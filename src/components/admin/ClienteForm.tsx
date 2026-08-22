@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 
 const inputClass =
@@ -19,6 +20,8 @@ type Cliente = {
 
 export function ClienteForm({ cliente }: { cliente?: Cliente }) {
   const router = useRouter();
+  const t = useTranslations("admin.clients");
+  const tCommon = useTranslations("admin.common");
   const editing = Boolean(cliente);
 
   const [nom, setNom] = useState(cliente?.nom ?? "");
@@ -61,7 +64,7 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
   return (
     <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
       <label className="block text-sm">
-        <span className={labelClass}>Nombre completo</span>
+        <span className={labelClass}>{t("field_nombre")}</span>
         <input
           type="text"
           required
@@ -73,7 +76,7 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block text-sm">
-          <span className={labelClass}>Teléfono</span>
+          <span className={labelClass}>{t("field_telefono")}</span>
           <input
             type="tel"
             value={telephone}
@@ -83,7 +86,7 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
         </label>
 
         <label className="block text-sm">
-          <span className={labelClass}>Correo</span>
+          <span className={labelClass}>{t("field_correo")}</span>
           <input
             type="email"
             value={email}
@@ -94,7 +97,7 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
       </div>
 
       <label className="block text-sm">
-        <span className={labelClass}>N.º de licencia</span>
+        <span className={labelClass}>{t("field_licencia")}</span>
         <input
           type="text"
           value={numeroPermis}
@@ -104,7 +107,7 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
       </label>
 
       <label className="block text-sm">
-        <span className={labelClass}>Notas</span>
+        <span className={labelClass}>{t("field_notas")}</span>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -120,7 +123,7 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
         disabled={loading}
         className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
       >
-        {loading ? "Guardando…" : editing ? "Guardar cambios" : "Crear cliente"}
+        {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
       </button>
     </form>
   );

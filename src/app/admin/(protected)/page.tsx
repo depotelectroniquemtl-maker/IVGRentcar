@@ -1,7 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
+import { getAdminTranslator } from "@/lib/admin-i18n";
 
 export default async function DashboardPage() {
   const supabase = createClient();
+  const t = await getAdminTranslator("admin.dashboard");
 
   const [{ count: enCoursCount }, { count: aVenirCount }, { data: vehicules }] =
     await Promise.all([
@@ -23,14 +25,14 @@ export default async function DashboardPage() {
     ).length ?? 0;
 
   const stats = [
-    { label: "Reservas en curso", value: enCoursCount ?? 0 },
-    { label: "Próximas reservas", value: aVenirCount ?? 0 },
-    { label: "Vehículos disponibles hoy", value: `${disponiblesAujourdhui} / ${totalVehicules}` },
+    { label: t("stat_active_reservations"), value: enCoursCount ?? 0 },
+    { label: t("stat_upcoming_reservations"), value: aVenirCount ?? 0 },
+    { label: t("stat_available_today"), value: `${disponiblesAujourdhui} / ${totalVehicules}` },
   ];
 
   return (
     <div className="flex flex-col gap-8">
-      <h1 className="text-2xl font-bold text-ink">Panel</h1>
+      <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
 
       <div className="grid gap-4 sm:grid-cols-3">
         {stats.map((s) => (
@@ -41,10 +43,7 @@ export default async function DashboardPage() {
         ))}
       </div>
 
-      <p className="text-sm text-ink-soft">
-        Próximamente: calendario de disponibilidad, alertas de retorno y accesos rápidos
-        para crear una reserva.
-      </p>
+      <p className="text-sm text-ink-soft">{t("coming_soon")}</p>
     </div>
   );
 }

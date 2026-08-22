@@ -1,11 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-
-const STATUT_LABELS: Record<string, string> = {
-  en_attente: "Pendiente",
-  confirmee: "Confirmada",
-  annulee: "Anulada",
-};
+import { getAdminTranslator } from "@/lib/admin-i18n";
 
 function calcularFase(dateDebut: string, dateFin: string, statut: string) {
   if (statut === "annulee") return "annulee";
@@ -15,15 +10,24 @@ function calcularFase(dateDebut: string, dateFin: string, statut: string) {
   return "en_cours";
 }
 
-const FASE_LABELS: Record<string, { label: string; className: string }> = {
-  a_venir: { label: "Próxima", className: "bg-blue-100 text-blue-700" },
-  en_cours: { label: "En curso", className: "bg-green-100 text-green-700" },
-  terminee: { label: "Terminada", className: "bg-black/10 text-ink-soft" },
-  annulee: { label: "Anulada", className: "bg-red-100 text-red-700" },
+const FASE_CLASSNAMES: Record<string, string> = {
+  a_venir: "bg-blue-100 text-blue-700",
+  en_cours: "bg-green-100 text-green-700",
+  terminee: "bg-black/10 text-ink-soft",
+  annulee: "bg-red-100 text-red-700",
 };
 
 export default async function ReservationsPage() {
   const supabase = createClient();
+  const t = await getAdminTranslator("admin.reservations");
+  const tCommon = await getAdminTranslator("admin.common");
+
+  const FASE_LABELS: Record<string, string> = {
+    a_venir: t("fase_a_venir"),
+    en_cours: t("fase_en_cours"),
+    terminee: t("fase_terminee"),
+    annulee: t("fase_annulee"),
+  };
 
   const { data: reservations, error } = await supabase
     .from("reservations")
@@ -36,12 +40,12 @@ export default async function ReservationsPage() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink">Reservas</h1>
+        <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
         <Link
           href="/admin/reservations/nueva"
           className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
         >
-          Nueva reserva
+          {t("new")}
         </Link>
       </div>
 
@@ -51,22 +55,21 @@ export default async function ReservationsPage() {
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="bg-black/5 text-ink-soft">
             <tr>
-              <th className="px-4 py-3">Cliente</th>
-              <th className="px-4 py-3">Vehículo</th>
-              <th className="px-4 py-3">Del</th>
-              <th className="px-4 py-3">Al</th>
-              <th className="px-4 py-3">Precio</th>
-              <th className="px-4 py-3">Estado</th>
+              <th className="px-4 py-3">{t("col_cliente")}</th>
+              <th className="px-4 py-3">{t("col_vehiculo")}</th>
+              <th className="px-4 py-3">{t("col_del")}</th>
+              <th className="px-4 py-3">{t("col_al")}</th>
+              <th className="px-4 py-3">{t("col_precio")}</th>
+              <th className="px-4 py-3">{t("col_estado")}</th>
             </tr>
           </thead>
           <tbody>
             {reservations?.map((r) => {
               const fase = calcularFase(r.date_debut, r.date_fin, r.statut);
-              const faseInfo = FASE_LABELS[fase];
               return (
                 <tr key={r.id} className="border-t border-black/5">
                   <td className="px-4 py-3 font-medium text-ink">
-                    {r.clients?.nom ?? "—"}
+                    {r.clients?.nom ?? tCommon("dash")}
                   </td>
                   <td className="px-4 py-3">
                     {r.vehicules?.categories_vehicules?.nom} ({r.vehicules?.plaque})
@@ -74,14 +77,15 @@ export default async function ReservationsPage() {
                   <td className="px-4 py-3">{r.date_debut}</td>
                   <td className="px-4 py-3">{r.date_fin}</td>
                   <td className="px-4 py-3">
-                    {r.prix_total_usd ? `US$ ${r.prix_total_usd}` : "—"}
+                    {r.prix_total_usd ? `US$ ${r.prix_total_usd}` : tCommon("dash")}
                   </td>
                   <td className="px-4 py-3">
                     <span
-                      className={`rounded-full px-2 py-1 text-xs font-medium ${faseInfo.className}`}
+                      className={`rounded-full px-2 py-1 text-xs font-medium ${FASE_CLASSNAMES[fase]}`}
                     >
-                      {faseInfo.label}
-                      {r.statut === "en_attente" && ` · ${STATUT_LABELS[r.statut]}`}
+                      {FASE_LABELS[fase]}
+                      {r.statut === "en_attente" &&
+                        ` · ${tCommon("reservation_statut_en_attente")}`}
                     </span>
                   </td>
                 </tr>
@@ -90,7 +94,7 @@ export default async function ReservationsPage() {
             {reservations?.length === 0 && (
               <tr>
                 <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
-                  Ninguna reserva todavía.
+                  {t("empty")}
                 </td>
               </tr>
             )}

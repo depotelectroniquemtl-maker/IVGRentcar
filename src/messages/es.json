@@ -5,6 +5,7 @@
     "nav": {
       "home": "Inicio",
       "flotte": "Flota y tarifas",
+      "why": "Por qué IVJ",
       "lasTerrenas": "Las Terrenas",
       "faq": "Preguntas frecuentes",
       "contact": "Contacto"
@@ -17,8 +18,8 @@
   },
   "home": {
     "hero": {
-      "title": "Alquiler de autos, camionetas y cuadriciclos en Las Terrenas",
-      "subtitle": "Reserva por WhatsApp — aceptamos pago con tarjeta.",
+      "title": "Alquiler de carros y quads en Las Terrenas.",
+      "subtitle": "Servicio sencillo y directo por WhatsApp. Consulta disponibilidad y la tarifa de hoy.",
       "cta_flotte": "Ver flota y tarifas",
       "cta_whatsapp": "Escribir por WhatsApp"
     },
@@ -27,15 +28,28 @@
       "see_all": "Ver todos los vehículos y tarifas"
     },
     "why": {
-      "title": "Por qué elegirnos",
-      "item1_title": "Atención directa",
-      "item1_text": "Habla con un equipo local real, desde tu primera pregunta hasta la devolución.",
-      "item2_title": "El vehículo correcto",
-      "item2_text": "Elige el formato que se ajusta a tu viaje, tu grupo y tu espíritu de aventura.",
+      "title": "Por qué IVJ",
+      "item1_title": "Servicio directo",
+      "item1_text": "Habla con un equipo local desde la primera pregunta hasta la devolución.",
+      "item2_title": "El vehículo ideal",
+      "item2_text": "Elige según tu viaje, grupo y ganas de aventura.",
       "item3_title": "Solicitudes flexibles",
-      "item3_text": "Dinos cuándo y dónde necesitas tu vehículo — confirmamos la disponibilidad.",
-      "item4_title": "Todo claro antes de salir",
-      "item4_text": "Tarifas, depósito, cobertura y requisitos se confirman antes de la entrega."
+      "item3_text": "Dinos cuándo y dónde; confirmaremos la disponibilidad.",
+      "item4_title": "Todo claro",
+      "item4_text": "Tarifa, depósito, cobertura y requisitos antes de salir."
+    },
+    "lasTerrenasTeaser": {
+      "discover_more": "Descubre Las Terrenas"
+    },
+    "video": {
+      "title": "Vive la experiencia",
+      "quad_caption": "Paseo en cuadriciclo por Las Terrenas",
+      "shop_caption": "Nuestro punto de servicio local"
+    },
+    "cta": {
+      "title": "¿Listo para tu próxima aventura?",
+      "subtitle": "Solicita tu reserva en minutos — confirmamos disponibilidad y precio por WhatsApp.",
+      "button": "Reservar ahora"
     }
   },
   "flotte": {
@@ -50,14 +64,23 @@
     },
     "capacity_persons": "{count} personas",
     "payment_note": "Aceptamos pago con tarjeta.",
-    "reserve": "Reservar por WhatsApp"
+    "reserve": "Reservar por WhatsApp",
+    "from": "Desde",
+    "per_day": "/día",
+    "no_photo": "Foto próximamente"
   },
   "lasTerrenas": {
-    "title": "Las Terrenas",
-    "intro": "Despierta junto a la playa, descubre un lugar escondido para almorzar, sigue la costa y regresa por el camino largo. Tu propio vehículo convierte cada día en un itinerario abierto.",
+    "title": "Las Terrenas se disfruta mejor con libertad.",
+    "intro": "Despierta junto a la playa, descubre un almuerzo escondido, sigue la costa y regresa por el camino largo.",
     "places_title": "Lugares destacados",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Península de Samaná"],
-    "cta": "Ver flota y tarifas"
+    "cta": "Ver flota y tarifas",
+    "photo_credit": "© IVJ Rent Car",
+    "gallery": [
+      { "caption": "Las Terrenas, entre pueblo y océano" },
+      { "caption": "La libertad de recorrer la costa" },
+      { "caption": "Playas por descubrir a tu ritmo" }
+    ]
   },
   "faq": {
     "title": "Preguntas frecuentes",
@@ -65,23 +88,23 @@
     "items": [
       {
         "question": "¿Qué necesito para alquilar?",
-        "answer": "Se puede requerir una licencia de conducir válida, pasaporte o cédula, y un depósito de garantía. Los requisitos exactos varían según el vehículo y se confirman antes de la reserva."
+        "answer": "Puede requerirse licencia vigente, pasaporte o identificación y depósito. Los requisitos se confirman antes de reservar."
       },
       {
-        "question": "¿El seguro está incluido?",
-        "answer": "Los detalles de cobertura y cualquier deducible se explican en tu cotización y en el contrato de alquiler."
+        "question": "¿Incluye seguro?",
+        "answer": "La cobertura y el deducible se explicarán en la cotización y contrato."
       },
       {
-        "question": "¿Pueden entregar el vehículo?",
-        "answer": "La entrega puede estar disponible según la ubicación y el horario."
+        "question": "¿Entregan el vehículo?",
+        "answer": "Puede haber entrega según la ubicación y disponibilidad."
       },
       {
-        "question": "¿Cómo confirmo mi reserva?",
-        "answer": "Después de tu solicitud, IVJ confirma la disponibilidad, el precio total, el depósito y los pasos necesarios para asegurar el vehículo."
+        "question": "¿Cómo confirmo?",
+        "answer": "IVJ confirmará disponibilidad, precio, depósito y pasos para asegurar el vehículo."
       },
       {
-        "question": "¿Cuál es la política de combustible y cancelación?",
-        "answer": "Las políticas de combustible, cancelación, devolución tardía y daños se entregan junto con los términos finales del alquiler, antes de confirmar."
+        "question": "¿Políticas de combustible y cancelación?",
+        "answer": "Se informarán combustible, cancelación, retrasos y daños antes de confirmar."
       }
     ]
   },
@@ -104,11 +127,11 @@
     "unavailable": "No disponible para estas fechas — prueba otra categoría o cambia las fechas.",
     "error_dates": "La fecha de fin debe ser posterior o igual a la fecha de inicio.",
     "checking_error": "No se pudo verificar la disponibilidad.",
-    "error_submit": "No se pudo enviar la solicitud. Intenta de nuevo o escríbenos por WhatsApp.",
+    "error_submit": "No se pudo guardar la solicitud, pero ya abrimos WhatsApp para que la confirmes directamente.",
     "success_title": "¡Solicitud enviada!",
-    "success_text": "Nos pondremos en contacto contigo pronto. También puedes escribirnos directamente por WhatsApp para confirmar más rápido:",
+    "success_text": "Ya abrimos WhatsApp con los detalles de tu solicitud. Nos pondremos en contacto contigo pronto.",
     "whatsapp_cta": "Confirmar por WhatsApp",
-    "whatsapp_message": "Hola, quiero confirmar mi solicitud de reserva: {categoria}, del {inicio} al {fin}. Nombre: {nombre}.",
+    "whatsapp_message": "Hola, quiero confirmar mi solicitud de reserva: {categoria}, del {inicio} al {fin}. Lugar: {lugar}. Nombre: {nombre}.",
     "new_request": "Enviar otra solicitud"
   },
   "contact": {

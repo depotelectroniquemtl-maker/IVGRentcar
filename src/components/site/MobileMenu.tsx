@@ -7,6 +7,7 @@ import { Link } from "@/i18n/navigation";
 const LINKS = [
   { href: "/", key: "home" },
   { href: "/flotte", key: "flotte" },
+  { href: "/#why", key: "why" },
   { href: "/las-terrenas", key: "lasTerrenas" },
   { href: "/faq", key: "faq" },
   { href: "/contact", key: "contact" },

@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ExternalButtonLink } from "@/components/ui/Button";
+import { FleetGrid } from "@/components/site/FleetGrid";
 import { PriceTable } from "@/components/site/PriceTable";
 import { whatsappUrl } from "@/lib/constants";
 import { getCatalogue } from "@/lib/data/catalogue";
@@ -24,6 +25,8 @@ export default async function FlottePage({
         <h1 className="text-3xl font-bold text-ink">{t("title")}</h1>
         <p className="mt-2 text-ink-soft">{t("subtitle")}</p>
       </div>
+
+      <FleetGrid categories={catalogue} />
 
       <PriceTable categories={catalogue} />
 

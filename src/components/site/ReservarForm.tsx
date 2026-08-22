@@ -28,6 +28,7 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
 
   const [disponibilidad, setDisponibilidad] = useState<Disponibilidad>("idle");
   const [estadoEnvio, setEstadoEnvio] = useState<EstadoEnvio>("idle");
+  const [mensajeWhatsapp, setMensajeWhatsapp] = useState("");
 
   const fechasValidas = !dateDebut || !dateFin || dateFin >= dateDebut;
 
@@ -66,6 +67,21 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
 
     setEstadoEnvio("submitting");
 
+    const categoriaNombre = categories.find((c) => c.id === categorieId)?.nom ?? "";
+    const mensaje = t("whatsapp_message", {
+      categoria: categoriaNombre,
+      inicio: dateDebut,
+      fin: dateFin,
+      lugar: lieu || "—",
+      nombre: nom,
+    });
+    setMensajeWhatsapp(mensaje);
+
+    // Filet de sécurité demandé par le client : WhatsApp s'ouvre TOUJOURS, même si
+    // l'enregistrement Supabase échoue ensuite — appelé avant le premier `await` pour
+    // rester dans le geste utilisateur (sinon certains navigateurs bloquent le popup).
+    window.open(whatsappUrl(mensaje), "_blank");
+
     const supabase = createClient();
     // Insertion anonyme autorisée par la policy "demandes_insert_public" — pas
     // besoin d'être connecté pour soumettre une demande depuis la vitrine.
@@ -80,28 +96,15 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       notes: notes || null,
     });
 
-    if (error) {
-      setEstadoEnvio("error");
-      return;
-    }
-
-    setEstadoEnvio("success");
+    setEstadoEnvio(error ? "error" : "success");
   }
 
   if (estadoEnvio === "success") {
-    const categoriaNombre = categories.find((c) => c.id === categorieId)?.nom ?? "";
-    const mensaje = t("whatsapp_message", {
-      categoria: categoriaNombre,
-      inicio: dateDebut,
-      fin: dateFin,
-      nombre: nom,
-    });
-
     return (
       <div className="flex flex-col items-start gap-4 rounded-lg bg-white p-8 shadow-sm">
         <h2 className="text-xl font-bold text-ink">{t("success_title")}</h2>
         <p className="text-ink-soft">{t("success_text")}</p>
-        <ExternalButtonLink href={whatsappUrl(mensaje)} variant="whatsapp">
+        <ExternalButtonLink href={whatsappUrl(mensajeWhatsapp)} variant="whatsapp">
           {t("whatsapp_cta")}
         </ExternalButtonLink>
         <button
@@ -116,6 +119,7 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
             setDateFin("");
             setLieu("");
             setNotes("");
+            setMensajeWhatsapp("");
           }}
           className="text-sm font-medium text-ink-soft underline hover:text-ink"
         >

@@ -5,6 +5,7 @@
     "nav": {
       "home": "Home",
       "flotte": "Fleet & rates",
+      "why": "Why IVJ",
       "lasTerrenas": "Las Terrenas",
       "faq": "FAQ",
       "contact": "Contact"
@@ -17,8 +18,8 @@
   },
   "home": {
     "hero": {
-      "title": "Car, SUV and quad rental in Las Terrenas",
-      "subtitle": "Book by WhatsApp — we accept card payment.",
+      "title": "Car and quad rental in Las Terrenas.",
+      "subtitle": "Simple, reliable rentals with direct service on WhatsApp. Ask for availability and today's price.",
       "cta_flotte": "See fleet & rates",
       "cta_whatsapp": "Message us on WhatsApp"
     },
@@ -27,7 +28,7 @@
       "see_all": "See all vehicles and rates"
     },
     "why": {
-      "title": "Why choose us",
+      "title": "Why IVJ",
       "item1_title": "Direct service",
       "item1_text": "Talk to a real local team from your first question to your return.",
       "item2_title": "The right ride",
@@ -36,6 +37,19 @@
       "item3_text": "Tell us when and where you need your vehicle—we'll confirm availability.",
       "item4_title": "Clear before you go",
       "item4_text": "Rates, deposit, coverage and requirements are confirmed before pickup."
+    },
+    "lasTerrenasTeaser": {
+      "discover_more": "Discover Las Terrenas"
+    },
+    "video": {
+      "title": "Live the experience",
+      "quad_caption": "Quad tour in Las Terrenas",
+      "shop_caption": "Our local service point"
+    },
+    "cta": {
+      "title": "Ready for your next adventure?",
+      "subtitle": "Request your reservation in minutes — we'll confirm availability and price on WhatsApp.",
+      "button": "Book now"
     }
   },
   "flotte": {
@@ -50,14 +64,23 @@
     },
     "capacity_persons": "{count} people",
     "payment_note": "We accept card payment.",
-    "reserve": "Book on WhatsApp"
+    "reserve": "Book on WhatsApp",
+    "from": "From",
+    "per_day": "/day",
+    "no_photo": "Photo coming soon"
   },
   "lasTerrenas": {
-    "title": "Las Terrenas",
-    "intro": "Wake up by the beach, find a hidden lunch spot, follow the coast and take the long way home. Your own set of wheels turns every day into an open itinerary.",
+    "title": "Las Terrenas is better with the freedom to roam.",
+    "intro": "Wake up by the beach, find a hidden lunch spot, follow the coast and take the long way home.",
     "places_title": "Featured spots",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Samaná Peninsula"],
-    "cta": "See fleet & rates"
+    "cta": "See fleet & rates",
+    "photo_credit": "© IVJ Rent Car",
+    "gallery": [
+      { "caption": "Las Terrenas, between village and ocean" },
+      { "caption": "The freedom to explore the coast" },
+      { "caption": "Beaches waiting to be discovered, at your pace" }
+    ]
   },
   "faq": {
     "title": "Frequently asked questions",
@@ -65,11 +88,11 @@
     "items": [
       {
         "question": "What do I need to rent?",
-        "answer": "A valid driver's license, passport or ID, and a security deposit may be required. Exact requirements vary by vehicle and are confirmed before booking."
+        "answer": "A valid driver's license, passport or ID, and a security deposit may be required. Exact requirements vary by vehicle and will be confirmed before booking."
       },
       {
         "question": "Is insurance included?",
-        "answer": "Coverage details and any deductible are explained in your quote and rental agreement."
+        "answer": "Coverage details and any deductible will be explained in your quote and rental agreement."
       },
       {
         "question": "Can you deliver the vehicle?",
@@ -77,11 +100,11 @@
       },
       {
         "question": "How do I confirm my reservation?",
-        "answer": "After your request, IVJ confirms availability, total price, deposit and the steps required to secure the vehicle."
+        "answer": "After your request, IVJ will confirm availability, total price, deposit and the steps required to secure the vehicle."
       },
       {
-        "question": "What's the fuel and cancellation policy?",
-        "answer": "Fuel, cancellation, late-return and damage policies are provided with your final rental terms, before you confirm."
+        "question": "What is the fuel and cancellation policy?",
+        "answer": "Fuel, cancellation, late-return and damage policies will be provided with your final rental terms before you confirm."
       }
     ]
   },
@@ -104,11 +127,11 @@
     "unavailable": "Not available for these dates — try another category or different dates.",
     "error_dates": "The end date must be on or after the start date.",
     "checking_error": "Couldn't check availability.",
-    "error_submit": "Couldn't send the request. Please try again or message us on WhatsApp.",
+    "error_submit": "Couldn't save the request, but we already opened WhatsApp so you can confirm it directly.",
     "success_title": "Request sent!",
-    "success_text": "We'll get in touch with you shortly. You can also message us directly on WhatsApp to confirm faster:",
+    "success_text": "We already opened WhatsApp with your request details. We'll get in touch with you shortly.",
     "whatsapp_cta": "Confirm on WhatsApp",
-    "whatsapp_message": "Hi, I'd like to confirm my reservation request: {categoria}, from {inicio} to {fin}. Name: {nombre}.",
+    "whatsapp_message": "Hi, I'd like to confirm my reservation request: {categoria}, from {inicio} to {fin}. Location: {lugar}. Name: {nombre}.",
     "new_request": "Send another request"
   },
   "contact": {

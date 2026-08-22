@@ -26,6 +26,9 @@ export function Header() {
           <Link href="/flotte" className="hover:text-brand">
             {t("nav.flotte")}
           </Link>
+          <Link href="/#why" className="hover:text-brand">
+            {t("nav.why")}
+          </Link>
           <Link href="/las-terrenas" className="hover:text-brand">
             {t("nav.lasTerrenas")}
           </Link>

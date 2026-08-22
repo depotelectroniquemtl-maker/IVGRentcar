@@ -1,6 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
+import { LasTerrenasGallery } from "@/components/site/LasTerrenasGallery";
 
 export default async function LasTerrenasPage({
   params,
@@ -19,6 +20,8 @@ export default async function LasTerrenasPage({
         <h1 className="text-3xl font-bold text-ink">{t("title")}</h1>
         <p className="mt-4 max-w-2xl text-ink-soft">{t("intro")}</p>
       </div>
+
+      <LasTerrenasGallery />
 
       <div>
         <h2 className="mb-4 text-lg font-semibold text-ink">{t("places_title")}</h2>

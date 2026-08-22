@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function ClientsPage() {
@@ -12,7 +13,12 @@ export default async function ClientsPage() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Clientes</h1>
-        <p className="text-sm text-ink-soft">Crear / editar — próximamente</p>
+        <Link
+          href="/admin/clients/nuevo"
+          className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
+        >
+          Nuevo cliente
+        </Link>
       </div>
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
@@ -25,6 +31,7 @@ export default async function ClientsPage() {
               <th className="px-4 py-3">Teléfono</th>
               <th className="px-4 py-3">Correo</th>
               <th className="px-4 py-3">Licencia</th>
+              <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody>
@@ -34,11 +41,16 @@ export default async function ClientsPage() {
                 <td className="px-4 py-3">{c.telephone ?? "—"}</td>
                 <td className="px-4 py-3">{c.email ?? "—"}</td>
                 <td className="px-4 py-3">{c.numero_permis ?? "—"}</td>
+                <td className="px-4 py-3 text-right">
+                  <Link href={`/admin/clients/${c.id}`} className="text-brand hover:underline">
+                    Editar
+                  </Link>
+                </td>
               </tr>
             ))}
             {clients?.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-4 py-6 text-center text-ink-soft">
+                <td colSpan={5} className="px-4 py-6 text-center text-ink-soft">
                   Ningún cliente todavía.
                 </td>
               </tr>

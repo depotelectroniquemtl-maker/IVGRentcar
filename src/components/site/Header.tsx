@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { LocaleSwitcher } from "@/components/site/LocaleSwitcher";
 import { ButtonLink } from "@/components/ui/Button";
+import { MobileMenu } from "@/components/site/MobileMenu";
 
 export function Header() {
   const t = useTranslations("site");
@@ -40,6 +41,7 @@ export function Header() {
             {t("reservar_cta")}
           </ButtonLink>
           <LocaleSwitcher />
+          <MobileMenu />
         </div>
       </Container>
     </header>

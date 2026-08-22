@@ -1,21 +1,23 @@
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
+import { TarifaInput } from "@/components/admin/TarifaInput";
 
 export default async function TarifsPage() {
   const supabase = createClient();
   const profile = await getCurrentProfile();
+  const esAdmin = profile?.role === "admin";
 
   const { data: categories, error } = await supabase
     .from("categories_vehicules")
-    .select("id, nom, actif, tarifs(palier, prix_usd)")
+    .select("id, nom, actif, tarifs(id, palier, prix_usd)")
     .order("nom");
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Tarifas</h1>
-        {profile?.role === "admin" ? (
-          <p className="text-sm text-ink-soft">Edición de precios — próximamente</p>
+        {esAdmin ? (
+          <p className="text-sm text-ink-soft">Haz clic en un precio para editarlo</p>
         ) : (
           <p className="text-sm text-ink-soft">Solo lectura — contacta a un admin para modificar</p>
         )}
@@ -37,14 +39,20 @@ export default async function TarifsPage() {
           <tbody>
             {categories?.map((cat) => {
               const tarifs = Object.fromEntries(
-                (cat.tarifs ?? []).map((t) => [t.palier, t.prix_usd]),
-              ) as Record<string, number>;
+                (cat.tarifs ?? []).map((t) => [t.palier, t]),
+              ) as Record<string, { id: string; prix_usd: number }>;
               return (
                 <tr key={cat.id} className="border-t border-black/5">
                   <td className="px-4 py-3 font-medium text-ink">{cat.nom}</td>
-                  <td className="px-4 py-3">US$ {tarifs["1_3_jours"] ?? "—"}</td>
-                  <td className="px-4 py-3">US$ {tarifs["4_plus_jours"] ?? "—"}</td>
-                  <td className="px-4 py-3">US$ {tarifs["15_plus_jours"] ?? "—"}</td>
+                  {(["1_3_jours", "4_plus_jours", "15_plus_jours"] as const).map((palier) => (
+                    <td key={palier} className="px-4 py-3">
+                      {tarifs[palier] && esAdmin ? (
+                        <TarifaInput id={tarifs[palier].id} prixInicial={tarifs[palier].prix_usd} />
+                      ) : (
+                        <span>US$ {tarifs[palier]?.prix_usd ?? "—"}</span>
+                      )}
+                    </td>
+                  ))}
                   <td className="px-4 py-3">{cat.actif ? "Sí" : "No"}</td>
                 </tr>
               );

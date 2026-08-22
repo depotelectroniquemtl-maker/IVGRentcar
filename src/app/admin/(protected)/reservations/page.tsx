@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 const STATUT_LABELS: Record<string, string> = {
@@ -36,7 +37,12 @@ export default async function ReservationsPage() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Reservas</h1>
-        <p className="text-sm text-ink-soft">Crear / editar — próximamente</p>
+        <Link
+          href="/admin/reservations/nueva"
+          className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
+        >
+          Nueva reserva
+        </Link>
       </div>
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}

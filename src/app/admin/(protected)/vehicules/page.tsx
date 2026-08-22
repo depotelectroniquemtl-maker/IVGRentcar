@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 
 const ETAT_LABELS: Record<string, string> = {
   disponible: "Disponible",
@@ -8,6 +10,7 @@ const ETAT_LABELS: Record<string, string> = {
 
 export default async function VehiculesPage() {
   const supabase = createClient();
+  const profile = await getCurrentProfile();
 
   const { data: vehicules, error } = await supabase
     .from("vehicules_disponibilite")
@@ -18,7 +21,14 @@ export default async function VehiculesPage() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">Vehículos</h1>
-        <p className="text-sm text-ink-soft">Crear / editar — próximamente</p>
+        {profile?.role === "admin" && (
+          <Link
+            href="/admin/vehicules/nuevo"
+            className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
+          >
+            Nuevo vehículo
+          </Link>
+        )}
       </div>
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
@@ -32,6 +42,7 @@ export default async function VehiculesPage() {
               <th className="px-4 py-3">Año</th>
               <th className="px-4 py-3">Estado</th>
               <th className="px-4 py-3">Hoy</th>
+              <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody>
@@ -54,11 +65,16 @@ export default async function VehiculesPage() {
                     </span>
                   )}
                 </td>
+                <td className="px-4 py-3 text-right">
+                  <Link href={`/admin/vehicules/${v.id}`} className="text-brand hover:underline">
+                    Editar
+                  </Link>
+                </td>
               </tr>
             ))}
             {vehicules?.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-4 py-6 text-center text-ink-soft">
+                <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
                   Ningún vehículo registrado todavía.
                 </td>
               </tr>

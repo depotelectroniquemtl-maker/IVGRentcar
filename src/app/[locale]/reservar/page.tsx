@@ -16,8 +16,10 @@ export default async function ReservarPage({
   return (
     <Container className="flex flex-col gap-8 py-16">
       <div className="max-w-xl">
-        <h1 className="text-3xl font-bold text-ink">{t("title")}</h1>
-        <p className="mt-2 text-ink-soft">{t("subtitle")}</p>
+        <h1 className="text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
+          {t("title")}
+        </h1>
+        <p className="mt-3 text-lg text-ink-soft">{t("subtitle")}</p>
       </div>
 
       <div className="max-w-xl">

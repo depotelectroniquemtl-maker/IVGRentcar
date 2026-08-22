@@ -3,26 +3,34 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
 import { LocaleSwitcher } from "@/components/site/LocaleSwitcher";
-import { ButtonLink } from "@/components/ui/Button";
+import { ExternalButtonLink } from "@/components/ui/Button";
 import { MobileMenu } from "@/components/site/MobileMenu";
+import { whatsappUrl } from "@/lib/constants";
 
+// Reproduit le header de l'ancien site (classe .topbar) : logo plus grand (le tagline est
+// déjà intégré dans public/logo.png, pas besoin d'un second texte), fine bordure rouge en
+// bas, nav réduite aux 4 rubriques réelles (Inicio est déjà accessible via le logo,
+// Contacto reste joignable depuis le footer), et bouton WhatsApp direct à la place d'un
+// bouton "Reservar" permanent — /reservar reste la première action mise en avant dans le
+// hero de l'accueil.
 export function Header() {
   const t = useTranslations("site");
 
   return (
-    <header className="border-b border-black/10 bg-white">
-      <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="flex flex-col leading-tight">
-          {/* public/logo.png — recadré depuis la fiche tarifaire, qualité provisoire.
-              Remplacement futur : écraser ce même fichier (même chemin, même nom). */}
-          <Image src="/logo.png" alt={t("name")} width={125} height={40} priority />
-          <span className="hidden text-xs text-ink-soft sm:block">{t("tagline")}</span>
+    <header className="border-b-[3px] border-brand bg-white">
+      <Container className="flex h-20 items-center justify-between gap-4 sm:h-24">
+        <Link href="/" className="shrink-0">
+          <Image
+            src="/logo.png"
+            alt={t("name")}
+            width={220}
+            height={70}
+            priority
+            className="h-12 w-auto sm:h-[70px]"
+          />
         </Link>
 
-        <nav className="hidden items-center gap-6 text-sm font-medium text-ink sm:flex">
-          <Link href="/" className="hover:text-brand">
-            {t("nav.home")}
-          </Link>
+        <nav className="hidden items-center gap-8 text-[15px] font-bold text-ink lg:flex">
           <Link href="/flotte" className="hover:text-brand">
             {t("nav.flotte")}
           </Link>
@@ -35,16 +43,17 @@ export function Header() {
           <Link href="/faq" className="hover:text-brand">
             {t("nav.faq")}
           </Link>
-          <Link href="/contact" className="hover:text-brand">
-            {t("nav.contact")}
-          </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <ButtonLink href="/reservar" className="px-4 py-2 text-xs sm:text-sm">
-            {t("reservar_cta")}
-          </ButtonLink>
+        <div className="flex items-center gap-4">
           <LocaleSwitcher />
+          <ExternalButtonLink
+            href={whatsappUrl()}
+            variant="dark"
+            className="hidden px-5 py-2.5 text-xs sm:inline-flex"
+          >
+            WhatsApp
+          </ExternalButtonLink>
           <MobileMenu />
         </div>
       </Container>

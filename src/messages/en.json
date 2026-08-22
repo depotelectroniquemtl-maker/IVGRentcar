@@ -18,10 +18,13 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Vehicle rental · Las Terrenas",
       "title": "Car and quad rental in Las Terrenas.",
       "subtitle": "Simple, reliable rentals with direct service on WhatsApp. Ask for availability and today's price.",
-      "cta_flotte": "See fleet & rates",
-      "cta_whatsapp": "Message us on WhatsApp"
+      "cta_primary": "Request your ride",
+      "cta_flotte": "Explore the fleet",
+      "cta_whatsapp": "Message us on WhatsApp",
+      "reply": "Fast replies on WhatsApp"
     },
     "flotte_preview": {
       "title": "Our fleet",

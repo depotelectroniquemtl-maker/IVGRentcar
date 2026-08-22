@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
-import { ButtonLink, ExternalButtonLink } from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
+import { ButtonLink } from "@/components/ui/Button";
 import { FleetGrid } from "@/components/site/FleetGrid";
 import { WhySection } from "@/components/site/WhySection";
 import { LasTerrenasBanner } from "@/components/site/LasTerrenasBanner";
 import { VideoSection } from "@/components/site/VideoSection";
-import { whatsappUrl } from "@/lib/constants";
 import { getCatalogue } from "@/lib/data/catalogue";
 
 export default async function HomePage({
@@ -36,25 +36,36 @@ export default async function HomePage({
           priority
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-black/55" />
-        <Container className="relative z-10 flex flex-col items-start gap-6 py-28 md:py-36">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/5" />
+        <Container className="relative z-10 flex flex-col items-start gap-4 py-28 md:py-36">
+          <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">
+            {t("eyebrow")}
+          </p>
           <h1 className="max-w-3xl text-5xl font-extrabold leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
             {t("title")}
           </h1>
           <p className="max-w-xl text-lg text-white/90 sm:text-xl">{t("subtitle")}</p>
-          <div className="flex flex-wrap gap-3">
-            <ExternalButtonLink href={whatsappUrl()} variant="whatsapp">
-              {t("cta_whatsapp")}
-            </ExternalButtonLink>
-            <ButtonLink
+          <div className="mt-2 flex flex-wrap items-center gap-6">
+            <ButtonLink href="/reservar">{t("cta_primary")} →</ButtonLink>
+            <Link
               href="/flotte"
-              variant="outline"
-              className="border-white text-white hover:bg-white hover:text-ink"
+              className="border-b border-white/50 pb-1 font-bold text-white transition-colors hover:border-white"
             >
-              {t("cta_flotte")}
-            </ButtonLink>
+              {t("cta_flotte")} ↓
+            </Link>
           </div>
+          <p className="mt-4 flex items-center gap-2 text-xs text-white/80">
+            <span className="text-green-400">●</span> {t("reply")}
+          </p>
         </Container>
+        <div className="absolute bottom-6 right-6 z-10 hidden w-[150px] border border-white/40 bg-white/10 p-5 text-white backdrop-blur-md md:block">
+          <span className="font-serif text-4xl">27°</span>
+          <p className="mt-2 text-[11px] leading-relaxed tracking-wider">
+            LAS TERRENAS
+            <br />
+            SAMANÁ · RD
+          </p>
+        </div>
       </section>
 
       <section className="py-16 sm:py-24">

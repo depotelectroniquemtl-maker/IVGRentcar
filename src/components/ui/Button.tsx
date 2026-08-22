@@ -1,12 +1,13 @@
 import { type ComponentProps } from "react";
 import { Link } from "@/i18n/navigation";
 
-type Variant = "primary" | "outline" | "whatsapp";
+type Variant = "primary" | "outline" | "whatsapp" | "dark";
 
 const variantClasses: Record<Variant, string> = {
   primary: "bg-brand text-white hover:bg-brand-dark",
   outline: "border border-ink text-ink hover:bg-ink hover:text-white",
   whatsapp: "bg-[#25D366] text-white hover:bg-[#1DA851]",
+  dark: "bg-ink text-white hover:bg-black",
 };
 
 const base =

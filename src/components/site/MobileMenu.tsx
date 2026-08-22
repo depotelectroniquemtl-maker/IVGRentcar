@@ -5,12 +5,10 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 
 const LINKS = [
-  { href: "/", key: "home" },
   { href: "/flotte", key: "flotte" },
   { href: "/#why", key: "why" },
   { href: "/las-terrenas", key: "lasTerrenas" },
   { href: "/faq", key: "faq" },
-  { href: "/contact", key: "contact" },
 ] as const;
 
 export function MobileMenu() {
@@ -18,7 +16,7 @@ export function MobileMenu() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="sm:hidden">
+    <div className="lg:hidden">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -38,7 +36,7 @@ export function MobileMenu() {
       </button>
 
       {open && (
-        <nav className="fixed inset-x-0 top-16 z-20 flex flex-col gap-1 border-b border-black/10 bg-white px-4 py-4 text-sm font-medium text-ink shadow-lg">
+        <nav className="fixed inset-x-0 top-20 z-20 flex flex-col gap-1 border-b border-black/10 bg-white px-4 py-4 text-sm font-medium text-ink shadow-lg sm:top-24">
           {LINKS.map((link) => (
             <Link
               key={link.href}

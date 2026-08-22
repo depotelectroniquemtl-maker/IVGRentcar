@@ -18,10 +18,13 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Location locale · Las Terrenas",
       "title": "Location de voitures et de quads à Las Terrenas.",
       "subtitle": "Un service simple et direct par WhatsApp. Demandez la disponibilité et le tarif du jour.",
-      "cta_flotte": "Voir la flotte et les tarifs",
-      "cta_whatsapp": "Écrire sur WhatsApp"
+      "cta_primary": "Demander un véhicule",
+      "cta_flotte": "Voir les véhicules",
+      "cta_whatsapp": "Écrire sur WhatsApp",
+      "reply": "Réponse rapide sur WhatsApp"
     },
     "flotte_preview": {
       "title": "Notre flotte",

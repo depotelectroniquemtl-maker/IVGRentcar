@@ -18,10 +18,13 @@
   },
   "home": {
     "hero": {
+      "eyebrow": "Alquiler local · Las Terrenas",
       "title": "Alquiler de carros y quads en Las Terrenas.",
       "subtitle": "Servicio sencillo y directo por WhatsApp. Consulta disponibilidad y la tarifa de hoy.",
-      "cta_flotte": "Ver flota y tarifas",
-      "cta_whatsapp": "Escribir por WhatsApp"
+      "cta_primary": "Solicitar vehículo",
+      "cta_flotte": "Ver los vehículos",
+      "cta_whatsapp": "Escribir por WhatsApp",
+      "reply": "Respuesta rápida por WhatsApp"
     },
     "flotte_preview": {
       "title": "Nuestra flota",

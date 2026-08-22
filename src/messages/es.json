@@ -1,0 +1,58 @@
+{
+  "site": {
+    "name": "I.V.J Polanco Rent a Car",
+    "tagline": "Tu confianza en el volante",
+    "nav": {
+      "home": "Inicio",
+      "flotte": "Flota y tarifas",
+      "contact": "Contacto"
+    },
+    "footer": {
+      "rights": "Todos los derechos reservados.",
+      "address": "Plaza Italia #35, Avenida Juan Pablo Duarte, Las Terrenas, R.D."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Alquiler de autos, camionetas y cuadriciclos en Las Terrenas",
+      "subtitle": "Reserva por WhatsApp — aceptamos pago con tarjeta.",
+      "cta_flotte": "Ver flota y tarifas",
+      "cta_whatsapp": "Escribir por WhatsApp"
+    },
+    "flotte_preview": {
+      "title": "Nuestra flota",
+      "see_all": "Ver todos los vehículos y tarifas"
+    },
+    "why": {
+      "title": "¿Por qué elegirnos?",
+      "item1_title": "Pago con tarjeta",
+      "item1_text": "Aceptamos pago con tarjeta directamente en nuestras oficinas.",
+      "item2_title": "Flota variada",
+      "item2_text": "Desde scooters hasta camionetas 4x4 para 7 personas.",
+      "item3_title": "Atención rápida",
+      "item3_text": "Respuesta inmediata por WhatsApp, todos los días."
+    }
+  },
+  "flotte": {
+    "title": "Flota y tarifas",
+    "subtitle": "Precios en dólares (US$), según la duración del alquiler.",
+    "table": {
+      "vehicle": "Vehículo",
+      "tier_1_3": "1 a 3 días",
+      "tier_4_plus": "4+ días",
+      "tier_15_plus": "15+ días",
+      "capacity": "Capacidad"
+    },
+    "capacity_persons": "{count} personas",
+    "payment_note": "Aceptamos pago con tarjeta.",
+    "reserve": "Reservar por WhatsApp"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Escríbenos por WhatsApp o visítanos en nuestra oficina.",
+    "whatsapp": "WhatsApp",
+    "address": "Dirección",
+    "hours": "Horario",
+    "hours_value": "Todos los días, con reserva previa"
+  }
+}

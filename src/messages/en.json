@@ -1,0 +1,58 @@
+{
+  "site": {
+    "name": "I.V.J Polanco Rent a Car",
+    "tagline": "Your confidence behind the wheel",
+    "nav": {
+      "home": "Home",
+      "flotte": "Fleet & rates",
+      "contact": "Contact"
+    },
+    "footer": {
+      "rights": "All rights reserved.",
+      "address": "Plaza Italia #35, Avenida Juan Pablo Duarte, Las Terrenas, D.R."
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Car, SUV and quad rental in Las Terrenas",
+      "subtitle": "Book by WhatsApp — we accept card payment.",
+      "cta_flotte": "See fleet & rates",
+      "cta_whatsapp": "Message us on WhatsApp"
+    },
+    "flotte_preview": {
+      "title": "Our fleet",
+      "see_all": "See all vehicles and rates"
+    },
+    "why": {
+      "title": "Why choose us?",
+      "item1_title": "Card payment",
+      "item1_text": "We accept card payment directly at our office.",
+      "item2_title": "Varied fleet",
+      "item2_text": "From scooters to 4x4 SUVs for up to 7 people.",
+      "item3_title": "Fast response",
+      "item3_text": "Immediate reply on WhatsApp, every day."
+    }
+  },
+  "flotte": {
+    "title": "Fleet & rates",
+    "subtitle": "Prices in US dollars, based on rental duration.",
+    "table": {
+      "vehicle": "Vehicle",
+      "tier_1_3": "1 to 3 days",
+      "tier_4_plus": "4+ days",
+      "tier_15_plus": "15+ days",
+      "capacity": "Capacity"
+    },
+    "capacity_persons": "{count} people",
+    "payment_note": "We accept card payment.",
+    "reserve": "Book on WhatsApp"
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Message us on WhatsApp or visit our office.",
+    "whatsapp": "WhatsApp",
+    "address": "Address",
+    "hours": "Hours",
+    "hours_value": "Every day, by reservation"
+  }
+}

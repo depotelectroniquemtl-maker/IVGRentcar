@@ -1,0 +1,513 @@
+// Généré automatiquement depuis le projet Supabase (mcp__Supabase__generate_typescript_types).
+// À régénérer après chaque migration de schéma. Ne pas éditer à la main.
+
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "14.15"
+  }
+  public: {
+    Tables: {
+      categories_vehicules: {
+        Row: {
+          actif: boolean
+          capacite_personnes: number | null
+          created_at: string
+          id: string
+          nom: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          capacite_personnes?: number | null
+          created_at?: string
+          id?: string
+          nom: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          capacite_personnes?: number | null
+          created_at?: string
+          id?: string
+          nom?: string
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      clients: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          email: string | null
+          id: string
+          nom: string
+          notes: string | null
+          numero_permis: string | null
+          telephone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          nom: string
+          notes?: string | null
+          numero_permis?: string | null
+          telephone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          email?: string | null
+          id?: string
+          nom?: string
+          notes?: string | null
+          numero_permis?: string | null
+          telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clients_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          nom: string
+          role: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          nom: string
+          role?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          nom?: string
+          role?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      reservations: {
+        Row: {
+          caution_usd: number | null
+          client_id: string
+          created_at: string
+          created_by: string | null
+          date_debut: string
+          date_fin: string
+          id: string
+          notes: string | null
+          prix_total_usd: number | null
+          statut: string
+          updated_at: string
+          vehicule_id: string
+        }
+        Insert: {
+          caution_usd?: number | null
+          client_id: string
+          created_at?: string
+          created_by?: string | null
+          date_debut: string
+          date_fin: string
+          id?: string
+          notes?: string | null
+          prix_total_usd?: number | null
+          statut?: string
+          updated_at?: string
+          vehicule_id: string
+        }
+        Update: {
+          caution_usd?: number | null
+          client_id?: string
+          created_at?: string
+          created_by?: string | null
+          date_debut?: string
+          date_fin?: string
+          id?: string
+          notes?: string | null
+          prix_total_usd?: number | null
+          statut?: string
+          updated_at?: string
+          vehicule_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules_disponibilite"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tarifs: {
+        Row: {
+          categorie_id: string
+          created_at: string
+          id: string
+          palier: string
+          prix_usd: number
+          updated_at: string
+        }
+        Insert: {
+          categorie_id: string
+          created_at?: string
+          id?: string
+          palier: string
+          prix_usd: number
+          updated_at?: string
+        }
+        Update: {
+          categorie_id?: string
+          created_at?: string
+          id?: string
+          palier?: string
+          prix_usd?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tarifs_categorie_id_fkey"
+            columns: ["categorie_id"]
+            isOneToOne: false
+            referencedRelation: "categories_vehicules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicules: {
+        Row: {
+          actif: boolean
+          annee: number | null
+          categorie_id: string
+          created_at: string
+          etat_operationnel: string
+          id: string
+          notes: string | null
+          photo_url: string | null
+          plaque: string
+          updated_at: string
+        }
+        Insert: {
+          actif?: boolean
+          annee?: number | null
+          categorie_id: string
+          created_at?: string
+          etat_operationnel?: string
+          id?: string
+          notes?: string | null
+          photo_url?: string | null
+          plaque: string
+          updated_at?: string
+        }
+        Update: {
+          actif?: boolean
+          annee?: number | null
+          categorie_id?: string
+          created_at?: string
+          etat_operationnel?: string
+          id?: string
+          notes?: string | null
+          photo_url?: string | null
+          plaque?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicules_categorie_id_fkey"
+            columns: ["categorie_id"]
+            isOneToOne: false
+            referencedRelation: "categories_vehicules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+    }
+    Views: {
+      reservations_avec_phase: {
+        Row: {
+          caution_usd: number | null
+          client_id: string | null
+          created_at: string | null
+          created_by: string | null
+          date_debut: string | null
+          date_fin: string | null
+          id: string | null
+          notes: string | null
+          phase: string | null
+          prix_total_usd: number | null
+          statut: string | null
+          updated_at: string | null
+          vehicule_id: string | null
+        }
+        Insert: {
+          caution_usd?: number | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          date_debut?: string | null
+          date_fin?: string | null
+          id?: string | null
+          notes?: string | null
+          phase?: never
+          prix_total_usd?: number | null
+          statut?: string | null
+          updated_at?: string | null
+          vehicule_id?: string | null
+        }
+        Update: {
+          caution_usd?: number | null
+          client_id?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          date_debut?: string | null
+          date_fin?: string | null
+          id?: string | null
+          notes?: string | null
+          phase?: never
+          prix_total_usd?: number | null
+          statut?: string | null
+          updated_at?: string | null
+          vehicule_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reservations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reservations_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules_disponibilite"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicules_disponibilite: {
+        Row: {
+          actif: boolean | null
+          annee: number | null
+          categorie_id: string | null
+          categorie_nom: string | null
+          created_at: string | null
+          etat_operationnel: string | null
+          id: string | null
+          loue_aujourd_hui: boolean | null
+          notes: string | null
+          photo_url: string | null
+          plaque: string | null
+          updated_at: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicules_categorie_id_fkey"
+            columns: ["categorie_id"]
+            isOneToOne: false
+            referencedRelation: "categories_vehicules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+    }
+    Functions: {
+      est_admin: { Args: never; Returns: boolean }
+      est_staff: { Args: never; Returns: boolean }
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+}
+
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
+
+export const Constants = {
+  public: {
+    Enums: {},
+  },
+} as const

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/ui/Container";
@@ -12,10 +13,10 @@ export function Header() {
     <header className="border-b border-black/10 bg-white">
       <Container className="flex h-16 items-center justify-between gap-4">
         <Link href="/" className="flex flex-col leading-tight">
-          <span className="font-bold text-ink">
-            <span className="text-brand">I.V.J</span> Polanco
-          </span>
-          <span className="text-xs text-ink-soft">{t("tagline")}</span>
+          {/* public/logo.png — recadré depuis la fiche tarifaire, qualité provisoire.
+              Remplacement futur : écraser ce même fichier (même chemin, même nom). */}
+          <Image src="/logo.png" alt={t("name")} width={125} height={40} priority />
+          <span className="hidden text-xs text-ink-soft sm:block">{t("tagline")}</span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-ink sm:flex">

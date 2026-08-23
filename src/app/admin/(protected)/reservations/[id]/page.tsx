@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
@@ -13,6 +14,7 @@ export default async function EditarReservaPage({
   const { id } = await params;
   const supabase = createClient();
   const t = await getAdminTranslator("admin.reservations");
+  const tContrats = await getAdminTranslator("admin.contrats");
   const tCommon = await getAdminTranslator("admin.common");
   const profile = await getCurrentProfile();
 
@@ -70,6 +72,22 @@ export default async function EditarReservaPage({
         </h1>
         {profile?.role === "admin" && <DeleteReservationButton id={reservation.id} />}
       </div>
+
+      <div className="flex flex-wrap gap-4 text-sm">
+        <Link
+          href={`/admin/reservations/${reservation.id}/contrat/editar`}
+          className="rounded-md border border-black/15 px-4 py-2 font-semibold text-ink transition-colors hover:bg-black/5"
+        >
+          {tContrats("action_finalizar")}
+        </Link>
+        <Link
+          href={`/admin/reservations/${reservation.id}/contrat`}
+          className="rounded-md border border-black/15 px-4 py-2 font-semibold text-ink transition-colors hover:bg-black/5"
+        >
+          {tContrats("action_ver")}
+        </Link>
+      </div>
+
       <ReservationForm
         clients={clients ?? []}
         vehicules={Array.from(vehiculesById.values())}

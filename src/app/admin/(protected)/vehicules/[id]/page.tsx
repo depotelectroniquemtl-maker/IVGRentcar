@@ -30,7 +30,7 @@ export default async function EditarVehiculoPage({
     await Promise.all([
       supabase
         .from("vehicules")
-        .select("id, categorie_id, plaque, annee, etat_operationnel, notes, actif")
+        .select("id, categorie_id, plaque, annee, couleur, etat_operationnel, notes, actif")
         .eq("id", id)
         .single(),
       supabase.from("categories_vehicules").select("id, nom").order("nom"),

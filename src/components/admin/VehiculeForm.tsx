@@ -16,6 +16,7 @@ type Vehicule = {
   categorie_id: string;
   plaque: string | null;
   annee: number | null;
+  couleur: string | null;
   etat_operationnel: string;
   notes: string | null;
   actif: boolean;
@@ -42,6 +43,7 @@ export function VehiculeForm({
   const [categorieId, setCategorieId] = useState(vehicule?.categorie_id ?? "");
   const [plaque, setPlaque] = useState(vehicule?.plaque ?? "");
   const [annee, setAnnee] = useState(vehicule?.annee?.toString() ?? "");
+  const [couleur, setCouleur] = useState(vehicule?.couleur ?? "");
   const [etat, setEtat] = useState(vehicule?.etat_operationnel ?? "disponible");
   const [notes, setNotes] = useState(vehicule?.notes ?? "");
   const [actif, setActif] = useState(vehicule?.actif ?? true);
@@ -59,6 +61,7 @@ export function VehiculeForm({
       categorie_id: categorieId,
       plaque: plaque.trim() || null,
       annee: annee ? Number(annee) : null,
+      couleur: couleur || null,
       etat_operationnel: etat,
       notes: notes || null,
       actif,
@@ -121,6 +124,16 @@ export function VehiculeForm({
           />
         </label>
       </div>
+
+      <label className="block text-sm">
+        <span className={labelClass}>{t("field_color")}</span>
+        <input
+          type="text"
+          value={couleur}
+          onChange={(e) => setCouleur(e.target.value)}
+          className={inputClass}
+        />
+      </label>
 
       <label className="block text-sm">
         <span className={labelClass}>{t("field_estado")}</span>

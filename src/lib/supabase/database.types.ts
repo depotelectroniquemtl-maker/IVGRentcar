@@ -49,35 +49,56 @@ export type Database = {
       }
       clients: {
         Row: {
+          adresse: string | null
+          cedula: string | null
           created_at: string
           created_by: string | null
           email: string | null
           id: string
+          nationalite: string | null
           nom: string
           notes: string | null
           numero_permis: string | null
+          passeport: string | null
+          passeport_expiration: string | null
+          permis_expiration: string | null
+          residencia: string | null
           telephone: string | null
           updated_at: string
         }
         Insert: {
+          adresse?: string | null
+          cedula?: string | null
           created_at?: string
           created_by?: string | null
           email?: string | null
           id?: string
+          nationalite?: string | null
           nom: string
           notes?: string | null
           numero_permis?: string | null
+          passeport?: string | null
+          passeport_expiration?: string | null
+          permis_expiration?: string | null
+          residencia?: string | null
           telephone?: string | null
           updated_at?: string
         }
         Update: {
+          adresse?: string | null
+          cedula?: string | null
           created_at?: string
           created_by?: string | null
           email?: string | null
           id?: string
+          nationalite?: string | null
           nom?: string
           notes?: string | null
           numero_permis?: string | null
+          passeport?: string | null
+          passeport_expiration?: string | null
+          permis_expiration?: string | null
+          residencia?: string | null
           telephone?: string | null
           updated_at?: string
         }
@@ -87,6 +108,88 @@ export type Database = {
             columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contrats_location: {
+        Row: {
+          abono_usd: number | null
+          accessoires: Json
+          couleur_vehicule: string | null
+          created_at: string
+          created_by: string | null
+          deducible_usd: number | null
+          garant_adresse: string | null
+          garant_cedula: string | null
+          garant_nom: string | null
+          garant_telephone: string | null
+          heure_remise: string | null
+          id: string
+          niveau_essence: string | null
+          notes: string | null
+          reservation_id: string
+          solde_usd: number | null
+          updated_at: string
+        }
+        Insert: {
+          abono_usd?: number | null
+          accessoires?: Json
+          couleur_vehicule?: string | null
+          created_at?: string
+          created_by?: string | null
+          deducible_usd?: number | null
+          garant_adresse?: string | null
+          garant_cedula?: string | null
+          garant_nom?: string | null
+          garant_telephone?: string | null
+          heure_remise?: string | null
+          id?: string
+          niveau_essence?: string | null
+          notes?: string | null
+          reservation_id: string
+          solde_usd?: number | null
+          updated_at?: string
+        }
+        Update: {
+          abono_usd?: number | null
+          accessoires?: Json
+          couleur_vehicule?: string | null
+          created_at?: string
+          created_by?: string | null
+          deducible_usd?: number | null
+          garant_adresse?: string | null
+          garant_cedula?: string | null
+          garant_nom?: string | null
+          garant_telephone?: string | null
+          heure_remise?: string | null
+          id?: string
+          niveau_essence?: string | null
+          notes?: string | null
+          reservation_id?: string
+          solde_usd?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contrats_location_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contrats_location_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: true
+            referencedRelation: "reservations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contrats_location_reservation_id_fkey"
+            columns: ["reservation_id"]
+            isOneToOne: true
+            referencedRelation: "reservations_avec_phase"
             referencedColumns: ["id"]
           },
         ]
@@ -423,6 +526,7 @@ export type Database = {
           actif: boolean
           annee: number | null
           categorie_id: string
+          couleur: string | null
           created_at: string
           etat_operationnel: string
           id: string
@@ -435,6 +539,7 @@ export type Database = {
           actif?: boolean
           annee?: number | null
           categorie_id: string
+          couleur?: string | null
           created_at?: string
           etat_operationnel?: string
           id?: string
@@ -447,6 +552,7 @@ export type Database = {
           actif?: boolean
           annee?: number | null
           categorie_id?: string
+          couleur?: string | null
           created_at?: string
           etat_operationnel?: string
           id?: string

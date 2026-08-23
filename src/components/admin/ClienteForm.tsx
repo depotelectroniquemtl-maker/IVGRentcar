@@ -15,6 +15,13 @@ type Cliente = {
   telephone: string | null;
   email: string | null;
   numero_permis: string | null;
+  permis_expiration: string | null;
+  cedula: string | null;
+  passeport: string | null;
+  passeport_expiration: string | null;
+  nationalite: string | null;
+  adresse: string | null;
+  residencia: string | null;
   notes: string | null;
 };
 
@@ -28,6 +35,15 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
   const [telephone, setTelephone] = useState(cliente?.telephone ?? "");
   const [email, setEmail] = useState(cliente?.email ?? "");
   const [numeroPermis, setNumeroPermis] = useState(cliente?.numero_permis ?? "");
+  const [permisExpiration, setPermisExpiration] = useState(cliente?.permis_expiration ?? "");
+  const [cedula, setCedula] = useState(cliente?.cedula ?? "");
+  const [passeport, setPasseport] = useState(cliente?.passeport ?? "");
+  const [passeportExpiration, setPasseportExpiration] = useState(
+    cliente?.passeport_expiration ?? "",
+  );
+  const [nationalite, setNationalite] = useState(cliente?.nationalite ?? "");
+  const [adresse, setAdresse] = useState(cliente?.adresse ?? "");
+  const [residencia, setResidencia] = useState(cliente?.residencia ?? "");
   const [notes, setNotes] = useState(cliente?.notes ?? "");
 
   const [loading, setLoading] = useState(false);
@@ -44,6 +60,13 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
       telephone: telephone || null,
       email: email || null,
       numero_permis: numeroPermis || null,
+      permis_expiration: permisExpiration || null,
+      cedula: cedula || null,
+      passeport: passeport || null,
+      passeport_expiration: passeportExpiration || null,
+      nationalite: nationalite || null,
+      adresse: adresse || null,
+      residencia: residencia || null,
       notes: notes || null,
     };
 
@@ -96,12 +119,88 @@ export function ClienteForm({ cliente }: { cliente?: Cliente }) {
         </label>
       </div>
 
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_licencia")}</span>
+          <input
+            type="text"
+            value={numeroPermis}
+            onChange={(e) => setNumeroPermis(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_licencia_exp")}</span>
+          <input
+            type="date"
+            value={permisExpiration}
+            onChange={(e) => setPermisExpiration(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_cedula")}</span>
+          <input
+            type="text"
+            value={cedula}
+            onChange={(e) => setCedula(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_nacionalidad")}</span>
+          <input
+            type="text"
+            value={nationalite}
+            onChange={(e) => setNationalite(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_pasaporte")}</span>
+          <input
+            type="text"
+            value={passeport}
+            onChange={(e) => setPasseport(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_pasaporte_exp")}</span>
+          <input
+            type="date"
+            value={passeportExpiration}
+            onChange={(e) => setPasseportExpiration(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+      </div>
+
       <label className="block text-sm">
-        <span className={labelClass}>{t("field_licencia")}</span>
+        <span className={labelClass}>{t("field_direccion")}</span>
         <input
           type="text"
-          value={numeroPermis}
-          onChange={(e) => setNumeroPermis(e.target.value)}
+          value={adresse}
+          onChange={(e) => setAdresse(e.target.value)}
+          className={inputClass}
+        />
+      </label>
+
+      <label className="block text-sm">
+        <span className={labelClass}>{t("field_residencia")}</span>
+        <input
+          type="text"
+          value={residencia}
+          onChange={(e) => setResidencia(e.target.value)}
           className={inputClass}
         />
       </label>

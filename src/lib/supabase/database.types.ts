@@ -93,53 +93,69 @@ export type Database = {
       }
       demandes_reservation: {
         Row: {
-          categorie_id: string
           created_at: string
           date_debut: string
           date_fin: string
           email: string | null
+          heure_debut: string | null
+          heure_fin: string | null
           id: string
           lieu_prise_en_charge: string | null
           nom: string
           notes: string | null
+          prix_estime_usd: number | null
           statut: string
           updated_at: string
+          vehicule_id: string
           whatsapp: string
         }
         Insert: {
-          categorie_id: string
           created_at?: string
           date_debut: string
           date_fin: string
           email?: string | null
+          heure_debut?: string | null
+          heure_fin?: string | null
           id?: string
           lieu_prise_en_charge?: string | null
           nom: string
           notes?: string | null
+          prix_estime_usd?: number | null
           statut?: string
           updated_at?: string
+          vehicule_id: string
           whatsapp: string
         }
         Update: {
-          categorie_id?: string
           created_at?: string
           date_debut?: string
           date_fin?: string
           email?: string | null
+          heure_debut?: string | null
+          heure_fin?: string | null
           id?: string
           lieu_prise_en_charge?: string | null
           nom?: string
           notes?: string | null
+          prix_estime_usd?: number | null
           statut?: string
           updated_at?: string
+          vehicule_id?: string
           whatsapp?: string
         }
         Relationships: [
           {
-            foreignKeyName: "demandes_reservation_categorie_id_fkey"
-            columns: ["categorie_id"]
+            foreignKeyName: "demandes_reservation_vehicule_id_fkey"
+            columns: ["vehicule_id"]
             isOneToOne: false
-            referencedRelation: "categories_vehicules"
+            referencedRelation: "vehicules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "demandes_reservation_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules_disponibilite"
             referencedColumns: ["id"]
           },
         ]
@@ -205,6 +221,61 @@ export type Database = {
           },
         ]
       }
+      indisponibilites_vehicule: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          date_debut: string
+          date_fin: string
+          id: string
+          motif: string | null
+          updated_at: string
+          vehicule_id: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          date_debut: string
+          date_fin: string
+          id?: string
+          motif?: string | null
+          updated_at?: string
+          vehicule_id: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          date_debut?: string
+          date_fin?: string
+          id?: string
+          motif?: string | null
+          updated_at?: string
+          vehicule_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "indisponibilites_vehicule_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "indisponibilites_vehicule_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "indisponibilites_vehicule_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules_disponibilite"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string
@@ -237,7 +308,10 @@ export type Database = {
           created_by: string | null
           date_debut: string
           date_fin: string
+          heure_debut: string | null
+          heure_fin: string | null
           id: string
+          lieu_prise_en_charge: string | null
           notes: string | null
           prix_total_usd: number | null
           statut: string
@@ -251,7 +325,10 @@ export type Database = {
           created_by?: string | null
           date_debut: string
           date_fin: string
+          heure_debut?: string | null
+          heure_fin?: string | null
           id?: string
+          lieu_prise_en_charge?: string | null
           notes?: string | null
           prix_total_usd?: number | null
           statut?: string
@@ -265,7 +342,10 @@ export type Database = {
           created_by?: string | null
           date_debut?: string
           date_fin?: string
+          heure_debut?: string | null
+          heure_fin?: string | null
           id?: string
+          lieu_prise_en_charge?: string | null
           notes?: string | null
           prix_total_usd?: number | null
           statut?: string
@@ -491,6 +571,14 @@ export type Database = {
       }
     }
     Functions: {
+      calculer_prix_total: {
+        Args: {
+          p_categorie_id: string
+          p_date_debut: string
+          p_date_fin: string
+        }
+        Returns: number
+      }
       categories_avec_flotte_active: {
         Args: never
         Returns: {
@@ -505,8 +593,33 @@ export type Database = {
         }
         Returns: boolean
       }
+      disponibilite_vehicule: {
+        Args: {
+          p_date_debut: string
+          p_date_fin: string
+          p_vehicule_id: string
+        }
+        Returns: boolean
+      }
       est_admin: { Args: never; Returns: boolean }
       est_staff: { Args: never; Returns: boolean }
+      periodes_indisponibles_vehicule: {
+        Args: { p_vehicule_id: string }
+        Returns: {
+          date_debut: string
+          date_fin: string
+          source: string
+        }[]
+      }
+      vehicules_publics_par_categorie: {
+        Args: { p_categorie_id: string }
+        Returns: {
+          annee: number
+          categorie_id: string
+          id: string
+          photo_url: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

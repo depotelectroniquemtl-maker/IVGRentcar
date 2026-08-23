@@ -1,0 +1,1 @@
+create index idx_indisponibilites_vehicule_created_by on public.indisponibilites_vehicule (created_by);

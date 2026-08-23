@@ -10,7 +10,7 @@ export default async function DemandesPage() {
   const { data: demandes, error } = await supabase
     .from("demandes_reservation")
     .select(
-      "id, nom, whatsapp, date_debut, date_fin, statut, categories_vehicules(nom)",
+      "id, nom, whatsapp, date_debut, date_fin, heure_debut, heure_fin, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
     )
     .order("created_at", { ascending: false });
 
@@ -29,9 +29,11 @@ export default async function DemandesPage() {
             <tr>
               <th className="px-4 py-3">{t("col_nombre")}</th>
               <th className="px-4 py-3">{t("col_whatsapp")}</th>
-              <th className="px-4 py-3">{t("col_categoria")}</th>
+              <th className="px-4 py-3">{t("col_vehiculo")}</th>
               <th className="px-4 py-3">{t("col_del")}</th>
               <th className="px-4 py-3">{t("col_al")}</th>
+              <th className="px-4 py-3">{t("col_horario")}</th>
+              <th className="px-4 py-3">{t("col_precio")}</th>
               <th className="px-4 py-3">{t("col_estado")}</th>
             </tr>
           </thead>
@@ -40,9 +42,18 @@ export default async function DemandesPage() {
               <tr key={d.id} className="border-t border-black/5">
                 <td className="px-4 py-3 font-medium text-ink">{d.nom}</td>
                 <td className="px-4 py-3">{d.whatsapp}</td>
-                <td className="px-4 py-3">{d.categories_vehicules?.nom ?? tCommon("dash")}</td>
+                <td className="px-4 py-3">
+                  {d.vehicules?.categories_vehicules?.nom ?? tCommon("dash")}
+                  {d.vehicules?.plaque ? ` (${d.vehicules.plaque})` : ""}
+                </td>
                 <td className="px-4 py-3">{d.date_debut}</td>
                 <td className="px-4 py-3">{d.date_fin}</td>
+                <td className="px-4 py-3">
+                  {d.heure_debut ?? tCommon("dash")} → {d.heure_fin ?? tCommon("dash")}
+                </td>
+                <td className="px-4 py-3">
+                  {d.prix_estime_usd ? `US$ ${d.prix_estime_usd}` : tCommon("dash")}
+                </td>
                 <td className="px-4 py-3">
                   <DemandeStatutSelect id={d.id} statut={d.statut} />
                 </td>
@@ -50,7 +61,7 @@ export default async function DemandesPage() {
             ))}
             {demandes?.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
+                <td colSpan={8} className="px-4 py-6 text-center text-ink-soft">
                   {t("empty")}
                 </td>
               </tr>

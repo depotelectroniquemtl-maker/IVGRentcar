@@ -16,10 +16,5 @@ export default async function NuevoUsuarioPage() {
 
   const t = await getAdminTranslator("admin.utilisateurs");
 
-  return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">{t("new")}</h1>
-      <UsuarioForm />
-    </div>
-  );
+  return <UsuarioForm title={t("new")} />;
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
+import { Pill, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 
 // Écran réservé aux admins — la vérification se fait ici, côté serveur (pas seulement en
 // cachant le lien dans la Sidebar). Un employé qui arriverait quand même sur cette URL
@@ -40,25 +41,31 @@ export default async function UtilisateursPage() {
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
 
-      <div className="overflow-x-auto rounded-lg bg-white shadow-sm">
-        <table className="w-full min-w-[420px] text-left text-sm">
-          <thead className="bg-black/5 text-ink-soft">
-            <tr>
-              <th className="px-4 py-3">{t("col_nombre")}</th>
-              <th className="px-4 py-3">{t("col_rol")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {usuarios?.map((u) => (
-              <tr key={u.id} className="border-t border-black/5">
-                <td className="px-4 py-3 font-medium text-ink">{u.nom}</td>
-                <td className="px-4 py-3">
-                  {u.role === "admin" ? tCommon("role_admin") : tCommon("role_employe")}
-                </td>
+      <div className={tableCardClass}>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[420px] text-left text-sm">
+            <thead className={theadClass}>
+              <tr>
+                <th className={thClass}>{t("col_nombre")}</th>
+                <th className={thClass}>{t("col_rol")}</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {usuarios?.map((u) => (
+                <tr key={u.id} className={trClass}>
+                  <td className="px-4 py-3 font-medium text-ink">{u.nom}</td>
+                  <td className="px-4 py-3">
+                    {u.role === "admin" ? (
+                      <Pill className="bg-brand/10 text-brand-dark">{tCommon("role_admin")}</Pill>
+                    ) : (
+                      <Pill className="bg-black/5 text-ink-soft">{tCommon("role_employe")}</Pill>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

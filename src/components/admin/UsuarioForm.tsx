@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createEmploye } from "@/app/admin/(protected)/utilisateurs/actions";
-import { inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
+import { inputClass, labelClass, primaryButtonClass, secondaryLinkClass } from "@/components/admin/form-ui";
 
-export function UsuarioForm() {
+export function UsuarioForm({ title }: { title: string }) {
   const router = useRouter();
   const t = useTranslations("admin.utilisateurs");
   const tCommon = useTranslations("admin.common");
@@ -37,7 +38,22 @@ export function UsuarioForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-xl flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
+    <form onSubmit={handleSubmit} className="flex max-w-xl flex-col gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-ink">{title}</h1>
+        <div className="flex items-center gap-3">
+          <Link href="/admin/utilisateurs" className={secondaryLinkClass}>
+            {tCommon("cancel")}
+          </Link>
+          <button type="submit" disabled={loading} className={primaryButtonClass}>
+            {loading ? t("creating") : t("submit_create")}
+          </button>
+        </div>
+      </div>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      <div className="flex flex-col gap-4 rounded-lg border border-black/10 bg-white p-8 shadow-sm">
       <label className="block text-sm">
         <span className={labelClass}>{t("field_nombre")}</span>
         <input
@@ -85,11 +101,7 @@ export function UsuarioForm() {
         </select>
       </label>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
-
-      <button type="submit" disabled={loading} className={primaryButtonClass}>
-        {loading ? t("creating") : t("submit_create")}
-      </button>
+      </div>
     </form>
   );
 }

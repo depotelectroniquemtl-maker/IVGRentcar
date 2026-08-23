@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
-import { getAdminTranslator } from "@/lib/admin-i18n";
+import { getAdminLocale, getAdminTranslator } from "@/lib/admin-i18n";
 import { ContratPrintable } from "@/components/admin/ContratPrintable";
 import { PrintButton } from "@/components/admin/PrintButton";
 import { secondaryLinkClass } from "@/components/admin/form-ui";
@@ -46,6 +46,8 @@ export default async function ContratImprimablePage({
   const { id } = await params;
   const supabase = createClient();
   const t = await getAdminTranslator("admin.contrats");
+  const tImprimible = await getAdminTranslator("admin.contratoImprimible");
+  const locale = await getAdminLocale();
 
   const { data: reservation } = await supabase
     .from("reservations")
@@ -126,9 +128,17 @@ export default async function ContratImprimablePage({
 
       <div className="flex flex-col gap-8 print:gap-0">
         <div className="print:break-after-page">
-          <ContratPrintable data={{ ...donnees, copyLabel: "Copia Cliente" }} />
+          <ContratPrintable
+            data={{ ...donnees, copyLabel: "cliente" }}
+            t={tImprimible}
+            locale={locale}
+          />
         </div>
-        <ContratPrintable data={{ ...donnees, copyLabel: "Copia Compañía" }} />
+        <ContratPrintable
+          data={{ ...donnees, copyLabel: "compania" }}
+          t={tImprimible}
+          locale={locale}
+        />
       </div>
     </div>
   );

@@ -1,12 +1,18 @@
 import Image from "next/image";
 import { ACCESSOIRES_CONTRAT, NIVEAUX_ESSENCE } from "@/lib/contrat-accessoires";
+import type { getAdminTranslator } from "@/lib/admin-i18n";
+import type { AdminLocale } from "@/lib/admin-locale";
 
 // Reproduit le contrat papier I.V.J Rent A Car — contenu et libellés fixés par le client
-// (relecture du document original), volontairement en espagnol quelle que soit la langue
-// de l'admin : c'est le document légal lui-même, pas une interface à traduire. Un
+// (relecture du document original). Le texte suit désormais la langue admin sélectionnée
+// (admin_locale, même mécanisme que le reste du panneau) via le traducteur "t" passé en
+// prop — seul le slogan de marque "TU CONFIANZA EN EL VOLANTE" reste figé dans les 3
+// langues, c'est une identité de marque intégrée au logo, pas une phrase d'interface. Un
 // "Field" vide affiche une ligne à compléter à la main plutôt qu'un tiret, pour rester
 // utilisable comme un vrai formulaire papier si une donnée n'a pas été saisie en amont.
 const BLANC = "_______________";
+
+type ContratTranslator = Awaited<ReturnType<typeof getAdminTranslator<"admin.contratoImprimible">>>;
 
 function Champ({ label, value, extra }: { label: string; value?: string | null; extra?: string }) {
   return (
@@ -18,16 +24,8 @@ function Champ({ label, value, extra }: { label: string; value?: string | null; 
   );
 }
 
-function MESES_ES(mois: number) {
-  const noms = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
-  ];
-  return noms[mois] ?? "";
-}
-
 export type ContratPrintableData = {
-  copyLabel: string;
+  copyLabel: "cliente" | "compania";
   cliente: {
     nom: string;
     adresse: string | null;
@@ -66,12 +64,20 @@ export type ContratPrintableData = {
   } | null;
 };
 
-export function ContratPrintable({ data }: { data: ContratPrintableData }) {
+export function ContratPrintable({
+  data,
+  t,
+  locale,
+}: {
+  data: ContratPrintableData;
+  t: ContratTranslator;
+  locale: AdminLocale;
+}) {
   const { cliente, vehicule, reservation, contrat, copyLabel } = data;
 
   const fechaSalida = new Date(reservation.dateDebut + "T00:00:00");
   const dia = fechaSalida.getDate();
-  const mes = MESES_ES(fechaSalida.getMonth());
+  const mes = new Intl.DateTimeFormat(locale, { month: "long" }).format(fechaSalida).toLowerCase();
   const anio = fechaSalida.getFullYear();
 
   return (
@@ -85,56 +91,62 @@ export function ContratPrintable({ data }: { data: ContratPrintableData }) {
       </div>
 
       <p className="mt-1 text-right text-[10px] font-bold uppercase tracking-wider text-black/50">
-        {copyLabel}
+        {copyLabel === "cliente" ? t("copia_cliente") : t("copia_compania")}
       </p>
 
       <section className="mt-3">
         <h2 className="border-b border-black bg-black/5 px-1 py-0.5 text-xs font-bold uppercase">
-          Datos del Cliente
+          {t("section_cliente")}
         </h2>
         <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1.5">
-          <Champ label="Nombre" value={cliente.nom} />
-          <Champ label="Dirección" value={cliente.adresse} />
-          <Champ label="Telefonos" value={cliente.telephone} />
-          <Champ label="Nacionalidad" value={cliente.nationalite} />
-          <Champ label="Cedula" value={cliente.cedula} />
-          <Champ label="Residencia" value={cliente.residencia} />
+          <Champ label={t("field_nombre")} value={cliente.nom} />
+          <Champ label={t("field_direccion")} value={cliente.adresse} />
+          <Champ label={t("field_telefonos")} value={cliente.telephone} />
+          <Champ label={t("field_nacionalidad")} value={cliente.nationalite} />
+          <Champ label={t("field_cedula")} value={cliente.cedula} />
+          <Champ label={t("field_residencia")} value={cliente.residencia} />
           <Champ
-            label="Pasaporte"
+            label={t("field_pasaporte")}
             value={cliente.passeport}
-            extra={cliente.passeportExpiration ? `Expira en: ${cliente.passeportExpiration}` : undefined}
+            extra={
+              cliente.passeportExpiration
+                ? `${t("expira_en")}: ${cliente.passeportExpiration}`
+                : undefined
+            }
           />
           <Champ
-            label="Licencia"
+            label={t("field_licencia")}
             value={cliente.numeroPermis}
-            extra={cliente.permisExpiration ? `Expira en: ${cliente.permisExpiration}` : undefined}
+            extra={
+              cliente.permisExpiration ? `${t("expira_en")}: ${cliente.permisExpiration}` : undefined
+            }
           />
         </div>
       </section>
 
       <section className="mt-3">
         <h2 className="border-b border-black bg-black/5 px-1 py-0.5 text-xs font-bold uppercase">
-          Datos del Vehiculo
+          {t("section_vehiculo")}
         </h2>
         <div className="mt-2 grid grid-cols-3 gap-x-6 gap-y-1.5">
-          <Champ label="Hora" value={contrat?.heureRemise?.slice(0, 5)} />
-          <Champ label="Color del Vehiculo" value={contrat?.couleurVehicule ?? vehicule.couleur} />
-          <Champ label="Tipo de Vehiculo" value={vehicule.categorieNom} />
-          <Champ label="No. Placa" value={vehicule.plaque} />
+          <Champ label={t("field_hora")} value={contrat?.heureRemise?.slice(0, 5)} />
+          <Champ label={t("field_color_vehiculo")} value={contrat?.couleurVehicule ?? vehicule.couleur} />
+          <Champ label={t("field_tipo_vehiculo")} value={vehicule.categorieNom} />
+          <Champ label={t("field_placa")} value={vehicule.plaque} />
           <Champ
-            label="Deducible"
+            label={t("field_deducible")}
             value={contrat?.deducibleUsd != null ? `US$ ${contrat.deducibleUsd}` : null}
           />
-          <Champ label="Fecha Salida" value={reservation.dateDebut} />
-          <Champ label="Posible Retorno" value={reservation.dateFin} />
+          <Champ label={t("field_fecha_salida")} value={reservation.dateDebut} />
+          <Champ label={t("field_retorno")} value={reservation.dateFin} />
           <Champ
-            label="Precio P/dia"
+            label={t("field_precio_dia")}
             value={reservation.precioPorDia != null ? `US$ ${reservation.precioPorDia}` : null}
           />
-          <Champ label="Abono $" value={contrat?.abonoUsd != null ? `US$ ${contrat.abonoUsd}` : null} />
-          <Champ label="Dias Rentado" value={String(reservation.diasRentado)} />
+          <Champ label={t("field_abono")} value={contrat?.abonoUsd != null ? `US$ ${contrat.abonoUsd}` : null} />
+          <Champ label={t("field_dias_rentado")} value={String(reservation.diasRentado)} />
           <Champ
-            label="Balance Pendiente"
+            label={t("field_balance")}
             value={contrat?.soldeUsd != null ? `US$ ${contrat.soldeUsd}` : null}
           />
         </div>
@@ -156,13 +168,13 @@ export function ContratPrintable({ data }: { data: ContratPrintableData }) {
 
       <section className="mt-3">
         <h2 className="border-b border-black bg-black/5 px-1 py-0.5 text-xs font-bold uppercase">
-          Datos del Garante
+          {t("section_garante")}
         </h2>
         <div className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1.5">
-          <Champ label="Nombre" value={contrat?.garantNom} />
-          <Champ label="Direccion" value={contrat?.garantAdresse} />
-          <Champ label="Cedula" value={contrat?.garantCedula} />
-          <Champ label="Telefono" value={contrat?.garantTelephone} />
+          <Champ label={t("field_nombre")} value={contrat?.garantNom} />
+          <Champ label={t("field_garante_direccion")} value={contrat?.garantAdresse} />
+          <Champ label={t("field_cedula")} value={contrat?.garantCedula} />
+          <Champ label={t("field_garante_telefono")} value={contrat?.garantTelephone} />
         </div>
       </section>
 
@@ -173,30 +185,27 @@ export function ContratPrintable({ data }: { data: ContratPrintableData }) {
               <span className="flex h-3 w-3 shrink-0 items-center justify-center border border-black text-[8px] leading-none">
                 {contrat?.accessoires?.[item.key] ? "X" : ""}
               </span>
-              {item.label}
+              {t(`accesorios.${item.key}` as never)}
             </label>
           ))}
         </div>
       </section>
 
-      <p className="mt-3 text-center text-[10px] font-bold">NOTA: NO HACEMOS DEVOLUCION DE EFECTIVO</p>
+      <p className="mt-3 text-center text-[10px] font-bold">{t("nota_no_devolucion")}</p>
 
-      <p className="mt-3 text-justify text-[10px] leading-relaxed">
-        Soy el cliente, quien garantiza y asegura que todo lo que esta marcado arriba es
-        correcto, por lo tanto, me comprometo a devolverlo de la misma forma, en caso de no
-        ser asi, tengo que pagar a Sra. Isabel Hulmann Polanco y/o ETICA RENTA CAR el valor
-        del costo de cada accesorio que le falten al vehiculo en el momento de la entrega.
-      </p>
+      <p className="mt-3 text-justify text-[10px] leading-relaxed">{t("legal_garantia")}</p>
 
       <p className="mt-2 text-justify text-[10px] leading-relaxed">
-        Hecho y firmado de buena fe con una original y una copia, en la ciudad de Las
-        Terrenas, Rep. Dom. hoy dia <strong>{dia}</strong> del mes de{" "}
-        <strong>{mes}</strong> del año <strong>{anio}</strong> (declarado haber leido el
-        dorso de este contrato)
+        {t.rich("legal_signature", {
+          b: (chunks: React.ReactNode) => <strong>{chunks}</strong>,
+          dia,
+          mes,
+          anio,
+        })}
       </p>
 
       <div className="mt-8 grid grid-cols-3 gap-6 text-center text-[10px]">
-        {["Cliente", "Garante", "Rentado por"].map((label) => (
+        {[t("signature_cliente"), t("signature_garante"), t("signature_rentado_por")].map((label) => (
           <div key={label} className="flex flex-col">
             <div className="h-12 border-b border-black" />
             <p className="mt-1">{label}</p>

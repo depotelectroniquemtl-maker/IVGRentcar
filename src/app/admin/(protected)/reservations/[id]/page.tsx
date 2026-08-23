@@ -67,14 +67,11 @@ export default async function EditarReservaPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink">
-          {t("edit_title", { numero: reservation.numero, cliente: reservation.clients?.nom ?? tCommon("dash") })}
-        </h1>
-        {profile?.role === "admin" && <DeleteReservationButton id={reservation.id} />}
-      </div>
+      <h1 className="text-2xl font-bold text-ink">
+        {t("edit_title", { numero: reservation.numero, cliente: reservation.clients?.nom ?? tCommon("dash") })}
+      </h1>
 
-      <div className="flex flex-wrap gap-4 text-sm">
+      <div className="flex flex-wrap items-center gap-4 text-sm">
         <Link
           href={`/admin/reservations/${reservation.id}/contrat/editar`}
           className={secondaryLinkClass}
@@ -84,6 +81,12 @@ export default async function EditarReservaPage({
         <Link href={`/admin/reservations/${reservation.id}/contrat`} className={secondaryLinkClass}>
           {tContrats("action_ver")}
         </Link>
+        {profile?.role === "admin" && (
+          <div className="ml-auto flex items-center gap-3">
+            <span className="hidden h-5 w-px bg-black/10 sm:block" aria-hidden />
+            <DeleteReservationButton id={reservation.id} />
+          </div>
+        )}
       </div>
 
       <ReservationForm

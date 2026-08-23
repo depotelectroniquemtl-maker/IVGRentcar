@@ -247,6 +247,7 @@
       "field_categoria": "Categoría",
       "field_categoria_placeholder": "Selecciona una categoría",
       "field_placa": "Placa",
+      "field_placa_placeholder": "Aún sin matricular",
       "field_anio": "Año",
       "field_estado": "Estado operacional",
       "field_notas": "Notas",

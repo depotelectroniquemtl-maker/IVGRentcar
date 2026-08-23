@@ -29,7 +29,7 @@ export function ReservationForm({
   reservation,
 }: {
   clients: { id: string; nom: string }[];
-  vehicules: { id: string; plaque: string; categorie_nom: string }[];
+  vehicules: { id: string; plaque: string | null; categorie_nom: string }[];
   reservation?: Reservation;
 }) {
   const router = useRouter();
@@ -128,7 +128,7 @@ export function ReservationForm({
           </option>
           {vehicules.map((v) => (
             <option key={v.id} value={v.id}>
-              {v.categorie_nom} ({v.plaque})
+              {v.categorie_nom} ({v.plaque ?? tCommon("dash")})
             </option>
           ))}
         </select>

@@ -14,7 +14,7 @@ const labelClass = "mb-1 block font-medium text-ink";
 type Vehicule = {
   id: string;
   categorie_id: string;
-  plaque: string;
+  plaque: string | null;
   annee: number | null;
   etat_operationnel: string;
   notes: string | null;
@@ -57,7 +57,7 @@ export function VehiculeForm({
     const supabase = createClient();
     const payload = {
       categorie_id: categorieId,
-      plaque,
+      plaque: plaque.trim() || null,
       annee: annee ? Number(annee) : null,
       etat_operationnel: etat,
       notes: notes || null,
@@ -104,9 +104,9 @@ export function VehiculeForm({
           <span className={labelClass}>{t("field_placa")}</span>
           <input
             type="text"
-            required
             value={plaque}
             onChange={(e) => setPlaque(e.target.value)}
+            placeholder={t("field_placa_placeholder")}
             className={inputClass}
           />
         </label>

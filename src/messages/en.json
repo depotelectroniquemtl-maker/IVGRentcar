@@ -247,6 +247,7 @@
       "field_categoria": "Category",
       "field_categoria_placeholder": "Select a category",
       "field_placa": "Plate",
+      "field_placa_placeholder": "Not yet registered",
       "field_anio": "Year",
       "field_estado": "Operational status",
       "field_notas": "Notes",

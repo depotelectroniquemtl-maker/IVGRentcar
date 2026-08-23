@@ -11,6 +11,7 @@ export default async function EditarVehiculoPage({
   const { id } = await params;
   const supabase = createClient();
   const t = await getAdminTranslator("admin.vehicules");
+  const tCommon = await getAdminTranslator("admin.common");
 
   const [{ data: vehicule }, { data: categories }] = await Promise.all([
     supabase
@@ -26,7 +27,7 @@ export default async function EditarVehiculoPage({
   return (
     <div className="flex flex-col gap-6">
       <h1 className="text-2xl font-bold text-ink">
-        {t("edit_title", { plaque: vehicule.plaque })}
+        {t("edit_title", { plaque: vehicule.plaque ?? tCommon("dash") })}
       </h1>
       <VehiculeForm categories={categories ?? []} vehicule={vehicule} />
     </div>

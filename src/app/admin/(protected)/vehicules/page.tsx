@@ -52,7 +52,7 @@ export default async function VehiculesPage() {
             {vehicules?.map((v) => (
               <tr key={v.id} className="border-t border-black/5">
                 <td className="px-4 py-3 font-medium text-ink">{v.categorie_nom}</td>
-                <td className="px-4 py-3">{v.plaque}</td>
+                <td className="px-4 py-3">{v.plaque ?? tCommon("dash")}</td>
                 <td className="px-4 py-3">{v.annee ?? tCommon("dash")}</td>
                 <td className="px-4 py-3">
                   {v.etat_operationnel ? ETAT_LABELS[v.etat_operationnel] : tCommon("dash")}

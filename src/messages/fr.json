@@ -247,6 +247,7 @@
       "field_categoria": "Catégorie",
       "field_categoria_placeholder": "Choisissez une catégorie",
       "field_placa": "Plaque",
+      "field_placa_placeholder": "Pas encore immatriculé",
       "field_anio": "Année",
       "field_estado": "État opérationnel",
       "field_notas": "Notes",

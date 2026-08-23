@@ -73,7 +73,7 @@ export default async function ReservationsPage() {
                     {r.clients?.nom ?? tCommon("dash")}
                   </td>
                   <td className="px-4 py-3">
-                    {r.vehicules?.categories_vehicules?.nom} ({r.vehicules?.plaque})
+                    {r.vehicules?.categories_vehicules?.nom} ({r.vehicules?.plaque ?? tCommon("dash")})
                   </td>
                   <td className="px-4 py-3">{r.date_debut}</td>
                   <td className="px-4 py-3">{r.date_fin}</td>

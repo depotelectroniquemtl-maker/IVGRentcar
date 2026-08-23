@@ -298,7 +298,9 @@
       "field_estado": "État",
       "field_notas": "Notes",
       "submit_create": "Créer la réservation",
-      "error_overlap": "Ce véhicule a déjà une réservation qui chevauche ces dates."
+      "error_overlap": "Ce véhicule a déjà une réservation qui chevauche ces dates.",
+      "edit_title": "Modifier la réservation — {cliente}",
+      "save_changes": "Enregistrer les modifications"
     },
     "tarifs": {
       "title": "Tarifs",

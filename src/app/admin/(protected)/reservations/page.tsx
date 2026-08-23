@@ -61,6 +61,7 @@ export default async function ReservationsPage() {
               <th className="px-4 py-3">{t("col_al")}</th>
               <th className="px-4 py-3">{t("col_precio")}</th>
               <th className="px-4 py-3">{t("col_estado")}</th>
+              <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody>
@@ -88,12 +89,20 @@ export default async function ReservationsPage() {
                         ` · ${tCommon("reservation_statut_en_attente")}`}
                     </span>
                   </td>
+                  <td className="px-4 py-3 text-right">
+                    <Link
+                      href={`/admin/reservations/${r.id}`}
+                      className="text-brand hover:underline"
+                    >
+                      {tCommon("edit")}
+                    </Link>
+                  </td>
                 </tr>
               );
             })}
             {reservations?.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
+                <td colSpan={7} className="px-4 py-6 text-center text-ink-soft">
                   {t("empty")}
                 </td>
               </tr>

@@ -11,16 +11,31 @@ const inputClass =
   "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
 const labelClass = "mb-1 block font-medium text-ink";
 
+type Reservation = {
+  id: string;
+  client_id: string;
+  vehicule_id: string;
+  date_debut: string;
+  date_fin: string;
+  statut: (typeof STATUTS)[number];
+  prix_total_usd: number | null;
+  caution_usd: number | null;
+  notes: string | null;
+};
+
 export function ReservationForm({
   clients,
   vehicules,
+  reservation,
 }: {
   clients: { id: string; nom: string }[];
   vehicules: { id: string; plaque: string; categorie_nom: string }[];
+  reservation?: Reservation;
 }) {
   const router = useRouter();
   const t = useTranslations("admin.reservations");
   const tCommon = useTranslations("admin.common");
+  const editing = Boolean(reservation);
 
   const STATUT_LABELS: Record<(typeof STATUTS)[number], string> = {
     en_attente: tCommon("reservation_statut_en_attente"),
@@ -28,14 +43,16 @@ export function ReservationForm({
     annulee: tCommon("reservation_statut_annulee"),
   };
 
-  const [clientId, setClientId] = useState("");
-  const [vehiculeId, setVehiculeId] = useState("");
-  const [dateDebut, setDateDebut] = useState("");
-  const [dateFin, setDateFin] = useState("");
-  const [statut, setStatut] = useState<(typeof STATUTS)[number]>("confirmee");
-  const [prixTotal, setPrixTotal] = useState("");
-  const [caution, setCaution] = useState("");
-  const [notes, setNotes] = useState("");
+  const [clientId, setClientId] = useState(reservation?.client_id ?? "");
+  const [vehiculeId, setVehiculeId] = useState(reservation?.vehicule_id ?? "");
+  const [dateDebut, setDateDebut] = useState(reservation?.date_debut ?? "");
+  const [dateFin, setDateFin] = useState(reservation?.date_fin ?? "");
+  const [statut, setStatut] = useState<(typeof STATUTS)[number]>(
+    reservation?.statut ?? "confirmee",
+  );
+  const [prixTotal, setPrixTotal] = useState(reservation?.prix_total_usd?.toString() ?? "");
+  const [caution, setCaution] = useState(reservation?.caution_usd?.toString() ?? "");
+  const [notes, setNotes] = useState(reservation?.notes ?? "");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -50,7 +67,7 @@ export function ReservationForm({
     setError(null);
 
     const supabase = createClient();
-    const { error } = await supabase.from("reservations").insert({
+    const payload = {
       client_id: clientId,
       vehicule_id: vehiculeId,
       date_debut: dateDebut,
@@ -59,7 +76,11 @@ export function ReservationForm({
       prix_total_usd: prixTotal ? Number(prixTotal) : null,
       caution_usd: caution ? Number(caution) : null,
       notes: notes || null,
-    });
+    };
+
+    const { error } = editing
+      ? await supabase.from("reservations").update(payload).eq("id", reservation!.id)
+      : await supabase.from("reservations").insert(payload);
 
     if (error) {
       // Contrainte "pas_de_chevauchement" (exclusion GiST) — deux réservations actives
@@ -197,7 +218,7 @@ export function ReservationForm({
         disabled={loading || !fechasValidas}
         className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
       >
-        {loading ? tCommon("saving") : t("submit_create")}
+        {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
       </button>
     </form>
   );

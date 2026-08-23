@@ -39,23 +39,21 @@ export default async function NuevaReservaPage({
   }));
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">{t("new")}</h1>
-      <ReservationForm
-        clients={clients ?? []}
-        vehicules={vehiculesFormatted}
-        prefill={{
-          vehiculeId: params.vehicule_id,
-          dateDebut: params.date_debut,
-          dateFin: params.date_fin,
-          heureDebut: params.heure_debut,
-          heureFin: params.heure_fin,
-          lieu: params.lieu,
-          prixEstime: params.prix ? Number(params.prix) : undefined,
-          demandeNom: params.demande_nom,
-          demandeWhatsapp: params.demande_whatsapp,
-        }}
-      />
-    </div>
+    <ReservationForm
+      title={t("new")}
+      clients={clients ?? []}
+      vehicules={vehiculesFormatted}
+      prefill={{
+        vehiculeId: params.vehicule_id,
+        dateDebut: params.date_debut,
+        dateFin: params.date_fin,
+        heureDebut: params.heure_debut,
+        heureFin: params.heure_fin,
+        lieu: params.lieu,
+        prixEstime: params.prix ? Number(params.prix) : undefined,
+        demandeNom: params.demande_nom,
+        demandeWhatsapp: params.demande_whatsapp,
+      }}
+    />
   );
 }

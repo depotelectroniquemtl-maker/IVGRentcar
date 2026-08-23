@@ -75,7 +75,7 @@ export function ContratPrintable({ data }: { data: ContratPrintableData }) {
   const anio = fechaSalida.getFullYear();
 
   return (
-    <div className="mx-auto w-full max-w-[850px] break-inside-avoid bg-white p-8 text-[11px] leading-snug text-black print:p-6">
+    <div className="mx-auto w-full max-w-[680px] break-inside-avoid bg-white p-8 text-[11px] leading-snug text-black print:p-4">
       <div className="flex items-start justify-between gap-4 border-b-2 border-black pb-3">
         <Image src="/logo.png" alt="I.V.J" width={160} height={51} className="h-12 w-auto" />
         <div className="text-right">

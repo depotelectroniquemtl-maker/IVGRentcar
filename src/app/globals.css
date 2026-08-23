@@ -35,3 +35,11 @@ input[type="date"]:focus::-webkit-calendar-picker-indicator,
 input[type="time"]:focus::-webkit-calendar-picker-indicator {
   opacity: 1;
 }
+
+/* Marge de page explicite pour le contrat imprimable — sans ça, la marge dépend des
+   réglages par défaut du navigateur (souvent ~19mm sur Chrome), ce qui laisse trop peu
+   de largeur utile pour le contenu à 680px et risque un débordement/rétrécissement
+   selon l'imprimante. 10mm est un compromis confortable qui tient sur Letter et A4. */
+@page {
+  margin: 10mm;
+}

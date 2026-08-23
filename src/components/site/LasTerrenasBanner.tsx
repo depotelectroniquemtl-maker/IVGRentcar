@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
-import { SealBadge } from "@/components/site/SealBadge";
 
 // Reproduit le bandeau immersif de l'ancien site (classe .discover, dernière révision de
 // globals.css) : photo pleine largeur en fond + superposition sombre en dégradé, texte
@@ -25,12 +24,15 @@ export async function LasTerrenasBanner() {
 
       <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-[0.82fr_1.18fr] md:py-28 lg:px-8">
         <div className="relative z-10 flex flex-col justify-center text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]">
-          <div className="mb-6 flex items-center gap-3">
-            <SealBadge className="h-14 w-14 border-2" />
-            <p className="text-xs font-black uppercase tracking-[0.2em]">{t("kicker")}</p>
-          </div>
+          <p className="mb-6 text-xs font-black uppercase tracking-[0.2em]">{t("kicker")}</p>
           <h2 className="text-4xl font-extrabold leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl">
-            {t("title")}
+            {t("title")
+              .split("\n")
+              .map((line, i) => (
+                <span key={i} className="block">
+                  {line}
+                </span>
+              ))}
           </h2>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/90">{t("intro")}</p>
           <div className="mt-6 flex flex-wrap gap-2">
@@ -47,7 +49,7 @@ export async function LasTerrenasBanner() {
         </div>
 
         <div className="relative z-10 grid grid-cols-[1.08fr_0.92fr] items-end gap-4 md:pt-[160px]">
-          <figure className="relative -translate-y-8 overflow-hidden rounded-lg border-4 border-white shadow-2xl min-h-[280px] sm:min-h-[330px]">
+          <figure className="relative overflow-hidden rounded-lg border-4 border-white shadow-2xl min-h-[280px] sm:min-h-[330px]">
             <Image
               src="/gallery/las-terrenas-village-watermarked.webp"
               alt={gallery[0]?.caption ?? ""}

@@ -75,6 +75,9 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       .then(({ data }) => {
         if (cancelado) return;
         setVehicules(data ?? []);
+        // Un seul véhicule dans la catégorie : on le sélectionne directement plutôt que
+        // de forcer un clic superflu sur son unique carte (source de confusion signalée).
+        if (data?.length === 1) setVehiculeId(data[0].id);
         setVehiculesLoading(false);
       });
 
@@ -169,6 +172,8 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     vehiculeId &&
     dateDebut &&
     dateFin &&
+    horaInicio &&
+    horaFin &&
     disponibilidad === "available";
 
   async function handleSubmit(e: FormEvent) {
@@ -352,6 +357,19 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
                           </svg>
                         </div>
                       )}
+                      {seleccionado && (
+                        <span className="absolute right-1.5 top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-brand shadow-sm">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="white"
+                            strokeWidth={2.5}
+                            className="h-3 w-3"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                          </svg>
+                        </span>
+                      )}
                     </div>
                     <p className="px-2 py-1.5 text-xs font-medium text-ink">
                       {t("vehiculo_unidad", { n: i + 1 })}
@@ -401,6 +419,10 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
               className={inputClass}
             />
           </label>
+
+          {dateDebut && dateFin && (!horaInicio || !horaFin) && (
+            <p className="text-sm font-medium text-red-600 sm:col-span-2">{t("error_hours")}</p>
+          )}
         </div>
       )}
 

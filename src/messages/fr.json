@@ -187,6 +187,7 @@
     "available": "Disponible",
     "unavailable": "Non disponible pour ces dates — essayez un autre véhicule ou d'autres dates.",
     "error_dates": "La date de fin doit être égale ou postérieure à la date de début.",
+    "error_hours": "Veuillez indiquer l'heure de prise en charge et de retour.",
     "checking_error": "Impossible de vérifier la disponibilité.",
     "error_submit": "La demande n'a pas pu être enregistrée, mais WhatsApp est déjà ouvert pour la confirmer directement.",
     "success_title": "Demande envoyée !",

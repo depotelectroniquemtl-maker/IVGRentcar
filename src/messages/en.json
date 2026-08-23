@@ -187,6 +187,7 @@
     "available": "Available",
     "unavailable": "Not available for these dates — try another vehicle or different dates.",
     "error_dates": "The end date must be on or after the start date.",
+    "error_hours": "Please provide the pickup and return time.",
     "checking_error": "Couldn't check availability.",
     "error_submit": "Couldn't save the request, but we already opened WhatsApp so you can confirm it directly.",
     "success_title": "Request sent!",

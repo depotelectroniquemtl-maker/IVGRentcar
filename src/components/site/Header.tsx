@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { Container } from "@/components/ui/Container";
 import { LocaleSwitcher } from "@/components/site/LocaleSwitcher";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { MobileMenu } from "@/components/site/MobileMenu";
@@ -18,7 +17,10 @@ export function Header() {
 
   return (
     <header className="border-b-[3px] border-brand bg-white">
-      <Container className="flex h-20 items-center justify-between gap-4 sm:h-24">
+      {/* Pas de <Container> ici (même raison que le hero) : l'ancien site pousse le
+          header depuis le bord de l'écran (padding en vw), sinon le logo recule vers le
+          centre sur les écrans larges au lieu de rester proche du bord. */}
+      <div className="flex h-20 items-center justify-between gap-4 px-4 sm:h-24 sm:px-6 lg:px-[4vw]">
         <Link href="/" className="shrink-0">
           <Image
             src="/logo.png"
@@ -56,7 +58,7 @@ export function Header() {
           </ExternalButtonLink>
           <MobileMenu />
         </div>
-      </Container>
+      </div>
     </header>
   );
 }

@@ -8,6 +8,7 @@ import { WhySection } from "@/components/site/WhySection";
 import { LasTerrenasBanner } from "@/components/site/LasTerrenasBanner";
 import { VideoSection } from "@/components/site/VideoSection";
 import { getCatalogue } from "@/lib/data/catalogue";
+import { getCurrentTemperature } from "@/lib/data/weather";
 
 export default async function HomePage({
   params,
@@ -17,14 +18,16 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [t, tPreview, tLasTerrenasTeaser, tVideo, tCta, catalogue] = await Promise.all([
-    getTranslations("home.hero"),
-    getTranslations("home.flotte_preview"),
-    getTranslations("home.lasTerrenasTeaser"),
-    getTranslations("home.video"),
-    getTranslations("home.cta"),
-    getCatalogue(),
-  ]);
+  const [t, tPreview, tLasTerrenasTeaser, tVideo, tCta, catalogue, temperature] =
+    await Promise.all([
+      getTranslations("home.hero"),
+      getTranslations("home.flotte_preview"),
+      getTranslations("home.lasTerrenasTeaser"),
+      getTranslations("home.video"),
+      getTranslations("home.cta"),
+      getCatalogue(),
+      getCurrentTemperature(),
+    ]);
 
   return (
     <>
@@ -34,7 +37,7 @@ export default async function HomePage({
           alt=""
           fill
           priority
-          className="object-cover"
+          className="object-cover object-bottom"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/5" />
         {/* Pas de <Container> ici volontairement : l'ancien site pousse le texte depuis le
@@ -62,14 +65,16 @@ export default async function HomePage({
             <span className="text-green-400">●</span> {t("reply")}
           </p>
         </div>
-        <div className="absolute bottom-6 right-6 z-10 hidden w-[150px] border border-white/40 bg-white/10 p-5 text-white backdrop-blur-md md:block">
-          <span className="font-serif text-4xl">27°</span>
-          <p className="mt-2 text-[11px] leading-relaxed tracking-wider">
-            LAS TERRENAS
-            <br />
-            SAMANÁ · RD
-          </p>
-        </div>
+        {temperature !== null && (
+          <div className="absolute bottom-6 right-6 z-10 hidden w-[150px] border border-white/40 bg-white/10 p-5 text-white backdrop-blur-md md:block">
+            <span className="font-serif text-4xl">{temperature}°</span>
+            <p className="mt-2 text-[11px] leading-relaxed tracking-wider">
+              LAS TERRENAS
+              <br />
+              SAMANÁ · RD
+            </p>
+          </div>
+        )}
       </section>
 
       <section className="py-16 sm:py-24">

@@ -22,12 +22,18 @@ export async function WhySection() {
           <SealBadge className="absolute right-6 -bottom-10 md:-right-12 md:bottom-auto md:top-16" />
         </div>
 
-        <div className="flex flex-col justify-center px-6 py-16 sm:px-10 md:px-16 md:py-24">
+        <div className="flex flex-col justify-center px-6 py-16 sm:px-10 md:px-16 md:py-24 lg:pl-24">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-brand">
             {t("eyebrow")}
           </p>
           <h2 className="mt-3 text-4xl font-extrabold leading-[0.98] tracking-tight text-ink sm:text-5xl lg:text-6xl">
-            {t("title")}
+            {t("title")
+              .split("\n")
+              .map((line, i) => (
+                <span key={i} className="block">
+                  {line}
+                </span>
+              ))}
           </h2>
 
           <div className="mt-10 flex flex-col">

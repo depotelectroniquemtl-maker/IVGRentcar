@@ -34,7 +34,7 @@ export function TarifaInput({ id, prixInicial }: { id: string; prixInicial: numb
           setEstado("idle");
         }}
         onBlur={handleBlur}
-        className="w-20 rounded border border-black/20 px-2 py-1 focus:border-brand focus:outline-none"
+        className="w-20 rounded-md border border-black/20 px-2 py-1.5 text-ink transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
       />
       {estado === "saving" && <span className="text-xs text-ink-soft">…</span>}
       {estado === "saved" && <span className="text-xs text-green-700">✓</span>}

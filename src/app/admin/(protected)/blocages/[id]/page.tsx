@@ -33,11 +33,10 @@ export default async function EditarBlocagePage({
   const vehiculeActuel = vehiculesFormatted.find((v) => v.id === blocage.vehicule_id);
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">
-        {t("edit_title", { vehiculo: vehiculeActuel?.categorie_nom ?? tCommon("dash") })}
-      </h1>
-      <BlocageForm vehicules={vehiculesFormatted} blocage={blocage} />
-    </div>
+    <BlocageForm
+      title={t("edit_title", { vehiculo: vehiculeActuel?.categorie_nom ?? tCommon("dash") })}
+      vehicules={vehiculesFormatted}
+      blocage={blocage}
+    />
   );
 }

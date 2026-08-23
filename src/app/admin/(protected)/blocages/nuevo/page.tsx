@@ -24,13 +24,11 @@ export default async function NuevoBlocagePage({
   }));
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">{t("new")}</h1>
-      <BlocageForm
-        vehicules={vehiculesFormatted}
-        vehiculeIdPreseleccionado={params.vehicule_id}
-        dateDebutPreseleccionada={params.date_debut}
-      />
-    </div>
+    <BlocageForm
+      title={t("new")}
+      vehicules={vehiculesFormatted}
+      vehiculeIdPreseleccionado={params.vehicule_id}
+      dateDebutPreseleccionada={params.date_debut}
+    />
   );
 }

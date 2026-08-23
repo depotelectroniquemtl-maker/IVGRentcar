@@ -1,10 +1,18 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
-import { FormSection, dangerLinkClass, inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
+import {
+  FormSection,
+  dangerLinkClass,
+  inputClass,
+  labelClass,
+  primaryButtonClass,
+  secondaryLinkClass,
+} from "@/components/admin/form-ui";
 
 type Blocage = {
   id: string;
@@ -15,11 +23,13 @@ type Blocage = {
 };
 
 export function BlocageForm({
+  title,
   vehicules,
   blocage,
   vehiculeIdPreseleccionado,
   dateDebutPreseleccionada,
 }: {
+  title: string;
   vehicules: { id: string; plaque: string | null; categorie_nom: string }[];
   blocage?: Blocage;
   vehiculeIdPreseleccionado?: string;
@@ -91,10 +101,22 @@ export function BlocageForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex max-w-2xl flex-col gap-6 rounded-lg bg-white p-8 shadow-sm"
-    >
+    <form onSubmit={handleSubmit} className="flex max-w-2xl flex-col gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-ink">{title}</h1>
+        <div className="flex items-center gap-3">
+          <Link href="/admin/calendrier" className={secondaryLinkClass}>
+            {tCommon("cancel")}
+          </Link>
+          <button type="submit" disabled={loading || !fechasValidas} className={primaryButtonClass}>
+            {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
+          </button>
+        </div>
+      </div>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      <div className="flex flex-col gap-6 rounded-lg border border-black/10 bg-white p-8 shadow-sm">
       <FormSection title={t("section_vehiculo")}>
         <label className="block text-sm">
           <span className={labelClass}>{t("field_vehiculo")}</span>
@@ -155,12 +177,6 @@ export function BlocageForm({
         </label>
       </FormSection>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
-
-      <button type="submit" disabled={loading || !fechasValidas} className={primaryButtonClass}>
-        {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
-      </button>
-
       {editing && (
         <div className="border-t border-black/10 pt-4">
           {!confirmingDelete ? (
@@ -190,6 +206,7 @@ export function BlocageForm({
           )}
         </div>
       )}
+      </div>
     </form>
   );
 }

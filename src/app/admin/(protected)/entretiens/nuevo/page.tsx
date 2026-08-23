@@ -24,12 +24,10 @@ export default async function NuevoEntretienPage({
   }));
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">{t("new")}</h1>
-      <EntretienForm
-        vehicules={vehiculesFormatted}
-        vehiculeIdPreseleccionado={vehiculeIdPreseleccionado}
-      />
-    </div>
+    <EntretienForm
+      title={t("new")}
+      vehicules={vehiculesFormatted}
+      vehiculeIdPreseleccionado={vehiculeIdPreseleccionado}
+    />
   );
 }

@@ -1,17 +1,20 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
-import { FormSection, inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
+import { FormSection, inputClass, labelClass, primaryButtonClass, secondaryLinkClass } from "@/components/admin/form-ui";
 
 const TYPES = ["vidange", "freins", "pneus", "reparation", "inspection", "autre"] as const;
 
 export function EntretienForm({
+  title,
   vehicules,
   vehiculeIdPreseleccionado,
 }: {
+  title: string;
   vehicules: { id: string; plaque: string | null; categorie_nom: string }[];
   vehiculeIdPreseleccionado?: string;
 }) {
@@ -64,10 +67,22 @@ export function EntretienForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex max-w-2xl flex-col gap-6 rounded-lg bg-white p-8 shadow-sm"
-    >
+    <form onSubmit={handleSubmit} className="flex max-w-2xl flex-col gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-ink">{title}</h1>
+        <div className="flex items-center gap-3">
+          <Link href="/admin/entretiens" className={secondaryLinkClass}>
+            {tCommon("cancel")}
+          </Link>
+          <button type="submit" disabled={loading} className={primaryButtonClass}>
+            {loading ? tCommon("saving") : t("submit_create")}
+          </button>
+        </div>
+      </div>
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      <div className="flex flex-col gap-6 rounded-lg border border-black/10 bg-white p-8 shadow-sm">
       <FormSection title={t("section_vehiculo")}>
         <label className="block text-sm">
           <span className={labelClass}>{t("field_vehiculo")}</span>
@@ -149,12 +164,7 @@ export function EntretienForm({
           className={inputClass}
         />
       </FormSection>
-
-      {error && <p className="text-sm text-red-600">{error}</p>}
-
-      <button type="submit" disabled={loading} className={primaryButtonClass}>
-        {loading ? tCommon("saving") : t("submit_create")}
-      </button>
+      </div>
     </form>
   );
 }

@@ -32,7 +32,7 @@ export function DemandeStatutSelect({ id, statut }: { id: string; statut: string
       defaultValue={statut}
       onChange={handleChange}
       disabled={loading}
-      className="rounded border border-black/20 bg-white px-2 py-1 text-sm disabled:opacity-60"
+      className="rounded-md border border-black/20 bg-white px-2 py-1.5 text-sm text-ink transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 disabled:opacity-60"
     >
       {STATUTS.map((s) => (
         <option key={s} value={s}>

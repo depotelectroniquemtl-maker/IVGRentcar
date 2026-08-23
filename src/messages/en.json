@@ -543,6 +543,7 @@
       "col_horario": "Time",
       "col_precio": "Est. price",
       "col_estado": "Status",
+      "col_acciones": "Actions",
       "empty": "No requests yet.",
       "statut_nouvelle": "New",
       "statut_contactee": "Contacted",

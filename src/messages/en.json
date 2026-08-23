@@ -204,6 +204,7 @@
       "nav_demandes": "Requests",
       "nav_reservations": "Reservations",
       "nav_vehicules": "Vehicles",
+      "nav_entretiens": "Maintenance",
       "nav_clients": "Clients",
       "nav_tarifs": "Rates",
       "nav_utilisateurs": "Users",
@@ -223,7 +224,13 @@
       "vehicule_etat_hors_service": "Out of service",
       "reservation_statut_en_attente": "Pending",
       "reservation_statut_confirmee": "Confirmed",
-      "reservation_statut_annulee": "Cancelled"
+      "reservation_statut_annulee": "Cancelled",
+      "entretien_type_vidange": "Oil change",
+      "entretien_type_freins": "Brakes",
+      "entretien_type_pneus": "Tires",
+      "entretien_type_reparation": "Repair",
+      "entretien_type_inspection": "Inspection",
+      "entretien_type_autre": "Other"
     },
     "dashboard": {
       "title": "Dashboard",
@@ -255,6 +262,27 @@
       "submit_create": "Create vehicle",
       "save_changes": "Save changes",
       "error_duplicate_plaque": "A vehicle with that plate already exists."
+    },
+    "entretiens": {
+      "title": "Maintenance",
+      "new": "New record",
+      "col_vehiculo": "Vehicle",
+      "col_tipo": "Type",
+      "col_fecha": "Date",
+      "col_costo": "Cost",
+      "col_proximo": "Next due",
+      "empty": "No maintenance records yet.",
+      "field_vehiculo": "Vehicle",
+      "field_vehiculo_placeholder": "Select a vehicle",
+      "field_tipo": "Type of work",
+      "field_fecha": "Date",
+      "field_costo": "Cost (US$)",
+      "field_proximo": "Next maintenance due (optional)",
+      "field_notas": "Notes",
+      "submit_create": "Save record",
+      "history_title": "Maintenance history",
+      "history_empty": "No maintenance logged yet.",
+      "history_add": "Log maintenance"
     },
     "clients": {
       "title": "Clients",

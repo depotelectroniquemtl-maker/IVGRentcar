@@ -204,6 +204,7 @@
       "nav_demandes": "Solicitudes",
       "nav_reservations": "Reservas",
       "nav_vehicules": "Vehículos",
+      "nav_entretiens": "Mantenimiento",
       "nav_clients": "Clientes",
       "nav_tarifs": "Tarifas",
       "nav_utilisateurs": "Usuarios",
@@ -223,7 +224,13 @@
       "vehicule_etat_hors_service": "Fuera de servicio",
       "reservation_statut_en_attente": "Pendiente",
       "reservation_statut_confirmee": "Confirmada",
-      "reservation_statut_annulee": "Anulada"
+      "reservation_statut_annulee": "Anulada",
+      "entretien_type_vidange": "Cambio de aceite",
+      "entretien_type_freins": "Frenos",
+      "entretien_type_pneus": "Neumáticos",
+      "entretien_type_reparation": "Reparación",
+      "entretien_type_inspection": "Inspección",
+      "entretien_type_autre": "Otro"
     },
     "dashboard": {
       "title": "Panel",
@@ -255,6 +262,27 @@
       "submit_create": "Crear vehículo",
       "save_changes": "Guardar cambios",
       "error_duplicate_plaque": "Ya existe un vehículo con esa placa."
+    },
+    "entretiens": {
+      "title": "Mantenimiento",
+      "new": "Nuevo registro",
+      "col_vehiculo": "Vehículo",
+      "col_tipo": "Tipo",
+      "col_fecha": "Fecha",
+      "col_costo": "Costo",
+      "col_proximo": "Próximo",
+      "empty": "Ningún registro de mantenimiento todavía.",
+      "field_vehiculo": "Vehículo",
+      "field_vehiculo_placeholder": "Selecciona un vehículo",
+      "field_tipo": "Tipo de intervención",
+      "field_fecha": "Fecha",
+      "field_costo": "Costo (US$)",
+      "field_proximo": "Próximo mantenimiento (opcional)",
+      "field_notas": "Notas",
+      "submit_create": "Guardar registro",
+      "history_title": "Historial de mantenimiento",
+      "history_empty": "Sin mantenimiento registrado.",
+      "history_add": "Registrar mantenimiento"
     },
     "clients": {
       "title": "Clientes",

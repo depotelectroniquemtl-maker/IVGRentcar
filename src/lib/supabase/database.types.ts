@@ -144,6 +144,67 @@ export type Database = {
           },
         ]
       }
+      entretiens: {
+        Row: {
+          cout_usd: number | null
+          created_at: string
+          created_by: string | null
+          date_entretien: string
+          id: string
+          notes: string | null
+          prochain_entretien: string | null
+          type: string
+          updated_at: string
+          vehicule_id: string
+        }
+        Insert: {
+          cout_usd?: number | null
+          created_at?: string
+          created_by?: string | null
+          date_entretien?: string
+          id?: string
+          notes?: string | null
+          prochain_entretien?: string | null
+          type?: string
+          updated_at?: string
+          vehicule_id: string
+        }
+        Update: {
+          cout_usd?: number | null
+          created_at?: string
+          created_by?: string | null
+          date_entretien?: string
+          id?: string
+          notes?: string | null
+          prochain_entretien?: string | null
+          type?: string
+          updated_at?: string
+          vehicule_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "entretiens_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entretiens_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "entretiens_vehicule_id_fkey"
+            columns: ["vehicule_id"]
+            isOneToOne: false
+            referencedRelation: "vehicules_disponibilite"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           created_at: string

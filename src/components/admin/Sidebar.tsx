@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { href: "/admin/demandes", key: "nav_demandes", adminOnly: false },
   { href: "/admin/reservations", key: "nav_reservations", adminOnly: false },
   { href: "/admin/vehicules", key: "nav_vehicules", adminOnly: false },
+  { href: "/admin/entretiens", key: "nav_entretiens", adminOnly: false },
   { href: "/admin/clients", key: "nav_clients", adminOnly: false },
   { href: "/admin/tarifs", key: "nav_tarifs", adminOnly: false },
   { href: "/admin/utilisateurs", key: "nav_utilisateurs", adminOnly: true },

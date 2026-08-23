@@ -24,19 +24,27 @@ export default async function EditarVehiculoPage({
     autre: tCommon("entretien_type_autre"),
   };
 
-  const [{ data: vehicule }, { data: categories }, { data: entretiens }] = await Promise.all([
-    supabase
-      .from("vehicules")
-      .select("id, categorie_id, plaque, annee, etat_operationnel, notes, actif")
-      .eq("id", id)
-      .single(),
-    supabase.from("categories_vehicules").select("id, nom").order("nom"),
-    supabase
-      .from("entretiens")
-      .select("id, type, date_entretien, cout_usd, prochain_entretien, notes")
-      .eq("vehicule_id", id)
-      .order("date_entretien", { ascending: false }),
-  ]);
+  const tBlocages = await getAdminTranslator("admin.blocages");
+
+  const [{ data: vehicule }, { data: categories }, { data: entretiens }, { data: blocages }] =
+    await Promise.all([
+      supabase
+        .from("vehicules")
+        .select("id, categorie_id, plaque, annee, etat_operationnel, notes, actif")
+        .eq("id", id)
+        .single(),
+      supabase.from("categories_vehicules").select("id, nom").order("nom"),
+      supabase
+        .from("entretiens")
+        .select("id, type, date_entretien, cout_usd, prochain_entretien, notes")
+        .eq("vehicule_id", id)
+        .order("date_entretien", { ascending: false }),
+      supabase
+        .from("indisponibilites_vehicule")
+        .select("id, date_debut, date_fin, motif")
+        .eq("vehicule_id", id)
+        .order("date_debut", { ascending: false }),
+    ]);
 
   if (!vehicule) notFound();
 
@@ -82,6 +90,38 @@ export default async function EditarVehiculoPage({
           </ul>
         ) : (
           <p className="text-sm text-ink-soft">{tEntretiens("history_empty")}</p>
+        )}
+      </div>
+
+      <div className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-bold text-ink">{tBlocages("title")}</h2>
+          <Link
+            href={`/admin/blocages/nuevo?vehicule_id=${id}`}
+            className="text-sm font-semibold text-brand hover:underline"
+          >
+            {t("indispo_add")}
+          </Link>
+        </div>
+
+        {blocages?.length ? (
+          <ul className="flex flex-col divide-y divide-black/5">
+            {blocages.map((b) => (
+              <li key={b.id} className="flex items-center justify-between py-3 text-sm">
+                <div>
+                  <p className="font-medium text-ink">{b.motif || tCommon("dash")}</p>
+                  <p className="text-ink-soft">
+                    {b.date_debut} → {b.date_fin}
+                  </p>
+                </div>
+                <Link href={`/admin/blocages/${b.id}`} className="text-brand hover:underline">
+                  {tCommon("edit")}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm text-ink-soft">{t("indispo_empty")}</p>
         )}
       </div>
     </div>

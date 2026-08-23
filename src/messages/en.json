@@ -220,6 +220,7 @@
       "nav_panel": "Dashboard",
       "nav_demandes": "Requests",
       "nav_reservations": "Reservations",
+      "nav_calendrier": "Calendar",
       "nav_vehicules": "Vehicles",
       "nav_entretiens": "Maintenance",
       "nav_clients": "Clients",
@@ -247,7 +248,8 @@
       "entretien_type_pneus": "Tires",
       "entretien_type_reparation": "Repair",
       "entretien_type_inspection": "Inspection",
-      "entretien_type_autre": "Other"
+      "entretien_type_autre": "Other",
+      "cancel": "Cancel"
     },
     "dashboard": {
       "title": "Dashboard",
@@ -278,7 +280,10 @@
       "field_activo": "Active",
       "submit_create": "Create vehicle",
       "save_changes": "Save changes",
-      "error_duplicate_plaque": "A vehicle with that plate already exists."
+      "error_duplicate_plaque": "A vehicle with that plate already exists.",
+      "indispo_title": "Blocked periods",
+      "indispo_empty": "No blocked periods.",
+      "indispo_add": "Add block"
     },
     "entretiens": {
       "title": "Maintenance",
@@ -300,6 +305,38 @@
       "history_title": "Maintenance history",
       "history_empty": "No maintenance logged yet.",
       "history_add": "Log maintenance"
+    },
+    "blocages": {
+      "title": "Manual blocks",
+      "new": "New block",
+      "edit_title": "Edit block — {vehiculo}",
+      "field_vehiculo": "Vehicle",
+      "field_vehiculo_placeholder": "Select a vehicle",
+      "field_fecha_inicio": "Start date",
+      "field_fecha_fin": "End date",
+      "error_fechas": "The end date must be on or after the start date.",
+      "field_motivo": "Reason",
+      "field_motivo_placeholder": "E.g. maintenance, booked by phone, out of service",
+      "submit_create": "Create block",
+      "save_changes": "Save changes",
+      "error_overlap": "That vehicle already has a reservation or block overlapping those dates.",
+      "delete": "Delete block",
+      "delete_confirm": "Delete this block?",
+      "delete_confirm_yes": "Yes, delete"
+    },
+    "calendrier": {
+      "title": "Fleet calendar",
+      "prev": "← Previous",
+      "next": "Next →",
+      "col_vehiculo": "Vehicle",
+      "legend_reservation": "Reservation",
+      "legend_indisponibilite": "Block",
+      "empty": "No active vehicles.",
+      "choose_title": "What would you like to do?",
+      "choose_subtitle": "{vehiculo} — {fecha}",
+      "action_reserva": "Create a reservation",
+      "action_bloqueo": "Block this vehicle",
+      "back": "← Back to calendar"
     },
     "clients": {
       "title": "Clients",
@@ -346,7 +383,15 @@
       "submit_create": "Create reservation",
       "error_overlap": "That vehicle already has a reservation overlapping those dates.",
       "edit_title": "Edit reservation — {cliente}",
-      "save_changes": "Save changes"
+      "save_changes": "Save changes",
+      "field_hora_inicio": "Pickup time",
+      "field_hora_fin": "Return time",
+      "field_lugar": "Pickup location",
+      "field_precio_hint": "Auto-calculated from the vehicle and dates — you can adjust it.",
+      "delete": "Delete reservation",
+      "delete_confirm": "Permanently delete this reservation? This can't be undone.",
+      "delete_confirm_yes": "Yes, delete",
+      "convert_prefill_notice": "Prefilled from {nombre}'s request ({whatsapp}). Select or create the matching client."
     },
     "tarifs": {
       "title": "Rates",
@@ -373,7 +418,8 @@
       "statut_nouvelle": "New",
       "statut_contactee": "Contacted",
       "statut_convertie": "Converted",
-      "statut_rejetee": "Rejected"
+      "statut_rejetee": "Rejected",
+      "convert": "Convert to reservation"
     },
     "utilisateurs": {
       "title": "Users",

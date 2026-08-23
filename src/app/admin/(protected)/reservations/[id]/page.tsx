@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
+import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { ReservationForm } from "@/components/admin/ReservationForm";
+import { DeleteReservationButton } from "@/components/admin/DeleteReservationButton";
 
 export default async function EditarReservaPage({
   params,
@@ -12,11 +14,12 @@ export default async function EditarReservaPage({
   const supabase = createClient();
   const t = await getAdminTranslator("admin.reservations");
   const tCommon = await getAdminTranslator("admin.common");
+  const profile = await getCurrentProfile();
 
   const { data: reservation } = await supabase
     .from("reservations")
     .select(
-      "id, client_id, vehicule_id, date_debut, date_fin, statut, prix_total_usd, caution_usd, notes, clients(nom)",
+      "id, client_id, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, statut, prix_total_usd, caution_usd, notes, clients(nom)",
     )
     .eq("id", id)
     .single();
@@ -29,12 +32,12 @@ export default async function EditarReservaPage({
     supabase.from("clients").select("id, nom").order("nom"),
     supabase
       .from("vehicules")
-      .select("id, plaque, categories_vehicules(nom)")
+      .select("id, plaque, categorie_id, categories_vehicules(nom)")
       .eq("actif", true)
       .order("plaque"),
     supabase
       .from("vehicules")
-      .select("id, plaque, categories_vehicules(nom)")
+      .select("id, plaque, categorie_id, categories_vehicules(nom)")
       .eq("id", reservation.vehicule_id)
       .single(),
   ]);
@@ -42,22 +45,31 @@ export default async function EditarReservaPage({
   const vehiculesById = new Map(
     (vehicules ?? []).map((v) => [
       v.id,
-      { id: v.id, plaque: v.plaque, categorie_nom: v.categories_vehicules?.nom ?? tCommon("dash") },
+      {
+        id: v.id,
+        plaque: v.plaque,
+        categorie_id: v.categorie_id,
+        categorie_nom: v.categories_vehicules?.nom ?? tCommon("dash"),
+      },
     ]),
   );
   if (vehiculeActuel && !vehiculesById.has(vehiculeActuel.id)) {
     vehiculesById.set(vehiculeActuel.id, {
       id: vehiculeActuel.id,
       plaque: vehiculeActuel.plaque,
+      categorie_id: vehiculeActuel.categorie_id,
       categorie_nom: vehiculeActuel.categories_vehicules?.nom ?? tCommon("dash"),
     });
   }
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">
-        {t("edit_title", { cliente: reservation.clients?.nom ?? tCommon("dash") })}
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-ink">
+          {t("edit_title", { cliente: reservation.clients?.nom ?? tCommon("dash") })}
+        </h1>
+        {profile?.role === "admin" && <DeleteReservationButton id={reservation.id} />}
+      </div>
       <ReservationForm
         clients={clients ?? []}
         vehicules={Array.from(vehiculesById.values())}

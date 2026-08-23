@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { DemandeStatutSelect } from "@/components/admin/DemandeStatutSelect";
@@ -10,7 +11,7 @@ export default async function DemandesPage() {
   const { data: demandes, error } = await supabase
     .from("demandes_reservation")
     .select(
-      "id, nom, whatsapp, date_debut, date_fin, heure_debut, heure_fin, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
+      "id, nom, whatsapp, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
     )
     .order("created_at", { ascending: false });
 
@@ -35,33 +36,56 @@ export default async function DemandesPage() {
               <th className="px-4 py-3">{t("col_horario")}</th>
               <th className="px-4 py-3">{t("col_precio")}</th>
               <th className="px-4 py-3">{t("col_estado")}</th>
+              <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody>
-            {demandes?.map((d) => (
-              <tr key={d.id} className="border-t border-black/5">
-                <td className="px-4 py-3 font-medium text-ink">{d.nom}</td>
-                <td className="px-4 py-3">{d.whatsapp}</td>
-                <td className="px-4 py-3">
-                  {d.vehicules?.categories_vehicules?.nom ?? tCommon("dash")}
-                  {d.vehicules?.plaque ? ` (${d.vehicules.plaque})` : ""}
-                </td>
-                <td className="px-4 py-3">{d.date_debut}</td>
-                <td className="px-4 py-3">{d.date_fin}</td>
-                <td className="px-4 py-3">
-                  {d.heure_debut ?? tCommon("dash")} → {d.heure_fin ?? tCommon("dash")}
-                </td>
-                <td className="px-4 py-3">
-                  {d.prix_estime_usd ? `US$ ${d.prix_estime_usd}` : tCommon("dash")}
-                </td>
-                <td className="px-4 py-3">
-                  <DemandeStatutSelect id={d.id} statut={d.statut} />
-                </td>
-              </tr>
-            ))}
+            {demandes?.map((d) => {
+              const convertirParams = new URLSearchParams({
+                vehicule_id: d.vehicule_id,
+                date_debut: d.date_debut,
+                date_fin: d.date_fin,
+                demande_nom: d.nom,
+                demande_whatsapp: d.whatsapp,
+              });
+              if (d.heure_debut) convertirParams.set("heure_debut", d.heure_debut.slice(0, 5));
+              if (d.heure_fin) convertirParams.set("heure_fin", d.heure_fin.slice(0, 5));
+              if (d.lieu_prise_en_charge) convertirParams.set("lieu", d.lieu_prise_en_charge);
+              if (d.prix_estime_usd) convertirParams.set("prix", String(d.prix_estime_usd));
+
+              return (
+                <tr key={d.id} className="border-t border-black/5">
+                  <td className="px-4 py-3 font-medium text-ink">{d.nom}</td>
+                  <td className="px-4 py-3">{d.whatsapp}</td>
+                  <td className="px-4 py-3">
+                    {d.vehicules?.categories_vehicules?.nom ?? tCommon("dash")}
+                    {d.vehicules?.plaque ? ` (${d.vehicules.plaque})` : ""}
+                  </td>
+                  <td className="px-4 py-3">{d.date_debut}</td>
+                  <td className="px-4 py-3">{d.date_fin}</td>
+                  <td className="px-4 py-3">
+                    {d.heure_debut ?? tCommon("dash")} → {d.heure_fin ?? tCommon("dash")}
+                  </td>
+                  <td className="px-4 py-3">
+                    {d.prix_estime_usd ? `US$ ${d.prix_estime_usd}` : tCommon("dash")}
+                  </td>
+                  <td className="px-4 py-3">
+                    <DemandeStatutSelect id={d.id} statut={d.statut} />
+                  </td>
+                  <td className="px-4 py-3 text-right">
+                    <Link
+                      href={`/admin/reservations/nueva?${convertirParams.toString()}`}
+                      className="text-brand hover:underline"
+                    >
+                      {t("convert")}
+                    </Link>
+                  </td>
+                </tr>
+              );
+            })}
             {demandes?.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-4 py-6 text-center text-ink-soft">
+                <td colSpan={9} className="px-4 py-6 text-center text-ink-soft">
                   {t("empty")}
                 </td>
               </tr>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
@@ -17,20 +17,37 @@ type Reservation = {
   vehicule_id: string;
   date_debut: string;
   date_fin: string;
+  heure_debut: string | null;
+  heure_fin: string | null;
+  lieu_prise_en_charge: string | null;
   statut: (typeof STATUTS)[number];
   prix_total_usd: number | null;
   caution_usd: number | null;
   notes: string | null;
 };
 
+type Prefill = {
+  vehiculeId?: string;
+  dateDebut?: string;
+  dateFin?: string;
+  heureDebut?: string;
+  heureFin?: string;
+  lieu?: string;
+  prixEstime?: number;
+  demandeNom?: string;
+  demandeWhatsapp?: string;
+};
+
 export function ReservationForm({
   clients,
   vehicules,
   reservation,
+  prefill,
 }: {
   clients: { id: string; nom: string }[];
-  vehicules: { id: string; plaque: string | null; categorie_nom: string }[];
+  vehicules: { id: string; plaque: string | null; categorie_nom: string; categorie_id: string }[];
   reservation?: Reservation;
+  prefill?: Prefill;
 }) {
   const router = useRouter();
   const t = useTranslations("admin.reservations");
@@ -44,13 +61,24 @@ export function ReservationForm({
   };
 
   const [clientId, setClientId] = useState(reservation?.client_id ?? "");
-  const [vehiculeId, setVehiculeId] = useState(reservation?.vehicule_id ?? "");
-  const [dateDebut, setDateDebut] = useState(reservation?.date_debut ?? "");
-  const [dateFin, setDateFin] = useState(reservation?.date_fin ?? "");
+  const [vehiculeId, setVehiculeId] = useState(
+    reservation?.vehicule_id ?? prefill?.vehiculeId ?? "",
+  );
+  const [dateDebut, setDateDebut] = useState(reservation?.date_debut ?? prefill?.dateDebut ?? "");
+  const [dateFin, setDateFin] = useState(reservation?.date_fin ?? prefill?.dateFin ?? "");
+  const [heureDebut, setHeureDebut] = useState(
+    reservation?.heure_debut?.slice(0, 5) ?? prefill?.heureDebut ?? "",
+  );
+  const [heureFin, setHeureFin] = useState(
+    reservation?.heure_fin?.slice(0, 5) ?? prefill?.heureFin ?? "",
+  );
+  const [lieu, setLieu] = useState(reservation?.lieu_prise_en_charge ?? prefill?.lieu ?? "");
   const [statut, setStatut] = useState<(typeof STATUTS)[number]>(
     reservation?.statut ?? "confirmee",
   );
-  const [prixTotal, setPrixTotal] = useState(reservation?.prix_total_usd?.toString() ?? "");
+  const [prixTotal, setPrixTotal] = useState(
+    reservation?.prix_total_usd?.toString() ?? prefill?.prixEstime?.toString() ?? "",
+  );
   const [caution, setCaution] = useState(reservation?.caution_usd?.toString() ?? "");
   const [notes, setNotes] = useState(reservation?.notes ?? "");
 
@@ -58,6 +86,38 @@ export function ReservationForm({
   const [error, setError] = useState<string | null>(null);
 
   const fechasValidas = !dateDebut || !dateFin || dateFin >= dateDebut;
+
+  // Prix pré-rempli automatiquement dès que véhicule + dates changent, mais reste
+  // modifiable à la main ensuite (demande explicite du client, ex: remise). On saute le
+  // tout premier passage pour ne jamais écraser un prix déjà personnalisé au chargement
+  // (édition d'une réservation existante, ou prix précalculé venant d'une demande).
+  const premierRendu = useRef(true);
+  useEffect(() => {
+    if (premierRendu.current) {
+      premierRendu.current = false;
+      return;
+    }
+
+    const categorieId = vehicules.find((v) => v.id === vehiculeId)?.categorie_id;
+    if (!categorieId || !dateDebut || !dateFin || !fechasValidas) return;
+
+    let cancelado = false;
+    const supabase = createClient();
+    supabase
+      .rpc("calculer_prix_total", {
+        p_categorie_id: categorieId,
+        p_date_debut: dateDebut,
+        p_date_fin: dateFin,
+      })
+      .then(({ data }) => {
+        if (!cancelado && typeof data === "number") setPrixTotal(data.toString());
+      });
+
+    return () => {
+      cancelado = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [vehiculeId, dateDebut, dateFin]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -72,6 +132,9 @@ export function ReservationForm({
       vehicule_id: vehiculeId,
       date_debut: dateDebut,
       date_fin: dateFin,
+      heure_debut: heureDebut || null,
+      heure_fin: heureFin || null,
+      lieu_prise_en_charge: lieu || null,
       statut,
       prix_total_usd: prixTotal ? Number(prixTotal) : null,
       caution_usd: caution ? Number(caution) : null,
@@ -96,6 +159,15 @@ export function ReservationForm({
 
   return (
     <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
+      {prefill?.demandeNom && (
+        <p className="rounded bg-brand-light px-3 py-2 text-sm text-ink">
+          {t("convert_prefill_notice", {
+            nombre: prefill.demandeNom,
+            whatsapp: prefill.demandeWhatsapp ?? "",
+          })}
+        </p>
+      )}
+
       <label className="block text-sm">
         <span className={labelClass}>{t("field_cliente")}</span>
         <select
@@ -162,6 +234,38 @@ export function ReservationForm({
 
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block text-sm">
+          <span className={labelClass}>{t("field_hora_inicio")}</span>
+          <input
+            type="time"
+            value={heureDebut}
+            onChange={(e) => setHeureDebut(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_hora_fin")}</span>
+          <input
+            type="time"
+            value={heureFin}
+            onChange={(e) => setHeureFin(e.target.value)}
+            className={inputClass}
+          />
+        </label>
+      </div>
+
+      <label className="block text-sm">
+        <span className={labelClass}>{t("field_lugar")}</span>
+        <input
+          type="text"
+          value={lieu}
+          onChange={(e) => setLieu(e.target.value)}
+          className={inputClass}
+        />
+      </label>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="block text-sm">
           <span className={labelClass}>{t("field_precio")}</span>
           <input
             type="number"
@@ -171,6 +275,7 @@ export function ReservationForm({
             onChange={(e) => setPrixTotal(e.target.value)}
             className={inputClass}
           />
+          <span className="mt-1 block text-xs text-ink-soft">{t("field_precio_hint")}</span>
         </label>
 
         <label className="block text-sm">

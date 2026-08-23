@@ -24,10 +24,5 @@ export default async function NuevoVehiculoPage() {
     .select("id, nom")
     .order("nom");
 
-  return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">{t("new")}</h1>
-      <VehiculeForm categories={categories ?? []} />
-    </div>
-  );
+  return <VehiculeForm title={t("new")} categories={categories ?? []} />;
 }

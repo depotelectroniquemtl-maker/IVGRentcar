@@ -36,3 +36,29 @@ export function FormSection({
     </div>
   );
 }
+
+// Carte autonome avec son propre en-tête (titre + action optionnelle) — utilisée quand
+// une page groupe plusieurs blocs indépendants côte à côte (grille à deux colonnes) plutôt
+// que des sections empilées dans une seule carte : chaque bloc doit alors se distinguer
+// visuellement par ses propres bordures, pas seulement par un séparateur interne.
+export function Card({
+  title,
+  action,
+  children,
+  className = "",
+}: {
+  title: string;
+  action?: ReactNode;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={`overflow-hidden rounded-lg border border-black/10 bg-white shadow-sm ${className}`}>
+      <div className="flex items-center justify-between gap-3 border-b border-black/10 px-6 py-4">
+        <h2 className="text-sm font-bold text-ink">{title}</h2>
+        {action}
+      </div>
+      <div className="flex flex-col gap-4 p-6">{children}</div>
+    </div>
+  );
+}

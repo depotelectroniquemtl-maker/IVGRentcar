@@ -491,6 +491,12 @@ export type Database = {
       }
     }
     Functions: {
+      categories_avec_flotte_active: {
+        Args: never
+        Returns: {
+          categorie_id: string
+        }[]
+      }
       disponibilite_categorie: {
         Args: {
           p_categorie_id: string

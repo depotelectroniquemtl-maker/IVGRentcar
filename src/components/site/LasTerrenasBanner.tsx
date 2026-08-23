@@ -22,7 +22,7 @@ export async function LasTerrenasBanner() {
       />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/90 via-black/60 to-black/10" />
 
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-20 sm:px-6 md:grid-cols-[0.82fr_1.18fr] md:py-28 lg:px-8">
+      <div className="grid w-full gap-10 px-6 py-20 sm:px-10 md:grid-cols-[0.8fr_1.2fr] md:px-[6vw] md:py-28">
         <div className="relative z-10 flex flex-col justify-center text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]">
           <p className="mb-6 text-xs font-black uppercase tracking-[0.2em]">{t("kicker")}</p>
           <h2 className="text-4xl font-extrabold leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl">

@@ -103,12 +103,12 @@ export default async function HomePage({
       </Container>
 
       <section className="bg-black/[0.03] py-16 sm:py-24">
-        <Container className="flex flex-col gap-8">
+        <div className="flex flex-col gap-8 px-6 sm:px-10 md:px-[6vw]">
           <h2 className="text-3xl font-extrabold tracking-tight text-ink sm:text-4xl">
             {tVideo("title")}
           </h2>
           <VideoSection />
-        </Container>
+        </div>
       </section>
 
       <section className="bg-brand py-20 text-white sm:py-28">

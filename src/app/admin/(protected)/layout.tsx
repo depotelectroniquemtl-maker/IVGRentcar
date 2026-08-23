@@ -16,9 +16,9 @@ export default async function ProtectedAdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen flex-col lg:flex-row">
+    <div className="flex min-h-screen flex-col lg:flex-row print:block">
       <Sidebar profile={profile} />
-      <main className="flex-1 overflow-y-auto bg-black/[0.02] p-4 sm:p-8">
+      <main className="flex-1 overflow-y-auto bg-black/[0.02] p-4 sm:p-8 print:bg-white print:p-0">
         {children}
       </main>
     </div>

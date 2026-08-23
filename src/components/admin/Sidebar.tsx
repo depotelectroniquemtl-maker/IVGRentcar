@@ -43,7 +43,7 @@ export async function Sidebar({ profile }: { profile: Profile }) {
         ariaClose={t("menu_close")}
       />
 
-      <aside className="hidden h-screen w-56 flex-col justify-between bg-ink text-white lg:flex">
+      <aside className="hidden h-screen w-56 flex-col justify-between bg-ink text-white lg:flex print:hidden">
         <div>
           <div className="border-b border-white/10 px-4 py-5">
             <p className="font-bold">

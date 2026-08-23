@@ -37,7 +37,11 @@ export default async function HomePage({
           alt=""
           fill
           priority
-          className="object-cover object-bottom"
+          // object-bottom pur mangeait la mer sur les écrans très larges (la boîte
+          // devient beaucoup plus large que le ratio 2:1 de la photo, donc tout le
+          // rognage venait du haut). 68% garde un compromis : assez bas pour ne jamais
+          // couper le véhicule, assez haut pour garder la mer visible derrière.
+          className="object-cover object-[center_68%]"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/5" />
         {/* Pas de <Container> ici volontairement : l'ancien site pousse le texte depuis le

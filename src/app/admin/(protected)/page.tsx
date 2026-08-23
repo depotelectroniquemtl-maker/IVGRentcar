@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
+import { StatCard } from "@/components/admin/admin-ui";
 
 export default async function DashboardPage() {
   const supabase = createClient();
@@ -36,10 +37,7 @@ export default async function DashboardPage() {
 
       <div className="grid gap-4 sm:grid-cols-3">
         {stats.map((s) => (
-          <div key={s.label} className="rounded-lg bg-white p-6 shadow-sm">
-            <p className="text-sm text-ink-soft">{s.label}</p>
-            <p className="mt-2 text-3xl font-bold text-brand">{s.value}</p>
-          </div>
+          <StatCard key={s.label} label={s.label} value={s.value} />
         ))}
       </div>
 

@@ -31,7 +31,7 @@ export default async function ElegirAccionPage({
         {t("back")}
       </Link>
 
-      <div className="flex max-w-md flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
+      <div className="flex max-w-md flex-col gap-4 rounded-lg border border-black/10 bg-white p-8 shadow-sm">
         <div>
           <h1 className="text-xl font-bold text-ink">{t("choose_title")}</h1>
           <p className="mt-1 text-sm text-ink-soft">

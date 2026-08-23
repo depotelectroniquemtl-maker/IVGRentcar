@@ -107,7 +107,7 @@ export default async function CalendrierPage({
         </span>
       </div>
 
-      <div className="overflow-x-auto rounded-lg bg-white shadow-sm">
+      <div className="overflow-x-auto rounded-lg border border-black/10 bg-white shadow-sm">
         <table className="w-full border-collapse text-left text-xs">
           <thead>
             <tr className="bg-black/5 text-ink-soft">

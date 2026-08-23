@@ -416,6 +416,7 @@ export type Database = {
           id: string
           lieu_prise_en_charge: string | null
           notes: string | null
+          numero: number
           prix_total_usd: number | null
           statut: string
           updated_at: string
@@ -433,6 +434,7 @@ export type Database = {
           id?: string
           lieu_prise_en_charge?: string | null
           notes?: string | null
+          numero?: number
           prix_total_usd?: number | null
           statut?: string
           updated_at?: string
@@ -450,6 +452,7 @@ export type Database = {
           id?: string
           lieu_prise_en_charge?: string | null
           notes?: string | null
+          numero?: number
           prix_total_usd?: number | null
           statut?: string
           updated_at?: string

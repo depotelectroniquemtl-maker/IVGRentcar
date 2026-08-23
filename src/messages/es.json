@@ -378,6 +378,7 @@
     "reservations": {
       "title": "Reservas",
       "new": "Nueva reserva",
+      "col_numero": "N°",
       "col_cliente": "Cliente",
       "col_vehiculo": "Vehículo",
       "col_del": "Del",
@@ -406,7 +407,7 @@
       "field_notas": "Notas",
       "submit_create": "Crear reserva",
       "error_overlap": "Ese vehículo ya tiene una reserva que se cruza con esas fechas.",
-      "edit_title": "Editar reserva — {cliente}",
+      "edit_title": "Reserva #{numero} — {cliente}",
       "save_changes": "Guardar cambios",
       "field_hora_inicio": "Hora de recogida",
       "field_hora_fin": "Hora de devolución",

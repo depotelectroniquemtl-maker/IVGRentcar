@@ -378,6 +378,7 @@
     "reservations": {
       "title": "Réservations",
       "new": "Nouvelle réservation",
+      "col_numero": "N°",
       "col_cliente": "Client",
       "col_vehiculo": "Véhicule",
       "col_del": "Du",
@@ -406,7 +407,7 @@
       "field_notas": "Notes",
       "submit_create": "Créer la réservation",
       "error_overlap": "Ce véhicule a déjà une réservation qui chevauche ces dates.",
-      "edit_title": "Modifier la réservation — {cliente}",
+      "edit_title": "Réservation #{numero} — {cliente}",
       "save_changes": "Enregistrer les modifications",
       "field_hora_inicio": "Heure de prise en charge",
       "field_hora_fin": "Heure de retour",

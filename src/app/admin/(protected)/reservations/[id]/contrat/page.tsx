@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { ContratPrintable } from "@/components/admin/ContratPrintable";
@@ -11,6 +12,30 @@ function joursEntre(dateDebut: string, dateFin: string) {
   const fin = new Date(dateFin + "T00:00:00");
   const jours = Math.round((fin.getTime() - debut.getTime()) / 86400000);
   return Math.max(jours, 1);
+}
+
+// Titre de document dédié pour cette page : sert de fallback si l'utilisateur imprime
+// avec les en-têtes/pieds de page du navigateur activés, et surtout Chrome s'en sert
+// comme nom de fichier suggéré pour "Enregistrer en PDF" — d'où le format
+// "Contrato IVJ #142 - Nom Client" plutôt que le titre générique du layout admin.
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+  const supabase = createClient();
+  const { data: reservation } = await supabase
+    .from("reservations")
+    .select("numero, clients(nom)")
+    .eq("id", id)
+    .single();
+
+  if (!reservation) return {};
+
+  return {
+    title: `Contrato IVJ #${reservation.numero} - ${reservation.clients?.nom ?? ""}`,
+  };
 }
 
 export default async function ContratImprimablePage({
@@ -25,7 +50,7 @@ export default async function ContratImprimablePage({
   const { data: reservation } = await supabase
     .from("reservations")
     .select(
-      "id, date_debut, date_fin, prix_total_usd, clients(nom, adresse, telephone, nationalite, cedula, residencia, passeport, passeport_expiration, numero_permis, permis_expiration), vehicules(plaque, couleur, categories_vehicules(nom))",
+      "id, numero, date_debut, date_fin, prix_total_usd, clients(nom, adresse, telephone, nationalite, cedula, residencia, passeport, passeport_expiration, numero_permis, permis_expiration), vehicules(plaque, couleur, categories_vehicules(nom))",
     )
     .eq("id", id)
     .single();

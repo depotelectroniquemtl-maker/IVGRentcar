@@ -22,7 +22,7 @@ export default async function EditarReservaPage({
   const { data: reservation } = await supabase
     .from("reservations")
     .select(
-      "id, client_id, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, statut, prix_total_usd, caution_usd, notes, clients(nom)",
+      "id, numero, client_id, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, statut, prix_total_usd, caution_usd, notes, clients(nom)",
     )
     .eq("id", id)
     .single();
@@ -69,7 +69,7 @@ export default async function EditarReservaPage({
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-ink">
-          {t("edit_title", { cliente: reservation.clients?.nom ?? tCommon("dash") })}
+          {t("edit_title", { numero: reservation.numero, cliente: reservation.clients?.nom ?? tCommon("dash") })}
         </h1>
         {profile?.role === "admin" && <DeleteReservationButton id={reservation.id} />}
       </div>

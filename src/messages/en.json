@@ -378,6 +378,7 @@
     "reservations": {
       "title": "Reservations",
       "new": "New reservation",
+      "col_numero": "No.",
       "col_cliente": "Client",
       "col_vehiculo": "Vehicle",
       "col_del": "From",
@@ -406,7 +407,7 @@
       "field_notas": "Notes",
       "submit_create": "Create reservation",
       "error_overlap": "That vehicle already has a reservation overlapping those dates.",
-      "edit_title": "Edit reservation — {cliente}",
+      "edit_title": "Reservation #{numero} — {cliente}",
       "save_changes": "Save changes",
       "field_hora_inicio": "Pickup time",
       "field_hora_fin": "Return time",

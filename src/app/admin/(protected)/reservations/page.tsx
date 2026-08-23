@@ -32,7 +32,7 @@ export default async function ReservationsPage() {
   const { data: reservations, error } = await supabase
     .from("reservations")
     .select(
-      "id, date_debut, date_fin, statut, prix_total_usd, vehicules(plaque, categories_vehicules(nom)), clients(nom)",
+      "id, numero, date_debut, date_fin, statut, prix_total_usd, vehicules(plaque, categories_vehicules(nom)), clients(nom)",
     )
     .order("date_debut", { ascending: false })
     .limit(50);
@@ -55,6 +55,7 @@ export default async function ReservationsPage() {
         <table className="w-full min-w-[720px] text-left text-sm">
           <thead className="bg-black/5 text-ink-soft">
             <tr>
+              <th className="px-4 py-3">{t("col_numero")}</th>
               <th className="px-4 py-3">{t("col_cliente")}</th>
               <th className="px-4 py-3">{t("col_vehiculo")}</th>
               <th className="px-4 py-3">{t("col_del")}</th>
@@ -69,6 +70,7 @@ export default async function ReservationsPage() {
               const fase = calcularFase(r.date_debut, r.date_fin, r.statut);
               return (
                 <tr key={r.id} className="border-t border-black/5">
+                  <td className="px-4 py-3 font-mono text-ink-soft">#{r.numero}</td>
                   <td className="px-4 py-3 font-medium text-ink">
                     {r.clients?.nom ?? tCommon("dash")}
                   </td>
@@ -102,7 +104,7 @@ export default async function ReservationsPage() {
             })}
             {reservations?.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-4 py-6 text-center text-ink-soft">
+                <td colSpan={8} className="px-4 py-6 text-center text-ink-soft">
                   {t("empty")}
                 </td>
               </tr>

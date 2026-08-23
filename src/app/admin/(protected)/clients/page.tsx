@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
+import { EditRowLink, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 
 export default async function ClientsPage() {
   const supabase = createClient();
@@ -13,9 +14,12 @@ export default async function ClientsPage() {
     .order("nom");
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
+        <div>
+          <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
+          <p className="mt-1 text-sm text-ink-soft">{t("subtitle", { count: clients?.length ?? 0 })}</p>
+        </div>
         <Link
           href="/admin/clients/nuevo"
           className="rounded-md bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark"
@@ -26,40 +30,44 @@ export default async function ClientsPage() {
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
 
-      <div className="overflow-x-auto rounded-lg bg-white shadow-sm">
-        <table className="w-full min-w-[560px] text-left text-sm">
-          <thead className="bg-black/5 text-ink-soft">
-            <tr>
-              <th className="px-4 py-3">{t("col_nombre")}</th>
-              <th className="px-4 py-3">{t("col_telefono")}</th>
-              <th className="px-4 py-3">{t("col_correo")}</th>
-              <th className="px-4 py-3">{t("col_licencia")}</th>
-              <th className="px-4 py-3" />
-            </tr>
-          </thead>
-          <tbody>
-            {clients?.map((c) => (
-              <tr key={c.id} className="border-t border-black/5">
-                <td className="px-4 py-3 font-medium text-ink">{c.nom}</td>
-                <td className="px-4 py-3">{c.telephone ?? tCommon("dash")}</td>
-                <td className="px-4 py-3">{c.email ?? tCommon("dash")}</td>
-                <td className="px-4 py-3">{c.numero_permis ?? tCommon("dash")}</td>
-                <td className="px-4 py-3 text-right">
-                  <Link href={`/admin/clients/${c.id}`} className="text-brand hover:underline">
-                    {tCommon("edit")}
-                  </Link>
-                </td>
-              </tr>
-            ))}
-            {clients?.length === 0 && (
+      <div className={tableCardClass}>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[560px] text-left text-sm">
+            <thead className={theadClass}>
               <tr>
-                <td colSpan={5} className="px-4 py-6 text-center text-ink-soft">
-                  {t("empty")}
-                </td>
+                <th className={thClass}>{t("col_nombre")}</th>
+                <th className={thClass}>{t("col_telefono")}</th>
+                <th className={thClass}>{t("col_correo")}</th>
+                <th className={thClass}>{t("col_licencia")}</th>
+                <th className={`${thClass} text-right`}>{t("col_acciones")}</th>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {clients?.map((c) => (
+                <tr key={c.id} className={trClass}>
+                  <td className="px-4 py-3 font-medium text-ink">{c.nom}</td>
+                  <td className="px-4 py-3">{c.telephone ?? tCommon("dash")}</td>
+                  <td className="px-4 py-3">{c.email ?? tCommon("dash")}</td>
+                  <td className="px-4 py-3 font-mono text-xs text-ink-soft">
+                    {c.numero_permis ?? tCommon("dash")}
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex justify-end">
+                      <EditRowLink href={`/admin/clients/${c.id}`} title={tCommon("edit")} />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+              {clients?.length === 0 && (
+                <tr>
+                  <td colSpan={5} className="px-4 py-6 text-center text-ink-soft">
+                    {t("empty")}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

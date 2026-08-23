@@ -22,10 +22,5 @@ export default async function EditarClientePage({
 
   if (!cliente) notFound();
 
-  return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">{t("edit_title", { nom: cliente.nom })}</h1>
-      <ClienteForm cliente={cliente} />
-    </div>
-  );
+  return <ClienteForm title={t("edit_title", { nom: cliente.nom })} cliente={cliente} />;
 }

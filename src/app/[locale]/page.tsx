@@ -28,7 +28,7 @@ export default async function HomePage({
 
   return (
     <>
-      <section className="relative overflow-hidden bg-ink text-white">
+      <section className="relative min-h-[600px] overflow-hidden bg-ink text-white sm:min-h-[650px] lg:min-h-[720px]">
         <Image
           src="/hero/hero-tropical-fleet.webp"
           alt=""
@@ -37,7 +37,11 @@ export default async function HomePage({
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-black/5" />
-        <Container className="relative z-10 flex flex-col items-start gap-4 py-28 md:py-36">
+        {/* Pas de <Container> ici volontairement : l'ancien site pousse le texte depuis le
+            bord de l'écran (padding en vw, pas de colonne centrée), sinon le texte recule
+            vers le centre sur les écrans larges au lieu de rester à gauche dans la zone
+            sombre du dégradé. */}
+        <div className="absolute inset-0 z-10 flex flex-col items-start justify-center gap-4 px-6 py-16 sm:px-10 md:px-[6vw]">
           <p className="text-xs font-black uppercase tracking-[0.2em] text-white/80">
             {t("eyebrow")}
           </p>
@@ -57,7 +61,7 @@ export default async function HomePage({
           <p className="mt-4 flex items-center gap-2 text-xs text-white/80">
             <span className="text-green-400">●</span> {t("reply")}
           </p>
-        </Container>
+        </div>
         <div className="absolute bottom-6 right-6 z-10 hidden w-[150px] border border-white/40 bg-white/10 p-5 text-white backdrop-blur-md md:block">
           <span className="font-serif text-4xl">27°</span>
           <p className="mt-2 text-[11px] leading-relaxed tracking-wider">

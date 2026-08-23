@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { EditRowLink, rowIconButtonClass } from "@/components/admin/admin-ui";
 
 // Bascule réversible (contrairement à la suppression d'une réservation) : pas de
 // confirmation nécessaire, un admin peut réactiver le véhicule en un clic identique.
@@ -31,27 +31,14 @@ export function VehiculeRowActions({
 
   return (
     <div className="flex items-center justify-end gap-1">
-      <Link
-        href={`/admin/vehicules/${id}`}
-        title={t("action_edit")}
-        className="flex h-7 w-7 items-center justify-center rounded-md text-ink-soft transition-colors hover:bg-black/5 hover:text-ink"
-      >
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-          <path
-            d="M11.3 2.7 13.3 4.7 5 13H3v-2l8.3-8.3Z"
-            stroke="currentColor"
-            strokeWidth="1.3"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </Link>
+      <EditRowLink href={`/admin/vehicules/${id}`} title={t("action_edit")} />
       {canDeactivate && (
         <button
           type="button"
           title={actif ? t("action_deactivate") : t("action_activate")}
           onClick={toggleActif}
           disabled={loading}
-          className="flex h-7 w-7 items-center justify-center rounded-md text-ink-soft transition-colors hover:bg-black/5 hover:text-red-600 disabled:opacity-50"
+          className={`${rowIconButtonClass} hover:text-red-600 disabled:opacity-50`}
         >
           {actif ? (
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none">

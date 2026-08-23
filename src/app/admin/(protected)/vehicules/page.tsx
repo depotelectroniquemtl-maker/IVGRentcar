@@ -3,22 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { VehiculeRowActions } from "@/components/admin/VehiculeRowActions";
-
-const STAT_CARD_CLASS: Record<string, string> = {
-  neutral: "",
-  warn: "text-amber-600",
-  crit: "text-red-600",
-  muted: "text-ink-soft",
-};
-
-function StatCard({ label, value, tone }: { label: string; value: number; tone: keyof typeof STAT_CARD_CLASS }) {
-  return (
-    <div className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
-      <div className="text-[11px] font-bold uppercase tracking-wider text-ink-soft">{label}</div>
-      <div className={`mt-2 text-2xl font-bold tabular-nums text-ink ${STAT_CARD_CLASS[tone]}`}>{value}</div>
-    </div>
-  );
-}
+import { Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 
 const ESTADO_PILL_CLASS: Record<string, string> = {
   disponible: "bg-green-100 text-green-700",
@@ -76,34 +61,22 @@ export default async function VehiculesPage() {
         <StatCard label={t("stat_inactive")} value={inactivos} tone="muted" />
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-black/10 bg-white shadow-sm">
+      <div className={tableCardClass}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-sm">
-            <thead className="bg-black/[0.03] text-ink-soft">
+            <thead className={theadClass}>
               <tr>
-                <th className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider">
-                  {t("col_categoria")}
-                </th>
-                <th className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider">
-                  {t("col_placa")}
-                </th>
-                <th className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider">
-                  {t("col_anio")}
-                </th>
-                <th className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider">
-                  {t("col_estado")}
-                </th>
-                <th className="px-4 py-3 text-[11px] font-bold uppercase tracking-wider">
-                  {t("col_hoy")}
-                </th>
-                <th className="px-4 py-3 text-right text-[11px] font-bold uppercase tracking-wider">
-                  {t("col_acciones")}
-                </th>
+                <th className={thClass}>{t("col_categoria")}</th>
+                <th className={thClass}>{t("col_placa")}</th>
+                <th className={thClass}>{t("col_anio")}</th>
+                <th className={thClass}>{t("col_estado")}</th>
+                <th className={thClass}>{t("col_hoy")}</th>
+                <th className={`${thClass} text-right`}>{t("col_acciones")}</th>
               </tr>
             </thead>
             <tbody>
               {vehicules?.map((v) => (
-                <tr key={v.id} className="border-t border-black/5 transition-colors hover:bg-black/[0.02]">
+                <tr key={v.id} className={trClass}>
                   <td className="px-4 py-3 font-medium text-ink">{v.categorie_nom}</td>
                   <td className="px-4 py-3 font-mono text-xs text-ink-soft">
                     {v.plaque ?? tCommon("dash")}
@@ -111,19 +84,11 @@ export default async function VehiculesPage() {
                   <td className="px-4 py-3 tabular-nums">{v.annee ?? tCommon("dash")}</td>
                   <td className="px-4 py-3">
                     {v.actif ? (
-                      <span
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${
-                          v.etat_operationnel ? ESTADO_PILL_CLASS[v.etat_operationnel] : ""
-                        }`}
-                      >
-                        <span className="h-1.5 w-1.5 rounded-full bg-current" />
+                      <Pill className={v.etat_operationnel ? ESTADO_PILL_CLASS[v.etat_operationnel] : ""}>
                         {v.etat_operationnel ? ETAT_LABELS[v.etat_operationnel] : tCommon("dash")}
-                      </span>
+                      </Pill>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 rounded-full bg-black/5 px-2.5 py-1 text-xs font-semibold text-ink-soft">
-                        <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                        {t("stat_inactive")}
-                      </span>
+                      <Pill className="bg-black/5 text-ink-soft">{t("stat_inactive")}</Pill>
                     )}
                   </td>
                   <td className="px-4 py-3">

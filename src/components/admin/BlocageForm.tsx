@@ -4,10 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
-
-const inputClass =
-  "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
-const labelClass = "mb-1 block font-medium text-ink";
+import { FormSection, dangerLinkClass, inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
 
 type Blocage = {
   id: string;
@@ -94,81 +91,80 @@ export function BlocageForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_vehiculo")}</span>
-        <select
-          required
-          value={vehiculeId}
-          onChange={(e) => setVehiculeId(e.target.value)}
-          className={`${inputClass} bg-white`}
-        >
-          <option value="" disabled>
-            {t("field_vehiculo_placeholder")}
-          </option>
-          {vehicules.map((v) => (
-            <option key={v.id} value={v.id}>
-              {v.categorie_nom} ({v.plaque ?? tCommon("dash")})
+    <form
+      onSubmit={handleSubmit}
+      className="flex max-w-2xl flex-col gap-6 rounded-lg bg-white p-8 shadow-sm"
+    >
+      <FormSection title={t("section_vehiculo")}>
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_vehiculo")}</span>
+          <select
+            required
+            value={vehiculeId}
+            onChange={(e) => setVehiculeId(e.target.value)}
+            className={inputClass}
+          >
+            <option value="" disabled>
+              {t("field_vehiculo_placeholder")}
             </option>
-          ))}
-        </select>
-      </label>
+            {vehicules.map((v) => (
+              <option key={v.id} value={v.id}>
+                {v.categorie_nom} ({v.plaque ?? tCommon("dash")})
+              </option>
+            ))}
+          </select>
+        </label>
+      </FormSection>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <FormSection title={t("section_periodo")}>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_fecha_inicio")}</span>
+            <input
+              type="date"
+              required
+              value={dateDebut}
+              onChange={(e) => setDateDebut(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_fecha_fin")}</span>
+            <input
+              type="date"
+              required
+              value={dateFin}
+              onChange={(e) => setDateFin(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+        </div>
+
+        {!fechasValidas && <p className="text-sm text-red-600">{t("error_fechas")}</p>}
+
         <label className="block text-sm">
-          <span className={labelClass}>{t("field_fecha_inicio")}</span>
+          <span className={labelClass}>{t("field_motivo")}</span>
           <input
-            type="date"
-            required
-            value={dateDebut}
-            onChange={(e) => setDateDebut(e.target.value)}
+            type="text"
+            value={motif}
+            onChange={(e) => setMotif(e.target.value)}
+            placeholder={t("field_motivo_placeholder")}
             className={inputClass}
           />
         </label>
-
-        <label className="block text-sm">
-          <span className={labelClass}>{t("field_fecha_fin")}</span>
-          <input
-            type="date"
-            required
-            value={dateFin}
-            onChange={(e) => setDateFin(e.target.value)}
-            className={inputClass}
-          />
-        </label>
-      </div>
-
-      {!fechasValidas && <p className="text-sm text-red-600">{t("error_fechas")}</p>}
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_motivo")}</span>
-        <input
-          type="text"
-          value={motif}
-          onChange={(e) => setMotif(e.target.value)}
-          placeholder={t("field_motivo_placeholder")}
-          className={inputClass}
-        />
-      </label>
+      </FormSection>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={loading || !fechasValidas}
-        className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading || !fechasValidas} className={primaryButtonClass}>
         {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
       </button>
 
       {editing && (
         <div className="border-t border-black/10 pt-4">
           {!confirmingDelete ? (
-            <button
-              type="button"
-              onClick={() => setConfirmingDelete(true)}
-              className="text-sm font-semibold text-red-600 hover:underline"
-            >
+            <button type="button" onClick={() => setConfirmingDelete(true)} className={dangerLinkClass}>
               {t("delete")}
             </button>
           ) : (

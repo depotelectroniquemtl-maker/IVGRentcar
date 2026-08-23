@@ -4,12 +4,9 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { FormSection, inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
 
 const STATUTS = ["en_attente", "confirmee", "annulee"] as const;
-
-const inputClass =
-  "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
-const labelClass = "mb-1 block font-medium text-ink";
 
 type Reservation = {
   id: string;
@@ -158,7 +155,10 @@ export function ReservationForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
+    <form
+      onSubmit={handleSubmit}
+      className="flex max-w-3xl flex-col gap-6 rounded-lg bg-white p-8 shadow-sm"
+    >
       {prefill?.demandeNom && (
         <p className="rounded bg-brand-light px-3 py-2 text-sm text-ink">
           {t("convert_prefill_notice", {
@@ -168,161 +168,167 @@ export function ReservationForm({
         </p>
       )}
 
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_cliente")}</span>
-        <select
-          required
-          value={clientId}
-          onChange={(e) => setClientId(e.target.value)}
-          className={`${inputClass} bg-white`}
-        >
-          <option value="" disabled>
-            {t("field_cliente_placeholder")}
-          </option>
-          {clients.map((c) => (
-            <option key={c.id} value={c.id}>
-              {c.nom}
-            </option>
-          ))}
-        </select>
-      </label>
+      <FormSection title={t("section_cliente_vehiculo")}>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_cliente")}</span>
+            <select
+              required
+              value={clientId}
+              onChange={(e) => setClientId(e.target.value)}
+              className={inputClass}
+            >
+              <option value="" disabled>
+                {t("field_cliente_placeholder")}
+              </option>
+              {clients.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.nom}
+                </option>
+              ))}
+            </select>
+          </label>
 
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_vehiculo")}</span>
-        <select
-          required
-          value={vehiculeId}
-          onChange={(e) => setVehiculeId(e.target.value)}
-          className={`${inputClass} bg-white`}
-        >
-          <option value="" disabled>
-            {t("field_vehiculo_placeholder")}
-          </option>
-          {vehicules.map((v) => (
-            <option key={v.id} value={v.id}>
-              {v.categorie_nom} ({v.plaque ?? tCommon("dash")})
-            </option>
-          ))}
-        </select>
-      </label>
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_vehiculo")}</span>
+            <select
+              required
+              value={vehiculeId}
+              onChange={(e) => setVehiculeId(e.target.value)}
+              className={inputClass}
+            >
+              <option value="" disabled>
+                {t("field_vehiculo_placeholder")}
+              </option>
+              {vehicules.map((v) => (
+                <option key={v.id} value={v.id}>
+                  {v.categorie_nom} ({v.plaque ?? tCommon("dash")})
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+      </FormSection>
 
-      <div className="grid gap-4 sm:grid-cols-2">
+      <FormSection title={t("section_fechas")}>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_fecha_inicio")}</span>
+            <input
+              type="date"
+              required
+              value={dateDebut}
+              onChange={(e) => setDateDebut(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_fecha_fin")}</span>
+            <input
+              type="date"
+              required
+              value={dateFin}
+              onChange={(e) => setDateFin(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+        </div>
+
+        {!fechasValidas && <p className="text-sm text-red-600">{t("error_fechas")}</p>}
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_hora_inicio")}</span>
+            <input
+              type="time"
+              value={heureDebut}
+              onChange={(e) => setHeureDebut(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_hora_fin")}</span>
+            <input
+              type="time"
+              value={heureFin}
+              onChange={(e) => setHeureFin(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+        </div>
+
         <label className="block text-sm">
-          <span className={labelClass}>{t("field_fecha_inicio")}</span>
+          <span className={labelClass}>{t("field_lugar")}</span>
           <input
-            type="date"
-            required
-            value={dateDebut}
-            onChange={(e) => setDateDebut(e.target.value)}
+            type="text"
+            value={lieu}
+            onChange={(e) => setLieu(e.target.value)}
             className={inputClass}
           />
         </label>
+      </FormSection>
 
+      <FormSection title={t("section_tarifa")}>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_precio")}</span>
+            <input
+              type="number"
+              min={0}
+              step="0.01"
+              value={prixTotal}
+              onChange={(e) => setPrixTotal(e.target.value)}
+              className={inputClass}
+            />
+            <span className="mt-1 block text-xs text-ink-soft">{t("field_precio_hint")}</span>
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_deposito")}</span>
+            <input
+              type="number"
+              min={0}
+              step="0.01"
+              value={caution}
+              onChange={(e) => setCaution(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+        </div>
+      </FormSection>
+
+      <FormSection title={t("section_estado")}>
         <label className="block text-sm">
-          <span className={labelClass}>{t("field_fecha_fin")}</span>
-          <input
-            type="date"
-            required
-            value={dateFin}
-            onChange={(e) => setDateFin(e.target.value)}
+          <span className={labelClass}>{t("field_estado")}</span>
+          <select
+            value={statut}
+            onChange={(e) => setStatut(e.target.value as (typeof STATUTS)[number])}
             className={inputClass}
-          />
-        </label>
-      </div>
-
-      {!fechasValidas && <p className="text-sm text-red-600">{t("error_fechas")}</p>}
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm">
-          <span className={labelClass}>{t("field_hora_inicio")}</span>
-          <input
-            type="time"
-            value={heureDebut}
-            onChange={(e) => setHeureDebut(e.target.value)}
-            className={inputClass}
-          />
-        </label>
-
-        <label className="block text-sm">
-          <span className={labelClass}>{t("field_hora_fin")}</span>
-          <input
-            type="time"
-            value={heureFin}
-            onChange={(e) => setHeureFin(e.target.value)}
-            className={inputClass}
-          />
-        </label>
-      </div>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_lugar")}</span>
-        <input
-          type="text"
-          value={lieu}
-          onChange={(e) => setLieu(e.target.value)}
-          className={inputClass}
-        />
-      </label>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm">
-          <span className={labelClass}>{t("field_precio")}</span>
-          <input
-            type="number"
-            min={0}
-            step="0.01"
-            value={prixTotal}
-            onChange={(e) => setPrixTotal(e.target.value)}
-            className={inputClass}
-          />
-          <span className="mt-1 block text-xs text-ink-soft">{t("field_precio_hint")}</span>
+          >
+            {STATUTS.map((s) => (
+              <option key={s} value={s}>
+                {STATUT_LABELS[s]}
+              </option>
+            ))}
+          </select>
         </label>
 
         <label className="block text-sm">
-          <span className={labelClass}>{t("field_deposito")}</span>
-          <input
-            type="number"
-            min={0}
-            step="0.01"
-            value={caution}
-            onChange={(e) => setCaution(e.target.value)}
+          <span className={labelClass}>{t("field_notas")}</span>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            rows={3}
             className={inputClass}
           />
         </label>
-      </div>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_estado")}</span>
-        <select
-          value={statut}
-          onChange={(e) => setStatut(e.target.value as (typeof STATUTS)[number])}
-          className={`${inputClass} bg-white`}
-        >
-          {STATUTS.map((s) => (
-            <option key={s} value={s}>
-              {STATUT_LABELS[s]}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_notas")}</span>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          rows={3}
-          className={inputClass}
-        />
-      </label>
+      </FormSection>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={loading || !fechasValidas}
-        className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading || !fechasValidas} className={primaryButtonClass}>
         {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
       </button>
     </form>

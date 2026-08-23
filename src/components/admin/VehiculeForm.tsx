@@ -4,12 +4,9 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { FormSection, inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
 
 const ETATS = ["disponible", "maintenance", "hors_service"] as const;
-
-const inputClass =
-  "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
-const labelClass = "mb-1 block font-medium text-ink";
 
 type Vehicule = {
   id: string;
@@ -82,101 +79,104 @@ export function VehiculeForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_categoria")}</span>
-        <select
-          required
-          value={categorieId}
-          onChange={(e) => setCategorieId(e.target.value)}
-          className={`${inputClass} bg-white`}
-        >
-          <option value="" disabled>
-            {t("field_categoria_placeholder")}
-          </option>
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>
-              {cat.nom}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <div className="grid gap-4 sm:grid-cols-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex max-w-2xl flex-col gap-6 rounded-lg bg-white p-8 shadow-sm"
+    >
+      <FormSection title={t("section_identificacion")}>
         <label className="block text-sm">
-          <span className={labelClass}>{t("field_placa")}</span>
-          <input
-            type="text"
-            value={plaque}
-            onChange={(e) => setPlaque(e.target.value)}
-            placeholder={t("field_placa_placeholder")}
+          <span className={labelClass}>{t("field_categoria")}</span>
+          <select
+            required
+            value={categorieId}
+            onChange={(e) => setCategorieId(e.target.value)}
+            className={inputClass}
+          >
+            <option value="" disabled>
+              {t("field_categoria_placeholder")}
+            </option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>
+                {cat.nom}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <div className="grid gap-4 sm:grid-cols-3">
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_placa")}</span>
+            <input
+              type="text"
+              value={plaque}
+              onChange={(e) => setPlaque(e.target.value)}
+              placeholder={t("field_placa_placeholder")}
+              className={inputClass}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_anio")}</span>
+            <input
+              type="number"
+              value={annee}
+              onChange={(e) => setAnnee(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_color")}</span>
+            <input
+              type="text"
+              value={couleur}
+              onChange={(e) => setCouleur(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+        </div>
+      </FormSection>
+
+      <FormSection title={t("section_estado")}>
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_estado")}</span>
+          <select
+            value={etat}
+            onChange={(e) => setEtat(e.target.value)}
+            className={inputClass}
+          >
+            {ETATS.map((s) => (
+              <option key={s} value={s}>
+                {ETAT_LABELS[s]}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_notas")}</span>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            rows={3}
             className={inputClass}
           />
         </label>
 
-        <label className="block text-sm">
-          <span className={labelClass}>{t("field_anio")}</span>
+        <label className="flex items-center gap-2 text-sm">
           <input
-            type="number"
-            value={annee}
-            onChange={(e) => setAnnee(e.target.value)}
-            className={inputClass}
+            type="checkbox"
+            checked={actif}
+            onChange={(e) => setActif(e.target.checked)}
+            className="h-4 w-4 rounded border-black/20"
           />
+          <span className="font-medium text-ink">{t("field_activo")}</span>
         </label>
-      </div>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_color")}</span>
-        <input
-          type="text"
-          value={couleur}
-          onChange={(e) => setCouleur(e.target.value)}
-          className={inputClass}
-        />
-      </label>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_estado")}</span>
-        <select
-          value={etat}
-          onChange={(e) => setEtat(e.target.value)}
-          className={`${inputClass} bg-white`}
-        >
-          {ETATS.map((s) => (
-            <option key={s} value={s}>
-              {ETAT_LABELS[s]}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_notas")}</span>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          rows={3}
-          className={inputClass}
-        />
-      </label>
-
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={actif}
-          onChange={(e) => setActif(e.target.checked)}
-          className="h-4 w-4 rounded border-black/20"
-        />
-        <span className="font-medium text-ink">{t("field_activo")}</span>
-      </label>
+      </FormSection>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={primaryButtonClass}>
         {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
       </button>
     </form>

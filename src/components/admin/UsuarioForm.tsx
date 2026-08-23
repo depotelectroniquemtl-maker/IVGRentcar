@@ -4,10 +4,7 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createEmploye } from "@/app/admin/(protected)/utilisateurs/actions";
-
-const inputClass =
-  "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
-const labelClass = "mb-1 block font-medium text-ink";
+import { inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
 
 export function UsuarioForm() {
   const router = useRouter();
@@ -40,7 +37,7 @@ export function UsuarioForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
+    <form onSubmit={handleSubmit} className="flex max-w-xl flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
       <label className="block text-sm">
         <span className={labelClass}>{t("field_nombre")}</span>
         <input
@@ -81,7 +78,7 @@ export function UsuarioForm() {
         <select
           value={role}
           onChange={(e) => setRole(e.target.value as "admin" | "employe")}
-          className={`${inputClass} bg-white`}
+          className={inputClass}
         >
           <option value="employe">{tCommon("role_employe")}</option>
           <option value="admin">{tCommon("role_admin")}</option>
@@ -90,11 +87,7 @@ export function UsuarioForm() {
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={primaryButtonClass}>
         {loading ? t("creating") : t("submit_create")}
       </button>
     </form>

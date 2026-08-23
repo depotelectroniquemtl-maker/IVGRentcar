@@ -4,12 +4,9 @@ import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { FormSection, inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
 
 const TYPES = ["vidange", "freins", "pneus", "reparation", "inspection", "autre"] as const;
-
-const inputClass =
-  "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
-const labelClass = "mb-1 block font-medium text-ink";
 
 export function EntretienForm({
   vehicules,
@@ -67,93 +64,95 @@ export function EntretienForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex max-w-lg flex-col gap-4 rounded-lg bg-white p-8 shadow-sm">
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_vehiculo")}</span>
-        <select
-          required
-          value={vehiculeId}
-          onChange={(e) => setVehiculeId(e.target.value)}
-          className={`${inputClass} bg-white`}
-        >
-          <option value="" disabled>
-            {t("field_vehiculo_placeholder")}
-          </option>
-          {vehicules.map((v) => (
-            <option key={v.id} value={v.id}>
-              {v.categorie_nom} ({v.plaque ?? tCommon("dash")})
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_tipo")}</span>
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value as (typeof TYPES)[number])}
-          className={`${inputClass} bg-white`}
-        >
-          {TYPES.map((ty) => (
-            <option key={ty} value={ty}>
-              {TYPE_LABELS[ty]}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <div className="grid gap-4 sm:grid-cols-2">
+    <form
+      onSubmit={handleSubmit}
+      className="flex max-w-2xl flex-col gap-6 rounded-lg bg-white p-8 shadow-sm"
+    >
+      <FormSection title={t("section_vehiculo")}>
         <label className="block text-sm">
-          <span className={labelClass}>{t("field_fecha")}</span>
+          <span className={labelClass}>{t("field_vehiculo")}</span>
+          <select
+            required
+            value={vehiculeId}
+            onChange={(e) => setVehiculeId(e.target.value)}
+            className={inputClass}
+          >
+            <option value="" disabled>
+              {t("field_vehiculo_placeholder")}
+            </option>
+            {vehicules.map((v) => (
+              <option key={v.id} value={v.id}>
+                {v.categorie_nom} ({v.plaque ?? tCommon("dash")})
+              </option>
+            ))}
+          </select>
+        </label>
+      </FormSection>
+
+      <FormSection title={t("section_detalle")}>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_tipo")}</span>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value as (typeof TYPES)[number])}
+              className={inputClass}
+            >
+              {TYPES.map((ty) => (
+                <option key={ty} value={ty}>
+                  {TYPE_LABELS[ty]}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_fecha")}</span>
+            <input
+              type="date"
+              required
+              value={dateEntretien}
+              onChange={(e) => setDateEntretien(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_costo")}</span>
+            <input
+              type="number"
+              min={0}
+              step="0.01"
+              value={cout}
+              onChange={(e) => setCout(e.target.value)}
+              className={inputClass}
+            />
+          </label>
+        </div>
+
+        <label className="block text-sm">
+          <span className={labelClass}>{t("field_proximo")}</span>
           <input
             type="date"
-            required
-            value={dateEntretien}
-            onChange={(e) => setDateEntretien(e.target.value)}
+            value={prochainEntretien}
+            onChange={(e) => setProchainEntretien(e.target.value)}
             className={inputClass}
           />
         </label>
+      </FormSection>
 
-        <label className="block text-sm">
-          <span className={labelClass}>{t("field_costo")}</span>
-          <input
-            type="number"
-            min={0}
-            step="0.01"
-            value={cout}
-            onChange={(e) => setCout(e.target.value)}
-            className={inputClass}
-          />
-        </label>
-      </div>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_proximo")}</span>
-        <input
-          type="date"
-          value={prochainEntretien}
-          onChange={(e) => setProchainEntretien(e.target.value)}
-          className={inputClass}
-        />
-      </label>
-
-      <label className="block text-sm">
-        <span className={labelClass}>{t("field_notas")}</span>
+      <FormSection title={tCommon("section_notas")}>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
           rows={3}
           className={inputClass}
         />
-      </label>
+      </FormSection>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="rounded-md bg-brand px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60"
-      >
+      <button type="submit" disabled={loading} className={primaryButtonClass}>
         {loading ? tCommon("saving") : t("submit_create")}
       </button>
     </form>

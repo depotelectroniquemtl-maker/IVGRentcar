@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { dangerLinkClass } from "@/components/admin/form-ui";
 
 export function DeleteReservationButton({ id }: { id: string }) {
   const router = useRouter();
@@ -29,7 +30,7 @@ export function DeleteReservationButton({ id }: { id: string }) {
       <button
         type="button"
         onClick={() => setConfirming(true)}
-        className="text-sm font-semibold text-red-600 hover:underline"
+        className={dangerLinkClass}
       >
         {t("delete")}
       </button>

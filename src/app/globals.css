@@ -9,3 +9,29 @@ html {
 body {
   color: theme("colors.ink.DEFAULT");
 }
+
+/* Habillage des inputs natifs (formulaires admin) : les flèches de compteur des champs
+   numériques (prix, année...) sont moches et redondantes avec le clavier, on les retire.
+   Les sélecteurs date/time gardent leur boîte de dialogue native (non stylable en CSS
+   pur), seule l'icône est teintée pour rester cohérente avec le reste de l'UI. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.55;
+  transition: opacity 0.15s ease;
+}
+input[type="date"]:hover::-webkit-calendar-picker-indicator,
+input[type="time"]:hover::-webkit-calendar-picker-indicator,
+input[type="date"]:focus::-webkit-calendar-picker-indicator,
+input[type="time"]:focus::-webkit-calendar-picker-indicator {
+  opacity: 1;
+}

@@ -5,6 +5,7 @@ import { getAdminTranslator } from "@/lib/admin-i18n";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { ReservationForm } from "@/components/admin/ReservationForm";
 import { DeleteReservationButton } from "@/components/admin/DeleteReservationButton";
+import { secondaryLinkClass } from "@/components/admin/form-ui";
 
 export default async function EditarReservaPage({
   params,
@@ -76,14 +77,11 @@ export default async function EditarReservaPage({
       <div className="flex flex-wrap gap-4 text-sm">
         <Link
           href={`/admin/reservations/${reservation.id}/contrat/editar`}
-          className="rounded-md border border-black/15 px-4 py-2 font-semibold text-ink transition-colors hover:bg-black/5"
+          className={secondaryLinkClass}
         >
           {tContrats("action_finalizar")}
         </Link>
-        <Link
-          href={`/admin/reservations/${reservation.id}/contrat`}
-          className="rounded-md border border-black/15 px-4 py-2 font-semibold text-ink transition-colors hover:bg-black/5"
-        >
+        <Link href={`/admin/reservations/${reservation.id}/contrat`} className={secondaryLinkClass}>
           {tContrats("action_ver")}
         </Link>
       </div>

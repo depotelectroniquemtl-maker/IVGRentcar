@@ -47,7 +47,7 @@ export function FleetCard({
 
   return (
     <div className="overflow-hidden rounded-lg border border-black/5 bg-white shadow-sm">
-      <div className="relative aspect-[4/3] w-full bg-black/5">
+      <div className="relative aspect-[6/5] w-full bg-black/5">
         {images ? (
           images.map((src, i) => (
             <Image
@@ -55,7 +55,7 @@ export function FleetCard({
               src={src}
               alt={categorie.nom}
               fill
-              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               className={`object-cover transition-opacity duration-700 ${
                 i === carouselIndex ? "opacity-100" : "opacity-0"
               }`}

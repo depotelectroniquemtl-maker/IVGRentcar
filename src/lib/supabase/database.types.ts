@@ -123,6 +123,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           deducible_usd: number | null
+          devise_recue: string | null
           garant_adresse: string | null
           garant_cedula: string | null
           garant_id: string | null
@@ -130,6 +131,7 @@ export type Database = {
           garant_telephone: string | null
           heure_remise: string | null
           id: string
+          moyen_paiement: string | null
           niveau_essence: string | null
           notes: string | null
           reservation_id: string
@@ -145,6 +147,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           deducible_usd?: number | null
+          devise_recue?: string | null
           garant_adresse?: string | null
           garant_cedula?: string | null
           garant_id?: string | null
@@ -152,6 +155,7 @@ export type Database = {
           garant_telephone?: string | null
           heure_remise?: string | null
           id?: string
+          moyen_paiement?: string | null
           niveau_essence?: string | null
           notes?: string | null
           reservation_id: string
@@ -167,6 +171,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           deducible_usd?: number | null
+          devise_recue?: string | null
           garant_adresse?: string | null
           garant_cedula?: string | null
           garant_id?: string | null
@@ -174,6 +179,7 @@ export type Database = {
           garant_telephone?: string | null
           heure_remise?: string | null
           id?: string
+          moyen_paiement?: string | null
           niveau_essence?: string | null
           notes?: string | null
           reservation_id?: string

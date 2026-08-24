@@ -25,7 +25,7 @@ export default async function EditarContratoPage({
     supabase
       .from("contrats_location")
       .select(
-        "id, heure_remise, couleur_vehicule, deducible_usd, abono_usd, solde_usd, niveau_essence, accessoires, garant_id, garant_nom, garant_adresse, garant_cedula, garant_telephone, notes",
+        "id, heure_remise, couleur_vehicule, deducible_usd, abono_usd, solde_usd, niveau_essence, accessoires, moyen_paiement, devise_recue, garant_id, garant_nom, garant_adresse, garant_cedula, garant_telephone, notes",
       )
       .eq("reservation_id", id)
       .maybeSingle(),

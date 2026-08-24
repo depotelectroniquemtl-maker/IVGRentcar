@@ -17,6 +17,8 @@ type Contrat = {
   solde_usd: number | null;
   niveau_essence: string | null;
   accessoires: Record<string, boolean>;
+  moyen_paiement: string | null;
+  devise_recue: string | null;
   garant_id: string | null;
   garant_nom: string | null;
   garant_adresse: string | null;
@@ -61,6 +63,8 @@ export function ContratForm({
   const [abono, setAbono] = useState(contrat?.abono_usd?.toString() ?? "");
   const [solde, setSolde] = useState(contrat?.solde_usd?.toString() ?? "");
   const [niveauEssence, setNiveauEssence] = useState(contrat?.niveau_essence ?? "");
+  const [moyenPaiement, setMoyenPaiement] = useState(contrat?.moyen_paiement ?? "");
+  const [deviseRecue, setDeviseRecue] = useState(contrat?.devise_recue ?? "");
   const [accessoires, setAccessoires] = useState<Record<string, boolean>>(
     contrat?.accessoires ?? {},
   );
@@ -121,6 +125,8 @@ export function ContratForm({
       solde_usd: solde ? Number(solde) : null,
       niveau_essence: niveauEssence || null,
       accessoires,
+      moyen_paiement: moyenPaiement || null,
+      devise_recue: deviseRecue || null,
       garant_id: garantId || null,
       garant_nom: garantNom || null,
       garant_adresse: garantAdresse || null,
@@ -302,6 +308,34 @@ export function ContratForm({
               />
               <span className="mt-1 block text-xs text-ink-soft">{t("field_saldo_hint")}</span>
             </label>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_moyen_paiement")}</span>
+                <select
+                  value={moyenPaiement}
+                  onChange={(e) => setMoyenPaiement(e.target.value)}
+                  className={inputClass}
+                >
+                  <option value="">{t("field_moyen_paiement_placeholder")}</option>
+                  <option value="especes">{t("moyen_paiement_especes")}</option>
+                  <option value="carte">{t("moyen_paiement_carte")}</option>
+                </select>
+              </label>
+
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_devise_recue")}</span>
+                <select
+                  value={deviseRecue}
+                  onChange={(e) => setDeviseRecue(e.target.value)}
+                  className={inputClass}
+                >
+                  <option value="">{t("field_devise_recue_placeholder")}</option>
+                  <option value="usd">{t("devise_usd")}</option>
+                  <option value="dop">{t("devise_dop")}</option>
+                </select>
+              </label>
+            </div>
           </Card>
 
           <Card title={t("section_accesorios")}>

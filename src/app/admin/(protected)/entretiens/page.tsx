@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { EntretienRowActions } from "@/components/admin/EntretienRowActions";
 
 export default async function EntretiensPage() {
   const supabase = createClient();
@@ -68,6 +69,7 @@ export default async function EntretiensPage() {
                 <th className={thClass}>{t("col_fecha")}</th>
                 <th className={thClass}>{t("col_costo")}</th>
                 <th className={thClass}>{t("col_proximo")}</th>
+                <th className={`${thClass} text-right`}>{t("col_acciones")}</th>
               </tr>
             </thead>
             <tbody>
@@ -91,12 +93,15 @@ export default async function EntretiensPage() {
                         (e.prochain_entretien ?? tCommon("dash"))
                       )}
                     </td>
+                    <td className="px-4 py-3">
+                      <EntretienRowActions id={e.id} />
+                    </td>
                   </tr>
                 );
               })}
               {entretiens?.length === 0 && (
                 <tr>
-                  <td colSpan={5} className="px-4 py-6 text-center text-ink-soft">
+                  <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
                     {t("empty")}
                   </td>
                 </tr>

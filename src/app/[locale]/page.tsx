@@ -57,7 +57,12 @@ export default async function HomePage({
           </h1>
           <p className="max-w-xl text-lg text-white/90 sm:text-xl">{t("subtitle")}</p>
           <div className="mt-2 flex flex-wrap items-center gap-6">
-            <ButtonLink href="/reservar">{t("cta_primary")} →</ButtonLink>
+            <ButtonLink
+              href="/reservar"
+              className="px-8 py-4 text-base sm:px-10 sm:py-5 sm:text-lg"
+            >
+              {t("cta_primary")} →
+            </ButtonLink>
             <Link
               href="/flotte"
               className="border-b border-white/50 pb-1 font-bold text-white transition-colors hover:border-white"

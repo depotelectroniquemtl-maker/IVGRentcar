@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,6 +19,7 @@ type Vehicule = {
   etat_operationnel: string;
   notes: string | null;
   actif: boolean;
+  photo_url: string | null;
 };
 
 export function VehiculeForm({
@@ -47,9 +49,17 @@ export function VehiculeForm({
   const [etat, setEtat] = useState(vehicule?.etat_operationnel ?? "disponible");
   const [notes, setNotes] = useState(vehicule?.notes ?? "");
   const [actif, setActif] = useState(vehicule?.actif ?? true);
+  const [photoUrl, setPhotoUrl] = useState(vehicule?.photo_url ?? null);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(vehicule?.photo_url ?? null);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  function handlePhotoChange(file: File | null) {
+    setPhotoFile(file);
+    setPhotoPreview(file ? URL.createObjectURL(file) : (vehicule?.photo_url ?? null));
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -57,6 +67,28 @@ export function VehiculeForm({
     setError(null);
 
     const supabase = createClient();
+
+    let nouvellePhotoUrl = photoUrl;
+    if (photoFile) {
+      // Chemin indépendant de l'id véhicule (utile en création, avant que la ligne
+      // n'existe) — un identifiant aléatoire évite aussi les collisions de cache CDN si
+      // le fichier est remplacé plus tard sous un autre nom.
+      const extension = photoFile.name.split(".").pop() ?? "jpg";
+      const chemin = `${crypto.randomUUID()}.${extension}`;
+      const { error: uploadError } = await supabase.storage
+        .from("vehicules-photos")
+        .upload(chemin, photoFile, { upsert: true });
+
+      if (uploadError) {
+        setError(uploadError.message);
+        setLoading(false);
+        return;
+      }
+
+      nouvellePhotoUrl = supabase.storage.from("vehicules-photos").getPublicUrl(chemin).data.publicUrl;
+      setPhotoUrl(nouvellePhotoUrl);
+    }
+
     const payload = {
       categorie_id: categorieId,
       plaque: plaque.trim() || null,
@@ -65,6 +97,7 @@ export function VehiculeForm({
       etat_operationnel: etat,
       notes: notes || null,
       actif,
+      photo_url: nouvellePhotoUrl,
     };
 
     const { error } = editing
@@ -193,6 +226,34 @@ export function VehiculeForm({
                 className="h-4 w-4 rounded border-black/20"
               />
               <span className="font-medium text-ink">{t("field_activo")}</span>
+            </label>
+          </Card>
+
+          <Card title={t("field_foto")}>
+            {photoPreview ? (
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-md bg-black/5">
+                {photoFile ? (
+                  // Aperçu local (blob:) avant envoi — next/image n'accepte pas les URL
+                  // blob:, seules les URL http(s) remote/local passent par l'optimiseur.
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={photoPreview} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <Image src={photoPreview} alt="" fill sizes="300px" className="object-cover" />
+                )}
+              </div>
+            ) : (
+              <div className="flex aspect-[4/3] w-full items-center justify-center rounded-md border border-dashed border-black/20 bg-black/[0.02] text-xs text-ink-soft">
+                {t("field_foto_vacia")}
+              </div>
+            )}
+            <label className={`${secondaryLinkClass} inline-block cursor-pointer text-center`}>
+              {t("field_foto_elegir")}
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => handlePhotoChange(e.target.files?.[0] ?? null)}
+                className="hidden"
+              />
             </label>
           </Card>
         </div>

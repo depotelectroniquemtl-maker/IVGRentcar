@@ -2,8 +2,15 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { EditRowLink, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { SearchInput } from "@/components/admin/SearchInput";
 
-export default async function ClientsPage() {
+export default async function ClientsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q: qRaw } = await searchParams;
+  const q = qRaw?.trim().toLowerCase() ?? "";
   const supabase = createClient();
   const t = await getAdminTranslator("admin.clients");
   const tCommon = await getAdminTranslator("admin.common");
@@ -12,6 +19,14 @@ export default async function ClientsPage() {
     .from("clients")
     .select("id, nom, telephone, email, numero_permis")
     .order("nom");
+
+  const clientsFiltrados = q
+    ? clients?.filter((c) =>
+        [c.nom, c.telephone, c.email, c.numero_permis]
+          .filter((v): v is string => Boolean(v))
+          .some((v) => v.toLowerCase().includes(q)),
+      )
+    : clients;
 
   return (
     <div className="flex flex-col gap-5">
@@ -30,6 +45,8 @@ export default async function ClientsPage() {
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
 
+      <SearchInput placeholder={t("search_placeholder")} />
+
       <div className={tableCardClass}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[560px] text-left text-sm">
@@ -43,7 +60,7 @@ export default async function ClientsPage() {
               </tr>
             </thead>
             <tbody>
-              {clients?.map((c) => (
+              {clientsFiltrados?.map((c) => (
                 <tr key={c.id} className={trClass}>
                   <td className="px-4 py-3 font-medium text-ink">{c.nom}</td>
                   <td className="px-4 py-3">{c.telephone ?? tCommon("dash")}</td>
@@ -58,10 +75,10 @@ export default async function ClientsPage() {
                   </td>
                 </tr>
               ))}
-              {clients?.length === 0 && (
+              {clientsFiltrados?.length === 0 && (
                 <tr>
                   <td colSpan={5} className="px-4 py-6 text-center text-ink-soft">
-                    {t("empty")}
+                    {q ? tCommon("no_results") : t("empty")}
                   </td>
                 </tr>
               )}

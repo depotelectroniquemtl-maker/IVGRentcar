@@ -3,8 +3,15 @@ import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { EntretienRowActions } from "@/components/admin/EntretienRowActions";
+import { SearchInput } from "@/components/admin/SearchInput";
 
-export default async function EntretiensPage() {
+export default async function EntretiensPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q: qRaw } = await searchParams;
+  const q = qRaw?.trim().toLowerCase() ?? "";
   const supabase = createClient();
   const t = await getAdminTranslator("admin.entretiens");
   const tCommon = await getAdminTranslator("admin.common");
@@ -39,6 +46,14 @@ export default async function EntretiensPage() {
     entretiens?.filter((e) => e.prochain_entretien && e.prochain_entretien <= en30dias && e.prochain_entretien >= hoy)
       .length ?? 0;
 
+  const entretiensFiltrados = q
+    ? entretiens?.filter((e) =>
+        [e.vehicules?.categories_vehicules?.nom, e.vehicules?.plaque, TYPE_LABELS[e.type]]
+          .filter((v): v is string => Boolean(v))
+          .some((v) => v.toLowerCase().includes(q)),
+      )
+    : entretiens;
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -59,6 +74,8 @@ export default async function EntretiensPage() {
         <StatCard label={t("stat_proximos_30")} value={proximos30dias} tone="warn" />
       </div>
 
+      <SearchInput placeholder={t("search_placeholder")} />
+
       <div className={tableCardClass}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-sm">
@@ -73,7 +90,7 @@ export default async function EntretiensPage() {
               </tr>
             </thead>
             <tbody>
-              {entretiens?.map((e) => {
+              {entretiensFiltrados?.map((e) => {
                 const vencido = e.prochain_entretien != null && e.prochain_entretien < hoy;
                 return (
                   <tr key={e.id} className={trClass}>
@@ -99,10 +116,10 @@ export default async function EntretiensPage() {
                   </tr>
                 );
               })}
-              {entretiens?.length === 0 && (
+              {entretiensFiltrados?.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
-                    {t("empty")}
+                    {q ? tCommon("no_results") : t("empty")}
                   </td>
                 </tr>
               )}

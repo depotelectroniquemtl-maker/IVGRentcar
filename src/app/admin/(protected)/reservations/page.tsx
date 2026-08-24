@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { EditRowLink, Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { SearchInput } from "@/components/admin/SearchInput";
 
 function calcularFase(
   dateDebut: string,
@@ -27,7 +28,13 @@ const FASE_CLASSNAMES: Record<string, string> = {
   annulee: "bg-red-100 text-red-700",
 };
 
-export default async function ReservationsPage() {
+export default async function ReservationsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q: qRaw } = await searchParams;
+  const q = qRaw?.trim().toLowerCase() ?? "";
   const supabase = createClient();
   const t = await getAdminTranslator("admin.reservations");
   const tCommon = await getAdminTranslator("admin.common");
@@ -57,6 +64,14 @@ export default async function ReservationsPage() {
   const pendientes = reservations?.filter((r) => r.statut === "en_attente").length ?? 0;
   const canceladas = reservations?.filter((r) => r.statut === "annulee").length ?? 0;
 
+  const reservationsFiltradas = q
+    ? reservations?.filter((r) =>
+        [String(r.numero), r.clients?.nom, r.vehicules?.categories_vehicules?.nom, r.vehicules?.plaque]
+          .filter((v): v is string => Boolean(v))
+          .some((v) => v.toLowerCase().includes(q)),
+      )
+    : reservations;
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -78,6 +93,8 @@ export default async function ReservationsPage() {
         <StatCard label={t("stat_canceladas")} value={canceladas} tone="muted" />
       </div>
 
+      <SearchInput placeholder={t("search_placeholder")} />
+
       <div className={tableCardClass}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-sm">
@@ -94,7 +111,7 @@ export default async function ReservationsPage() {
               </tr>
             </thead>
             <tbody>
-              {reservations?.map((r) => {
+              {reservationsFiltradas?.map((r) => {
                 const fase = calcularFase(r.date_debut, r.date_fin, r.statut, r.date_retour_reelle);
                 return (
                   <tr key={r.id} className={trClass}>
@@ -125,10 +142,10 @@ export default async function ReservationsPage() {
                   </tr>
                 );
               })}
-              {reservations?.length === 0 && (
+              {reservationsFiltradas?.length === 0 && (
                 <tr>
                   <td colSpan={8} className="px-4 py-6 text-center text-ink-soft">
-                    {t("empty")}
+                    {q ? tCommon("no_results") : t("empty")}
                   </td>
                 </tr>
               )}

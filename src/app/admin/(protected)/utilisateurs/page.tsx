@@ -4,12 +4,19 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { EditRowLink, Pill, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { SearchInput } from "@/components/admin/SearchInput";
 
 // Écran réservé aux admins — la vérification se fait ici, côté serveur (pas seulement en
 // cachant le lien dans la Sidebar). Un employé qui arriverait quand même sur cette URL
 // voit un message de refus, et de toute façon la policy RLS "profiles_select_own_or_admin"
 // l'empêcherait de voir les autres comptes.
-export default async function UtilisateursPage() {
+export default async function UtilisateursPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q: qRaw } = await searchParams;
+  const q = qRaw?.trim().toLowerCase() ?? "";
   const profile = await getCurrentProfile();
   const tCommon = await getAdminTranslator("admin.common");
 
@@ -35,6 +42,8 @@ export default async function UtilisateursPage() {
       .map((u) => u.id) ?? [],
   );
 
+  const usuariosFiltrados = q ? usuarios?.filter((u) => u.nom.toLowerCase().includes(q)) : usuarios;
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
@@ -49,6 +58,8 @@ export default async function UtilisateursPage() {
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
 
+      <SearchInput placeholder={t("search_placeholder")} />
+
       <div className={tableCardClass}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[420px] text-left text-sm">
@@ -60,7 +71,7 @@ export default async function UtilisateursPage() {
               </tr>
             </thead>
             <tbody>
-              {usuarios?.map((u) => (
+              {usuariosFiltrados?.map((u) => (
                 <tr key={u.id} className={trClass}>
                   <td className="px-4 py-3 font-medium text-ink">
                     {u.nom}
@@ -84,6 +95,13 @@ export default async function UtilisateursPage() {
                   </td>
                 </tr>
               ))}
+              {usuariosFiltrados?.length === 0 && (
+                <tr>
+                  <td colSpan={3} className="px-4 py-6 text-center text-ink-soft">
+                    {tCommon("no_results")}
+                  </td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

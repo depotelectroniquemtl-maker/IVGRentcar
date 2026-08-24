@@ -3,8 +3,15 @@ import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { DemandeStatutSelect } from "@/components/admin/DemandeStatutSelect";
 import { StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { SearchInput } from "@/components/admin/SearchInput";
 
-export default async function DemandesPage() {
+export default async function DemandesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q: qRaw } = await searchParams;
+  const q = qRaw?.trim().toLowerCase() ?? "";
   const supabase = createClient();
   const t = await getAdminTranslator("admin.demandes");
   const tCommon = await getAdminTranslator("admin.common");
@@ -21,6 +28,14 @@ export default async function DemandesPage() {
   const convertidas = demandes?.filter((d) => d.statut === "convertie").length ?? 0;
   const rechazadas = demandes?.filter((d) => d.statut === "rejetee").length ?? 0;
 
+  const demandesFiltradas = q
+    ? demandes?.filter((d) =>
+        [d.nom, d.whatsapp, d.vehicules?.categories_vehicules?.nom, d.vehicules?.plaque]
+          .filter((v): v is string => Boolean(v))
+          .some((v) => v.toLowerCase().includes(q)),
+      )
+    : demandes;
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex items-center justify-between">
@@ -36,6 +51,8 @@ export default async function DemandesPage() {
         <StatCard label={t("statut_convertie")} value={convertidas} />
         <StatCard label={t("statut_rejetee")} value={rechazadas} tone="muted" />
       </div>
+
+      <SearchInput placeholder={t("search_placeholder")} />
 
       <div className={tableCardClass}>
         <div className="overflow-x-auto">
@@ -54,7 +71,7 @@ export default async function DemandesPage() {
             </tr>
           </thead>
           <tbody>
-            {demandes?.map((d) => {
+            {demandesFiltradas?.map((d) => {
               const convertirParams = new URLSearchParams({
                 vehicule_id: d.vehicule_id,
                 date_debut: d.date_debut,
@@ -99,10 +116,10 @@ export default async function DemandesPage() {
                 </tr>
               );
             })}
-            {demandes?.length === 0 && (
+            {demandesFiltradas?.length === 0 && (
               <tr>
                 <td colSpan={9} className="px-4 py-6 text-center text-ink-soft">
-                  {t("empty")}
+                  {q ? tCommon("no_results") : t("empty")}
                 </td>
               </tr>
             )}

@@ -4,6 +4,7 @@ import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { VehiculeRowActions } from "@/components/admin/VehiculeRowActions";
 import { Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { SearchInput } from "@/components/admin/SearchInput";
 
 const ESTADO_PILL_CLASS: Record<string, string> = {
   disponible: "bg-green-100 text-green-700",
@@ -11,7 +12,13 @@ const ESTADO_PILL_CLASS: Record<string, string> = {
   hors_service: "bg-red-100 text-red-700",
 };
 
-export default async function VehiculesPage() {
+export default async function VehiculesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string }>;
+}) {
+  const { q: qRaw } = await searchParams;
+  const q = qRaw?.trim().toLowerCase() ?? "";
   const supabase = createClient();
   const profile = await getCurrentProfile();
   const t = await getAdminTranslator("admin.vehicules");
@@ -32,6 +39,14 @@ export default async function VehiculesPage() {
   const mantenimiento = vehicules?.filter((v) => v.actif && v.etat_operationnel === "maintenance").length ?? 0;
   const fueraDeServicio = vehicules?.filter((v) => v.actif && v.etat_operationnel === "hors_service").length ?? 0;
   const inactivos = vehicules?.filter((v) => !v.actif).length ?? 0;
+
+  const vehiculesFiltrados = q
+    ? vehicules?.filter((v) =>
+        [v.categorie_nom, v.plaque]
+          .filter((val): val is string => Boolean(val))
+          .some((val) => val.toLowerCase().includes(q)),
+      )
+    : vehicules;
 
   return (
     <div className="flex flex-col gap-5">
@@ -61,6 +76,8 @@ export default async function VehiculesPage() {
         <StatCard label={t("stat_inactive")} value={inactivos} tone="muted" />
       </div>
 
+      <SearchInput placeholder={t("search_placeholder")} />
+
       <div className={tableCardClass}>
         <div className="overflow-x-auto">
           <table className="w-full min-w-[720px] text-left text-sm">
@@ -75,7 +92,7 @@ export default async function VehiculesPage() {
               </tr>
             </thead>
             <tbody>
-              {vehicules?.map((v) => (
+              {vehiculesFiltrados?.map((v) => (
                 <tr key={v.id} className={trClass}>
                   <td className="px-4 py-3 font-medium text-ink">{v.categorie_nom}</td>
                   <td className="px-4 py-3 font-mono text-xs text-ink-soft">
@@ -111,10 +128,10 @@ export default async function VehiculesPage() {
                   </td>
                 </tr>
               ))}
-              {vehicules?.length === 0 && (
+              {vehiculesFiltrados?.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
-                    {t("empty")}
+                    {q ? tCommon("no_results") : t("empty")}
                   </td>
                 </tr>
               )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -23,7 +23,15 @@ type Cliente = {
   notes: string | null;
 };
 
-export function ClienteForm({ title, cliente }: { title: string; cliente?: Cliente }) {
+export function ClienteForm({
+  title,
+  secondaryActions,
+  cliente,
+}: {
+  title: string;
+  secondaryActions?: ReactNode;
+  cliente?: Cliente;
+}) {
   const router = useRouter();
   const t = useTranslations("admin.clients");
   const tCommon = useTranslations("admin.common");
@@ -95,6 +103,8 @@ export function ClienteForm({ title, cliente }: { title: string; cliente?: Clien
           </button>
         </div>
       </div>
+
+      {secondaryActions}
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 

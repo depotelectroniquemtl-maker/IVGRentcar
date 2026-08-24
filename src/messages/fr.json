@@ -396,7 +396,11 @@
       "field_residencia": "Résidence locale",
       "field_notas": "Notes",
       "submit_create": "Créer le client",
-      "save_changes": "Enregistrer les modifications"
+      "save_changes": "Enregistrer les modifications",
+      "delete": "Supprimer le client",
+      "delete_confirm": "Supprimer définitivement ce client ? Cette action est irréversible.",
+      "delete_confirm_yes": "Oui, supprimer",
+      "delete_error_has_reservations": "Impossible de supprimer : ce client a des réservations enregistrées."
     },
     "reservations": {
       "title": "Réservations",

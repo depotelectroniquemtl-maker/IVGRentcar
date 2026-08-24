@@ -409,7 +409,8 @@
       "delete": "Eliminar cliente",
       "delete_confirm": "¿Eliminar este cliente de forma permanente? Esta acción no se puede deshacer.",
       "delete_confirm_yes": "Sí, eliminar",
-      "delete_error_has_reservations": "No se puede eliminar: este cliente tiene reservas registradas."
+      "delete_error_has_reservations": "No se puede eliminar: este cliente tiene reservas registradas.",
+      "reservas_title": "Historial de reservas"
     },
     "reservations": {
       "title": "Reservas",

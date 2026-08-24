@@ -409,7 +409,8 @@
       "delete": "Delete client",
       "delete_confirm": "Permanently delete this client? This can't be undone.",
       "delete_confirm_yes": "Yes, delete",
-      "delete_error_has_reservations": "Can't delete: this client has reservations on file."
+      "delete_error_has_reservations": "Can't delete: this client has reservations on file.",
+      "reservas_title": "Reservation history"
     },
     "reservations": {
       "title": "Reservations",

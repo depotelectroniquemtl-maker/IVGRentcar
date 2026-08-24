@@ -15,7 +15,8 @@
       "rights": "Tous droits réservés.",
       "address": "Plaza Italia #35, Avenida Juan Pablo Duarte, Las Terrenas, R.D.",
       "tagline": "Explorez librement.\nRevenez heureux.",
-      "location": "Las Terrenas, République dominicaine"
+      "location": "Las Terrenas, République dominicaine",
+      "admin": "Admin"
     }
   },
   "home": {

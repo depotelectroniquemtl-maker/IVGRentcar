@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 
@@ -35,6 +36,9 @@ export function Footer() {
             © {new Date().getFullYear()} I.V.J Polanco Rent a Car · {t("footer.location")}
           </p>
           <p>WhatsApp: +{WHATSAPP_NUMBER}</p>
+          <Link href="/admin/login" className="text-white/40 transition hover:text-white/70">
+            {t("footer.admin")}
+          </Link>
         </div>
       </div>
     </footer>

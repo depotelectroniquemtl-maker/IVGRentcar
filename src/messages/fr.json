@@ -254,7 +254,9 @@
       "entretien_type_autre": "Autre",
       "cancel": "Annuler",
       "section_notas": "Notes",
-      "no_results": "Aucun résultat pour votre recherche."
+      "no_results": "Aucun résultat pour votre recherche.",
+      "pager_prev": "← Précédent",
+      "pager_next": "Suivant →"
     },
     "dashboard": {
       "title": "Tableau de bord",

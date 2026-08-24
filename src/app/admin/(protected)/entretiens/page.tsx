@@ -4,14 +4,18 @@ import { getAdminTranslator } from "@/lib/admin-i18n";
 import { Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { EntretienRowActions } from "@/components/admin/EntretienRowActions";
 import { SearchInput } from "@/components/admin/SearchInput";
+import { Pagination } from "@/components/admin/Pagination";
+
+const PAGE_SIZE = 20;
 
 export default async function EntretiensPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; page?: string }>;
 }) {
-  const { q: qRaw } = await searchParams;
+  const { q: qRaw, page: pageRaw } = await searchParams;
   const q = qRaw?.trim().toLowerCase() ?? "";
+  const page = Math.max(1, Number(pageRaw) || 1);
   const supabase = createClient();
   const t = await getAdminTranslator("admin.entretiens");
   const tCommon = await getAdminTranslator("admin.common");
@@ -30,8 +34,7 @@ export default async function EntretiensPage({
     .select(
       "id, type, date_entretien, cout_usd, prochain_entretien, vehicules(plaque, categories_vehicules(nom))",
     )
-    .order("date_entretien", { ascending: false })
-    .limit(50);
+    .order("date_entretien", { ascending: false });
 
   const hoy = new Date().toISOString().slice(0, 10);
   const en30dias = new Date(Date.now() + 30 * 86400000).toISOString().slice(0, 10);
@@ -53,6 +56,13 @@ export default async function EntretiensPage({
           .some((v) => v.toLowerCase().includes(q)),
       )
     : entretiens;
+
+  const totalPages = Math.max(1, Math.ceil((entretiensFiltrados?.length ?? 0) / PAGE_SIZE));
+  const paginaActual = Math.min(page, totalPages);
+  const entretiensPagina = entretiensFiltrados?.slice(
+    (paginaActual - 1) * PAGE_SIZE,
+    paginaActual * PAGE_SIZE,
+  );
 
   return (
     <div className="flex flex-col gap-5">
@@ -90,7 +100,7 @@ export default async function EntretiensPage({
               </tr>
             </thead>
             <tbody>
-              {entretiensFiltrados?.map((e) => {
+              {entretiensPagina?.map((e) => {
                 const vencido = e.prochain_entretien != null && e.prochain_entretien < hoy;
                 return (
                   <tr key={e.id} className={trClass}>
@@ -127,6 +137,15 @@ export default async function EntretiensPage({
           </table>
         </div>
       </div>
+
+      <Pagination
+        page={paginaActual}
+        totalPages={totalPages}
+        basePath="/admin/entretiens"
+        searchParams={{ q: qRaw }}
+        labelPrev={tCommon("pager_prev")}
+        labelNext={tCommon("pager_next")}
+      />
     </div>
   );
 }

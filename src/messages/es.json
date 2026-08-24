@@ -254,7 +254,9 @@
       "entretien_type_autre": "Otro",
       "cancel": "Cancelar",
       "section_notas": "Notas",
-      "no_results": "Sin resultados para tu búsqueda."
+      "no_results": "Sin resultados para tu búsqueda.",
+      "pager_prev": "← Anterior",
+      "pager_next": "Siguiente →"
     },
     "dashboard": {
       "title": "Panel",

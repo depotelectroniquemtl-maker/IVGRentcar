@@ -3,6 +3,9 @@ import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { EditRowLink, Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { SearchInput } from "@/components/admin/SearchInput";
+import { Pagination } from "@/components/admin/Pagination";
+
+const PAGE_SIZE = 20;
 
 function calcularFase(
   dateDebut: string,
@@ -31,10 +34,11 @@ const FASE_CLASSNAMES: Record<string, string> = {
 export default async function ReservationsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; page?: string }>;
 }) {
-  const { q: qRaw } = await searchParams;
+  const { q: qRaw, page: pageRaw } = await searchParams;
   const q = qRaw?.trim().toLowerCase() ?? "";
+  const page = Math.max(1, Number(pageRaw) || 1);
   const supabase = createClient();
   const t = await getAdminTranslator("admin.reservations");
   const tCommon = await getAdminTranslator("admin.common");
@@ -52,8 +56,7 @@ export default async function ReservationsPage({
     .select(
       "id, numero, date_debut, date_fin, date_retour_reelle, statut, prix_total_usd, vehicules(plaque, categories_vehicules(nom)), clients(nom)",
     )
-    .order("date_debut", { ascending: false })
-    .limit(50);
+    .order("date_debut", { ascending: false });
 
   const fases =
     reservations?.map((r) =>
@@ -71,6 +74,13 @@ export default async function ReservationsPage({
           .some((v) => v.toLowerCase().includes(q)),
       )
     : reservations;
+
+  const totalPages = Math.max(1, Math.ceil((reservationsFiltradas?.length ?? 0) / PAGE_SIZE));
+  const paginaActual = Math.min(page, totalPages);
+  const reservationsPagina = reservationsFiltradas?.slice(
+    (paginaActual - 1) * PAGE_SIZE,
+    paginaActual * PAGE_SIZE,
+  );
 
   return (
     <div className="flex flex-col gap-5">
@@ -111,7 +121,7 @@ export default async function ReservationsPage({
               </tr>
             </thead>
             <tbody>
-              {reservationsFiltradas?.map((r) => {
+              {reservationsPagina?.map((r) => {
                 const fase = calcularFase(r.date_debut, r.date_fin, r.statut, r.date_retour_reelle);
                 return (
                   <tr key={r.id} className={trClass}>
@@ -153,6 +163,15 @@ export default async function ReservationsPage({
           </table>
         </div>
       </div>
+
+      <Pagination
+        page={paginaActual}
+        totalPages={totalPages}
+        basePath="/admin/reservations"
+        searchParams={{ q: qRaw }}
+        labelPrev={tCommon("pager_prev")}
+        labelNext={tCommon("pager_next")}
+      />
     </div>
   );
 }

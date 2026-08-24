@@ -154,8 +154,12 @@
     ]
   },
   "reservar": {
+    "eyebrow": "Planifica tu alquiler",
     "title": "Solicitar una reserva",
     "subtitle": "Cuéntanos qué necesitas — confirmamos disponibilidad, precio y los pasos para asegurar tu vehículo.",
+    "step1_label": "Envía tu solicitud",
+    "step2_label": "Confirmamos",
+    "step3_label": "Recoge tu vehículo",
     "field_nombre": "Nombre completo",
     "field_whatsapp": "WhatsApp",
     "field_email": "Correo (opcional)",

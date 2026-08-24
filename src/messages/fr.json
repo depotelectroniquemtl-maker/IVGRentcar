@@ -154,8 +154,12 @@
     ]
   },
   "reservar": {
+    "eyebrow": "Planifiez votre location",
     "title": "Demander une réservation",
     "subtitle": "Dites-nous ce dont vous avez besoin — nous confirmons la disponibilité, le prix et les étapes pour réserver votre véhicule.",
+    "step1_label": "Envoyer la demande",
+    "step2_label": "Nous confirmons",
+    "step3_label": "Récupérer le véhicule",
     "field_nombre": "Nom complet",
     "field_whatsapp": "WhatsApp",
     "field_email": "Courriel (optionnel)",

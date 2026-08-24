@@ -154,8 +154,12 @@
     ]
   },
   "reservar": {
+    "eyebrow": "Plan your rental",
     "title": "Request a reservation",
     "subtitle": "Tell us what you need — we'll confirm availability, price and the steps to secure your vehicle.",
+    "step1_label": "Send your request",
+    "step2_label": "We confirm",
+    "step3_label": "Pick up your vehicle",
     "field_nombre": "Full name",
     "field_whatsapp": "WhatsApp",
     "field_email": "Email (optional)",

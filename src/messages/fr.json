@@ -596,6 +596,7 @@
       "title": "Tarifs",
       "subtitle_admin": "Cliquez sur un prix pour le modifier",
       "subtitle_readonly": "Lecture seule — contactez un admin pour modifier",
+      "col_orden": "Ordre",
       "col_categoria": "Catégorie",
       "col_1_3": "1-3 jours",
       "col_4_plus": "4 jours et +",

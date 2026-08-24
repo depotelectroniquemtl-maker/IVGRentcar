@@ -20,6 +20,7 @@ export async function getCatalogue(): Promise<CategorieAvecTarifs[]> {
       .from("categories_vehicules")
       .select("id, nom, type, capacite_personnes, actif, tarifs(palier, prix_usd)")
       .eq("actif", true)
+      .order("ordre_affichage")
       .order("nom"),
     supabase.rpc("categories_avec_flotte_active"),
   ]);

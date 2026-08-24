@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { TarifaInput } from "@/components/admin/TarifaInput";
+import { OrdreCategorieButtons } from "@/components/admin/OrdreCategorieButtons";
 import { tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 
 export default async function TarifsPage() {
@@ -13,7 +14,8 @@ export default async function TarifsPage() {
 
   const { data: categories, error } = await supabase
     .from("categories_vehicules")
-    .select("id, nom, actif, tarifs(id, palier, prix_usd)")
+    .select("id, nom, actif, ordre_affichage, tarifs(id, palier, prix_usd)")
+    .order("ordre_affichage")
     .order("nom");
 
   return (
@@ -32,6 +34,7 @@ export default async function TarifsPage() {
           <table className="w-full min-w-[560px] text-left text-sm">
             <thead className={theadClass}>
               <tr>
+                {esAdmin && <th className={thClass}>{t("col_orden")}</th>}
                 <th className={thClass}>{t("col_categoria")}</th>
                 <th className={thClass}>{t("col_1_3")}</th>
                 <th className={thClass}>{t("col_4_plus")}</th>
@@ -40,12 +43,26 @@ export default async function TarifsPage() {
               </tr>
             </thead>
             <tbody>
-              {categories?.map((cat) => {
+              {categories?.map((cat, i) => {
                 const tarifs = Object.fromEntries(
                   (cat.tarifs ?? []).map((tarif) => [tarif.palier, tarif]),
                 ) as Record<string, { id: string; prix_usd: number }>;
+                const precedente = categories[i - 1];
+                const suivante = categories[i + 1];
                 return (
                   <tr key={cat.id} className={trClass}>
+                    {esAdmin && (
+                      <td className="px-4 py-3">
+                        <OrdreCategorieButtons
+                          id={cat.id}
+                          ordre={cat.ordre_affichage}
+                          voisinHautId={precedente?.id}
+                          voisinHautOrdre={precedente?.ordre_affichage}
+                          voisinBasId={suivante?.id}
+                          voisinBasOrdre={suivante?.ordre_affichage}
+                        />
+                      </td>
+                    )}
                     <td className="px-4 py-3 font-medium text-ink">{cat.nom}</td>
                     {(["1_3_jours", "4_plus_jours", "15_plus_jours"] as const).map((palier) => (
                       <td key={palier} className="px-4 py-3">

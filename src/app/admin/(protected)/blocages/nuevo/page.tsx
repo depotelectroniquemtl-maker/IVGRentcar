@@ -5,7 +5,7 @@ import { BlocageForm } from "@/components/admin/BlocageForm";
 export default async function NuevoBlocagePage({
   searchParams,
 }: {
-  searchParams: Promise<{ vehicule_id?: string; date_debut?: string }>;
+  searchParams: Promise<{ vehicule_id?: string; date_debut?: string; date_fin?: string }>;
 }) {
   const params = await searchParams;
   const supabase = createClient();
@@ -29,6 +29,7 @@ export default async function NuevoBlocagePage({
       vehicules={vehiculesFormatted}
       vehiculeIdPreseleccionado={params.vehicule_id}
       dateDebutPreseleccionada={params.date_debut}
+      dateFinPreseleccionada={params.date_fin}
     />
   );
 }

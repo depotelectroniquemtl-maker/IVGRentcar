@@ -28,12 +28,14 @@ export function BlocageForm({
   blocage,
   vehiculeIdPreseleccionado,
   dateDebutPreseleccionada,
+  dateFinPreseleccionada,
 }: {
   title: string;
   vehicules: { id: string; plaque: string | null; categorie_nom: string }[];
   blocage?: Blocage;
   vehiculeIdPreseleccionado?: string;
   dateDebutPreseleccionada?: string;
+  dateFinPreseleccionada?: string;
 }) {
   const router = useRouter();
   const t = useTranslations("admin.blocages");
@@ -46,7 +48,9 @@ export function BlocageForm({
   const [dateDebut, setDateDebut] = useState(
     blocage?.date_debut ?? dateDebutPreseleccionada ?? "",
   );
-  const [dateFin, setDateFin] = useState(blocage?.date_fin ?? dateDebutPreseleccionada ?? "");
+  const [dateFin, setDateFin] = useState(
+    blocage?.date_fin ?? dateFinPreseleccionada ?? dateDebutPreseleccionada ?? "",
+  );
   const [motif, setMotif] = useState(blocage?.motif ?? "");
 
   const [loading, setLoading] = useState(false);

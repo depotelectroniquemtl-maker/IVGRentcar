@@ -378,6 +378,7 @@
       "empty": "Aucun véhicule actif.",
       "choose_title": "Que voulez-vous faire ?",
       "choose_subtitle": "{vehiculo} — {fecha}",
+      "choose_subtitle_range": "{vehiculo} — {debut} → {fin}",
       "action_reserva": "Créer une réservation",
       "action_bloqueo": "Bloquer ce véhicule",
       "back": "← Retour au calendrier"

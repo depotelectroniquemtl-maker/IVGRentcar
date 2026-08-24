@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
+import { CalendrierGrid } from "@/components/admin/CalendrierGrid";
 
 const WINDOW_DAYS = 14;
 
@@ -52,12 +53,13 @@ export default async function CalendrierPage({
 
   // vehicule_id -> date ISO -> occupation (réservation ou blocage manuel), pour un accès
   // O(1) par cellule plutôt que de reparcourir les listes à chaque case de la grille.
-  const occupation = new Map<string, Map<string, Occupation>>();
+  // Objet simple (pas une Map) car ces données traversent la frontière serveur/client
+  // vers CalendrierGrid, qui gère la sélection de plage à la souris.
+  const occupation: Record<string, Record<string, Occupation>> = {};
   function marquer(vehiculeId: string, debut: string, fin: string, occ: Occupation) {
-    if (!occupation.has(vehiculeId)) occupation.set(vehiculeId, new Map());
-    const parVehicule = occupation.get(vehiculeId)!;
+    if (!occupation[vehiculeId]) occupation[vehiculeId] = {};
     for (const jour of jours) {
-      if (jour >= debut && jour <= fin) parVehicule.set(jour, occ);
+      if (jour >= debut && jour <= fin) occupation[vehiculeId][jour] = occ;
     }
   }
 
@@ -108,84 +110,17 @@ export default async function CalendrierPage({
       </div>
 
       <div className="overflow-x-auto rounded-lg border border-black/10 bg-white shadow-sm">
-        <table className="w-full border-collapse text-left text-xs">
-          <thead>
-            <tr className="bg-black/5 text-ink-soft">
-              <th className="sticky left-0 z-10 min-w-[160px] bg-black/5 px-3 py-2">
-                {t("col_vehiculo")}
-              </th>
-              {jours.map((jour) => (
-                <th key={jour} className="min-w-[44px] px-1 py-2 text-center font-medium">
-                  {jour.slice(8, 10)}
-                  <span className="block text-[10px] font-normal text-ink-soft/70">
-                    {new Date(jour + "T00:00:00").toLocaleDateString(undefined, {
-                      weekday: "short",
-                    })}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {vehicules?.map((v) => {
-              const nomVehicule = `${v.categories_vehicules?.nom ?? tCommon("dash")} (${v.plaque ?? tCommon("dash")})`;
-              const parJour = occupation.get(v.id);
-
-              return (
-                <tr key={v.id} className="border-t border-black/5">
-                  <td className="sticky left-0 z-10 min-w-[160px] bg-white px-3 py-2 font-medium text-ink">
-                    {nomVehicule}
-                  </td>
-                  {jours.map((jour) => {
-                    const occ = parJour?.get(jour);
-
-                    if (!occ) {
-                      return (
-                        <td key={jour} className="border-l border-black/5 p-0">
-                          <Link
-                            href={`/admin/calendrier/elegir?vehicule_id=${v.id}&date=${jour}`}
-                            className="flex h-10 w-full items-center justify-center text-black/10 hover:bg-black/[0.04] hover:text-ink"
-                            title={t("choose_title")}
-                          >
-                            +
-                          </Link>
-                        </td>
-                      );
-                    }
-
-                    const href =
-                      occ.type === "reservation"
-                        ? `/admin/reservations/${occ.id}`
-                        : `/admin/blocages/${occ.id}`;
-                    const colorClass =
-                      occ.type === "reservation"
-                        ? "bg-blue-100 text-blue-800 hover:bg-blue-200"
-                        : "bg-orange-100 text-orange-800 hover:bg-orange-200";
-
-                    return (
-                      <td key={jour} className="border-l border-black/5 p-0">
-                        <Link
-                          href={href}
-                          title={occ.label}
-                          className={`flex h-10 w-full items-center justify-center overflow-hidden px-0.5 text-[10px] font-medium leading-tight ${colorClass}`}
-                        >
-                          <span className="truncate">{occ.label}</span>
-                        </Link>
-                      </td>
-                    );
-                  })}
-                </tr>
-              );
-            })}
-            {vehicules?.length === 0 && (
-              <tr>
-                <td colSpan={WINDOW_DAYS + 1} className="px-4 py-6 text-center text-ink-soft">
-                  {t("empty")}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        <CalendrierGrid
+          vehicules={(vehicules ?? []).map((v) => ({
+            id: v.id,
+            nom: `${v.categories_vehicules?.nom ?? tCommon("dash")} (${v.plaque ?? tCommon("dash")})`,
+          }))}
+          jours={jours}
+          occupation={occupation}
+          colVehiculo={t("col_vehiculo")}
+          chooseTitle={t("choose_title")}
+          empty={t("empty")}
+        />
       </div>
     </div>
   );

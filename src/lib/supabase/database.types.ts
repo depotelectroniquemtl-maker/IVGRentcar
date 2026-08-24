@@ -122,6 +122,7 @@ export type Database = {
           deducible_usd: number | null
           garant_adresse: string | null
           garant_cedula: string | null
+          garant_id: string | null
           garant_nom: string | null
           garant_telephone: string | null
           heure_remise: string | null
@@ -143,6 +144,7 @@ export type Database = {
           deducible_usd?: number | null
           garant_adresse?: string | null
           garant_cedula?: string | null
+          garant_id?: string | null
           garant_nom?: string | null
           garant_telephone?: string | null
           heure_remise?: string | null
@@ -164,6 +166,7 @@ export type Database = {
           deducible_usd?: number | null
           garant_adresse?: string | null
           garant_cedula?: string | null
+          garant_id?: string | null
           garant_nom?: string | null
           garant_telephone?: string | null
           heure_remise?: string | null
@@ -182,6 +185,13 @@ export type Database = {
             columns: ["created_by"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contrats_location_garant_id_fkey"
+            columns: ["garant_id"]
+            isOneToOne: false
+            referencedRelation: "garants"
             referencedColumns: ["id"]
           },
           {
@@ -326,6 +336,50 @@ export type Database = {
             columns: ["vehicule_id"]
             isOneToOne: false
             referencedRelation: "vehicules_disponibilite"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      garants: {
+        Row: {
+          adresse: string | null
+          cedula: string | null
+          created_at: string
+          created_by: string | null
+          id: string
+          nom: string
+          notes: string | null
+          telephone: string | null
+          updated_at: string
+        }
+        Insert: {
+          adresse?: string | null
+          cedula?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          nom: string
+          notes?: string | null
+          telephone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          adresse?: string | null
+          cedula?: string | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          nom?: string
+          notes?: string | null
+          telephone?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "garants_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]

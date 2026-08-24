@@ -16,6 +16,7 @@ type Contrat = {
   solde_usd: number | null;
   niveau_essence: string | null;
   accessoires: Record<string, boolean>;
+  garant_id: string | null;
   garant_nom: string | null;
   garant_adresse: string | null;
   garant_cedula: string | null;
@@ -23,15 +24,25 @@ type Contrat = {
   notes: string | null;
 };
 
+type GaranteGuardado = {
+  id: string;
+  nom: string;
+  telephone: string | null;
+  cedula: string | null;
+  adresse: string | null;
+};
+
 export function ContratForm({
   reservationId,
   prixTotalUsd,
   couleurVehiculeParDefaut,
+  garantesGuardados,
   contrat,
 }: {
   reservationId: string;
   prixTotalUsd: number | null;
   couleurVehiculeParDefaut: string | null;
+  garantesGuardados: GaranteGuardado[];
   contrat?: Contrat;
 }) {
   const router = useRouter();
@@ -50,6 +61,7 @@ export function ContratForm({
   const [accessoires, setAccessoires] = useState<Record<string, boolean>>(
     contrat?.accessoires ?? {},
   );
+  const [garantId, setGarantId] = useState(contrat?.garant_id ?? "");
   const [garantNom, setGarantNom] = useState(contrat?.garant_nom ?? "");
   const [garantAdresse, setGarantAdresse] = useState(contrat?.garant_adresse ?? "");
   const [garantCedula, setGarantCedula] = useState(contrat?.garant_cedula ?? "");
@@ -58,6 +70,20 @@ export function ContratForm({
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // Sélectionner un garant déjà connu pré-remplit les champs texte (qui restent la
+  // source de vérité imprimée sur le contrat) mais ne les verrouille pas — le staff
+  // corrige librement une adresse ou un numéro périmé sans devoir éditer la fiche garant.
+  function handleSelectGarante(id: string) {
+    setGarantId(id);
+    const g = garantesGuardados.find((garante) => garante.id === id);
+    if (g) {
+      setGarantNom(g.nom);
+      setGarantAdresse(g.adresse ?? "");
+      setGarantCedula(g.cedula ?? "");
+      setGarantTelephone(g.telephone ?? "");
+    }
+  }
 
   // Saldo pré-calculé (prix total - abono) dès que l'abono change, mais reste un champ
   // libre modifiable ensuite — même logique que le prix auto-calculé de ReservationForm.
@@ -92,6 +118,7 @@ export function ContratForm({
       solde_usd: solde ? Number(solde) : null,
       niveau_essence: niveauEssence || null,
       accessoires,
+      garant_id: garantId || null,
       garant_nom: garantNom || null,
       garant_adresse: garantAdresse || null,
       garant_cedula: garantCedula || null,
@@ -200,6 +227,24 @@ export function ContratForm({
       </FormSection>
 
       <FormSection title={t("section_garante")}>
+        {garantesGuardados.length > 0 && (
+          <label className="block text-sm">
+            <span className={labelClass}>{t("field_garante_guardado")}</span>
+            <select
+              value={garantId}
+              onChange={(e) => handleSelectGarante(e.target.value)}
+              className={inputClass}
+            >
+              <option value="">{t("field_garante_guardado_placeholder")}</option>
+              {garantesGuardados.map((g) => (
+                <option key={g.id} value={g.id}>
+                  {g.nom}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
+
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="block text-sm">
             <span className={labelClass}>{t("field_garante_nombre")}</span>

@@ -20,6 +20,7 @@ type Vehicule = {
   notes: string | null;
   actif: boolean;
   photo_url: string | null;
+  solde_achat_usd: number | null;
 };
 
 export function VehiculeForm({
@@ -49,6 +50,7 @@ export function VehiculeForm({
   const [etat, setEtat] = useState(vehicule?.etat_operationnel ?? "disponible");
   const [notes, setNotes] = useState(vehicule?.notes ?? "");
   const [actif, setActif] = useState(vehicule?.actif ?? true);
+  const [soldeAchat, setSoldeAchat] = useState(vehicule?.solde_achat_usd?.toString() ?? "");
   const [photoUrl, setPhotoUrl] = useState(vehicule?.photo_url ?? null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(vehicule?.photo_url ?? null);
@@ -98,6 +100,7 @@ export function VehiculeForm({
       notes: notes || null,
       actif,
       photo_url: nouvellePhotoUrl,
+      solde_achat_usd: soldeAchat ? Number(soldeAchat) : null,
     };
 
     const { error } = editing
@@ -226,6 +229,21 @@ export function VehiculeForm({
                 className="h-4 w-4 rounded border-black/20"
               />
               <span className="font-medium text-ink">{t("field_activo")}</span>
+            </label>
+          </Card>
+
+          <Card title={t("section_financement")}>
+            <label className="block text-sm">
+              <span className={labelClass}>{t("field_solde_achat")}</span>
+              <input
+                type="number"
+                min={0}
+                step="0.01"
+                value={soldeAchat}
+                onChange={(e) => setSoldeAchat(e.target.value)}
+                className={inputClass}
+              />
+              <span className="mt-1 block text-xs text-ink-soft">{t("field_solde_achat_hint")}</span>
             </label>
           </Card>
 

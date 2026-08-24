@@ -29,7 +29,7 @@ export default async function RentabilitePage({
     await Promise.all([
       supabase
         .from("vehicules")
-        .select("id, plaque, actif, categories_vehicules(nom)"),
+        .select("id, plaque, actif, solde_achat_usd, categories_vehicules(nom)"),
       supabase
         .from("reservations")
         .select("vehicule_id, prix_total_usd, statut, date_debut")
@@ -87,9 +87,10 @@ export default async function RentabilitePage({
         reste,
         cout,
         net: revenu - cout,
+        soldeAchat: v.solde_achat_usd ?? 0,
       };
     })
-    .filter((l) => l.reservations > 0 || l.cout > 0)
+    .filter((l) => l.reservations > 0 || l.cout > 0 || l.soldeAchat > 0)
     .sort((a, b) => b.revenu - a.revenu);
 
   const totaux = lignes.reduce(
@@ -98,8 +99,9 @@ export default async function RentabilitePage({
       reste: acc.reste + l.reste,
       cout: acc.cout + l.cout,
       net: acc.net + l.net,
+      soldeAchat: acc.soldeAchat + l.soldeAchat,
     }),
-    { revenu: 0, reste: 0, cout: 0, net: 0 },
+    { revenu: 0, reste: 0, cout: 0, net: 0, soldeAchat: 0 },
   );
 
   const fmt = (n: number) => `US$ ${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
@@ -144,11 +146,12 @@ export default async function RentabilitePage({
         {!debut && !fin && <span className="text-xs text-ink-soft">{t("filter_hint_all_time")}</span>}
       </form>
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
         <StatCard label={t("stat_revenu")} value={fmt(totaux.revenu)} tone="neutral" />
         <StatCard label={t("stat_reste")} value={fmt(totaux.reste)} tone="warn" />
         <StatCard label={t("stat_couts")} value={fmt(totaux.cout)} tone="crit" />
         <StatCard label={t("stat_net")} value={fmt(totaux.net)} tone="neutral" />
+        <StatCard label={t("stat_solde_achat")} value={fmt(totaux.soldeAchat)} tone="muted" />
       </div>
 
       <div className={tableCardClass}>
@@ -162,6 +165,7 @@ export default async function RentabilitePage({
                 <th className={thNumClass}>{t("col_reste")}</th>
                 <th className={thNumClass}>{t("col_entretien")}</th>
                 <th className={thNumClass}>{t("col_net")}</th>
+                <th className={thNumClass}>{t("col_solde_achat")}</th>
               </tr>
             </thead>
             <tbody>
@@ -184,11 +188,14 @@ export default async function RentabilitePage({
                     {l.cout > 0 ? fmt(l.cout) : tCommon("dash")}
                   </td>
                   <td className="px-4 py-3 text-right font-semibold tabular-nums text-ink">{fmt(l.net)}</td>
+                  <td className="px-4 py-3 text-right tabular-nums text-ink-soft">
+                    {l.soldeAchat > 0 ? fmt(l.soldeAchat) : tCommon("dash")}
+                  </td>
                 </tr>
               ))}
               {lignes.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
+                  <td colSpan={7} className="px-4 py-6 text-center text-ink-soft">
                     {t("empty")}
                   </td>
                 </tr>

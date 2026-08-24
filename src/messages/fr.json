@@ -313,6 +313,9 @@
       "field_estado": "État opérationnel",
       "field_notas": "Notes",
       "field_activo": "Actif",
+      "section_financement": "Financement",
+      "field_solde_achat": "Solde restant dû (achat)",
+      "field_solde_achat_hint": "Montant encore dû sur l'achat de ce véhicule (crédit, ancien propriétaire...) — à saisir une fois, sert au calcul de rentabilité.",
       "field_foto": "Photo",
       "field_foto_vacia": "Aucune photo",
       "field_foto_elegir": "Choisir une photo",
@@ -658,15 +661,17 @@
       "col_reste": "Reste à payer",
       "col_entretien": "Entretien",
       "col_net": "Résultat net",
+      "col_solde_achat": "Solde d'achat dû",
       "stat_revenu": "Revenu total",
       "stat_reste": "Reste à payer",
       "stat_couts": "Coûts d'entretien",
       "stat_net": "Résultat net",
+      "stat_solde_achat": "Solde d'achat dû",
       "filter_submit": "Filtrer",
       "filter_reset": "Réinitialiser",
       "filter_hint_all_time": "Toutes les dates, faute de filtre.",
       "empty": "Aucune donnée pour cette période.",
-      "footnote": "Le revenu correspond au prix total des réservations non annulées. Le reste à payer est déjà inclus dans ce revenu — ce n'est pas de l'argent en plus, juste ce qui n'a pas encore été encaissé. Le résultat net ne déduit que les coûts d'entretien enregistrés ; il ne tient pas compte des autres charges (carburant, assurance, etc.)."
+      "footnote": "Le revenu correspond au prix total des réservations non annulées. Le reste à payer est déjà inclus dans ce revenu — ce n'est pas de l'argent en plus, juste ce qui n'a pas encore été encaissé. Le résultat net ne déduit que les coûts d'entretien enregistrés ; il ne tient pas compte des autres charges (carburant, assurance, etc.). Le solde d'achat dû (saisi sur la fiche du véhicule) n'est pas affecté par le filtre de période et n'est pas déduit du résultat net — c'est une dette de capital sur le véhicule, pas une charge de la période."
     },
     "aide": {
       "page_title": "Guide du panneau IVJ",

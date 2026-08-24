@@ -602,6 +602,7 @@ export type Database = {
           notes: string | null
           photo_url: string | null
           plaque: string | null
+          solde_achat_usd: number | null
           updated_at: string
         }
         Insert: {
@@ -615,6 +616,7 @@ export type Database = {
           notes?: string | null
           photo_url?: string | null
           plaque?: string | null
+          solde_achat_usd?: number | null
           updated_at?: string
         }
         Update: {
@@ -628,6 +630,7 @@ export type Database = {
           notes?: string | null
           photo_url?: string | null
           plaque?: string | null
+          solde_achat_usd?: number | null
           updated_at?: string
         }
         Relationships: [
@@ -733,6 +736,7 @@ export type Database = {
           notes: string | null
           photo_url: string | null
           plaque: string | null
+          solde_achat_usd: number | null
           updated_at: string | null
         }
         Relationships: [

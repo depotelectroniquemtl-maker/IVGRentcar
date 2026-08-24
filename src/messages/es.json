@@ -313,6 +313,9 @@
       "field_estado": "Estado operacional",
       "field_notas": "Notas",
       "field_activo": "Activo",
+      "section_financement": "Financiamiento",
+      "field_solde_achat": "Saldo pendiente (compra)",
+      "field_solde_achat_hint": "Monto que aún se debe por la compra de este vehículo (crédito, dueño anterior...) — se ingresa una vez, sirve para calcular la rentabilidad.",
       "field_foto": "Foto",
       "field_foto_vacia": "Sin foto",
       "field_foto_elegir": "Elegir foto",
@@ -658,15 +661,17 @@
       "col_reste": "Saldo pendiente",
       "col_entretien": "Mantenimiento",
       "col_net": "Resultado neto",
+      "col_solde_achat": "Saldo de compra pendiente",
       "stat_revenu": "Ingresos totales",
       "stat_reste": "Saldo pendiente",
       "stat_couts": "Costos de mantenimiento",
       "stat_net": "Resultado neto",
+      "stat_solde_achat": "Saldo de compra pendiente",
       "filter_submit": "Filtrar",
       "filter_reset": "Reiniciar",
       "filter_hint_all_time": "Todas las fechas, sin filtro.",
       "empty": "Sin datos para este período.",
-      "footnote": "El ingreso corresponde al precio total de las reservas no anuladas. El saldo pendiente ya está incluido en ese ingreso — no es dinero adicional, solo lo que aún no se ha cobrado. El resultado neto solo resta los costos de mantenimiento registrados; no considera otros gastos (combustible, seguro, etc.)."
+      "footnote": "El ingreso corresponde al precio total de las reservas no anuladas. El saldo pendiente ya está incluido en ese ingreso — no es dinero adicional, solo lo que aún no se ha cobrado. El resultado neto solo resta los costos de mantenimiento registrados; no considera otros gastos (combustible, seguro, etc.). El saldo de compra pendiente (ingresado en la ficha del vehículo) no se ve afectado por el filtro de período y no se resta del resultado neto — es una deuda de capital sobre el vehículo, no un gasto del período."
     },
     "aide": {
       "page_title": "Guía del panel IVJ",

@@ -3,18 +3,20 @@
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
 
+export type NavEntry = { type: "group"; label: string } | { type: "link"; href: string; label: string };
+
 // Barre + panneau mobile pour le panneau admin — même patron que MobileMenu.tsx côté
 // vitrine publique. La sidebar fixe w-56 (Sidebar.tsx) reste réservée au desktop
 // (lg:flex) : en dessous, elle prenait plus de la moitié de l'écran et écrasait tout le
 // contenu dans une colonne étroite, un problème que la passe de design a rendu plus
 // visible en élargissant les formulaires.
 export function AdminMobileNav({
-  items,
+  entries,
   footer,
   ariaOpen,
   ariaClose,
 }: {
-  items: { href: string; label: string }[];
+  entries: NavEntry[];
   footer: ReactNode;
   ariaOpen: string;
   ariaClose: string;
@@ -48,16 +50,25 @@ export function AdminMobileNav({
 
       {open && (
         <nav className="flex flex-col gap-1 border-t border-white/10 p-3 text-sm">
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setOpen(false)}
-              className="rounded px-3 py-2 hover:bg-white/10"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {entries.map((entry, i) =>
+            entry.type === "group" ? (
+              <p
+                key={`g-${i}`}
+                className={`px-3 pb-1 text-[10px] font-bold uppercase tracking-wider text-white/35 ${i === 0 ? "pt-1" : "pt-4"}`}
+              >
+                {entry.label}
+              </p>
+            ) : (
+              <Link
+                key={entry.href}
+                href={entry.href}
+                onClick={() => setOpen(false)}
+                className="rounded px-3 py-2 hover:bg-white/10"
+              >
+                {entry.label}
+              </Link>
+            ),
+          )}
           <div className="mt-2 border-t border-white/10 pt-3">{footer}</div>
         </nav>
       )}

@@ -219,6 +219,9 @@
     },
     "sidebar": {
       "subtitle": "Panneau interne",
+      "group_operations": "Opérations",
+      "group_donnees": "Données",
+      "group_admin": "Admin",
       "nav_panel": "Tableau de bord",
       "nav_demandes": "Demandes",
       "nav_reservations": "Réservations",

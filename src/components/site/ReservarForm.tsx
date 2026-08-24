@@ -22,6 +22,23 @@ type VehiculoPublico = {
 
 type Periodo = { date_debut: string; date_fin: string };
 
+type SugerenciaLugar = { label: string };
+type PhotonFeature = {
+  properties: {
+    name?: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    country?: string;
+  };
+};
+type PhotonResponse = { features: PhotonFeature[] };
+
+// Coordonnées de Las Terrenas — biaise les résultats Photon vers la zone plutôt que de
+// renvoyer des correspondances mondiales pour une simple requête numérique/courte.
+const LAS_TERRENAS_LAT = 19.296;
+const LAS_TERRENAS_LON = -69.542;
+
 const inputClass =
   "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
 const labelClass = "mb-1 block font-medium text-ink";
@@ -45,6 +62,9 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
   const [dateFin, setDateFin] = useState("");
   const [horaInicio, setHoraInicio] = useState("");
   const [horaFin, setHoraFin] = useState("");
+
+  const [lieuSugerencias, setLieuSugerencias] = useState<SugerenciaLugar[]>([]);
+  const [lieuSugerenciasVisibles, setLieuSugerenciasVisibles] = useState(false);
 
   const [disponibilidad, setDisponibilidad] = useState<Disponibilidad>("idle");
   const [precioEstimado, setPrecioEstimado] = useState<number | null>(null);
@@ -164,6 +184,57 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       cancelado = true;
     };
   }, [categorieId, dateDebut, dateFin]);
+
+  // Autocomplétion du lieu de prise en charge via Photon (Komoot) — service gratuit sans
+  // clé API, avec un biais géographique vers Las Terrenas pour rester pertinent pour de
+  // courtes requêtes locales. Le champ reste du texte libre : une suggestion non trouvée
+  // ne bloque jamais la saisie manuelle.
+  useEffect(() => {
+    const query = lieu.trim();
+    if (query.length < 3) {
+      setLieuSugerencias([]);
+      return;
+    }
+
+    let cancelado = false;
+    const controlador = new AbortController();
+
+    const id = setTimeout(() => {
+      const params = new URLSearchParams({
+        q: query,
+        lat: String(LAS_TERRENAS_LAT),
+        lon: String(LAS_TERRENAS_LON),
+        location_bias_scale: "0.6",
+        limit: "5",
+      });
+
+      fetch(`https://photon.komoot.io/api/?${params.toString()}`, { signal: controlador.signal })
+        .then((res) => res.json())
+        .then((data: PhotonResponse) => {
+          if (cancelado) return;
+          const sugerencias = (data.features ?? [])
+            .map((f) => {
+              const p = f.properties;
+              const partes = [p.name, p.street, p.city, p.state, p.country].filter(
+                (v): v is string => Boolean(v),
+              );
+              const unicas = partes.filter((v, i) => partes.indexOf(v) === i);
+              return { label: unicas.join(", ") };
+            })
+            .filter((s) => s.label);
+          setLieuSugerencias(sugerencias);
+        })
+        .catch(() => {
+          if (!cancelado) setLieuSugerencias([]);
+        });
+    }, 300);
+
+    return () => {
+      cancelado = true;
+      controlador.abort();
+      clearTimeout(id);
+    };
+  }, [lieu]);
 
   const puedeEnviar =
     nom &&
@@ -451,14 +522,39 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
         </div>
       )}
 
-      <label className="block text-sm">
+      <label className="relative block text-sm">
         <span className={labelClass}>{t("field_lugar")}</span>
         <input
           type="text"
           value={lieu}
-          onChange={(e) => setLieu(e.target.value)}
+          onChange={(e) => {
+            setLieu(e.target.value);
+            setLieuSugerenciasVisibles(true);
+          }}
+          onFocus={() => setLieuSugerenciasVisibles(true)}
+          onBlur={() => setTimeout(() => setLieuSugerenciasVisibles(false), 150)}
+          autoComplete="off"
           className={inputClass}
         />
+        {lieuSugerenciasVisibles && lieuSugerencias.length > 0 && (
+          <ul className="absolute z-10 mt-1 w-full rounded border border-black/15 bg-white shadow-lg">
+            {lieuSugerencias.map((s, i) => (
+              <li key={i}>
+                <button
+                  type="button"
+                  onMouseDown={(e) => e.preventDefault()}
+                  onClick={() => {
+                    setLieu(s.label);
+                    setLieuSugerenciasVisibles(false);
+                  }}
+                  className="block w-full px-3 py-2 text-left text-sm hover:bg-black/5"
+                >
+                  {s.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+        )}
       </label>
 
       <label className="block text-sm">

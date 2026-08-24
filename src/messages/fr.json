@@ -229,6 +229,7 @@
       "nav_garantes": "Garants",
       "nav_tarifs": "Tarifs",
       "nav_utilisateurs": "Utilisateurs",
+      "nav_rentabilite": "Rentabilité",
       "nav_aide": "Aide",
       "logout": "Déconnexion",
       "menu_open": "Ouvrir le menu",
@@ -647,6 +648,25 @@
       "action_desactivar": "Désactiver",
       "estado_desactivado": "Désactivé",
       "error_self_deactivate": "Vous ne pouvez pas désactiver votre propre compte."
+    },
+    "rentabilite": {
+      "title": "Rentabilité par véhicule",
+      "subtitle": "Revenus, soldes restants et coûts d'entretien, par véhicule.",
+      "col_vehiculo": "Véhicule",
+      "col_reservas": "Réservations",
+      "col_revenu": "Revenu",
+      "col_reste": "Reste à payer",
+      "col_entretien": "Entretien",
+      "col_net": "Résultat net",
+      "stat_revenu": "Revenu total",
+      "stat_reste": "Reste à payer",
+      "stat_couts": "Coûts d'entretien",
+      "stat_net": "Résultat net",
+      "filter_submit": "Filtrer",
+      "filter_reset": "Réinitialiser",
+      "filter_hint_all_time": "Toutes les dates, faute de filtre.",
+      "empty": "Aucune donnée pour cette période.",
+      "footnote": "Le revenu correspond au prix total des réservations non annulées. Le reste à payer est déjà inclus dans ce revenu — ce n'est pas de l'argent en plus, juste ce qui n'a pas encore été encaissé. Le résultat net ne déduit que les coûts d'entretien enregistrés ; il ne tient pas compte des autres charges (carburant, assurance, etc.)."
     },
     "aide": {
       "page_title": "Guide du panneau IVJ",

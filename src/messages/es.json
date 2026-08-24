@@ -229,6 +229,7 @@
       "nav_garantes": "Garantes",
       "nav_tarifs": "Tarifas",
       "nav_utilisateurs": "Usuarios",
+      "nav_rentabilite": "Rentabilidad",
       "nav_aide": "Ayuda",
       "logout": "Cerrar sesión",
       "menu_open": "Abrir menú",
@@ -647,6 +648,25 @@
       "action_desactivar": "Desactivar",
       "estado_desactivado": "Desactivado",
       "error_self_deactivate": "No puedes desactivar tu propia cuenta."
+    },
+    "rentabilite": {
+      "title": "Rentabilidad por vehículo",
+      "subtitle": "Ingresos, saldos pendientes y costos de mantenimiento, por vehículo.",
+      "col_vehiculo": "Vehículo",
+      "col_reservas": "Reservas",
+      "col_revenu": "Ingresos",
+      "col_reste": "Saldo pendiente",
+      "col_entretien": "Mantenimiento",
+      "col_net": "Resultado neto",
+      "stat_revenu": "Ingresos totales",
+      "stat_reste": "Saldo pendiente",
+      "stat_couts": "Costos de mantenimiento",
+      "stat_net": "Resultado neto",
+      "filter_submit": "Filtrar",
+      "filter_reset": "Reiniciar",
+      "filter_hint_all_time": "Todas las fechas, sin filtro.",
+      "empty": "Sin datos para este período.",
+      "footnote": "El ingreso corresponde al precio total de las reservas no anuladas. El saldo pendiente ya está incluido en ese ingreso — no es dinero adicional, solo lo que aún no se ha cobrado. El resultado neto solo resta los costos de mantenimiento registrados; no considera otros gastos (combustible, seguro, etc.)."
     },
     "aide": {
       "page_title": "Guía del panel IVJ",

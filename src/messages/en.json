@@ -229,6 +229,7 @@
       "nav_garantes": "Guarantors",
       "nav_tarifs": "Rates",
       "nav_utilisateurs": "Users",
+      "nav_rentabilite": "Profitability",
       "nav_aide": "Help",
       "logout": "Log out",
       "menu_open": "Open menu",
@@ -647,6 +648,25 @@
       "action_desactivar": "Deactivate",
       "estado_desactivado": "Deactivated",
       "error_self_deactivate": "You can't deactivate your own account."
+    },
+    "rentabilite": {
+      "title": "Profitability by vehicle",
+      "subtitle": "Revenue, outstanding balances, and maintenance costs, per vehicle.",
+      "col_vehiculo": "Vehicle",
+      "col_reservas": "Reservations",
+      "col_revenu": "Revenue",
+      "col_reste": "Balance due",
+      "col_entretien": "Maintenance",
+      "col_net": "Net result",
+      "stat_revenu": "Total revenue",
+      "stat_reste": "Balance due",
+      "stat_couts": "Maintenance costs",
+      "stat_net": "Net result",
+      "filter_submit": "Filter",
+      "filter_reset": "Reset",
+      "filter_hint_all_time": "All dates — no filter applied.",
+      "empty": "No data for this period.",
+      "footnote": "Revenue is the total price of non-cancelled reservations. The balance due is already included in that revenue — it's not extra money, just what hasn't been collected yet. The net result only subtracts logged maintenance costs; it doesn't account for other expenses (fuel, insurance, etc.)."
     },
     "aide": {
       "page_title": "IVJ Panel Guide",

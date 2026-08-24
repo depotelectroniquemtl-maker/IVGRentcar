@@ -16,6 +16,7 @@ const NAV_ITEMS = [
   { href: "/admin/garantes", key: "nav_garantes", adminOnly: false },
   { href: "/admin/tarifs", key: "nav_tarifs", adminOnly: false },
   { href: "/admin/utilisateurs", key: "nav_utilisateurs", adminOnly: true },
+  { href: "/admin/rentabilite", key: "nav_rentabilite", adminOnly: true },
   { href: "/admin/aide", key: "nav_aide", adminOnly: false },
 ] as const;
 

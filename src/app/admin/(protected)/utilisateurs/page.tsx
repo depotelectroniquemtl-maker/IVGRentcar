@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
-import { Pill, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { EditRowLink, Pill, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 
 // Écran réservé aux admins — la vérification se fait ici, côté serveur (pas seulement en
 // cachant le lien dans la Sidebar). Un employé qui arriverait quand même sur cette URL
@@ -22,10 +23,17 @@ export default async function UtilisateursPage() {
 
   const t = await getAdminTranslator("admin.utilisateurs");
   const supabase = createClient();
-  const { data: usuarios, error } = await supabase
-    .from("profiles")
-    .select("id, nom, role")
-    .order("nom");
+  const [{ data: usuarios, error }, { data: authData }] = await Promise.all([
+    supabase.from("profiles").select("id, nom, role").order("nom"),
+    createAdminClient().auth.admin.listUsers(),
+  ]);
+
+  const ahora = new Date();
+  const baneados = new Set(
+    authData?.users
+      .filter((u) => u.banned_until && new Date(u.banned_until) > ahora)
+      .map((u) => u.id) ?? [],
+  );
 
   return (
     <div className="flex flex-col gap-6">
@@ -48,18 +56,31 @@ export default async function UtilisateursPage() {
               <tr>
                 <th className={thClass}>{t("col_nombre")}</th>
                 <th className={thClass}>{t("col_rol")}</th>
+                <th className={`${thClass} text-right`}>{t("col_acciones")}</th>
               </tr>
             </thead>
             <tbody>
               {usuarios?.map((u) => (
                 <tr key={u.id} className={trClass}>
-                  <td className="px-4 py-3 font-medium text-ink">{u.nom}</td>
+                  <td className="px-4 py-3 font-medium text-ink">
+                    {u.nom}
+                    {baneados.has(u.id) && (
+                      <span className="ml-2 text-xs font-medium text-red-600">
+                        · {t("estado_desactivado")}
+                      </span>
+                    )}
+                  </td>
                   <td className="px-4 py-3">
                     {u.role === "admin" ? (
                       <Pill className="bg-brand/10 text-brand-dark">{tCommon("role_admin")}</Pill>
                     ) : (
                       <Pill className="bg-black/5 text-ink-soft">{tCommon("role_employe")}</Pill>
                     )}
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex justify-end">
+                      <EditRowLink href={`/admin/utilisateurs/${u.id}`} title={tCommon("edit")} />
+                    </div>
                   </td>
                 </tr>
               ))}

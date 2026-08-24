@@ -590,7 +590,14 @@
       "field_password_hint": "Minimum 6 caractères. Partagez-le avec l'employé par un canal sécurisé.",
       "field_rol": "Rôle",
       "submit_create": "Créer l'utilisateur",
-      "creating": "Création…"
+      "creating": "Création…",
+      "col_acciones": "Actions",
+      "edit_title": "Modifier l'utilisateur — {nombre}",
+      "save_changes": "Enregistrer les modifications",
+      "action_activar": "Activer",
+      "action_desactivar": "Désactiver",
+      "estado_desactivado": "Désactivé",
+      "error_self_deactivate": "Vous ne pouvez pas désactiver votre propre compte."
     }
   }
 }

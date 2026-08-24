@@ -56,3 +56,56 @@ export async function createEmploye({
 
   return { error: null };
 }
+
+// Modifie le nom/rôle d'un compte staff existant — création uniquement gérait jusque-là,
+// aucune façon de corriger une faute de frappe sur le nom ou de changer un rôle sans
+// recréer le compte.
+export async function updateEmploye({
+  id,
+  nom,
+  role,
+}: {
+  id: string;
+  nom: string;
+  role: RoleStaff;
+}): Promise<{ error: string | null }> {
+  const profile = await getCurrentProfile();
+  if (profile?.role !== "admin") {
+    const tCommon = await getAdminTranslator("admin.common");
+    return { error: tCommon("access_restricted") };
+  }
+
+  const admin = createAdminClient();
+  const { error } = await admin.from("profiles").update({ nom, role }).eq("id", id);
+
+  return { error: error?.message ?? null };
+}
+
+// Désactivation réversible d'un compte staff, au niveau Auth (pas seulement un flag
+// cosmétique sur profiles) : ban_duration bloque réellement la connexion, "none" débloque.
+// Un admin ne peut pas se désactiver lui-même — risque de se retrouver bloqué hors du
+// panneau sans personne pour l'aider à revenir en arrière.
+export async function setEmployeBanned({
+  id,
+  banned,
+}: {
+  id: string;
+  banned: boolean;
+}): Promise<{ error: string | null }> {
+  const profile = await getCurrentProfile();
+  if (profile?.role !== "admin") {
+    const tCommon = await getAdminTranslator("admin.common");
+    return { error: tCommon("access_restricted") };
+  }
+  if (profile.id === id) {
+    const t = await getAdminTranslator("admin.utilisateurs");
+    return { error: t("error_self_deactivate") };
+  }
+
+  const admin = createAdminClient();
+  const { error } = await admin.auth.admin.updateUserById(id, {
+    ban_duration: banned ? "876000h" : "none",
+  });
+
+  return { error: error?.message ?? null };
+}

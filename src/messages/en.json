@@ -590,7 +590,14 @@
       "field_password_hint": "Minimum 6 characters. Share it with the employee through a secure channel.",
       "field_rol": "Role",
       "submit_create": "Create user",
-      "creating": "Creating…"
+      "creating": "Creating…",
+      "col_acciones": "Actions",
+      "edit_title": "Edit user — {nombre}",
+      "save_changes": "Save changes",
+      "action_activar": "Activate",
+      "action_desactivar": "Deactivate",
+      "estado_desactivado": "Deactivated",
+      "error_self_deactivate": "You can't deactivate your own account."
     }
   }
 }

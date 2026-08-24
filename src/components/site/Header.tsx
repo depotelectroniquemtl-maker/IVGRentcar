@@ -16,7 +16,7 @@ export function Header() {
   const t = useTranslations("site");
 
   return (
-    <header className="border-b-[3px] border-brand bg-white">
+    <header className="sticky top-0 z-50 border-b-[3px] border-brand bg-white">
       {/* Pas de <Container> ici (même raison que le hero) : l'ancien site pousse le
           header depuis le bord de l'écran (padding en vw), sinon le logo recule vers le
           centre sur les écrans larges au lieu de rester proche du bord. */}

@@ -1,22 +1,8 @@
-// Guide interne en français (pour l'instant) — contenu volontairement en dur plutôt que
-// dans messages/*.json : ce n'est pas une chaîne d'interface courte à traduire mot à mot,
-// mais un long texte éditorial. Une traduction es/en viendra si elle est demandée.
-import Link from "next/link";
+import type { ReactNode } from "react";
+import { getAdminTranslator } from "@/lib/admin-i18n";
+import { AideTabs } from "@/components/admin/AideTabs";
 
-const chapters = [
-  { id: "connexion", n: "00", title: "Connexion" },
-  { id: "dashboard", n: "01", title: "Tableau de bord" },
-  { id: "demandes", n: "02", title: "Demandes" },
-  { id: "reservations", n: "03", title: "Réservations" },
-  { id: "calendrier", n: "04", title: "Calendrier" },
-  { id: "vehicules", n: "05", title: "Véhicules" },
-  { id: "entretien", n: "06", title: "Entretien" },
-  { id: "clients", n: "07", title: "Clients" },
-  { id: "garants", n: "08", title: "Garants" },
-  { id: "tarifs", n: "09", title: "Tarifs" },
-  { id: "utilisateurs", n: "10", title: "Utilisateurs" },
-  { id: "contrat", n: "11", title: "Contrat & signature" },
-];
+const b = (chunks: ReactNode) => <b>{chunks}</b>;
 
 function ChapterHead({ n, title, badge }: { n: string; title: string; badge?: string }) {
   return (
@@ -32,7 +18,7 @@ function ChapterHead({ n, title, badge }: { n: string; title: string; badge?: st
   );
 }
 
-function Steps({ items }: { items: string[] }) {
+function Steps({ items }: { items: ReactNode[] }) {
   return (
     <ol className="mb-6 flex max-w-[62ch] flex-col gap-2.5">
       {items.map((text, i) => (
@@ -40,14 +26,14 @@ function Steps({ items }: { items: string[] }) {
           <span className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border border-black/15 font-mono text-[11px] font-semibold text-brand">
             {i + 1}
           </span>
-          <span dangerouslySetInnerHTML={{ __html: text }} />
+          <span>{text}</span>
         </li>
       ))}
     </ol>
   );
 }
 
-function Callout({ children, tone = "default" }: { children: React.ReactNode; tone?: "default" | "warn" | "tip" }) {
+function Callout({ children, tone = "default" }: { children: ReactNode; tone?: "default" | "warn" | "tip" }) {
   const border = tone === "warn" ? "border-l-amber-600" : tone === "tip" ? "border-l-emerald-700" : "border-l-brand";
   return (
     <div className={`mb-6 max-w-[62ch] rounded-md border border-black/10 border-l-[3px] ${border} bg-black/[0.02] px-4 py-3 text-sm text-ink-soft`}>
@@ -71,17 +57,12 @@ function FrameBar({ url }: { url: string }) {
   );
 }
 
-function Sidebar({ active }: { active: string }) {
-  const items = [
-    "Tableau de bord", "Demandes", "Réservations", "Calendrier", "Véhicules",
-    "Entretien", "Clients", "Garants", "Tarifs", "Utilisateurs",
-  ];
+function MockSidebar({ items, active }: { items: string[]; active: string }) {
   return (
     <div className="flex w-[118px] flex-shrink-0 flex-col justify-between bg-ink text-[9.5px] text-white">
       <div>
         <div className="border-b border-white/10 px-2.5 py-3">
           <b className="text-brand">I.V.J</b> Polanco
-          <div className="mt-0.5 text-[8px] text-white/40">Panneau interne</div>
         </div>
         <nav className="flex flex-col gap-px p-1.5">
           {items.map((it) => (
@@ -99,41 +80,39 @@ function Sidebar({ active }: { active: string }) {
   );
 }
 
-export default function AidePage() {
-  return (
-    <div className="flex flex-col gap-6">
-      <div>
-        <h1 className="text-2xl font-bold text-ink">Guide du panneau IVJ</h1>
-        <p className="mt-1 max-w-[62ch] text-sm text-ink-soft">
-          Mode d&apos;emploi du panneau interne, avec une maquette pour chaque écran. Rédigé en français pour
-          l&apos;instant — les libellés que vous voyez dans le panneau sont exactement ceux utilisés ici.
-        </p>
-      </div>
+export default async function AidePage() {
+  const t = await getAdminTranslator("admin.aide");
+  const tSidebar = await getAdminTranslator("admin.sidebar");
+  const tCommon = await getAdminTranslator("admin.common");
+  const tLogin = await getAdminTranslator("admin.login");
+  const tDashboard = await getAdminTranslator("admin.dashboard");
+  const tDemandes = await getAdminTranslator("admin.demandes");
+  const tReservations = await getAdminTranslator("admin.reservations");
+  const tCalendrier = await getAdminTranslator("admin.calendrier");
+  const tVehicules = await getAdminTranslator("admin.vehicules");
+  const tEntretiens = await getAdminTranslator("admin.entretiens");
+  const tClients = await getAdminTranslator("admin.clients");
+  const tGarantes = await getAdminTranslator("admin.garantes");
+  const tTarifs = await getAdminTranslator("admin.tarifs");
+  const tUtilisateurs = await getAdminTranslator("admin.utilisateurs");
+  const tContrats = await getAdminTranslator("admin.contrats");
 
-      <nav className="flex flex-wrap gap-x-4 gap-y-1.5 rounded-lg border border-black/10 bg-white px-4 py-3 text-[13px]">
-        {chapters.map((c) => (
-          <a key={c.id} href={`#${c.id}`} className="text-ink-soft hover:text-brand hover:underline">
-            <span className="mr-1 font-mono text-[11px] text-black/30">{c.n}</span>
-            {c.title}
-          </a>
-        ))}
-      </nav>
+  const navItems = [
+    tSidebar("nav_panel"), tSidebar("nav_demandes"), tSidebar("nav_reservations"),
+    tSidebar("nav_calendrier"), tSidebar("nav_vehicules"), tSidebar("nav_entretiens"),
+    tSidebar("nav_clients"), tSidebar("nav_garantes"), tSidebar("nav_tarifs"), tSidebar("nav_utilisateurs"),
+  ];
 
-      <div className="flex flex-col">
-        {/* 00 CONNEXION */}
-        <section id="connexion" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="00" title="Connexion" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            Le panneau interne est séparé du site public. Chaque membre de l&apos;équipe se connecte avec son propre
-            e-mail et mot de passe, créés par un administrateur (voir la section Utilisateurs).
-          </p>
-          <Steps
-            items={[
-              "Depuis le site public, ouvrez le lien <b>Admin</b> tout en bas du pied de page — ou allez directement sur <b>/admin/login</b>.",
-              "Saisissez l'e-mail et le mot de passe fournis par un administrateur.",
-              "Le rôle du compte détermine l'accès : <b>Admin</b> voit tout, y compris Utilisateurs et les suppressions définitives ; <b>Employé</b> gère les opérations quotidiennes sans ces deux droits.",
-            ]}
-          />
+  const chapters = [
+    {
+      id: "connexion",
+      n: "00",
+      navLabel: t("title_connexion"),
+      content: (
+        <>
+          <ChapterHead n="00" title={t("title_connexion")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c00_intro")}</p>
+          <Steps items={[t.rich("c00_step1", { b }), t("c00_step2"), t.rich("c00_step3", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/login" />
             <div className="flex min-h-[220px] items-center justify-center bg-[#f2f1ef] p-8">
@@ -141,167 +120,153 @@ export default function AidePage() {
                 <p className="mb-0.5 text-xs font-bold">
                   <span className="text-brand">I.V.J</span> Polanco
                 </p>
-                <p className="mb-3 text-[8.5px] text-black/50">Panneau interne — connexion</p>
+                <p className="mb-3 text-[8.5px] text-black/50">{tLogin("subtitle")}</p>
                 <div className="mb-2">
-                  <span className="mb-0.5 block text-[8.5px] text-black/50">E-mail</span>
+                  <span className="mb-0.5 block text-[8.5px] text-black/50">{tLogin("email")}</span>
                   <div className="rounded border border-black/15 px-2 py-1 text-[9.5px] text-black/40">nom@ivjpolanco.com</div>
                 </div>
                 <div className="mb-2">
-                  <span className="mb-0.5 block text-[8.5px] text-black/50">Mot de passe</span>
+                  <span className="mb-0.5 block text-[8.5px] text-black/50">{tLogin("password")}</span>
                   <div className="rounded border border-black/15 px-2 py-1 text-[9.5px] text-black/40">••••••••</div>
                 </div>
-                <div className="mt-1 rounded bg-brand py-1.5 text-center text-[9.5px] font-semibold text-white">Se connecter</div>
+                <div className="mt-1 rounded bg-brand py-1.5 text-center text-[9.5px] font-semibold text-white">{tLogin("submit")}</div>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 01 DASHBOARD */}
-        <section id="dashboard" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="01" title="Tableau de bord" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            L&apos;écran d&apos;accueil après connexion : l&apos;activité en cours et les retours de véhicules à
-            surveiller, sans avoir à ouvrir chaque section.
-          </p>
-          <Steps
-            items={[
-              "Les trois compteurs en haut résument les réservations en cours, les réservations à venir et les véhicules disponibles aujourd'hui.",
-              "Les boutons <b>Actions rapides</b> ouvrent directement une nouvelle réservation ou un nouveau client.",
-              "La liste <b>Retours</b> signale les véhicules à récupérer, avec un repère <b>En retard</b> si la date de retour est dépassée.",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "dashboard",
+      n: "01",
+      navLabel: tSidebar("nav_panel"),
+      content: (
+        <>
+          <ChapterHead n="01" title={tSidebar("nav_panel")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c01_intro")}</p>
+          <Steps items={[t("c01_step1"), t.rich("c01_step2", { b }), t.rich("c01_step3", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin" />
             <div className="flex min-h-[220px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Tableau de bord" />
+              <MockSidebar items={navItems} active={tSidebar("nav_panel")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Tableau de bord</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_panel")}</p>
                 <div className="mb-2.5 flex gap-2">
-                  {[["7", "RÉSERVATIONS EN COURS"], ["4", "À VENIR"], ["9", "DISPONIBLES AUJOURD'HUI"]].map(([n, l]) => (
+                  {[
+                    ["7", tDashboard("stat_active_reservations")],
+                    ["4", tDashboard("stat_upcoming_reservations")],
+                    ["9", tDashboard("stat_available_today")],
+                  ].map(([n, l]) => (
                     <div key={l} className="min-w-[86px] rounded-md border border-black/10 bg-white px-2.5 py-1.5">
                       <div className="text-sm font-bold">{n}</div>
-                      <div className="text-[7.5px] text-black/45">{l}</div>
+                      <div className="text-[7.5px] uppercase text-black/45">{l}</div>
                     </div>
                   ))}
                 </div>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9.5px]">
                   <tbody>
-                    <tr><td className="px-2 py-1">Suzuki XL 7 — J. Fernández</td><td className="px-2 py-1 text-right"><span className="rounded-full bg-red-100 px-2 py-0.5 text-red-800">En retard 1j</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos — R. Martin</td><td className="border-t border-black/5 px-2 py-1 text-right"><span className="rounded-full bg-orange-100 px-2 py-0.5 text-orange-800">Aujourd&apos;hui</span></td></tr>
+                    <tr><td className="px-2 py-1">Suzuki XL 7 — J. Fernández</td><td className="px-2 py-1 text-right"><span className="rounded-full bg-red-100 px-2 py-0.5 text-red-800">{tDashboard("retorno_en_retraso", { n: 1 })}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos — R. Martin</td><td className="border-t border-black/5 px-2 py-1 text-right"><span className="rounded-full bg-orange-100 px-2 py-0.5 text-orange-800">{tDashboard("retorno_hoy")}</span></td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 02 DEMANDES */}
-        <section id="demandes" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="02" title="Demandes" badge="Depuis le site public" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            Chaque demande envoyée par un visiteur depuis le formulaire public <b>/reservar</b> arrive
-            automatiquement ici, avant de devenir une réservation confirmée.
-          </p>
-          <Steps
-            items={[
-              "Une nouvelle demande porte le statut <b>Nouvelle</b> ; marquez-la <b>Contactée</b> dès que vous avez répondu au client par WhatsApp.",
-              "Cliquez <b>Convertir en réservation</b> pour créer la réservation : véhicule, dates et coordonnées du client sont déjà préremplis.",
-              "Une demande sans suite peut être classée <b>Rejetée</b> pour la sortir de la liste active.",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "demandes",
+      n: "02",
+      navLabel: tSidebar("nav_demandes"),
+      content: (
+        <>
+          <ChapterHead n="02" title={tSidebar("nav_demandes")} badge={t("c02_badge")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c02_intro", { b })}</p>
+          <Steps items={[t.rich("c02_step1", { b }), t.rich("c02_step2", { b }), t.rich("c02_step3", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/demandes" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Demandes" />
+              <MockSidebar items={navItems} active={tSidebar("nav_demandes")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Demandes</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_demandes")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">Nom</th>
-                      <th className="px-2 py-1 text-left font-semibold">Véhicule</th>
-                      <th className="px-2 py-1 text-left font-semibold">État</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tDemandes("col_nombre")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tDemandes("col_vehiculo")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tDemandes("col_estado")}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Sofia Reyes</td><td className="border-t border-black/5 px-2 py-1">Kia Seltos</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-blue-100 px-2 py-0.5 text-blue-800">Nouvelle</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Marc Dubois</td><td className="border-t border-black/5 px-2 py-1">Pasola 175cc</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-gray-200 px-2 py-0.5 text-gray-700">Contactée</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Elena Ruiz</td><td className="border-t border-black/5 px-2 py-1">Changan</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-green-100 px-2 py-0.5 text-green-800">Convertie</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Sofia Reyes</td><td className="border-t border-black/5 px-2 py-1">Kia Seltos</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-blue-100 px-2 py-0.5 text-blue-800">{tDemandes("statut_nouvelle")}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Marc Dubois</td><td className="border-t border-black/5 px-2 py-1">Pasola 175cc</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-gray-200 px-2 py-0.5 text-gray-700">{tDemandes("statut_contactee")}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Elena Ruiz</td><td className="border-t border-black/5 px-2 py-1">Changan</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-green-100 px-2 py-0.5 text-green-800">{tDemandes("statut_convertie")}</span></td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 03 RESERVATIONS */}
-        <section id="reservations" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="03" title="Réservations" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            La liste complète des locations, avec recherche instantanée et pagination. Chaque ligne affiche une
-            phase calculée automatiquement à partir des dates : <b>À venir</b>, <b>En cours</b>, <b>Terminée</b>,
-            <b> En retard</b> ou <b>Annulée</b>.
-          </p>
-          <Steps
-            items={[
-              "La barre de recherche filtre par numéro, client ou véhicule au fil de la frappe.",
-              "<b>Nouvelle réservation</b> ouvre le formulaire : client, véhicule, dates, prix calculé automatiquement (modifiable).",
-              "Depuis la fiche : <b>Marquer comme rendu</b> à la restitution, ou <b>Supprimer</b> pour annuler définitivement (irréversible).",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "reservations",
+      n: "03",
+      navLabel: tSidebar("nav_reservations"),
+      content: (
+        <>
+          <ChapterHead n="03" title={tSidebar("nav_reservations")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c03_intro")}</p>
+          <Steps items={[t("c03_step1"), t.rich("c03_step2", { b }), t.rich("c03_step3", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/reservations" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Réservations" />
+              <MockSidebar items={navItems} active={tSidebar("nav_reservations")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Réservations</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_reservations")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">N°</th>
-                      <th className="px-2 py-1 text-left font-semibold">Client</th>
-                      <th className="px-2 py-1 text-left font-semibold">Véhicule</th>
-                      <th className="px-2 py-1 text-left font-semibold">État</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tReservations("col_numero")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tReservations("col_cliente")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tReservations("col_vehiculo")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tReservations("col_estado")}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td className="border-t border-black/5 px-2 py-1">0142</td><td className="border-t border-black/5 px-2 py-1">J. Fernández</td><td className="border-t border-black/5 px-2 py-1">Suzuki XL 7</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-red-100 px-2 py-0.5 text-red-800">En retard</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">0143</td><td className="border-t border-black/5 px-2 py-1">R. Martin</td><td className="border-t border-black/5 px-2 py-1">Kia Seltos</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-blue-100 px-2 py-0.5 text-blue-800">En cours</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">0142</td><td className="border-t border-black/5 px-2 py-1">J. Fernández</td><td className="border-t border-black/5 px-2 py-1">Suzuki XL 7</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-red-100 px-2 py-0.5 text-red-800">{tReservations("fase_en_retraso")}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">0143</td><td className="border-t border-black/5 px-2 py-1">R. Martin</td><td className="border-t border-black/5 px-2 py-1">Kia Seltos</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-blue-100 px-2 py-0.5 text-blue-800">{tReservations("fase_en_cours")}</span></td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 04 CALENDRIER */}
-        <section id="calendrier" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="04" title="Calendrier" badge="Sélection à la souris" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            Vue de toute la flotte sur 14 jours. Une case bleue est une réservation, une case orange est un
-            blocage manuel.
-          </p>
-          <Steps
-            items={[
-              "Un <b>clic simple</b> sur une case vide propose de créer une réservation ou un blocage pour ce jour.",
-              "<b>Cliquez-glissez</b> horizontalement sur la ligne d'un véhicule pour sélectionner plusieurs jours d'un coup.",
-              "Au relâchement, l'écran de choix s'ouvre avec la <b>plage complète déjà préremplie</b>.",
-              "Cliquer sur une case déjà occupée ouvre directement la réservation ou le blocage correspondant.",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "calendrier",
+      n: "04",
+      navLabel: tSidebar("nav_calendrier"),
+      content: (
+        <>
+          <ChapterHead n="04" title={tSidebar("nav_calendrier")} badge={t("c04_badge")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c04_intro")}</p>
+          <Steps items={[t.rich("c04_step1", { b }), t.rich("c04_step2", { b }), t.rich("c04_step3", { b }), t("c04_step4")]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/calendrier" />
             <div className="flex min-h-[220px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Calendrier" />
+              <MockSidebar items={navItems} active={tSidebar("nav_calendrier")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Calendrier de la flotte</p>
+                <p className="mb-2 text-[13px] font-bold">{tCalendrier("title")}</p>
                 <div className="relative overflow-hidden rounded-md border border-black/10 bg-white">
                   <div className="flex gap-3 border-b border-black/5 px-2.5 py-1.5 text-[8.5px] text-black/50">
-                    <span><span className="mr-1 inline-block h-2 w-2 rounded-sm bg-blue-100 align-[-1px]" />Réservation</span>
-                    <span><span className="mr-1 inline-block h-2 w-2 rounded-sm bg-orange-100 align-[-1px]" />Blocage</span>
+                    <span><span className="mr-1 inline-block h-2 w-2 rounded-sm bg-blue-100 align-[-1px]" />{tCalendrier("legend_reservation")}</span>
+                    <span><span className="mr-1 inline-block h-2 w-2 rounded-sm bg-orange-100 align-[-1px]" />{tCalendrier("legend_indisponibilite")}</span>
                   </div>
                   <div className="grid grid-cols-[64px_repeat(7,1fr)]">
-                    <div className="border-b border-black/5 bg-black/[0.03] px-1 py-1 text-center text-[8px] text-black/50">Véhicule</div>
+                    <div className="border-b border-black/5 bg-black/[0.03] px-1 py-1 text-center text-[8px] text-black/50">{tCalendrier("col_vehiculo")}</div>
                     {["24","25","26","27","28","29","30"].map((d) => (
                       <div key={d} className="border-b border-black/5 bg-black/[0.03] px-1 py-1 text-center text-[8px] text-black/50">{d}</div>
                     ))}
@@ -315,121 +280,106 @@ export default function AidePage() {
                     <div className="relative h-[22px] border-l border-t border-black/5" />
                   </div>
                   <span className="pointer-events-none absolute text-sm" style={{ left: 168, top: 96 }}>🖱️</span>
-                  <span className="pointer-events-none absolute rounded bg-ink px-1.5 py-0.5 font-mono text-[8px] text-white" style={{ left: 70, top: 78 }}>
-                    glisser-déposer →
+                  <span className="pointer-events-none absolute rounded bg-ink px-1.5 py-0.5 font-mono text-[8px] text-white" style={{ left: 60, top: 78 }}>
+                    {t("c04_drag_hint")}
                   </span>
                 </div>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 05 VEHICULES */}
-        <section id="vehicules" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="05" title="Véhicules" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            La flotte complète, avec l&apos;état opérationnel de chaque véhicule et sa disponibilité du jour.
-          </p>
-          <Steps
-            items={[
-              "Trois états possibles : <b>Disponible</b>, <b>Entretien</b>, <b>Hors service</b> — à mettre à jour depuis la fiche du véhicule.",
-              "La fiche d'un véhicule permet d'ajouter une <b>photo</b> et de gérer ses indisponibilités ponctuelles.",
-              "Un véhicule retiré de la flotte se <b>désactive</b> plutôt que de se supprimer, pour conserver son historique.",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "vehicules",
+      n: "05",
+      navLabel: tSidebar("nav_vehicules"),
+      content: (
+        <>
+          <ChapterHead n="05" title={tSidebar("nav_vehicules")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c05_intro")}</p>
+          <Steps items={[t.rich("c05_step1", { b }), t.rich("c05_step2", { b }), t.rich("c05_step3", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/vehicules" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Véhicules" />
+              <MockSidebar items={navItems} active={tSidebar("nav_vehicules")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Véhicules</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_vehicules")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">Catégorie</th>
-                      <th className="px-2 py-1 text-left font-semibold">Plaque</th>
-                      <th className="px-2 py-1 text-left font-semibold">État</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tVehicules("col_categoria")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tVehicules("col_placa")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tVehicules("col_estado")}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos 2026</td><td className="border-t border-black/5 px-2 py-1">A123456</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-green-100 px-2 py-0.5 text-green-800">Disponible</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Tucson 4x4</td><td className="border-t border-black/5 px-2 py-1">A778812</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-orange-100 px-2 py-0.5 text-orange-800">Entretien</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos 2026</td><td className="border-t border-black/5 px-2 py-1">A123456</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-green-100 px-2 py-0.5 text-green-800">{tCommon("vehicule_etat_disponible")}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Tucson 4x4</td><td className="border-t border-black/5 px-2 py-1">A778812</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-orange-100 px-2 py-0.5 text-orange-800">{tCommon("vehicule_etat_maintenance")}</span></td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 06 ENTRETIEN */}
-        <section id="entretien" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="06" title="Entretien" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            L&apos;historique d&apos;entretien de toute la flotte : vidanges, freins, pneus, réparations,
-            inspections.
-          </p>
-          <Steps
-            items={[
-              "<b>Nouvel entretien</b> pour enregistrer une intervention : véhicule, type, date, coût, et la date du prochain entretien prévu.",
-              "Un entretien dont la date prévue est dépassée est marqué <b>En retard</b>.",
-              "Un entretien erroné peut être supprimé directement depuis la liste.",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "entretien",
+      n: "06",
+      navLabel: tSidebar("nav_entretiens"),
+      content: (
+        <>
+          <ChapterHead n="06" title={tSidebar("nav_entretiens")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c06_intro")}</p>
+          <Steps items={[t.rich("c06_step1", { b }), t.rich("c06_step2", { b }), t("c06_step3")]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/entretiens" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Entretien" />
+              <MockSidebar items={navItems} active={tSidebar("nav_entretiens")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Entretien</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_entretiens")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">Véhicule</th>
-                      <th className="px-2 py-1 text-left font-semibold">Type</th>
-                      <th className="px-2 py-1 text-left font-semibold">Prochain</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tEntretiens("col_vehiculo")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tEntretiens("col_tipo")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tEntretiens("col_proximo")}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Tucson 4x4</td><td className="border-t border-black/5 px-2 py-1">Vidange</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-red-100 px-2 py-0.5 text-red-800">En retard</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos</td><td className="border-t border-black/5 px-2 py-1">Pneus</td><td className="border-t border-black/5 px-2 py-1">15 janv.</td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Tucson 4x4</td><td className="border-t border-black/5 px-2 py-1">{tCommon("entretien_type_vidange")}</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-red-100 px-2 py-0.5 text-red-800">{tEntretiens("vencido")}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos</td><td className="border-t border-black/5 px-2 py-1">{tCommon("entretien_type_pneus")}</td><td className="border-t border-black/5 px-2 py-1">15 janv.</td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 07 CLIENTS */}
-        <section id="clients" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="07" title="Clients" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            La fiche client centralise ses coordonnées, ses documents (permis, cédula, passeport) et
-            l&apos;historique complet de ses réservations passées.
-          </p>
-          <Steps
-            items={[
-              "Recherchez par nom, téléphone ou e-mail.",
-              "Ouvrez une fiche client pour voir son <b>historique des réservations</b> sans le rechercher dans la liste des réservations.",
-              "<b>Supprimer</b> est réservé aux administrateurs.",
-            ]}
-          />
-          <Callout tone="warn">
-            <b className="text-ink">Suppression protégée.</b> Un client ayant déjà des réservations enregistrées ne
-            peut pas être supprimé — le panneau l&apos;indique clairement pour éviter de perdre l&apos;historique
-            associé.
-          </Callout>
+        </>
+      ),
+    },
+    {
+      id: "clients",
+      n: "07",
+      navLabel: tSidebar("nav_clients"),
+      content: (
+        <>
+          <ChapterHead n="07" title={tSidebar("nav_clients")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c07_intro")}</p>
+          <Steps items={[t("c07_step1"), t.rich("c07_step2", { b }), t.rich("c07_step3", { b })]} />
+          <Callout tone="warn">{t.rich("c07_callout", { b })}</Callout>
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/clients" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Clients" />
+              <MockSidebar items={navItems} active={tSidebar("nav_clients")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Clients</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_clients")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">Nom</th>
-                      <th className="px-2 py-1 text-left font-semibold">Téléphone</th>
-                      <th className="px-2 py-1 text-left font-semibold">Permis</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tClients("col_nombre")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tClients("col_telefono")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tClients("col_licencia")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -440,37 +390,31 @@ export default function AidePage() {
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 08 GARANTS */}
-        <section id="garants" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="08" title="Garants" badge="Nouveau" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            Un garant enregistré évite de ressaisir ses coordonnées à chaque contrat. Une fois créé, il apparaît
-            dans un menu déroulant lors de la finalisation d&apos;un contrat de location.
-          </p>
-          <Steps
-            items={[
-              "Créez un garant une seule fois : nom, téléphone, cédula, adresse.",
-              "Dans un contrat, choisissez-le dans <b>Garant enregistré</b> — les champs se remplissent automatiquement et restent modifiables.",
-            ]}
-          />
-          <Callout tone="tip">
-            <b className="text-ink">Supprimer un garant ne touche jamais un contrat déjà signé.</b> Les
-            informations restent imprimées sur le contrat existant, seul le lien vers la fiche est retiré.
-          </Callout>
+        </>
+      ),
+    },
+    {
+      id: "garants",
+      n: "08",
+      navLabel: tSidebar("nav_garantes"),
+      content: (
+        <>
+          <ChapterHead n="08" title={tSidebar("nav_garantes")} badge={t("c08_badge")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c08_intro")}</p>
+          <Steps items={[t("c08_step1"), t.rich("c08_step2", { b })]} />
+          <Callout tone="tip">{t.rich("c08_callout", { b })}</Callout>
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/garantes" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Garants" />
+              <MockSidebar items={navItems} active={tSidebar("nav_garantes")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Garants</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_garantes")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">Nom</th>
-                      <th className="px-2 py-1 text-left font-semibold">Téléphone</th>
-                      <th className="px-2 py-1 text-left font-semibold">Cédula</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tGarantes("col_nombre")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tGarantes("col_telefono")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tGarantes("col_cedula")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -480,33 +424,30 @@ export default function AidePage() {
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 09 TARIFS */}
-        <section id="tarifs" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="09" title="Tarifs" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            La grille tarifaire par catégorie de véhicule, affichée aussi sur le site public. Trois paliers selon
-            la durée de location.
-          </p>
-          <Steps
-            items={[
-              "Un <b>administrateur</b> clique directement sur un prix pour le modifier.",
-              "Un <b>employé</b> consulte la grille en lecture seule.",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "tarifs",
+      n: "09",
+      navLabel: tSidebar("nav_tarifs"),
+      content: (
+        <>
+          <ChapterHead n="09" title={tSidebar("nav_tarifs")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c09_intro")}</p>
+          <Steps items={[t.rich("c09_step1", { b }), t.rich("c09_step2", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/tarifs" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Tarifs" />
+              <MockSidebar items={navItems} active={tSidebar("nav_tarifs")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Tarifs</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_tarifs")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">Catégorie</th>
-                      <th className="px-2 py-1 text-left font-semibold">1-3 jours</th>
-                      <th className="px-2 py-1 text-left font-semibold">4 jours et +</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tTarifs("col_categoria")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tTarifs("col_1_3")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tTarifs("col_4_plus")}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -517,98 +458,84 @@ export default function AidePage() {
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 10 UTILISATEURS */}
-        <section id="utilisateurs" className="scroll-mt-6 border-b border-black/10 py-8">
-          <ChapterHead n="10" title="Utilisateurs" badge="Réservé aux admins" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            Gestion des comptes de l&apos;équipe. Seul un administrateur voit cette section.
-          </p>
-          <Steps
-            items={[
-              "<b>Nouvel utilisateur</b> : nom, e-mail, mot de passe temporaire à transmettre par un canal sécurisé, puis rôle (Admin ou Employé).",
-              "<b>Désactiver</b> bloque immédiatement la connexion sans supprimer le compte — réversible via <b>Activer</b>.",
-            ]}
-          />
-          <Callout>
-            Un administrateur ne peut pas désactiver son propre compte, pour éviter de se retrouver bloqué hors du
-            panneau.
-          </Callout>
+        </>
+      ),
+    },
+    {
+      id: "utilisateurs",
+      n: "10",
+      navLabel: tSidebar("nav_utilisateurs"),
+      content: (
+        <>
+          <ChapterHead n="10" title={tSidebar("nav_utilisateurs")} badge={t("c10_badge")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c10_intro")}</p>
+          <Steps items={[t.rich("c10_step1", { b }), t.rich("c10_step2", { b })]} />
+          <Callout>{t("c10_callout")}</Callout>
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/utilisateurs" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Utilisateurs" />
+              <MockSidebar items={navItems} active={tSidebar("nav_utilisateurs")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Utilisateurs</p>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_utilisateurs")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
-                      <th className="px-2 py-1 text-left font-semibold">Nom</th>
-                      <th className="px-2 py-1 text-left font-semibold">Rôle</th>
-                      <th className="px-2 py-1 text-left font-semibold">État</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tUtilisateurs("col_nombre")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tUtilisateurs("col_rol")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tCommon("edit")}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Maria G.</td><td className="border-t border-black/5 px-2 py-1">Admin</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-green-100 px-2 py-0.5 text-green-800">Actif</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Ana T.</td><td className="border-t border-black/5 px-2 py-1">Employé</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-gray-200 px-2 py-0.5 text-gray-700">Désactivé</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Maria G.</td><td className="border-t border-black/5 px-2 py-1">{tCommon("role_admin")}</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-green-100 px-2 py-0.5 text-green-800">{t("c10_mock_actif")}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Ana T.</td><td className="border-t border-black/5 px-2 py-1">{tCommon("role_employe")}</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-gray-200 px-2 py-0.5 text-gray-700">{tUtilisateurs("estado_desactivado")}</span></td></tr>
                   </tbody>
                 </table>
               </div>
             </div>
           </figure>
-        </section>
-
-        {/* 11 CONTRAT */}
-        <section id="contrat" className="scroll-mt-6 py-8">
-          <ChapterHead n="11" title="Contrat & signature" />
-          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">
-            Depuis une réservation, <b>Finaliser le contrat</b> ouvre le formulaire de remise du véhicule : heure,
-            état, montants, garant et accessoires remis au client.
-          </p>
-          <Steps
-            items={[
-              "Remplissez la remise du véhicule, la franchise, l'acompte (le solde se calcule automatiquement) et, si besoin, sélectionnez un <a href='#garants' class='text-brand underline'>garant enregistré</a>.",
-              "Cochez les accessoires remis avec le véhicule.",
-              "<b>Enregistrer le contrat</b>, puis <b>Signer à l'écran</b> pour faire signer le client directement sur l'appareil.",
-            ]}
-          />
+        </>
+      ),
+    },
+    {
+      id: "contrat",
+      n: "11",
+      navLabel: t("title_contrat"),
+      content: (
+        <>
+          <ChapterHead n="11" title={t("title_contrat")} />
+          <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c11_intro", { b })}</p>
+          <Steps items={[t("c11_step1"), t("c11_step2"), t.rich("c11_step3", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/reservations/0144/contrat/editar" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
-              <Sidebar active="Réservations" />
+              <MockSidebar items={navItems} active={tSidebar("nav_reservations")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">Finaliser le contrat</p>
+                <p className="mb-2 text-[13px] font-bold">{tContrats("title")}</p>
                 <div className="mb-2 grid grid-cols-3 gap-2">
-                  <div><span className="mb-0.5 block text-[8.5px] text-black/50">Heure de remise</span><div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px]">14:30</div></div>
-                  <div><span className="mb-0.5 block text-[8.5px] text-black/50">Couleur</span><div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px]">Blanc</div></div>
-                  <div><span className="mb-0.5 block text-[8.5px] text-black/50">Essence</span><div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px]">3/4</div></div>
+                  <div><span className="mb-0.5 block text-[8.5px] text-black/50">{tContrats("field_hora_entrega")}</span><div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px]">14:30</div></div>
+                  <div><span className="mb-0.5 block text-[8.5px] text-black/50">{tContrats("field_color_vehiculo")}</span><div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px]">Blanc</div></div>
+                  <div><span className="mb-0.5 block text-[8.5px] text-black/50">{tContrats("field_nivel_gasolina")}</span><div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px]">3/4</div></div>
                 </div>
-                <span className="mb-0.5 block text-[8.5px] text-black/50">Garant enregistré</span>
+                <span className="mb-0.5 block text-[8.5px] text-black/50">{tContrats("field_garante_guardado")}</span>
                 <div className="mb-2 rounded border border-black/15 bg-white px-2 py-1 text-[9.5px]">Isabel Polanco</div>
-                <span className="mb-1 block text-[8.5px] text-black/50">Accessoires remis</span>
+                <span className="mb-1 block text-[8.5px] text-black/50">{tContrats("section_accesorios")}</span>
                 <div className="flex flex-wrap gap-1.5">
-                  <span className="rounded bg-ink px-1.5 py-0.5 text-[8px] text-white">Climatisation</span>
-                  <span className="rounded bg-ink px-1.5 py-0.5 text-[8px] text-white">Roue de secours</span>
-                  <span className="rounded bg-black/5 px-1.5 py-0.5 text-[8px] text-black/60">Cric</span>
+                  <span className="rounded bg-ink px-1.5 py-0.5 text-[8px] text-white">A/C</span>
+                  <span className="rounded bg-ink px-1.5 py-0.5 text-[8px] text-white">•</span>
+                  <span className="rounded bg-black/5 px-1.5 py-0.5 text-[8px] text-black/60">•</span>
                 </div>
               </div>
             </div>
           </figure>
 
-          <p className="my-5 max-w-[62ch] text-[15px] text-ink-soft">
-            <b className="text-ink">Signature en plein écran.</b> Sur <b>Signer à l&apos;écran</b>, le menu latéral
-            disparaît entièrement — utile quand la tablette ou l&apos;ordinateur passe entre les mains du client
-            pour signer, sans qu&apos;il voie ou ne touche le reste du panneau.
-          </p>
+          <p className="my-5 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c11_signature_note", { b })}</p>
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/reservations/0144/contrat/firmar" />
             <div className="flex min-h-[220px] items-center justify-center bg-[#f2f1ef] p-6">
               <div className="w-[240px] rounded-lg border border-black/10 bg-white p-3">
-                <p className="mb-2 text-[11px] font-bold">Signer le contrat</p>
-                <div className="mb-1.5"><span className="mb-0.5 block text-[8.5px] text-black/50">Client</span><div className="rounded border border-black/15 px-2 py-1 text-[9.5px]">Léa Duval</div></div>
-                <div className="mb-1.5"><span className="mb-0.5 block text-[8.5px] text-black/50">Véhicule</span><div className="rounded border border-black/15 px-2 py-1 text-[9.5px]">Tucson 4x4</div></div>
-                <span className="mb-0.5 block text-[8.5px] text-black/50">Signature</span>
+                <p className="mb-2 text-[11px] font-bold">{tContrats("firma_title")}</p>
+                <div className="mb-1.5"><span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_cliente")}</span><div className="rounded border border-black/15 px-2 py-1 text-[9.5px]">Léa Duval</div></div>
+                <div className="mb-1.5"><span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_vehiculo")}</span><div className="rounded border border-black/15 px-2 py-1 text-[9.5px]">Tucson 4x4</div></div>
                 <div className="mb-2 flex h-[54px] items-center justify-center rounded border border-dashed border-black/20 bg-[#fdfdfc]">
                   <svg width="120" height="30" viewBox="0 0 140 34" fill="none">
                     <path d="M4 26 C 14 6, 22 6, 28 20 C 34 32, 40 12, 48 14 C 58 17, 60 28, 72 18 C 82 10, 88 24, 100 16 C 110 10, 116 22, 128 12"
@@ -616,19 +543,24 @@ export default function AidePage() {
                   </svg>
                 </div>
                 <div className="flex gap-1.5">
-                  <div className="flex-1 rounded border border-black/15 py-1 text-center text-[9.5px] font-semibold">Effacer</div>
-                  <div className="flex-1 rounded bg-brand py-1 text-center text-[9.5px] font-semibold text-white">Confirmer</div>
+                  <div className="flex-1 rounded border border-black/15 py-1 text-center text-[9.5px] font-semibold">{tContrats("firma_clear")}</div>
+                  <div className="flex-1 rounded bg-brand py-1 text-center text-[9.5px] font-semibold text-white">{tContrats("firma_confirm")}</div>
                 </div>
               </div>
             </div>
           </figure>
-        </section>
-      </div>
+        </>
+      ),
+    },
+  ];
 
-      <p className="max-w-[62ch] text-xs text-black/40">
-        Document évolutif — mis à jour à chaque nouvelle fonctionnalité ajoutée au panneau.{" "}
-        <Link href="/admin" className="text-brand hover:underline">Retour au tableau de bord</Link>
-      </p>
+  return (
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-2xl font-bold text-ink">{t("page_title")}</h1>
+        <p className="mt-1 max-w-[62ch] text-sm text-ink-soft">{t("page_subtitle")}</p>
+      </div>
+      <AideTabs chapters={chapters} />
     </div>
   );
 }

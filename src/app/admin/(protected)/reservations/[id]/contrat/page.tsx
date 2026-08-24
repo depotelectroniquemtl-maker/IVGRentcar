@@ -62,16 +62,22 @@ export default async function ContratImprimablePage({
   const { data: contrat } = await supabase
     .from("contrats_location")
     .select(
-      "heure_remise, couleur_vehicule, deducible_usd, abono_usd, solde_usd, niveau_essence, accessoires, garant_nom, garant_adresse, garant_cedula, garant_telephone",
+      "heure_remise, couleur_vehicule, deducible_usd, abono_usd, solde_usd, niveau_essence, accessoires, garant_nom, garant_adresse, garant_cedula, garant_telephone, signature_client, signe_a",
     )
     .eq("reservation_id", id)
     .maybeSingle();
+
+  const documentTitle = `Contrato IVJ #${reservation.numero} - ${reservation.clients.nom}`;
+  const fechaFirma = contrat?.signe_a
+    ? new Intl.DateTimeFormat(locale, { dateStyle: "long" }).format(new Date(contrat.signe_a))
+    : null;
 
   const dias = joursEntre(reservation.date_debut, reservation.date_fin);
   const precioPorDia =
     reservation.prix_total_usd != null ? Math.round((reservation.prix_total_usd / dias) * 100) / 100 : null;
 
   const donnees = {
+    signatureClient: contrat?.signature_client ?? null,
     cliente: {
       nom: reservation.clients.nom,
       adresse: reservation.clients.adresse,
@@ -114,15 +120,30 @@ export default async function ContratImprimablePage({
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center justify-between gap-4 print:hidden">
-        <Link href={`/admin/reservations/${id}`} className={secondaryLinkClass}>
-          {t("back_to_reservation")}
-        </Link>
-        <div className="flex gap-3">
-          <Link href={`/admin/reservations/${id}/contrat/editar`} className={secondaryLinkClass}>
-            {t("edit_link")}
+      <div className="flex flex-col gap-4 print:hidden">
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="text-2xl font-bold text-ink">{documentTitle}</h1>
+          {fechaFirma && (
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700">
+              <span className="h-1.5 w-1.5 rounded-full bg-current" />
+              {t("firma_signed_badge", { fecha: fechaFirma })}
+            </span>
+          )}
+        </div>
+
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <Link href={`/admin/reservations/${id}`} className={secondaryLinkClass}>
+            {t("back_to_reservation")}
           </Link>
-          <PrintButton>{t("print_button")}</PrintButton>
+          <div className="flex gap-3">
+            <Link href={`/admin/reservations/${id}/contrat/editar`} className={secondaryLinkClass}>
+              {t("edit_link")}
+            </Link>
+            <Link href={`/admin/reservations/${id}/contrat/firmar`} className={secondaryLinkClass}>
+              {t("action_firmar")}
+            </Link>
+            <PrintButton>{t("print_button")}</PrintButton>
+          </div>
         </div>
       </div>
 

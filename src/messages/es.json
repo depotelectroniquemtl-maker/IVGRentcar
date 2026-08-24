@@ -465,7 +465,15 @@
       "section_accesorios": "Accesorios entregados",
       "field_notas": "Notas",
       "submit_create": "Guardar contrato",
-      "save_changes": "Guardar cambios"
+      "save_changes": "Guardar cambios",
+      "action_firmar": "Firmar en pantalla",
+      "firma_title": "Firmar contrato",
+      "firma_intro": "Relee la información a continuación y firma en el recuadro.",
+      "firma_recap_title": "Resumen de la reserva",
+      "firma_signed_badge": "Firmado electrónicamente el {fecha}",
+      "firma_clear": "Borrar",
+      "firma_confirm": "Confirmar firma",
+      "firma_error": "No se pudo guardar la firma. Intenta de nuevo."
     },
     "contratoImprimible": {
       "section_cliente": "Datos del Cliente",

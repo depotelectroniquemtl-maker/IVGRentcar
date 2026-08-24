@@ -465,7 +465,15 @@
       "section_accesorios": "Accessories handed over",
       "field_notas": "Notes",
       "submit_create": "Save contract",
-      "save_changes": "Save changes"
+      "save_changes": "Save changes",
+      "action_firmar": "Sign on screen",
+      "firma_title": "Sign contract",
+      "firma_intro": "Review the information below, then sign in the box.",
+      "firma_recap_title": "Reservation summary",
+      "firma_signed_badge": "Signed electronically on {fecha}",
+      "firma_clear": "Clear",
+      "firma_confirm": "Confirm signature",
+      "firma_error": "The signature could not be saved. Please try again."
     },
     "contratoImprimible": {
       "section_cliente": "Client Information",

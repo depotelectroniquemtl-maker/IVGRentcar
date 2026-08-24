@@ -26,6 +26,7 @@ function Champ({ label, value, extra }: { label: string; value?: string | null; 
 
 export type ContratPrintableData = {
   copyLabel: "cliente" | "compania";
+  signatureClient: string | null;
   cliente: {
     nom: string;
     adresse: string | null;
@@ -73,7 +74,7 @@ export function ContratPrintable({
   t: ContratTranslator;
   locale: AdminLocale;
 }) {
-  const { cliente, vehicule, reservation, contrat, copyLabel } = data;
+  const { cliente, vehicule, reservation, contrat, copyLabel, signatureClient } = data;
 
   const fechaSalida = new Date(reservation.dateDebut + "T00:00:00");
   const dia = fechaSalida.getDate();
@@ -205,9 +206,18 @@ export function ContratPrintable({
       </p>
 
       <div className="mt-8 grid grid-cols-3 gap-6 text-center text-[10px]">
-        {[t("signature_cliente"), t("signature_garante"), t("signature_rentado_por")].map((label) => (
+        {[
+          { label: t("signature_cliente"), imagen: signatureClient },
+          { label: t("signature_garante"), imagen: null },
+          { label: t("signature_rentado_por"), imagen: null },
+        ].map(({ label, imagen }) => (
           <div key={label} className="flex flex-col">
-            <div className="h-12 border-b border-black" />
+            <div className="flex h-12 items-end justify-center border-b border-black">
+              {imagen && (
+                // eslint-disable-next-line @next/next/no-img-element -- data URI, pas un asset optimisable par next/image
+                <img src={imagen} alt="" className="max-h-11 object-contain" />
+              )}
+            </div>
             <p className="mt-1">{label}</p>
           </div>
         ))}

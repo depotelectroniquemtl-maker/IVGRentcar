@@ -465,7 +465,15 @@
       "section_accesorios": "Accessoires remis",
       "field_notas": "Notes",
       "submit_create": "Enregistrer le contrat",
-      "save_changes": "Enregistrer les modifications"
+      "save_changes": "Enregistrer les modifications",
+      "action_firmar": "Signer à l'écran",
+      "firma_title": "Signer le contrat",
+      "firma_intro": "Relisez les informations ci-dessous puis signez dans le cadre.",
+      "firma_recap_title": "Résumé de la réservation",
+      "firma_signed_badge": "Signé électroniquement le {fecha}",
+      "firma_clear": "Effacer",
+      "firma_confirm": "Confirmer la signature",
+      "firma_error": "La signature n'a pas pu être enregistrée. Réessayez."
     },
     "contratoImprimible": {
       "section_cliente": "Informations Client",

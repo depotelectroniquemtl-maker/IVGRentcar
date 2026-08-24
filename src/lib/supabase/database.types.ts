@@ -129,6 +129,8 @@ export type Database = {
           niveau_essence: string | null
           notes: string | null
           reservation_id: string
+          signature_client: string | null
+          signe_a: string | null
           solde_usd: number | null
           updated_at: string
         }
@@ -148,6 +150,8 @@ export type Database = {
           niveau_essence?: string | null
           notes?: string | null
           reservation_id: string
+          signature_client?: string | null
+          signe_a?: string | null
           solde_usd?: number | null
           updated_at?: string
         }
@@ -167,6 +171,8 @@ export type Database = {
           niveau_essence?: string | null
           notes?: string | null
           reservation_id?: string
+          signature_client?: string | null
+          signe_a?: string | null
           solde_usd?: number | null
           updated_at?: string
         }

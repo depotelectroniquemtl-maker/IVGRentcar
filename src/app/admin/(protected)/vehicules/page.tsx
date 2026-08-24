@@ -30,9 +30,15 @@ export default async function VehiculesPage({
     hors_service: tCommon("vehicule_etat_hors_service"),
   };
 
+  const TYPE_LABELS: Record<string, string> = {
+    voiture: t("type_voiture"),
+    scooter: t("type_scooter"),
+    quad: t("type_quad"),
+  };
+
   const { data: vehicules, error } = await supabase
     .from("vehicules_disponibilite")
-    .select("id, plaque, annee, categorie_nom, etat_operationnel, actif, loue_aujourd_hui")
+    .select("id, plaque, annee, categorie_nom, categorie_type, etat_operationnel, actif, loue_aujourd_hui")
     .order("categorie_nom");
 
   const activos = vehicules?.filter((v) => v.actif && v.etat_operationnel === "disponible").length ?? 0;
@@ -84,6 +90,7 @@ export default async function VehiculesPage({
             <thead className={theadClass}>
               <tr>
                 <th className={thClass}>{t("col_categoria")}</th>
+                <th className={thClass}>{t("col_type")}</th>
                 <th className={thClass}>{t("col_placa")}</th>
                 <th className={thClass}>{t("col_anio")}</th>
                 <th className={thClass}>{t("col_estado")}</th>
@@ -95,6 +102,9 @@ export default async function VehiculesPage({
               {vehiculesFiltrados?.map((v) => (
                 <tr key={v.id} className={trClass}>
                   <td className="px-4 py-3 font-medium text-ink">{v.categorie_nom}</td>
+                  <td className="px-4 py-3 text-ink-soft">
+                    {v.categorie_type ? (TYPE_LABELS[v.categorie_type] ?? v.categorie_type) : tCommon("dash")}
+                  </td>
                   <td className="px-4 py-3 font-mono text-xs text-ink-soft">
                     {v.plaque ?? tCommon("dash")}
                   </td>
@@ -130,7 +140,7 @@ export default async function VehiculesPage({
               ))}
               {vehiculesFiltrados?.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-4 py-6 text-center text-ink-soft">
+                  <td colSpan={7} className="px-4 py-6 text-center text-ink-soft">
                     {q ? tCommon("no_results") : t("empty")}
                   </td>
                 </tr>

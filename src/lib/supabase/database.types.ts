@@ -725,6 +725,7 @@ export type Database = {
           annee: number | null
           categorie_id: string | null
           categorie_nom: string | null
+          categorie_type: string | null
           created_at: string | null
           etat_operationnel: string | null
           id: string | null

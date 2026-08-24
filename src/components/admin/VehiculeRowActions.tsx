@@ -36,24 +36,27 @@ export function VehiculeRowActions({
         <button
           type="button"
           title={actif ? t("action_deactivate") : t("action_activate")}
+          aria-label={actif ? t("action_deactivate") : t("action_activate")}
           onClick={toggleActif}
           disabled={loading}
-          className={`${rowIconButtonClass} hover:text-red-600 disabled:opacity-50`}
+          className={`${rowIconButtonClass} ${
+            actif ? "hover:bg-red-50 hover:text-red-600" : "hover:bg-green-50 hover:text-green-700"
+          } disabled:opacity-50`}
         >
           {actif ? (
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
               <path
                 d="M8 2.5v5.2M4 4.6a5 5 0 1 0 8 0"
                 stroke="currentColor"
-                strokeWidth="1.4"
+                strokeWidth="1.6"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
           ) : (
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.4" />
-              <path d="M8 5.2v5.6M5.2 8h5.6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+            <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="8" r="5.5" stroke="currentColor" strokeWidth="1.6" />
+              <path d="M8 5.2v5.6M5.2 8h5.6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
             </svg>
           )}
         </button>

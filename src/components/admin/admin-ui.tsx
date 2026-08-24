@@ -11,7 +11,7 @@ export const thClass = "px-4 py-3 text-[11px] font-bold uppercase tracking-wider
 export const thNumClass = `${thClass} text-right`;
 export const trClass = "border-t border-black/5 transition-colors hover:bg-black/[0.02]";
 export const rowIconButtonClass =
-  "flex h-7 w-7 items-center justify-center rounded-md text-ink-soft transition-colors hover:bg-black/5 hover:text-ink";
+  "flex h-9 w-9 items-center justify-center rounded-md text-ink-soft transition-colors hover:bg-black/5 hover:text-ink";
 
 const STAT_TONE_CLASS = {
   neutral: "",
@@ -52,12 +52,17 @@ export function Pill({ children, className = "" }: { children: ReactNode; classN
 
 export function EditRowLink({ href, title }: { href: string; title: string }) {
   return (
-    <Link href={href} title={title} className={rowIconButtonClass}>
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <Link
+      href={href}
+      title={title}
+      aria-label={title}
+      className={`${rowIconButtonClass} hover:bg-brand-light hover:text-brand`}
+    >
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none">
         <path
           d="M11.3 2.7 13.3 4.7 5 13H3v-2l8.3-8.3Z"
           stroke="currentColor"
-          strokeWidth="1.3"
+          strokeWidth="1.4"
           strokeLinejoin="round"
         />
       </svg>

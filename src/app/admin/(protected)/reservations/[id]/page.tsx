@@ -5,6 +5,7 @@ import { getAdminTranslator } from "@/lib/admin-i18n";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { ReservationForm } from "@/components/admin/ReservationForm";
 import { DeleteReservationButton } from "@/components/admin/DeleteReservationButton";
+import { MarcarDevueltoButton } from "@/components/admin/MarcarDevueltoButton";
 import { secondaryLinkClass } from "@/components/admin/form-ui";
 
 export default async function EditarReservaPage({
@@ -22,7 +23,7 @@ export default async function EditarReservaPage({
   const { data: reservation } = await supabase
     .from("reservations")
     .select(
-      "id, numero, client_id, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, statut, prix_total_usd, caution_usd, notes, clients(nom)",
+      "id, numero, client_id, vehicule_id, date_debut, date_fin, date_retour_reelle, heure_debut, heure_fin, lieu_prise_en_charge, statut, prix_total_usd, caution_usd, notes, clients(nom)",
     )
     .eq("id", id)
     .single();
@@ -76,6 +77,7 @@ export default async function EditarReservaPage({
       <Link href={`/admin/reservations/${reservation.id}/contrat`} className={secondaryLinkClass}>
         {tContrats("action_ver")}
       </Link>
+      <MarcarDevueltoButton id={reservation.id} dateRetourReelle={reservation.date_retour_reelle} />
       {profile?.role === "admin" && (
         <div className="ml-auto flex items-center gap-3">
           <span className="hidden h-5 w-px bg-black/10 sm:block" aria-hidden />

@@ -3,11 +3,19 @@ import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { EditRowLink, Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 
-function calcularFase(dateDebut: string, dateFin: string, statut: string) {
+function calcularFase(
+  dateDebut: string,
+  dateFin: string,
+  statut: string,
+  dateRetourReelle: string | null,
+) {
   if (statut === "annulee") return "annulee";
   const hoy = new Date().toISOString().slice(0, 10);
   if (hoy < dateDebut) return "a_venir";
-  if (hoy > dateFin) return "terminee";
+  if (hoy > dateFin) {
+    if (!dateRetourReelle && statut === "confirmee") return "en_retraso";
+    return "terminee";
+  }
   return "en_cours";
 }
 
@@ -15,6 +23,7 @@ const FASE_CLASSNAMES: Record<string, string> = {
   a_venir: "bg-blue-100 text-blue-700",
   en_cours: "bg-green-100 text-green-700",
   terminee: "bg-black/10 text-ink-soft",
+  en_retraso: "bg-red-100 text-red-700",
   annulee: "bg-red-100 text-red-700",
 };
 
@@ -27,18 +36,22 @@ export default async function ReservationsPage() {
     a_venir: t("fase_a_venir"),
     en_cours: t("fase_en_cours"),
     terminee: t("fase_terminee"),
+    en_retraso: t("fase_en_retraso"),
     annulee: t("fase_annulee"),
   };
 
   const { data: reservations, error } = await supabase
     .from("reservations")
     .select(
-      "id, numero, date_debut, date_fin, statut, prix_total_usd, vehicules(plaque, categories_vehicules(nom)), clients(nom)",
+      "id, numero, date_debut, date_fin, date_retour_reelle, statut, prix_total_usd, vehicules(plaque, categories_vehicules(nom)), clients(nom)",
     )
     .order("date_debut", { ascending: false })
     .limit(50);
 
-  const fases = reservations?.map((r) => calcularFase(r.date_debut, r.date_fin, r.statut)) ?? [];
+  const fases =
+    reservations?.map((r) =>
+      calcularFase(r.date_debut, r.date_fin, r.statut, r.date_retour_reelle),
+    ) ?? [];
   const enCurso = fases.filter((f) => f === "en_cours").length;
   const proximas = fases.filter((f) => f === "a_venir").length;
   const pendientes = reservations?.filter((r) => r.statut === "en_attente").length ?? 0;
@@ -82,7 +95,7 @@ export default async function ReservationsPage() {
             </thead>
             <tbody>
               {reservations?.map((r) => {
-                const fase = calcularFase(r.date_debut, r.date_fin, r.statut);
+                const fase = calcularFase(r.date_debut, r.date_fin, r.statut, r.date_retour_reelle);
                 return (
                   <tr key={r.id} className={trClass}>
                     <td className="px-4 py-3 font-mono text-xs text-ink-soft">#{r.numero}</td>

@@ -260,7 +260,14 @@
       "stat_active_reservations": "Active reservations",
       "stat_upcoming_reservations": "Upcoming reservations",
       "stat_available_today": "Vehicles available today",
-      "coming_soon": "Coming soon: availability calendar, return alerts and quick actions to create a reservation."
+      "quick_actions_title": "Quick actions",
+      "action_nueva_reserva": "+ New reservation",
+      "action_nuevo_cliente": "+ New client",
+      "retornos_title": "Returns",
+      "retorno_en_retraso": "Overdue {n}d",
+      "retorno_hoy": "Today",
+      "retorno_manana": "Tomorrow",
+      "retornos_empty": "No returns scheduled."
     },
     "vehicules": {
       "title": "Vehicles",
@@ -410,6 +417,7 @@
       "fase_a_venir": "Upcoming",
       "fase_en_cours": "Ongoing",
       "fase_terminee": "Finished",
+      "fase_en_retraso": "Overdue",
       "fase_annulee": "Cancelled",
       "section_cliente_vehiculo": "Client and vehicle",
       "section_fechas": "Dates and times",
@@ -437,7 +445,10 @@
       "delete": "Delete reservation",
       "delete_confirm": "Permanently delete this reservation? This can't be undone.",
       "delete_confirm_yes": "Yes, delete",
-      "convert_prefill_notice": "Prefilled from {nombre}'s request ({whatsapp}). Select or create the matching client."
+      "convert_prefill_notice": "Prefilled from {nombre}'s request ({whatsapp}). Select or create the matching client.",
+      "marcar_devuelto": "Mark as returned",
+      "devuelto_el": "Returned on {fecha}",
+      "deshacer": "Undo"
     },
     "contrats": {
       "title": "Finalize contract",

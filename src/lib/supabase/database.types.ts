@@ -417,6 +417,7 @@ export type Database = {
           created_by: string | null
           date_debut: string
           date_fin: string
+          date_retour_reelle: string | null
           heure_debut: string | null
           heure_fin: string | null
           id: string
@@ -435,6 +436,7 @@ export type Database = {
           created_by?: string | null
           date_debut: string
           date_fin: string
+          date_retour_reelle?: string | null
           heure_debut?: string | null
           heure_fin?: string | null
           id?: string
@@ -453,6 +455,7 @@ export type Database = {
           created_by?: string | null
           date_debut?: string
           date_fin?: string
+          date_retour_reelle?: string | null
           heure_debut?: string | null
           heure_fin?: string | null
           id?: string

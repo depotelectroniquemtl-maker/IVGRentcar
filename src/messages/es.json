@@ -260,7 +260,14 @@
       "stat_active_reservations": "Reservas en curso",
       "stat_upcoming_reservations": "Próximas reservas",
       "stat_available_today": "Vehículos disponibles hoy",
-      "coming_soon": "Próximamente: calendario de disponibilidad, alertas de retorno y accesos rápidos para crear una reserva."
+      "quick_actions_title": "Acciones rápidas",
+      "action_nueva_reserva": "+ Nueva reserva",
+      "action_nuevo_cliente": "+ Nuevo cliente",
+      "retornos_title": "Retornos",
+      "retorno_en_retraso": "En retraso {n}d",
+      "retorno_hoy": "Hoy",
+      "retorno_manana": "Mañana",
+      "retornos_empty": "Ningún retorno previsto."
     },
     "vehicules": {
       "title": "Vehículos",
@@ -410,6 +417,7 @@
       "fase_a_venir": "Próxima",
       "fase_en_cours": "En curso",
       "fase_terminee": "Terminada",
+      "fase_en_retraso": "En retraso",
       "fase_annulee": "Anulada",
       "section_cliente_vehiculo": "Cliente y vehículo",
       "section_fechas": "Fechas y horarios",
@@ -437,7 +445,10 @@
       "delete": "Eliminar reserva",
       "delete_confirm": "¿Eliminar esta reserva de forma permanente? Esta acción no se puede deshacer.",
       "delete_confirm_yes": "Sí, eliminar",
-      "convert_prefill_notice": "Datos precargados desde la solicitud de {nombre} ({whatsapp}). Selecciona o crea el cliente correspondiente."
+      "convert_prefill_notice": "Datos precargados desde la solicitud de {nombre} ({whatsapp}). Selecciona o crea el cliente correspondiente.",
+      "marcar_devuelto": "Marcar como devuelto",
+      "devuelto_el": "Devuelto el {fecha}",
+      "deshacer": "Deshacer"
     },
     "contrats": {
       "title": "Finalizar contrato",

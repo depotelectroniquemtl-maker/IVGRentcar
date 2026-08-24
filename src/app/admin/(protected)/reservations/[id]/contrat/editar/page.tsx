@@ -37,21 +37,17 @@ export default async function EditarContratoPage({
   const vehiculeLabel = `${reservation.vehicules?.categories_vehicules?.nom ?? tCommon("dash")} (${reservation.vehicules?.plaque ?? tCommon("dash")})`;
 
   return (
-    <div className="flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-ink">
-        {t("edit_title", { vehiculo: vehiculeLabel })}
-      </h1>
-      <ContratForm
-        reservationId={id}
-        prixTotalUsd={reservation.prix_total_usd}
-        couleurVehiculeParDefaut={reservation.vehicules?.couleur ?? null}
-        garantesGuardados={garantesGuardados ?? []}
-        contrat={
-          contrat
-            ? { ...contrat, accessoires: (contrat.accessoires as Record<string, boolean>) ?? {} }
-            : undefined
-        }
-      />
-    </div>
+    <ContratForm
+      title={t("edit_title", { vehiculo: vehiculeLabel })}
+      reservationId={id}
+      prixTotalUsd={reservation.prix_total_usd}
+      couleurVehiculeParDefaut={reservation.vehicules?.couleur ?? null}
+      garantesGuardados={garantesGuardados ?? []}
+      contrat={
+        contrat
+          ? { ...contrat, accessoires: (contrat.accessoires as Record<string, boolean>) ?? {} }
+          : undefined
+      }
+    />
   );
 }

@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
 import { ACCESSOIRES_CONTRAT, NIVEAUX_ESSENCE } from "@/lib/contrat-accessoires";
-import { FormSection, inputClass, labelClass, primaryButtonClass } from "@/components/admin/form-ui";
+import { Card, inputClass, labelClass, primaryButtonClass, secondaryLinkClass } from "@/components/admin/form-ui";
 
 type Contrat = {
   id: string;
@@ -33,12 +34,14 @@ type GaranteGuardado = {
 };
 
 export function ContratForm({
+  title,
   reservationId,
   prixTotalUsd,
   couleurVehiculeParDefaut,
   garantesGuardados,
   contrat,
 }: {
+  title: string;
   reservationId: string;
   prixTotalUsd: number | null;
   couleurVehiculeParDefaut: string | null;
@@ -141,183 +144,192 @@ export function ContratForm({
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="flex max-w-3xl flex-col gap-6 rounded-lg bg-white p-8 shadow-sm"
-    >
-      <FormSection title={t("section_entrega")}>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_hora_entrega")}</span>
-            <input
-              type="time"
-              value={heureRemise}
-              onChange={(e) => setHeureRemise(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_color_vehiculo")}</span>
-            <input
-              type="text"
-              value={couleurVehicule}
-              onChange={(e) => setCouleurVehicule(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_nivel_gasolina")}</span>
-            <select
-              value={niveauEssence}
-              onChange={(e) => setNiveauEssence(e.target.value)}
-              className={inputClass}
-            >
-              <option value="">{t("field_nivel_gasolina_placeholder")}</option>
-              {NIVEAUX_ESSENCE.map((n) => (
-                <option key={n} value={n}>
-                  {n}
-                </option>
-              ))}
-            </select>
-          </label>
+    <form onSubmit={handleSubmit} className="flex w-full flex-col gap-5">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <h1 className="text-2xl font-bold text-ink">{title}</h1>
+        <div className="flex items-center gap-3">
+          <Link href={`/admin/reservations/${reservationId}/contrat`} className={secondaryLinkClass}>
+            {tCommon("cancel")}
+          </Link>
+          <button type="submit" disabled={loading} className={primaryButtonClass}>
+            {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
+          </button>
         </div>
-      </FormSection>
-
-      <FormSection title={t("section_montos")}>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_deducible")}</span>
-            <input
-              type="number"
-              min={0}
-              step="0.01"
-              value={deducible}
-              onChange={(e) => setDeducible(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_abono")}</span>
-            <input
-              type="number"
-              min={0}
-              step="0.01"
-              value={abono}
-              onChange={(e) => setAbono(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_saldo")}</span>
-            <input
-              type="number"
-              min={0}
-              step="0.01"
-              value={solde}
-              onChange={(e) => setSolde(e.target.value)}
-              className={inputClass}
-            />
-            <span className="mt-1 block text-xs text-ink-soft">{t("field_saldo_hint")}</span>
-          </label>
-        </div>
-      </FormSection>
-
-      <FormSection title={t("section_garante")}>
-        {garantesGuardados.length > 0 && (
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_garante_guardado")}</span>
-            <select
-              value={garantId}
-              onChange={(e) => handleSelectGarante(e.target.value)}
-              className={inputClass}
-            >
-              <option value="">{t("field_garante_guardado_placeholder")}</option>
-              {garantesGuardados.map((g) => (
-                <option key={g.id} value={g.id}>
-                  {g.nom}
-                </option>
-              ))}
-            </select>
-          </label>
-        )}
-
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_garante_nombre")}</span>
-            <input
-              type="text"
-              value={garantNom}
-              onChange={(e) => setGarantNom(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_garante_telefono")}</span>
-            <input
-              type="tel"
-              value={garantTelephone}
-              onChange={(e) => setGarantTelephone(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_garante_cedula")}</span>
-            <input
-              type="text"
-              value={garantCedula}
-              onChange={(e) => setGarantCedula(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_garante_direccion")}</span>
-            <input
-              type="text"
-              value={garantAdresse}
-              onChange={(e) => setGarantAdresse(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-        </div>
-      </FormSection>
-
-      <FormSection title={t("section_accesorios")}>
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-          {ACCESSOIRES_CONTRAT.map((item) => (
-            <label key={item.key} className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={Boolean(accessoires[item.key])}
-                onChange={() => toggleAccessoire(item.key)}
-                className="h-4 w-4 rounded border-black/20"
-              />
-              {item.label}
-            </label>
-          ))}
-        </div>
-      </FormSection>
-
-      <FormSection title={tCommon("section_notas")}>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          rows={3}
-          className={inputClass}
-        />
-      </FormSection>
+      </div>
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 
-      <button type="submit" disabled={loading} className={primaryButtonClass}>
-        {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
-      </button>
+      <div className="grid grid-cols-1 items-start gap-5 lg:grid-cols-[1.55fr_1fr]">
+        <div className="flex flex-col gap-5">
+          <Card title={t("section_entrega")}>
+            <div className="grid gap-4 sm:grid-cols-3">
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_hora_entrega")}</span>
+                <input
+                  type="time"
+                  value={heureRemise}
+                  onChange={(e) => setHeureRemise(e.target.value)}
+                  className={inputClass}
+                />
+              </label>
+
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_color_vehiculo")}</span>
+                <input
+                  type="text"
+                  value={couleurVehicule}
+                  onChange={(e) => setCouleurVehicule(e.target.value)}
+                  className={inputClass}
+                />
+              </label>
+
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_nivel_gasolina")}</span>
+                <select
+                  value={niveauEssence}
+                  onChange={(e) => setNiveauEssence(e.target.value)}
+                  className={inputClass}
+                >
+                  <option value="">{t("field_nivel_gasolina_placeholder")}</option>
+                  {NIVEAUX_ESSENCE.map((n) => (
+                    <option key={n} value={n}>
+                      {n}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+          </Card>
+
+          <Card title={t("section_garante")}>
+            {garantesGuardados.length > 0 && (
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_garante_guardado")}</span>
+                <select
+                  value={garantId}
+                  onChange={(e) => handleSelectGarante(e.target.value)}
+                  className={inputClass}
+                >
+                  <option value="">{t("field_garante_guardado_placeholder")}</option>
+                  {garantesGuardados.map((g) => (
+                    <option key={g.id} value={g.id}>
+                      {g.nom}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_garante_nombre")}</span>
+                <input
+                  type="text"
+                  value={garantNom}
+                  onChange={(e) => setGarantNom(e.target.value)}
+                  className={inputClass}
+                />
+              </label>
+
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_garante_telefono")}</span>
+                <input
+                  type="tel"
+                  value={garantTelephone}
+                  onChange={(e) => setGarantTelephone(e.target.value)}
+                  className={inputClass}
+                />
+              </label>
+
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_garante_cedula")}</span>
+                <input
+                  type="text"
+                  value={garantCedula}
+                  onChange={(e) => setGarantCedula(e.target.value)}
+                  className={inputClass}
+                />
+              </label>
+
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_garante_direccion")}</span>
+                <input
+                  type="text"
+                  value={garantAdresse}
+                  onChange={(e) => setGarantAdresse(e.target.value)}
+                  className={inputClass}
+                />
+              </label>
+            </div>
+          </Card>
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <Card title={t("section_montos")}>
+            <label className="block text-sm">
+              <span className={labelClass}>{t("field_deducible")}</span>
+              <input
+                type="number"
+                min={0}
+                step="0.01"
+                value={deducible}
+                onChange={(e) => setDeducible(e.target.value)}
+                className={inputClass}
+              />
+            </label>
+
+            <label className="block text-sm">
+              <span className={labelClass}>{t("field_abono")}</span>
+              <input
+                type="number"
+                min={0}
+                step="0.01"
+                value={abono}
+                onChange={(e) => setAbono(e.target.value)}
+                className={inputClass}
+              />
+            </label>
+
+            <label className="block text-sm">
+              <span className={labelClass}>{t("field_saldo")}</span>
+              <input
+                type="number"
+                min={0}
+                step="0.01"
+                value={solde}
+                onChange={(e) => setSolde(e.target.value)}
+                className={inputClass}
+              />
+              <span className="mt-1 block text-xs text-ink-soft">{t("field_saldo_hint")}</span>
+            </label>
+          </Card>
+
+          <Card title={t("section_accesorios")}>
+            <div className="grid grid-cols-2 gap-2">
+              {ACCESSOIRES_CONTRAT.map((item) => (
+                <label key={item.key} className="flex items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(accessoires[item.key])}
+                    onChange={() => toggleAccessoire(item.key)}
+                    className="h-4 w-4 rounded border-black/20"
+                  />
+                  {item.label}
+                </label>
+              ))}
+            </div>
+          </Card>
+
+          <Card title={tCommon("section_notas")}>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              rows={3}
+              className={inputClass}
+            />
+          </Card>
+        </div>
+      </div>
     </form>
   );
 }

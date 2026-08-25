@@ -648,13 +648,17 @@
       "subtitle_admin": "Haz clic en un precio para editarlo",
       "subtitle_readonly": "Solo lectura — contacta a un admin para modificar",
       "col_orden": "Orden",
+      "order_up": "Subir",
+      "order_down": "Bajar",
       "col_categoria": "Categoría",
       "col_1_3": "1-3 días",
       "col_4_plus": "4+ días",
       "col_15_plus": "15+ días",
       "col_activo": "Activo",
       "col_activo_yes": "Activo",
-      "col_activo_no": "Inactivo"
+      "col_activo_no": "Inactivo",
+      "toggle_hint_deactivate": "Clic para desactivar esta categoría en el sitio público",
+      "toggle_hint_activate": "Clic para activar esta categoría en el sitio público"
     },
     "demandes": {
       "title": "Solicitudes",

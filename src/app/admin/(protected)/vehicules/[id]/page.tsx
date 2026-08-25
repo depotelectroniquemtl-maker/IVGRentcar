@@ -55,10 +55,17 @@ export default async function EditarVehiculoPage({
 
   if (!vehicule) notFound();
 
+  const secondaryActions = esAdmin ? (
+    <div className="flex items-center gap-4 text-sm">
+      <DeleteVehiculeButton id={id} />
+    </div>
+  ) : undefined;
+
   return (
     <div className="flex flex-col gap-5">
       <VehiculeForm
         title={t("edit_title", { plaque: vehicule.plaque ?? tCommon("dash") })}
+        secondaryActions={secondaryActions}
         categories={categories ?? []}
         vehicule={vehicule}
       />
@@ -137,12 +144,6 @@ export default async function EditarVehiculoPage({
           )}
         </Card>
       </div>
-
-      {esAdmin && (
-        <div className="flex justify-end">
-          <DeleteVehiculeButton id={id} />
-        </div>
-      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -26,10 +26,12 @@ type Vehicule = {
 
 export function VehiculeForm({
   title,
+  secondaryActions,
   categories,
   vehicule,
 }: {
   title: string;
+  secondaryActions?: ReactNode;
   categories: { id: string; nom: string }[];
   vehicule?: Vehicule;
 }) {
@@ -133,6 +135,8 @@ export function VehiculeForm({
           </button>
         </div>
       </div>
+
+      {secondaryActions}
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 

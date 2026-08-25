@@ -23,6 +23,7 @@ export function ActifCategorieButton({ id, actif }: { id: string; actif: boolean
       type="button"
       onClick={basculer}
       disabled={loading}
+      title={actif ? t("toggle_hint_deactivate") : t("toggle_hint_activate")}
       className={`rounded-full px-3 py-1 text-xs font-semibold transition-colors disabled:opacity-50 ${
         actif
           ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"

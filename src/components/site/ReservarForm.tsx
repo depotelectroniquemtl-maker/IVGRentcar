@@ -60,8 +60,11 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
   const [periodesIndisponibles, setPeriodesIndisponibles] = useState<Periodo[]>([]);
   const [dateDebut, setDateDebut] = useState("");
   const [dateFin, setDateFin] = useState("");
-  const [horaInicio, setHoraInicio] = useState("");
-  const [horaFin, setHoraFin] = useState("");
+  // Horaire fixe imposé par IVJ pour toutes les prises en charge et retours (logistique
+  // du staff) — pas un choix laissé au client, donc une simple constante plutôt qu'un
+  // champ modifiable.
+  const horaInicio = "10:00";
+  const horaFin = "10:00";
 
   const [lieuSugerencias, setLieuSugerencias] = useState<SugerenciaLugar[]>([]);
   const [lieuSugerenciasVisibles, setLieuSugerenciasVisibles] = useState(false);
@@ -253,7 +256,11 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
 
     setEstadoEnvio("submitting");
 
-    const precioTexto = precioEstimado !== null ? `US$ ${precioEstimado}` : "—";
+    const precioTexto = precioEstimado !== null ? `US$ ${precioEstimado}` : null;
+
+    // Notification par e-mail (contact@ivjrentcar.com) en cours de mise en place — le
+    // filet de sécurité WhatsApp reste actif tant que l'envoi e-mail n'est pas confirmé
+    // fonctionnel, pour ne jamais laisser une demande sans notification côté staff.
     const mensaje = t("whatsapp_message", {
       categoria: categoriaActual?.nom ?? "",
       inicio: dateDebut,
@@ -261,14 +268,13 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       fin: dateFin,
       horaFin: horaFin || "—",
       lugar: lieu || "—",
-      precio: precioTexto,
+      precio: precioTexto ?? "—",
       nombre: nom,
     });
     setMensajeWhatsapp(mensaje);
 
-    // Filet de sécurité demandé par le client : WhatsApp s'ouvre TOUJOURS, même si
-    // l'enregistrement Supabase échoue ensuite — appelé avant le premier `await` pour
-    // rester dans le geste utilisateur (sinon certains navigateurs bloquent le popup).
+    // Appelé avant le premier `await` pour rester dans le geste utilisateur (sinon
+    // certains navigateurs bloquent le popup).
     window.open(whatsappUrl(mensaje), "_blank");
 
     const supabase = createClient();
@@ -289,6 +295,26 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     });
 
     setEstadoEnvio(error ? "error" : "success");
+
+    // La demande est déjà enregistrée dans le backoffice quoi qu'il arrive ici — un échec
+    // de notification e-mail (clé absente, service en panne) ne doit jamais bloquer
+    // l'écran de succès du visiteur.
+    fetch("/api/demandes/notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nom,
+        whatsapp,
+        email: email || null,
+        categoria: categoriaActual?.nom ?? null,
+        inicio: dateDebut,
+        horaInicio: horaInicio || null,
+        fin: dateFin,
+        horaFin: horaFin || null,
+        lugar: lieu || null,
+        precio: precioTexto,
+      }),
+    }).catch(() => {});
   }
 
   function reinicializar() {
@@ -299,8 +325,6 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     setCategorieId("");
     setLieu("");
     setNotes("");
-    setHoraInicio("");
-    setHoraFin("");
     setMensajeWhatsapp("");
   }
 
@@ -470,30 +494,29 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       )}
 
       {vehiculeId && (
-        <div className="grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_hora_inicio")}</span>
-            <input
-              type="time"
-              value={horaInicio}
-              onChange={(e) => setHoraInicio(e.target.value)}
-              className={inputClass}
-            />
-          </label>
+        <div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <label className="block text-sm">
+              <span className={labelClass}>{t("field_hora_inicio")}</span>
+              <input
+                type="time"
+                value={horaInicio}
+                disabled
+                className={`${inputClass} cursor-not-allowed bg-black/5 text-ink-soft`}
+              />
+            </label>
 
-          <label className="block text-sm">
-            <span className={labelClass}>{t("field_hora_fin")}</span>
-            <input
-              type="time"
-              value={horaFin}
-              onChange={(e) => setHoraFin(e.target.value)}
-              className={inputClass}
-            />
-          </label>
-
-          {dateDebut && dateFin && (!horaInicio || !horaFin) && (
-            <p className="text-sm font-medium text-red-600 sm:col-span-2">{t("error_hours")}</p>
-          )}
+            <label className="block text-sm">
+              <span className={labelClass}>{t("field_hora_fin")}</span>
+              <input
+                type="time"
+                value={horaFin}
+                disabled
+                className={`${inputClass} cursor-not-allowed bg-black/5 text-ink-soft`}
+              />
+            </label>
+          </div>
+          <p className="mt-1 text-xs text-ink-soft">{t("horario_fijo_note")}</p>
         </div>
       )}
 

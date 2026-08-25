@@ -7,18 +7,41 @@ import { hasLocale, routing } from "@/i18n/routing";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { LocalBusinessJsonLd } from "@/components/site/LocalBusinessJsonLd";
-import { SITE_URL } from "@/lib/constants";
+import { BUSINESS_NAME, SITE_URL } from "@/lib/constants";
+import { OG_IMAGE } from "@/lib/seo";
 import "../globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
-// Fallback uniquement (ex: 404) — chaque page définit son propre generateMetadata avec un
-// titre/description traduits, qui prennent le dessus sur ces valeurs par défaut.
+// Fallback uniquement, en espagnol (langue par défaut — cohérent avec la redirection de "/"
+// vers "/es") — chaque page définit son propre generateMetadata avec un titre/description
+// traduits qui prennent le dessus. Comme il n'existe pas de app/layout.tsx partagé au-dessus
+// de [locale] et admin (chacun garde son propre <html lang> pour rester précis par langue),
+// ce fichier reste le fallback le plus proche de la racine : utile si une page ne résout pas
+// encore sa propre metadata (erreur, route future sans generateMetadata...).
+const FALLBACK_TITLE = "I.V.J Polanco Rent a Car — Las Terrenas";
+const FALLBACK_DESCRIPTION =
+  "Alquiler de autos, camionetas 4x4 y cuadriciclos en Las Terrenas, República Dominicana. Tu confianza en el volante.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "I.V.J Polanco Rent a Car — Las Terrenas",
-  description:
-    "Alquiler de autos, camionetas 4x4 y cuadriciclos en Las Terrenas, República Dominicana. Tu confianza en el volante.",
+  title: FALLBACK_TITLE,
+  description: FALLBACK_DESCRIPTION,
+  openGraph: {
+    title: FALLBACK_TITLE,
+    description: FALLBACK_DESCRIPTION,
+    url: SITE_URL,
+    siteName: BUSINESS_NAME,
+    locale: "es_DO",
+    type: "website",
+    images: [{ ...OG_IMAGE, alt: FALLBACK_TITLE }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: FALLBACK_TITLE,
+    description: FALLBACK_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
 };
 
 export function generateStaticParams() {

@@ -4,7 +4,9 @@ import { BUSINESS_NAME, SITE_URL } from "@/lib/constants";
 
 // Photo du hero (flotte sur la plage) réutilisée comme image sociale par défaut pour
 // toutes les pages — évite de dépendre d'une image dédiée par page qui n'existe pas encore.
-const OG_IMAGE = {
+// Exportée : le layout racine (fallback statique, avant que la page ne résolve son propre
+// generateMetadata) réutilise la même image plutôt que de la dupliquer.
+export const OG_IMAGE = {
   url: `${SITE_URL}/hero/hero-tropical-fleet.webp`,
   width: 1774,
   height: 887,

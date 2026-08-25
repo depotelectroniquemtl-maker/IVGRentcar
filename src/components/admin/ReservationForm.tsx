@@ -25,6 +25,7 @@ type Reservation = {
 };
 
 type Prefill = {
+  clientId?: string;
   vehiculeId?: string;
   dateDebut?: string;
   dateFin?: string;
@@ -62,7 +63,7 @@ export function ReservationForm({
     annulee: tCommon("reservation_statut_annulee"),
   };
 
-  const [clientId, setClientId] = useState(reservation?.client_id ?? "");
+  const [clientId, setClientId] = useState(reservation?.client_id ?? prefill?.clientId ?? "");
   const [vehiculeId, setVehiculeId] = useState(
     reservation?.vehicule_id ?? prefill?.vehiculeId ?? "",
   );

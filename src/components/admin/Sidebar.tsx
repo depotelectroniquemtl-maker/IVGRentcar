@@ -4,6 +4,7 @@ import { LogoutButton } from "@/components/admin/LogoutButton";
 import { AdminLocaleSwitcher } from "@/components/admin/AdminLocaleSwitcher";
 import { AdminMobileNav, type NavEntry } from "@/components/admin/AdminMobileNav";
 import { getAdminTranslator } from "@/lib/admin-i18n";
+import { createClient } from "@/lib/supabase/server";
 
 // Regroupé en trois blocs pour rester lisible à mesure que le nombre d'écrans admin
 // grandit (12 aujourd'hui à plat, difficile à scanner) : Opérations (le quotidien),
@@ -45,13 +46,27 @@ export async function Sidebar({ profile }: { profile: Profile }) {
   const t = await getAdminTranslator("admin.sidebar");
   const tCommon = await getAdminTranslator("admin.common");
 
+  // Repère visuel pour ne pas avoir à ouvrir Demandes juste pour vérifier s'il y a du
+  // nouveau — count() en tête=exact plutôt que de rapatrier les lignes juste pour les
+  // compter.
+  const supabase = createClient();
+  const { count: demandesNouvelles } = await supabase
+    .from("demandes_reservation")
+    .select("id", { count: "exact", head: true })
+    .eq("statut", "nouvelle");
+
   const entries: NavEntry[] = [];
   for (const group of NAV_GROUPS) {
     const visibleItems = group.items.filter((item) => !item.adminOnly || profile.role === "admin");
     if (visibleItems.length === 0) continue;
     entries.push({ type: "group", label: t(group.groupKey) });
     for (const item of visibleItems) {
-      entries.push({ type: "link", href: item.href, label: t(item.key) });
+      entries.push({
+        type: "link",
+        href: item.href,
+        label: t(item.key),
+        badge: item.key === "nav_demandes" ? (demandesNouvelles ?? 0) : undefined,
+      });
     }
   }
   entries.push({ type: "link", href: AIDE_ITEM.href, label: t(AIDE_ITEM.key) });
@@ -97,9 +112,14 @@ export async function Sidebar({ profile }: { profile: Profile }) {
                 <Link
                   key={entry.href}
                   href={entry.href}
-                  className="rounded px-3 py-2 transition-colors hover:bg-white/10"
+                  className="flex items-center justify-between rounded px-3 py-2 transition-colors hover:bg-white/10"
                 >
                   {entry.label}
+                  {Boolean(entry.badge) && (
+                    <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-600 px-1.5 text-[11px] font-bold text-white">
+                      {entry.badge}
+                    </span>
+                  )}
                 </Link>
               ),
             )}

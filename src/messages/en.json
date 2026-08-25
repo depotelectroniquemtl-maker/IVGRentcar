@@ -504,7 +504,7 @@
       "delete": "Delete reservation",
       "delete_confirm": "Permanently delete this reservation? This can't be undone.",
       "delete_confirm_yes": "Yes, delete",
-      "convert_prefill_notice": "Prefilled from {nombre}'s request ({whatsapp}). Select or create the matching client.",
+      "convert_prefill_notice": "Prefilled from {nombre}'s request ({whatsapp}) — the matching client was selected automatically.",
       "marcar_devuelto": "Mark as returned",
       "devuelto_el": "Returned on {fecha}",
       "deshacer": "Undo"

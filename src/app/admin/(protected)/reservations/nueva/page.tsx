@@ -6,6 +6,7 @@ export default async function NuevaReservaPage({
   searchParams,
 }: {
   searchParams: Promise<{
+    client_id?: string;
     vehicule_id?: string;
     date_debut?: string;
     date_fin?: string;
@@ -44,6 +45,7 @@ export default async function NuevaReservaPage({
       clients={clients ?? []}
       vehicules={vehiculesFormatted}
       prefill={{
+        clientId: params.client_id,
         vehiculeId: params.vehicule_id,
         dateDebut: params.date_debut,
         dateFin: params.date_fin,

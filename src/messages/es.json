@@ -504,7 +504,7 @@
       "delete": "Eliminar reserva",
       "delete_confirm": "¿Eliminar esta reserva de forma permanente? Esta acción no se puede deshacer.",
       "delete_confirm_yes": "Sí, eliminar",
-      "convert_prefill_notice": "Datos precargados desde la solicitud de {nombre} ({whatsapp}). Selecciona o crea el cliente correspondiente.",
+      "convert_prefill_notice": "Datos precargados desde la solicitud de {nombre} ({whatsapp}) — el cliente correspondiente fue seleccionado automáticamente.",
       "marcar_devuelto": "Marcar como devuelto",
       "devuelto_el": "Devuelto el {fecha}",
       "deshacer": "Deshacer"

@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { DemandeStatutSelect } from "@/components/admin/DemandeStatutSelect";
+import { ConvertirDemandeButton } from "@/components/admin/ConvertirDemandeButton";
 import { StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { SearchInput } from "@/components/admin/SearchInput";
 
@@ -19,7 +19,7 @@ export default async function DemandesPage({
   const { data: demandes, error } = await supabase
     .from("demandes_reservation")
     .select(
-      "id, nom, whatsapp, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
+      "id, nom, whatsapp, email, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
     )
     .order("created_at", { ascending: false });
 
@@ -72,18 +72,6 @@ export default async function DemandesPage({
           </thead>
           <tbody>
             {demandesFiltradas?.map((d) => {
-              const convertirParams = new URLSearchParams({
-                vehicule_id: d.vehicule_id,
-                date_debut: d.date_debut,
-                date_fin: d.date_fin,
-                demande_nom: d.nom,
-                demande_whatsapp: d.whatsapp,
-              });
-              if (d.heure_debut) convertirParams.set("heure_debut", d.heure_debut.slice(0, 5));
-              if (d.heure_fin) convertirParams.set("heure_fin", d.heure_fin.slice(0, 5));
-              if (d.lieu_prise_en_charge) convertirParams.set("lieu", d.lieu_prise_en_charge);
-              if (d.prix_estime_usd) convertirParams.set("prix", String(d.prix_estime_usd));
-
               return (
                 <tr key={d.id} className={trClass}>
                   <td className="px-4 py-3 font-medium text-ink">{d.nom}</td>
@@ -105,12 +93,19 @@ export default async function DemandesPage({
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex justify-end">
-                      <Link
-                        href={`/admin/reservations/nueva?${convertirParams.toString()}`}
-                        className="inline-flex items-center rounded-md bg-brand/10 px-2.5 py-1 text-xs font-semibold text-brand-dark transition-colors hover:bg-brand/20"
-                      >
-                        {t("convert")}
-                      </Link>
+                      <ConvertirDemandeButton
+                        label={t("convert")}
+                        nom={d.nom}
+                        whatsapp={d.whatsapp}
+                        email={d.email}
+                        vehiculeId={d.vehicule_id}
+                        dateDebut={d.date_debut}
+                        dateFin={d.date_fin}
+                        heureDebut={d.heure_debut?.slice(0, 5)}
+                        heureFin={d.heure_fin?.slice(0, 5)}
+                        lieu={d.lieu_prise_en_charge ?? undefined}
+                        prix={d.prix_estime_usd ? String(d.prix_estime_usd) : undefined}
+                      />
                     </div>
                   </td>
                 </tr>

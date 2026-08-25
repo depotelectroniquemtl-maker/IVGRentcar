@@ -3,7 +3,9 @@
 import { useState, type ReactNode } from "react";
 import Link from "next/link";
 
-export type NavEntry = { type: "group"; label: string } | { type: "link"; href: string; label: string };
+export type NavEntry =
+  | { type: "group"; label: string }
+  | { type: "link"; href: string; label: string; badge?: number };
 
 // Barre + panneau mobile pour le panneau admin — même patron que MobileMenu.tsx côté
 // vitrine publique. La sidebar fixe w-56 (Sidebar.tsx) reste réservée au desktop
@@ -63,9 +65,14 @@ export function AdminMobileNav({
                 key={entry.href}
                 href={entry.href}
                 onClick={() => setOpen(false)}
-                className="rounded px-3 py-2 hover:bg-white/10"
+                className="flex items-center justify-between rounded px-3 py-2 hover:bg-white/10"
               >
                 {entry.label}
+                {Boolean(entry.badge) && (
+                  <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-red-600 px-1.5 text-[11px] font-bold text-white">
+                    {entry.badge}
+                  </span>
+                )}
               </Link>
             ),
           )}

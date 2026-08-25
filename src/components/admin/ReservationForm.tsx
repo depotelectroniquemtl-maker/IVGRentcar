@@ -69,11 +69,13 @@ export function ReservationForm({
   );
   const [dateDebut, setDateDebut] = useState(reservation?.date_debut ?? prefill?.dateDebut ?? "");
   const [dateFin, setDateFin] = useState(reservation?.date_fin ?? prefill?.dateFin ?? "");
+  // 10:00 par défaut (horaire le plus courant) pour accélérer la saisie manuelle par le
+  // staff — contrairement au formulaire public, ça reste un champ libre, modifiable ici.
   const [heureDebut, setHeureDebut] = useState(
-    reservation?.heure_debut?.slice(0, 5) ?? prefill?.heureDebut ?? "",
+    reservation?.heure_debut?.slice(0, 5) ?? prefill?.heureDebut ?? "10:00",
   );
   const [heureFin, setHeureFin] = useState(
-    reservation?.heure_fin?.slice(0, 5) ?? prefill?.heureFin ?? "",
+    reservation?.heure_fin?.slice(0, 5) ?? prefill?.heureFin ?? "10:00",
   );
   const [lieu, setLieu] = useState(reservation?.lieu_prise_en_charge ?? prefill?.lieu ?? "");
   const [statut, setStatut] = useState<(typeof STATUTS)[number]>(

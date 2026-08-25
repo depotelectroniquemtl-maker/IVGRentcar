@@ -711,16 +711,18 @@
       "col_entretien": "Mantenimiento",
       "col_net": "Resultado neto",
       "col_solde_achat": "Saldo de compra pendiente",
+      "col_net_rembourse": "Neto tras saldar la deuda",
       "stat_revenu": "Ingresos totales",
       "stat_reste": "Saldo pendiente",
       "stat_couts": "Costos de mantenimiento",
       "stat_net": "Resultado neto",
       "stat_solde_achat": "Saldo de compra pendiente",
+      "stat_net_rembourse": "Neto tras saldar la deuda",
       "filter_submit": "Filtrar",
       "filter_reset": "Reiniciar",
       "filter_hint_all_time": "Todas las fechas, sin filtro.",
       "empty": "Sin datos para este período.",
-      "footnote": "El ingreso corresponde al precio total de las reservas no anuladas. El saldo pendiente ya está incluido en ese ingreso — no es dinero adicional, solo lo que aún no se ha cobrado. El resultado neto solo resta los costos de mantenimiento registrados; no considera otros gastos (combustible, seguro, etc.). El saldo de compra pendiente (ingresado en la ficha del vehículo) no se ve afectado por el filtro de período y no se resta del resultado neto — es una deuda de capital sobre el vehículo, no un gasto del período."
+      "footnote": "El ingreso corresponde al precio total de las reservas no anuladas. El saldo pendiente ya está incluido en ese ingreso — no es dinero adicional, solo lo que aún no se ha cobrado. El resultado neto solo resta los costos de mantenimiento registrados; no considera otros gastos (combustible, seguro, etc.). El saldo de compra pendiente (ingresado en la ficha del vehículo) no se ve afectado por el filtro de período y no se resta del resultado neto — es una deuda de capital sobre el vehículo, no un gasto del período. Neto tras saldar la deuda es la única columna que resta ese saldo de compra del resultado neto; sin saldo registrado, simplemente coincide con el resultado neto."
     },
     "aide": {
       "page_title": "Guía del panel IVJ",

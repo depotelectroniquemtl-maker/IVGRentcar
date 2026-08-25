@@ -711,16 +711,18 @@
       "col_entretien": "Maintenance",
       "col_net": "Net result",
       "col_solde_achat": "Purchase balance owed",
+      "col_net_rembourse": "Net after payoff",
       "stat_revenu": "Total revenue",
       "stat_reste": "Balance due",
       "stat_couts": "Maintenance costs",
       "stat_net": "Net result",
       "stat_solde_achat": "Purchase balance owed",
+      "stat_net_rembourse": "Net after payoff",
       "filter_submit": "Filter",
       "filter_reset": "Reset",
       "filter_hint_all_time": "All dates — no filter applied.",
       "empty": "No data for this period.",
-      "footnote": "Revenue is the total price of non-cancelled reservations. The balance due is already included in that revenue — it's not extra money, just what hasn't been collected yet. The net result only subtracts logged maintenance costs; it doesn't account for other expenses (fuel, insurance, etc.). The purchase balance owed (entered on the vehicle's page) isn't affected by the period filter and isn't subtracted from the net result — it's a capital debt on the vehicle, not a period expense."
+      "footnote": "Revenue is the total price of non-cancelled reservations. The balance due is already included in that revenue — it's not extra money, just what hasn't been collected yet. The net result only subtracts logged maintenance costs; it doesn't account for other expenses (fuel, insurance, etc.). The purchase balance owed (entered on the vehicle's page) isn't affected by the period filter and isn't subtracted from the net result — it's a capital debt on the vehicle, not a period expense. Net after payoff is the only column that subtracts this purchase balance from the net result; with no balance entered, it simply matches the net result."
     },
     "aide": {
       "page_title": "IVJ Panel Guide",

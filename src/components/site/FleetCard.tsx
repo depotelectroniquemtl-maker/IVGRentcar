@@ -42,8 +42,13 @@ export function FleetCard({
     return () => clearInterval(id);
   }, [images]);
 
-  const startingPrice = formatUsd(categorie.tarifs["1_3_jours"]);
   const isCar = categorie.type === "voiture";
+
+  const PALIERS = [
+    { key: "1_3_jours", labelKey: "tier_1_3" },
+    { key: "4_plus_jours", labelKey: "tier_4_plus" },
+    { key: "15_plus_jours", labelKey: "tier_15_plus" },
+  ] as const;
 
   return (
     <div className="overflow-hidden rounded-lg border border-black/5 bg-white shadow-sm">
@@ -102,17 +107,36 @@ export function FleetCard({
           </span>
         </div>
 
-        <div className="mt-3 flex items-center justify-between border-t border-black/10 pt-3">
-          {startingPrice ? (
-            <p className="text-sm">
-              <span className="text-ink-soft">{t("from")} </span>
-              <span className="font-bold text-brand">US$ {startingPrice}</span>
-              <span className="text-ink-soft">{t("per_day")}</span>
-            </p>
-          ) : (
-            <span />
-          )}
-          <Link href="/reservar" className="text-xs font-bold text-ink hover:text-brand">
+        <div className="mt-3 border-t border-black/10 pt-3">
+          <div className="grid grid-cols-3 gap-1.5">
+            {PALIERS.map(({ key, labelKey }, i) => {
+              const prix = formatUsd(categorie.tarifs[key]);
+              return (
+                <div
+                  key={key}
+                  className={`flex flex-col items-center rounded-md px-1 py-2 text-center ${
+                    i === 0 ? "bg-brand text-white" : "bg-black/[0.04] text-ink"
+                  }`}
+                >
+                  <span
+                    className={`text-[9px] font-semibold uppercase leading-tight tracking-wide ${
+                      i === 0 ? "text-white/85" : "text-ink-soft"
+                    }`}
+                  >
+                    {t(`table.${labelKey}`)}
+                  </span>
+                  <span className="mt-0.5 text-sm font-extrabold tabular-nums">
+                    {prix ? `US$${prix}` : "—"}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+
+          <Link
+            href="/reservar"
+            className="mt-3 flex w-full items-center justify-center gap-1.5 rounded-md bg-ink px-4 py-3 text-sm font-bold text-white transition-colors hover:bg-brand"
+          >
             {t("card_cta")} →
           </Link>
         </div>

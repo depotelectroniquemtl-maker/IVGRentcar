@@ -35,6 +35,7 @@ const NAV_GROUPS = [
     groupKey: "group_admin",
     items: [
       { href: "/admin/utilisateurs", key: "nav_utilisateurs", adminOnly: true },
+      { href: "/admin/journal", key: "nav_journal", adminOnly: true },
       { href: "/admin/rentabilite", key: "nav_rentabilite", adminOnly: true },
     ],
   },

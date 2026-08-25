@@ -448,6 +448,42 @@ export type Database = {
           },
         ]
       }
+      journal_activite: {
+        Row: {
+          anciennes_valeurs: Json | null
+          created_at: string
+          enregistrement_id: string | null
+          id: string
+          nom_utilisateur: string | null
+          nouvelles_valeurs: Json | null
+          operation: string
+          table_cible: string
+          user_id: string | null
+        }
+        Insert: {
+          anciennes_valeurs?: Json | null
+          created_at?: string
+          enregistrement_id?: string | null
+          id?: string
+          nom_utilisateur?: string | null
+          nouvelles_valeurs?: Json | null
+          operation: string
+          table_cible: string
+          user_id?: string | null
+        }
+        Update: {
+          anciennes_valeurs?: Json | null
+          created_at?: string
+          enregistrement_id?: string | null
+          id?: string
+          nom_utilisateur?: string | null
+          nouvelles_valeurs?: Json | null
+          operation?: string
+          table_cible?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string

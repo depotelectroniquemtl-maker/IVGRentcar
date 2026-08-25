@@ -216,7 +216,7 @@ export default async function AidePage() {
       navLabel: tSidebar("nav_reservations"),
       content: (
         <>
-          <ChapterHead n="03" title={tSidebar("nav_reservations")} />
+          <ChapterHead n="03" title={tSidebar("nav_reservations")} badge={t("c03_badge")} />
           <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c03_intro")}</p>
           <Steps
             items={[
@@ -226,41 +226,54 @@ export default async function AidePage() {
               t.rich("c03_step4", { b }),
             ]}
           />
+          <Callout tone="tip">{t.rich("c03_exemple_intro", { b })}</Callout>
 
           <p className="mb-3 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c03_creer_note", { b })}</p>
           <figure className="mb-6 max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/reservations/nueva" />
-            <div className="flex min-h-[220px] bg-[#fbfaf9] text-[10.5px] text-ink">
+            <div className="flex min-h-[240px] bg-[#fbfaf9] text-[10.5px] text-ink">
               <MockSidebar items={navItems} active={tSidebar("nav_reservations")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-2 text-[13px] font-bold">{tReservations("new")}</p>
+                <div className="mb-2 flex items-center justify-between">
+                  <p className="text-[13px] font-bold">{tReservations("new")}</p>
+                  <span className="rounded bg-brand px-2.5 py-1 text-[8.5px] font-semibold text-white">
+                    {tReservations("submit_create")}
+                  </span>
+                </div>
                 <div className="mb-2 grid grid-cols-2 gap-2">
                   <div>
                     <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_cliente")}</span>
-                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/60">Julián Fernández</div>
+                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/70">Client Démo (exemple)</div>
                   </div>
                   <div>
                     <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_vehiculo")}</span>
-                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/60">Kia Seltos (A123456)</div>
+                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/70">Kia Seltos 2026 (—)</div>
                   </div>
                 </div>
                 <div className="mb-2 grid grid-cols-2 gap-2">
                   <div>
                     <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_fecha_inicio")}</span>
-                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/60">02/09/2026</div>
+                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/70">2026-08-27</div>
                   </div>
                   <div>
                     <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_fecha_fin")}</span>
-                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/60">06/09/2026</div>
+                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/70">2026-08-31</div>
                   </div>
                 </div>
-                <div className="mb-2.5">
-                  <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_precio")}</span>
-                  <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] font-semibold">US$ 320</div>
-                  <span className="mt-0.5 block text-[7.5px] text-black/40">{tReservations("field_precio_hint")}</span>
+                <div className="mb-2">
+                  <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_lugar")}</span>
+                  <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/70">Aéroport El Catey (AZS)</div>
                 </div>
-                <div className="inline-block rounded bg-brand px-3 py-1.5 text-[9.5px] font-semibold text-white">
-                  {tReservations("submit_create")}
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_precio")}</span>
+                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] font-semibold">US$ 300</div>
+                    <span className="mt-0.5 block text-[7.5px] text-black/40">{tReservations("field_precio_hint")}</span>
+                  </div>
+                  <div>
+                    <span className="mb-0.5 block text-[8.5px] text-black/50">{tReservations("field_estado")}</span>
+                    <div className="rounded border border-black/15 bg-white px-2 py-1 text-[9.5px] text-black/70">{tCommon("reservation_statut_confirmee")}</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -269,46 +282,84 @@ export default async function AidePage() {
           <p className="mb-3 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c03_suivi_note", { b })}</p>
           <figure className="mb-6 max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/reservations" />
-            <div className="flex min-h-[220px] bg-[#fbfaf9] text-[10.5px] text-ink">
+            <div className="flex min-h-[210px] bg-[#fbfaf9] text-[10.5px] text-ink">
               <MockSidebar items={navItems} active={tSidebar("nav_reservations")} />
               <div className="flex-1 p-3.5">
-                <div className="mb-2 flex items-center justify-between">
-                  <p className="text-[13px] font-bold">{tSidebar("nav_reservations")}</p>
-                  <span className="rounded bg-brand px-2 py-1 text-[8.5px] font-semibold text-white">{tReservations("new")}</span>
-                </div>
+                <p className="mb-2 text-[13px] font-bold">{tSidebar("nav_reservations")}</p>
                 <table className="w-full overflow-hidden rounded-md border border-black/10 bg-white text-[9px]">
                   <thead>
                     <tr className="bg-black/[0.04] text-black/50">
                       <th className="px-2 py-1 text-left font-semibold">{tReservations("col_numero")}</th>
                       <th className="px-2 py-1 text-left font-semibold">{tReservations("col_cliente")}</th>
                       <th className="px-2 py-1 text-left font-semibold">{tReservations("col_vehiculo")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tReservations("col_del")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tReservations("col_al")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tReservations("col_precio")}</th>
                       <th className="px-2 py-1 text-left font-semibold">{tReservations("col_estado")}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td className="border-t border-black/5 px-2 py-1">0144</td><td className="border-t border-black/5 px-2 py-1">S. Reyes</td><td className="border-t border-black/5 px-2 py-1">Changan</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-blue-100 px-2 py-0.5 text-blue-800">{tReservations("fase_a_venir")}</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">0143</td><td className="border-t border-black/5 px-2 py-1">R. Martin</td><td className="border-t border-black/5 px-2 py-1">Kia Seltos</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-green-100 px-2 py-0.5 text-green-800">{tReservations("fase_en_cours")}</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">0142</td><td className="border-t border-black/5 px-2 py-1">J. Fernández</td><td className="border-t border-black/5 px-2 py-1">Suzuki XL 7</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-red-100 px-2 py-0.5 text-red-800">{tReservations("fase_en_retraso")}</span></td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">0140</td><td className="border-t border-black/5 px-2 py-1">L. Duval</td><td className="border-t border-black/5 px-2 py-1">Tucson 4x4</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-black/10 px-2 py-0.5 text-ink-soft">{tReservations("fase_terminee")}</span></td></tr>
+                    <tr className="bg-brand/[0.04]">
+                      <td className="border-t border-black/5 px-2 py-1 font-mono text-black/50">#33</td>
+                      <td className="border-t border-black/5 px-2 py-1 font-medium">Client Démo (exemple)</td>
+                      <td className="border-t border-black/5 px-2 py-1">Kia Seltos 2026 (—)</td>
+                      <td className="border-t border-black/5 px-2 py-1">2026-08-27</td>
+                      <td className="border-t border-black/5 px-2 py-1">2026-08-31</td>
+                      <td className="border-t border-black/5 px-2 py-1">US$ 300</td>
+                      <td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-blue-100 px-2 py-0.5 text-blue-800">{tReservations("fase_a_venir")}</span></td>
+                    </tr>
                   </tbody>
                 </table>
+                <div className="mt-2 flex flex-wrap items-center gap-2.5 text-[8px] text-black/50">
+                  <span>{t("c03_legend_label")}</span>
+                  <span className="rounded-full bg-blue-100 px-1.5 py-0.5 text-blue-800">{tReservations("fase_a_venir")}</span>
+                  <span className="rounded-full bg-green-100 px-1.5 py-0.5 text-green-800">{tReservations("fase_en_cours")}</span>
+                  <span className="rounded-full bg-red-100 px-1.5 py-0.5 text-red-800">{tReservations("fase_en_retraso")}</span>
+                  <span className="rounded-full bg-black/10 px-1.5 py-0.5 text-ink-soft">{tReservations("fase_terminee")}</span>
+                </div>
               </div>
             </div>
           </figure>
 
           <p className="mb-3 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c03_finaliser_note", { b })}</p>
-          <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
-            <FrameBar url="ivjrentcar.com/admin/reservations/0144" />
-            <div className="flex min-h-[180px] bg-[#fbfaf9] text-[10.5px] text-ink">
+          <figure className="mb-6 max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
+            <FrameBar url="ivjrentcar.com/admin/reservations/33" />
+            <div className="flex min-h-[150px] bg-[#fbfaf9] text-[10.5px] text-ink">
               <MockSidebar items={navItems} active={tSidebar("nav_reservations")} />
               <div className="flex-1 p-3.5">
-                <p className="mb-3 text-[13px] font-bold">
-                  {tReservations("edit_title", { numero: "0144", cliente: "J. Fernández" })}
-                </p>
-                <div className="flex flex-wrap items-center gap-3 border-b border-black/10 pb-3 text-[9.5px] font-semibold text-brand">
-                  <span>{tContrats("action_finalizar")}</span>
-                  <span>{tContrats("action_ver")}</span>
-                  <span>{tReservations("marcar_devuelto")}</span>
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                  <p className="text-[13px] font-bold">
+                    {tReservations("edit_title", { numero: "33", cliente: "Client Démo (exemple)" })}
+                  </p>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded border border-black/15 px-2 py-1 text-[8.5px] font-semibold">{tCommon("cancel")}</span>
+                    <span className="rounded bg-brand px-2 py-1 text-[8.5px] font-semibold text-white">{tReservations("save_changes")}</span>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2 text-[8.5px] font-semibold">
+                  <span className="rounded-md border border-black/15 bg-white px-2 py-1">{tContrats("action_finalizar")}</span>
+                  <span className="rounded-md border border-black/15 bg-white px-2 py-1">{tContrats("action_ver")}</span>
+                  <span className="rounded-md border border-black/15 bg-white px-2 py-1">{tReservations("marcar_devuelto")}</span>
+                  <span className="ml-auto text-red-600">{tReservations("delete")}</span>
+                </div>
+              </div>
+            </div>
+          </figure>
+
+          <p className="mb-3 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c03_rendu_note", { b })}</p>
+          <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
+            <FrameBar url="ivjrentcar.com/admin/reservations/33" />
+            <div className="flex min-h-[110px] bg-[#fbfaf9] text-[10.5px] text-ink">
+              <MockSidebar items={navItems} active={tSidebar("nav_reservations")} />
+              <div className="flex-1 p-3.5">
+                <div className="flex flex-wrap items-center gap-2 text-[8.5px] font-semibold">
+                  <span className="rounded-md border border-black/15 bg-white px-2 py-1">{tContrats("action_finalizar")}</span>
+                  <span className="rounded-md border border-black/15 bg-white px-2 py-1">{tContrats("action_ver")}</span>
+                  <span className="inline-flex items-center gap-1.5 text-[8.5px] font-normal text-ink-soft">
+                    {tReservations("devuelto_el", { fecha: "31 août 2026" })}
+                    <span aria-hidden>·</span>
+                    <span className="font-semibold text-brand">{tReservations("deshacer")}</span>
+                  </span>
                   <span className="ml-auto text-red-600">{tReservations("delete")}</span>
                 </div>
               </div>

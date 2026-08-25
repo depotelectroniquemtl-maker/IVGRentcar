@@ -370,8 +370,16 @@ export default async function AidePage() {
         <>
           <ChapterHead n="05" title={tSidebar("nav_vehicules")} />
           <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c05_intro")}</p>
-          <Steps items={[t.rich("c05_step1", { b }), t.rich("c05_step2", { b }), t.rich("c05_step3", { b })]} />
-          <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
+          <Steps
+            items={[
+              t.rich("c05_step1", { b }),
+              t.rich("c05_step2", { b }),
+              t.rich("c05_step3", { b }),
+              t.rich("c05_step4", { b }),
+              t.rich("c05_step5", { b }),
+            ]}
+          />
+          <figure className="mb-6 max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/vehicules" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
               <MockSidebar items={navItems} active={tSidebar("nav_vehicules")} />
@@ -390,6 +398,28 @@ export default async function AidePage() {
                     <tr><td className="border-t border-black/5 px-2 py-1">Tucson 4x4</td><td className="border-t border-black/5 px-2 py-1">A778812</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-orange-100 px-2 py-0.5 text-orange-800">{tCommon("vehicule_etat_maintenance")}</span></td></tr>
                   </tbody>
                 </table>
+              </div>
+            </div>
+          </figure>
+
+          <p className="mb-3 max-w-[62ch] text-[15px] text-ink-soft">{t.rich("c05_retrait_note", { b })}</p>
+          <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
+            <FrameBar url="ivjrentcar.com/admin/vehicules/quad-04" />
+            <div className="flex min-h-[220px] bg-[#fbfaf9] text-[10.5px] text-ink">
+              <MockSidebar items={navItems} active={tSidebar("nav_vehicules")} />
+              <div className="flex-1 p-3.5">
+                <p className="mb-2 text-[13px] font-bold">{tVehicules("edit_title", { plaque: "Q-0412" })}</p>
+                <label className="mb-2 flex items-center gap-1.5 text-[9.5px]">
+                  <span className="flex h-3 w-3 items-center justify-center rounded-sm border border-black/25 bg-white" />
+                  <span className="font-medium">{tVehicules("field_activo")}</span>
+                </label>
+                <div className="mb-2">
+                  <span className="mb-0.5 block text-[8.5px] text-black/50">{tVehicules("field_raison_retrait")}</span>
+                  <div className="rounded border border-black/15 bg-white px-2 py-1.5 text-[9.5px] text-black/60">Vendu le 12/03/2026 à un client local</div>
+                </div>
+                <div className="mt-2.5 flex justify-end border-t border-black/10 pt-2.5">
+                  <span className="text-[9.5px] font-semibold text-red-600">{tVehicules("delete")}</span>
+                </div>
               </div>
             </div>
           </figure>
@@ -507,7 +537,7 @@ export default async function AidePage() {
         <>
           <ChapterHead n="09" title={tSidebar("nav_tarifs")} />
           <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c09_intro")}</p>
-          <Steps items={[t.rich("c09_step1", { b }), t.rich("c09_step2", { b })]} />
+          <Steps items={[t.rich("c09_step1", { b }), t.rich("c09_step2", { b }), t.rich("c09_step3", { b })]} />
           <figure className="max-w-[560px] overflow-hidden rounded-xl border border-black/10 bg-[#111] shadow-sm">
             <FrameBar url="ivjrentcar.com/admin/tarifs" />
             <div className="flex min-h-[200px] bg-[#fbfaf9] text-[10.5px] text-ink">
@@ -520,11 +550,12 @@ export default async function AidePage() {
                       <th className="px-2 py-1 text-left font-semibold">{tTarifs("col_categoria")}</th>
                       <th className="px-2 py-1 text-left font-semibold">{tTarifs("col_1_3")}</th>
                       <th className="px-2 py-1 text-left font-semibold">{tTarifs("col_4_plus")}</th>
+                      <th className="px-2 py-1 text-left font-semibold">{tTarifs("col_activo")}</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos 2026</td><td className="border-t border-black/5 px-2 py-1">80 $</td><td className="border-t border-black/5 px-2 py-1">72 $</td></tr>
-                    <tr><td className="border-t border-black/5 px-2 py-1">Hyundai</td><td className="border-t border-black/5 px-2 py-1">55 $</td><td className="border-t border-black/5 px-2 py-1">50 $</td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Kia Seltos 2026</td><td className="border-t border-black/5 px-2 py-1">80 $</td><td className="border-t border-black/5 px-2 py-1">72 $</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[8.5px] font-semibold text-emerald-700">{tTarifs("col_activo_yes")}</span></td></tr>
+                    <tr><td className="border-t border-black/5 px-2 py-1">Hyundai</td><td className="border-t border-black/5 px-2 py-1">55 $</td><td className="border-t border-black/5 px-2 py-1">50 $</td><td className="border-t border-black/5 px-2 py-1"><span className="rounded-full bg-black/10 px-2 py-0.5 text-[8.5px] font-semibold text-ink-soft">{tTarifs("col_activo_no")}</span></td></tr>
                   </tbody>
                 </table>
               </div>

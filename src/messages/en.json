@@ -220,9 +220,7 @@
     "checking_error": "Couldn't check availability.",
     "error_submit": "Couldn't save the request, but we already opened WhatsApp so you can confirm it directly.",
     "success_title": "Request sent!",
-    "success_text": "We already opened WhatsApp with your request details. We'll get in touch with you shortly.",
-    "whatsapp_cta": "Confirm on WhatsApp",
-    "whatsapp_message": "Hi, I'd like to confirm my reservation request: {categoria}, from {inicio} ({horaInicio}) to {fin} ({horaFin}). Location: {lugar}. Estimated price: {precio}. Name: {nombre}.",
+    "success_text": "Your request has been received. We'll get in touch with you shortly on WhatsApp.",
     "new_request": "Send another request"
   },
   "contact": {

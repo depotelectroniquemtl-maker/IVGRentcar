@@ -220,9 +220,7 @@
     "checking_error": "Impossible de vérifier la disponibilité.",
     "error_submit": "La demande n'a pas pu être enregistrée, mais WhatsApp est déjà ouvert pour la confirmer directement.",
     "success_title": "Demande envoyée !",
-    "success_text": "WhatsApp est déjà ouvert avec le détail de votre demande. Nous vous contacterons rapidement.",
-    "whatsapp_cta": "Confirmer sur WhatsApp",
-    "whatsapp_message": "Bonjour, je voudrais confirmer ma demande de réservation : {categoria}, du {inicio} ({horaInicio}) au {fin} ({horaFin}). Lieu : {lugar}. Prix estimé : {precio}. Nom : {nombre}.",
+    "success_text": "Votre demande a bien été reçue. Nous vous contacterons rapidement par WhatsApp.",
     "new_request": "Envoyer une autre demande"
   },
   "contact": {

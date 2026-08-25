@@ -4,9 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
-import { ExternalButtonLink } from "@/components/ui/Button";
 import { AvailabilityCalendar } from "@/components/site/AvailabilityCalendar";
-import { whatsappUrl } from "@/lib/constants";
 import { FLEET_IMAGES } from "@/lib/fleet-images";
 import type { CategorieAvecTarifs } from "@/lib/types";
 
@@ -72,7 +70,6 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
   const [disponibilidad, setDisponibilidad] = useState<Disponibilidad>("idle");
   const [precioEstimado, setPrecioEstimado] = useState<number | null>(null);
   const [estadoEnvio, setEstadoEnvio] = useState<EstadoEnvio>("idle");
-  const [mensajeWhatsapp, setMensajeWhatsapp] = useState("");
 
   const categoriaActual = categories.find((c) => c.id === categorieId);
 
@@ -258,25 +255,6 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
 
     const precioTexto = precioEstimado !== null ? `US$ ${precioEstimado}` : null;
 
-    // Notification par e-mail (contact@ivjrentcar.com) en cours de mise en place — le
-    // filet de sécurité WhatsApp reste actif tant que l'envoi e-mail n'est pas confirmé
-    // fonctionnel, pour ne jamais laisser une demande sans notification côté staff.
-    const mensaje = t("whatsapp_message", {
-      categoria: categoriaActual?.nom ?? "",
-      inicio: dateDebut,
-      horaInicio: horaInicio || "—",
-      fin: dateFin,
-      horaFin: horaFin || "—",
-      lugar: lieu || "—",
-      precio: precioTexto ?? "—",
-      nombre: nom,
-    });
-    setMensajeWhatsapp(mensaje);
-
-    // Appelé avant le premier `await` pour rester dans le geste utilisateur (sinon
-    // certains navigateurs bloquent le popup).
-    window.open(whatsappUrl(mensaje), "_blank");
-
     const supabase = createClient();
     // Insertion anonyme autorisée par la policy "demandes_insert_public" — pas
     // besoin d'être connecté pour soumettre une demande depuis la vitrine.
@@ -325,7 +303,6 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     setCategorieId("");
     setLieu("");
     setNotes("");
-    setMensajeWhatsapp("");
   }
 
   if (estadoEnvio === "success") {
@@ -333,9 +310,6 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       <div className="flex flex-col items-start gap-4 rounded-lg bg-white p-8 shadow-sm">
         <h2 className="text-xl font-bold text-ink">{t("success_title")}</h2>
         <p className="text-ink-soft">{t("success_text")}</p>
-        <ExternalButtonLink href={whatsappUrl(mensajeWhatsapp)} variant="whatsapp">
-          {t("whatsapp_cta")}
-        </ExternalButtonLink>
         <button
           type="button"
           onClick={reinicializar}

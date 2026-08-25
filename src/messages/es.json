@@ -220,9 +220,7 @@
     "checking_error": "No se pudo verificar la disponibilidad.",
     "error_submit": "No se pudo guardar la solicitud, pero ya abrimos WhatsApp para que la confirmes directamente.",
     "success_title": "¡Solicitud enviada!",
-    "success_text": "Ya abrimos WhatsApp con los detalles de tu solicitud. Nos pondremos en contacto contigo pronto.",
-    "whatsapp_cta": "Confirmar por WhatsApp",
-    "whatsapp_message": "Hola, quiero confirmar mi solicitud de reserva: {categoria}, del {inicio} ({horaInicio}) al {fin} ({horaFin}). Lugar: {lugar}. Precio estimado: {precio}. Nombre: {nombre}.",
+    "success_text": "Tu solicitud fue recibida. Nos pondremos en contacto contigo pronto por WhatsApp.",
     "new_request": "Enviar otra solicitud"
   },
   "contact": {

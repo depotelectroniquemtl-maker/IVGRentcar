@@ -318,6 +318,8 @@
       "field_estado": "Operational status",
       "field_notas": "Notes",
       "field_activo": "Active",
+      "field_raison_retrait": "Reason for removal",
+      "field_raison_retrait_placeholder": "E.g.: sold on 03/12, quad wrecked...",
       "section_financement": "Financing",
       "field_solde_achat": "Balance still owed (purchase)",
       "field_solde_achat_hint": "Amount still owed on this vehicle's purchase (financing, previous owner...) — enter once, used for profitability calculations.",
@@ -329,7 +331,11 @@
       "error_duplicate_plaque": "A vehicle with that plate already exists.",
       "indispo_title": "Blocked periods",
       "indispo_empty": "No blocked periods.",
-      "indispo_add": "Add block"
+      "indispo_add": "Add block",
+      "delete": "Delete vehicle",
+      "delete_confirm": "Permanently delete this vehicle? This action cannot be undone.",
+      "delete_confirm_yes": "Yes, delete",
+      "delete_error_has_history": "Can't delete: this vehicle has reservations, requests, or maintenance records on file. Deactivate it instead and note the reason for removal."
     },
     "entretiens": {
       "title": "Maintenance",
@@ -622,7 +628,9 @@
       "col_1_3": "1-3 days",
       "col_4_plus": "4+ days",
       "col_15_plus": "15+ days",
-      "col_activo": "Active"
+      "col_activo": "Active",
+      "col_activo_yes": "Active",
+      "col_activo_no": "Inactive"
     },
     "demandes": {
       "title": "Requests",

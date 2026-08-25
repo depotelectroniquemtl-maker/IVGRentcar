@@ -318,6 +318,8 @@
       "field_estado": "Estado operacional",
       "field_notas": "Notas",
       "field_activo": "Activo",
+      "field_raison_retrait": "Motivo del retiro",
+      "field_raison_retrait_placeholder": "Ej.: vendido el 12/03, quad accidentado...",
       "section_financement": "Financiamiento",
       "field_solde_achat": "Saldo pendiente (compra)",
       "field_solde_achat_hint": "Monto que aún se debe por la compra de este vehículo (crédito, dueño anterior...) — se ingresa una vez, sirve para calcular la rentabilidad.",
@@ -329,7 +331,11 @@
       "error_duplicate_plaque": "Ya existe un vehículo con esa placa.",
       "indispo_title": "Indisponibilidades",
       "indispo_empty": "Sin bloqueos registrados.",
-      "indispo_add": "Añadir bloqueo"
+      "indispo_add": "Añadir bloqueo",
+      "delete": "Eliminar vehículo",
+      "delete_confirm": "¿Eliminar definitivamente este vehículo? Esta acción no se puede deshacer.",
+      "delete_confirm_yes": "Sí, eliminar",
+      "delete_error_has_history": "No se puede eliminar: este vehículo tiene reservas, solicitudes o mantenimientos registrados. Desactívalo y anota el motivo del retiro."
     },
     "entretiens": {
       "title": "Mantenimiento",
@@ -622,7 +628,9 @@
       "col_1_3": "1-3 días",
       "col_4_plus": "4+ días",
       "col_15_plus": "15+ días",
-      "col_activo": "Activo"
+      "col_activo": "Activo",
+      "col_activo_yes": "Activo",
+      "col_activo_no": "Inactivo"
     },
     "demandes": {
       "title": "Solicitudes",

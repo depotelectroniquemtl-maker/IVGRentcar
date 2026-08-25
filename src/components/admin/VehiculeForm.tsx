@@ -21,6 +21,7 @@ type Vehicule = {
   actif: boolean;
   photo_url: string | null;
   solde_achat_usd: number | null;
+  raison_retrait: string | null;
 };
 
 export function VehiculeForm({
@@ -50,6 +51,7 @@ export function VehiculeForm({
   const [etat, setEtat] = useState(vehicule?.etat_operationnel ?? "disponible");
   const [notes, setNotes] = useState(vehicule?.notes ?? "");
   const [actif, setActif] = useState(vehicule?.actif ?? true);
+  const [raisonRetrait, setRaisonRetrait] = useState(vehicule?.raison_retrait ?? "");
   const [soldeAchat, setSoldeAchat] = useState(vehicule?.solde_achat_usd?.toString() ?? "");
   const [photoUrl, setPhotoUrl] = useState(vehicule?.photo_url ?? null);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
@@ -99,6 +101,7 @@ export function VehiculeForm({
       etat_operationnel: etat,
       notes: notes || null,
       actif,
+      raison_retrait: actif ? null : raisonRetrait.trim() || null,
       photo_url: nouvellePhotoUrl,
       solde_achat_usd: soldeAchat ? Number(soldeAchat) : null,
     };
@@ -230,6 +233,19 @@ export function VehiculeForm({
               />
               <span className="font-medium text-ink">{t("field_activo")}</span>
             </label>
+
+            {!actif && (
+              <label className="block text-sm">
+                <span className={labelClass}>{t("field_raison_retrait")}</span>
+                <textarea
+                  value={raisonRetrait}
+                  onChange={(e) => setRaisonRetrait(e.target.value)}
+                  placeholder={t("field_raison_retrait_placeholder")}
+                  rows={3}
+                  className={inputClass}
+                />
+              </label>
+            )}
           </Card>
 
           <Card title={t("section_financement")}>

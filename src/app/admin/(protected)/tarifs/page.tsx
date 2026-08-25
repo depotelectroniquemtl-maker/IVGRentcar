@@ -3,6 +3,7 @@ import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { TarifaInput } from "@/components/admin/TarifaInput";
 import { OrdreCategorieButtons } from "@/components/admin/OrdreCategorieButtons";
+import { ActifCategorieButton } from "@/components/admin/ActifCategorieButton";
 import { tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 
 export default async function TarifsPage() {
@@ -73,7 +74,15 @@ export default async function TarifsPage() {
                         )}
                       </td>
                     ))}
-                    <td className="px-4 py-3">{cat.actif ? tCommon("yes") : tCommon("no")}</td>
+                    <td className="px-4 py-3">
+                      {esAdmin ? (
+                        <ActifCategorieButton id={cat.id} actif={cat.actif} />
+                      ) : cat.actif ? (
+                        tCommon("yes")
+                      ) : (
+                        tCommon("no")
+                      )}
+                    </td>
                   </tr>
                 );
               })}

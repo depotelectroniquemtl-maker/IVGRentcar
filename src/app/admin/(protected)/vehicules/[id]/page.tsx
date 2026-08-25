@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { VehiculeForm } from "@/components/admin/VehiculeForm";
+import { DeleteVehiculeButton } from "@/components/admin/DeleteVehiculeButton";
 import { Card } from "@/components/admin/form-ui";
 
 export default async function EditarVehiculoPage({
@@ -12,6 +14,8 @@ export default async function EditarVehiculoPage({
 }) {
   const { id } = await params;
   const supabase = createClient();
+  const profile = await getCurrentProfile();
+  const esAdmin = profile?.role === "admin";
   const t = await getAdminTranslator("admin.vehicules");
   const tEntretiens = await getAdminTranslator("admin.entretiens");
   const tCommon = await getAdminTranslator("admin.common");
@@ -32,7 +36,7 @@ export default async function EditarVehiculoPage({
       supabase
         .from("vehicules")
         .select(
-          "id, categorie_id, plaque, annee, couleur, etat_operationnel, notes, actif, photo_url, solde_achat_usd",
+          "id, categorie_id, plaque, annee, couleur, etat_operationnel, notes, actif, photo_url, solde_achat_usd, raison_retrait",
         )
         .eq("id", id)
         .single(),
@@ -133,6 +137,12 @@ export default async function EditarVehiculoPage({
           )}
         </Card>
       </div>
+
+      {esAdmin && (
+        <div className="flex justify-end">
+          <DeleteVehiculeButton id={id} />
+        </div>
+      )}
     </div>
   );
 }

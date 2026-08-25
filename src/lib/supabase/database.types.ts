@@ -608,6 +608,7 @@ export type Database = {
           notes: string | null
           photo_url: string | null
           plaque: string | null
+          raison_retrait: string | null
           solde_achat_usd: number | null
           updated_at: string
         }
@@ -622,6 +623,7 @@ export type Database = {
           notes?: string | null
           photo_url?: string | null
           plaque?: string | null
+          raison_retrait?: string | null
           solde_achat_usd?: number | null
           updated_at?: string
         }
@@ -636,6 +638,7 @@ export type Database = {
           notes?: string | null
           photo_url?: string | null
           plaque?: string | null
+          raison_retrait?: string | null
           solde_achat_usd?: number | null
           updated_at?: string
         }
@@ -742,6 +745,7 @@ export type Database = {
           notes: string | null
           photo_url: string | null
           plaque: string | null
+          raison_retrait: string | null
           solde_achat_usd: number | null
           updated_at: string | null
         }

@@ -318,6 +318,8 @@
       "field_estado": "État opérationnel",
       "field_notas": "Notes",
       "field_activo": "Actif",
+      "field_raison_retrait": "Motif du retrait",
+      "field_raison_retrait_placeholder": "Ex. : vendu le 12/03, quad accidenté...",
       "section_financement": "Financement",
       "field_solde_achat": "Solde restant dû (achat)",
       "field_solde_achat_hint": "Montant encore dû sur l'achat de ce véhicule (crédit, ancien propriétaire...) — à saisir une fois, sert au calcul de rentabilité.",
@@ -329,7 +331,11 @@
       "error_duplicate_plaque": "Un véhicule avec cette plaque existe déjà.",
       "indispo_title": "Indisponibilités",
       "indispo_empty": "Aucune indisponibilité enregistrée.",
-      "indispo_add": "Ajouter une indisponibilité"
+      "indispo_add": "Ajouter une indisponibilité",
+      "delete": "Supprimer le véhicule",
+      "delete_confirm": "Supprimer définitivement ce véhicule ? Cette action est irréversible.",
+      "delete_confirm_yes": "Oui, supprimer",
+      "delete_error_has_history": "Impossible de supprimer : ce véhicule a des réservations, demandes ou entretiens enregistrés. Désactivez-le plutôt et indiquez le motif du retrait."
     },
     "entretiens": {
       "title": "Entretien",
@@ -622,7 +628,9 @@
       "col_1_3": "1-3 jours",
       "col_4_plus": "4 jours et +",
       "col_15_plus": "15 jours et +",
-      "col_activo": "Actif"
+      "col_activo": "Actif",
+      "col_activo_yes": "Actif",
+      "col_activo_no": "Inactif"
     },
     "demandes": {
       "title": "Demandes",

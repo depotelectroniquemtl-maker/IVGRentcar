@@ -19,6 +19,32 @@
       "admin": "Admin"
     }
   },
+  "seo": {
+    "home": {
+      "title": "Car & Quad Rental in Las Terrenas | I.V.J Polanco Rent a Car",
+      "description": "Rent cars, 4x4s and quads in Las Terrenas, Dominican Republic. Easy WhatsApp booking, fast reply, insurance included."
+    },
+    "flotte": {
+      "title": "Fleet & Rental Rates | I.V.J Polanco Rent a Car",
+      "description": "Browse our fleet of cars, 4x4s and quads in Las Terrenas with tiered rates (1-3 days, 4+ days, 15+ days). Book instantly via WhatsApp."
+    },
+    "lasTerrenas": {
+      "title": "Discover Las Terrenas | I.V.J Polanco Rent a Car",
+      "description": "Our favorite spots in Las Terrenas: beaches, the fishermen's village, El Limón, the Samaná peninsula. Explore freely with your own set of wheels."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions | I.V.J Polanco Rent a Car",
+      "description": "Answers to the most common questions about renting a car or quad in Las Terrenas: documents, deposit, minimum age, insurance."
+    },
+    "contact": {
+      "title": "Contact | I.V.J Polanco Rent a Car",
+      "description": "Get in touch with I.V.J Polanco Rent a Car in Las Terrenas via WhatsApp. Address, hours and details to book your vehicle."
+    },
+    "reservar": {
+      "title": "Book a Vehicle | I.V.J Polanco Rent a Car",
+      "description": "Request availability and today's rate for a car, 4x4 or quad in Las Terrenas. Fast reply, no commitment."
+    }
+  },
   "home": {
     "hero": {
       "eyebrow": "Vehicle rental · Las Terrenas",

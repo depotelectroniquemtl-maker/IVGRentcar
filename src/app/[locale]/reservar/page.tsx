@@ -1,9 +1,27 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ReservarForm } from "@/components/site/ReservarForm";
 import { getCatalogue } from "@/lib/data/catalogue";
+import type { AppLocale } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo";
 
 const ETAPES = [1, 2, 3] as const;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo.reservar" });
+  return pageMetadata({
+    locale: locale as AppLocale,
+    path: "/reservar",
+    title: t("title"),
+    description: t("description"),
+  });
+}
 
 export default async function ReservarPage({
   params,

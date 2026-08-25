@@ -19,6 +19,32 @@
       "admin": "Admin"
     }
   },
+  "seo": {
+    "home": {
+      "title": "Alquiler de autos y cuadriciclos en Las Terrenas | I.V.J Polanco Rent a Car",
+      "description": "Alquila autos, 4x4 y cuadriciclos en Las Terrenas, República Dominicana. Reserva fácil por WhatsApp, respuesta rápida, seguro incluido."
+    },
+    "flotte": {
+      "title": "Flota y tarifas de alquiler | I.V.J Polanco Rent a Car",
+      "description": "Descubre nuestra flota de autos, 4x4 y cuadriciclos en Las Terrenas con tarifas por tramos (1-3 días, 4+ días, 15+ días). Reserva por WhatsApp."
+    },
+    "lasTerrenas": {
+      "title": "Descubre Las Terrenas | I.V.J Polanco Rent a Car",
+      "description": "Nuestros lugares favoritos en Las Terrenas: playas, el pueblo de los pescadores, El Limón, la península de Samaná. Explora con libertad con tu propio vehículo."
+    },
+    "faq": {
+      "title": "Preguntas frecuentes | I.V.J Polanco Rent a Car",
+      "description": "Respuestas a las preguntas más frecuentes sobre el alquiler de autos y cuadriciclos en Las Terrenas: documentos, depósito, edad mínima, seguro."
+    },
+    "contact": {
+      "title": "Contacto | I.V.J Polanco Rent a Car",
+      "description": "Contacta a I.V.J Polanco Rent a Car en Las Terrenas por WhatsApp. Dirección, horarios y datos para reservar tu vehículo."
+    },
+    "reservar": {
+      "title": "Reservar un vehículo | I.V.J Polanco Rent a Car",
+      "description": "Solicita disponibilidad y la tarifa del día para un auto, 4x4 o cuadriciclo en Las Terrenas. Respuesta rápida, sin compromiso."
+    }
+  },
   "home": {
     "hero": {
       "eyebrow": "Alquiler local · Las Terrenas",

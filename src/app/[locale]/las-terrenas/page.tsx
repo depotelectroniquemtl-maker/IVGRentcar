@@ -1,7 +1,25 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
 import { LasTerrenasBanner } from "@/components/site/LasTerrenasBanner";
+import type { AppLocale } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo.lasTerrenas" });
+  return pageMetadata({
+    locale: locale as AppLocale,
+    path: "/las-terrenas",
+    title: t("title"),
+    description: t("description"),
+  });
+}
 
 export default async function LasTerrenasPage({
   params,
@@ -16,7 +34,7 @@ export default async function LasTerrenasPage({
 
   return (
     <>
-      <LasTerrenasBanner />
+      <LasTerrenasBanner headingLevel="h1" />
 
       <Container className="flex flex-col gap-8 py-16 sm:py-24">
         <div>

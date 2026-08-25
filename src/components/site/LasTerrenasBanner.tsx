@@ -1,15 +1,23 @@
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
+import { splitLines } from "@/lib/splitLines";
 
 // Reproduit le bandeau immersif de l'ancien site (classe .discover, dernière révision de
 // globals.css) : photo pleine largeur en fond + superposition sombre en dégradé, texte
 // blanc à gauche, et une des photos de la galerie sert de fond tandis que les deux autres
 // apparaissent en médaillons qui débordent en bas du bandeau (transform: translateY négatif
 // sur la photo principale + bordure blanche + ombre portée).
-export async function LasTerrenasBanner() {
+export async function LasTerrenasBanner({
+  headingLevel = "h2",
+}: {
+  // "h1" sur /las-terrenas, où ce titre est le titre principal de la page ; "h2" (défaut)
+  // sur la page d'accueil, où le vrai H1 est celui du hero.
+  headingLevel?: "h1" | "h2";
+} = {}) {
   const t = await getTranslations("lasTerrenas");
   const gallery = t.raw("gallery") as { caption: string }[];
   const places = t.raw("places") as string[];
+  const Heading = headingLevel;
 
   return (
     <section className="relative isolate overflow-hidden">
@@ -25,15 +33,9 @@ export async function LasTerrenasBanner() {
       <div className="grid w-full gap-10 px-6 py-20 sm:px-10 md:grid-cols-[0.8fr_1.2fr] md:px-[6vw] md:py-28">
         <div className="relative z-10 flex flex-col justify-center text-white [text-shadow:0_2px_18px_rgba(0,0,0,0.5)]">
           <p className="mb-6 text-xs font-black uppercase tracking-[0.2em]">{t("kicker")}</p>
-          <h2 className="text-4xl font-extrabold leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl">
-            {t("title")
-              .split("\n")
-              .map((line, i) => (
-                <span key={i} className="block">
-                  {line}
-                </span>
-              ))}
-          </h2>
+          <Heading className="text-4xl font-extrabold leading-[0.98] tracking-tight sm:text-5xl lg:text-6xl">
+            {splitLines(t("title"))}
+          </Heading>
           <p className="mt-6 max-w-lg text-lg leading-relaxed text-white/90">{t("intro")}</p>
           <div className="mt-6 flex flex-wrap gap-2">
             {places.map((place) => (

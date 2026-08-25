@@ -1,7 +1,25 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { BUSINESS_ADDRESS, WHATSAPP_NUMBER, whatsappUrl } from "@/lib/constants";
+import type { AppLocale } from "@/i18n/routing";
+import { pageMetadata } from "@/lib/seo";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "seo.contact" });
+  return pageMetadata({
+    locale: locale as AppLocale,
+    path: "/contact",
+    title: t("title"),
+    description: t("description"),
+  });
+}
 
 export default async function ContactPage({
   params,

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { splitLines } from "@/lib/splitLines";
 
 // Reproduit le pied de page de la reference fournie : bandeau sombre nettement plus
 // haut que l'ancienne version compacte, logo en haut a gauche, gros slogan sur deux
@@ -22,13 +23,7 @@ export function Footer() {
         />
 
         <h2 className="mt-10 text-5xl font-extrabold leading-[0.98] tracking-tight sm:mt-14 sm:text-6xl lg:text-7xl">
-          {t("footer.tagline")
-            .split("\n")
-            .map((line, i) => (
-              <span key={i} className="block">
-                {line}
-              </span>
-            ))}
+          {splitLines(t("footer.tagline"))}
         </h2>
 
         <div className="mt-10 flex flex-col gap-2 border-t border-white/15 pt-6 text-xs text-white/60 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">

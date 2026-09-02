@@ -49,6 +49,7 @@ export type ContratPrintableData = {
     dateFin: string;
     diasRentado: number;
     precioPorDia: number | null;
+    precioTotal: number | null;
   };
   contrat: {
     heureRemise: string | null;
@@ -143,6 +144,10 @@ export function ContratPrintable({
           <Champ
             label={t("field_precio_dia")}
             value={reservation.precioPorDia != null ? `US$ ${reservation.precioPorDia}` : null}
+          />
+          <Champ
+            label={t("field_precio_total")}
+            value={reservation.precioTotal != null ? `US$ ${reservation.precioTotal}` : null}
           />
           <Champ label={t("field_abono")} value={contrat?.abonoUsd != null ? `US$ ${contrat.abonoUsd}` : null} />
           <Champ label={t("field_dias_rentado")} value={String(reservation.diasRentado)} />

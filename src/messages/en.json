@@ -605,6 +605,7 @@
       "field_fecha_salida": "Pickup Date",
       "field_retorno": "Expected Return",
       "field_precio_dia": "Price/day",
+      "field_precio_total": "Total price",
       "field_abono": "Deposit paid",
       "field_dias_rentado": "Days Rented",
       "field_balance": "Balance Due",
@@ -642,7 +643,30 @@
         "revistas": "Vehicle Documents",
         "vidrios": "Windows",
         "llaveros_rueda": "Wheel Lock Keys"
-      }
+      },
+      "condiciones_titulo": "Contract — Vehicle Rental Conditions",
+      "condiciones_items": [
+        "Only the person who signs the contract is liable to the Company for payment of the agreed rate and for the expenses, damages and indemnities arising from the repair of the vehicle, including the days it is out of service for repair.",
+        "The client agrees to return the vehicle in the same condition in which it was delivered, at the place and time agreed in the contract; otherwise, the Company shall have the right to terminate the contract and recover the vehicle, regardless of who is in possession of it, at the client's expense.",
+        "The client shall not drive the vehicle until at least 24 hours after consuming alcoholic beverages.",
+        "The vehicle may not be used: 1) on a racing track; 2) to teach another person to drive; 3) as a taxi; 4) to push or tow another vehicle; 5) for any unlawful act punishable under Dominican law.",
+        "The vehicle shall be used on paved roads and highways; fuel and lubricant costs are the client's responsibility for the duration of the contract.",
+        "The client is not authorized to incur any repair expenses on the vehicle. In the event of theft, accident, or fire, the client must notify the Company and the National Police immediately, have a police report drawn up, and provide a copy upon returning the vehicle; the client remains responsible in all cases for paying the deductible set at the signing of this contract. If, as a result of an accident, the other party agrees to cover the damages, costs, and indemnities and the Company recovers the deductible, it will be refunded to the client in due time.",
+        "Under no circumstances shall the client abandon the vehicle anywhere, in order to prevent theft and/or loss of parts and accessories; violation of this clause voids the insurance coverage in the client's favor and makes the client liable for damages, costs, and losses.",
+        "A 16% tax required by the Government will be added to each invoice, along with any other tax, fee, or contribution currently in force or that may be established by the authorities and laws of the State.",
+        "The Company agrees to deliver the vehicle in condition to provide the agreed service and to arrange the legally required insurance.",
+        "The contract is signed by the client after inspecting the vehicle and finding it in satisfactory condition; the client becomes responsible for it from that moment on.",
+        "If the client changes the address stated in the contract, they must notify the Company immediately; failure to do so authorizes any member of the National Police to recover the vehicle, regardless of location, time, or who is in possession of it, and return it to the Company.",
+        "Any fine imposed or arising from the use or driving of the vehicle must be paid before the contract is closed.",
+        "If the vehicle is not returned to the Company by the agreed date, it will be reported as stolen to the National Police, with the signing client held responsible, along with all legal consequences.",
+        "Expenses incurred by the Company in searching for the vehicle shall be charged to the client.",
+        "All expenses, invoices, damages, and indemnities generated under this contract grant the Company a collection privilege over the client's movable and immovable property, under articles 583 to 625 of the Code of Civil Procedure, with all corresponding legal consequences, without prior authorization, this right constituting the executory title required for such actions.",
+        "The client agrees to pay 100 pesos for each license plate or sticker removed from the vehicle.",
+        "The Company is not responsible for items left inside the vehicle.",
+        "If the client decides to return the vehicle before the term agreed in the contract, the client will forfeit 80% of the remaining amount.",
+        "After 30 days, the matter is referred to the legal department."
+      ],
+      "condiciones_cierre": "Thus agreed and settled, freely and voluntarily, in two (2) originals of the same content and effect, one for each party."
     },
     "tarifs": {
       "title": "Rates",

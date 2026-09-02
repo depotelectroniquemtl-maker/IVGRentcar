@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminLocale, getAdminTranslator } from "@/lib/admin-i18n";
 import { ContratPrintable } from "@/components/admin/ContratPrintable";
+import { ContratCondicionesPrintable } from "@/components/admin/ContratCondicionesPrintable";
 import { PrintButton } from "@/components/admin/PrintButton";
 import { secondaryLinkClass } from "@/components/admin/form-ui";
 
@@ -100,6 +101,7 @@ export default async function ContratImprimablePage({
       dateFin: reservation.date_fin,
       diasRentado: dias,
       precioPorDia,
+      precioTotal: reservation.prix_total_usd,
     },
     contrat: contrat
       ? {
@@ -155,11 +157,17 @@ export default async function ContratImprimablePage({
             locale={locale}
           />
         </div>
-        <ContratPrintable
-          data={{ ...donnees, copyLabel: "compania" }}
-          t={tImprimible}
-          locale={locale}
-        />
+        <div className="print:break-after-page">
+          <ContratCondicionesPrintable t={tImprimible} />
+        </div>
+        <div className="print:break-after-page">
+          <ContratPrintable
+            data={{ ...donnees, copyLabel: "compania" }}
+            t={tImprimible}
+            locale={locale}
+          />
+        </div>
+        <ContratCondicionesPrintable t={tImprimible} />
       </div>
     </div>
   );

@@ -31,7 +31,14 @@ export default async function AdminRootLayout({
   return (
     <html lang={locale} className={inter.variable}>
       <body className="font-sans antialiased">
-        <NextIntlClientProvider locale={locale} messages={{ admin: messages.admin }}>
+        <NextIntlClientProvider
+          locale={locale}
+          // admin.contratoImprimible.condiciones_items est un tableau (t.raw()), que
+          // next-intl gère très bien à l'exécution mais que son type AbstractIntlMessages
+          // n'autorise pas comme feuille de message — cast local pour ce seul décalage de
+          // typage, sans rapport avec un vrai risque runtime.
+          messages={{ admin: messages.admin } as any}
+        >
           {children}
         </NextIntlClientProvider>
       </body>

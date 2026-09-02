@@ -605,6 +605,7 @@
       "field_fecha_salida": "Date de départ",
       "field_retorno": "Retour prévu",
       "field_precio_dia": "Prix par jour",
+      "field_precio_total": "Prix total",
       "field_abono": "Acompte",
       "field_dias_rentado": "Jours loués",
       "field_balance": "Solde à payer",
@@ -642,7 +643,30 @@
         "revistas": "Documents du véhicule",
         "vidrios": "Vitres",
         "llaveros_rueda": "Clés antivol de roue"
-      }
+      },
+      "condiciones_titulo": "Contrat — Conditions de location du véhicule",
+      "condiciones_items": [
+        "Seule la personne qui signe le contrat est responsable envers la Compagnie du paiement du tarif convenu et des frais, dommages et indemnisations liés à la réparation du véhicule, y compris les jours d'immobilisation pour réparation.",
+        "Le client s'engage à restituer le véhicule dans le même état qu'à la remise, au lieu et à l'heure convenus dans le contrat ; à défaut, la Compagnie se réserve le droit de résilier le contrat et de récupérer le véhicule, peu importe entre les mains de qui il se trouve, aux frais du client.",
+        "Le client ne conduira le véhicule qu'après un délai de 24 heures suivant la consommation de boissons alcoolisées.",
+        "Le véhicule ne pourra pas être utilisé : 1) sur circuit de compétition ; 2) pour enseigner la conduite à une autre personne ; 3) comme taxi ; 4) pour pousser ou remorquer un autre véhicule ; 5) pour tout acte illicite sanctionné par les lois dominicaines.",
+        "Le véhicule sera utilisé sur des routes et chaussées asphaltées ; les frais de carburant et de lubrifiant sont à la charge du client pendant toute la durée du contrat.",
+        "Le client n'est pas autorisé à engager des frais de réparation, quels qu'ils soient, sur le véhicule. En cas de vol, d'accident ou d'incendie, il doit en informer immédiatement la Compagnie et la Police Nationale, faire établir un constat et en remettre une copie lors de la restitution du véhicule ; il reste dans tous les cas responsable du paiement de la franchise fixée à la signature du présent contrat. Si, à la suite d'un accident, l'autre partie prend en charge les dommages, frais et indemnisations et que la Compagnie recouvre la franchise, celle-ci sera remboursée au client en temps voulu.",
+        "En aucun cas le client n'abandonnera le véhicule, où que ce soit, afin d'éviter tout vol et/ou perte de pièces et d'accessoires ; le non-respect de cette clause annule l'assurance en sa faveur et le rend responsable des dommages, frais et préjudices.",
+        "Une taxe de 16 % exigée par le Gouvernement sera ajoutée à chaque facture, de même que toute autre taxe ou contribution en vigueur ou pouvant être créée par les autorités et les lois de l'État.",
+        "La Compagnie s'engage à remettre le véhicule en état d'assurer le service convenu et à souscrire l'assurance légale.",
+        "Le contrat est signé par le client après inspection du véhicule et constat de son état satisfaisant ; il en devient responsable à partir de ce moment.",
+        "Si le client change d'adresse par rapport à celle indiquée au contrat, il doit en informer immédiatement la Compagnie ; à défaut, tout membre de la Police Nationale est habilité à récupérer le véhicule, quel que soit le lieu, le moment ou la personne qui en a la garde, pour le remettre à la Compagnie.",
+        "Toute amende imposée ou générée en raison de l'usage ou de la conduite du véhicule devra être réglée avant la clôture du contrat.",
+        "Si la date convenue arrive sans que le véhicule soit restitué à la Compagnie, il sera déclaré volé auprès de la Police Nationale, le client signataire en étant tenu responsable, avec toutes les conséquences légales que cela implique.",
+        "Les frais engagés par la Compagnie pour rechercher le véhicule seront à la charge du client.",
+        "Tous les frais, factures, dommages et indemnisations générés en vertu du présent contrat confèrent à la Compagnie un privilège de recouvrement sur les biens meubles et immeubles du client, conformément aux articles 583 à 625 du Code de Procédure Civile, avec toutes les conséquences légales afférentes, sans autorisation préalable, ce droit valant titre exécutoire pour de telles actions.",
+        "Le client s'engage à payer la somme de 100 pesos pour chaque plaque ou autocollant retiré du véhicule.",
+        "La Compagnie n'est pas responsable des objets laissés à l'intérieur du véhicule.",
+        "Si le client décide de restituer le véhicule avant le terme convenu au contrat, il perdra 80 % du montant restant.",
+        "Passé un délai de 30 jours, le dossier est transmis au service juridique."
+      ],
+      "condiciones_cierre": "Ainsi convenu et arrêté, librement et volontairement, en deux (2) originaux de même teneur et effet, un pour chaque partie."
     },
     "tarifs": {
       "title": "Tarifs",

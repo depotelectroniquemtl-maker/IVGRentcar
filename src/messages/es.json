@@ -605,6 +605,7 @@
       "field_fecha_salida": "Fecha Salida",
       "field_retorno": "Posible Retorno",
       "field_precio_dia": "Precio P/dia",
+      "field_precio_total": "Precio total",
       "field_abono": "Abono $",
       "field_dias_rentado": "Dias Rentado",
       "field_balance": "Balance Pendiente",
@@ -642,7 +643,30 @@
         "revistas": "Revistas",
         "vidrios": "Vidrios",
         "llaveros_rueda": "Llaveros De Rueda"
-      }
+      },
+      "condiciones_titulo": "Contrato de Condiciones de Renta de Vehiculo",
+      "condiciones_items": [
+        "Solo la persona que suscribe el contrato es responsable frente a la compañía por pago de la tarifa convenida y los gastos, daños e indemnizaciones generados en la reparación del vehículo e inclusive los días en que este en reparación.",
+        "El cliente se compromete en devolver el vehículo en la misma condiciones en que fue entregado, en lugar y la hora convenido en el contrato, de modo contrario se estipula en favor de la Compañía, el derecho de rescisión del contrato, la recuperación del vehículo no importando en manos de quien se encuentre, con los gastos en que se incurra, por razón.",
+        "El cliente no conducirá el. sino después de 24 horas de haber ingerido bebidas alcohólicas.",
+        "El vehículo no podrá ser usado. (1. en carretera de competencia. 2) Para enseñar a otra persona a conducir. 3) Para ser utilizado como Taxi. 4) Empujar o remolcar otro vehículo. 5) Actos ilícitos castigados por la Leyes Dominicana.",
+        "El vehículo será usado en caminos y carreteras asfaltadas y los gastos de combustible y lubricante corren por cuenta del cliente mientras dure el contrato.",
+        "El cliente no será autorizado a contraer gastos de reparaciones de ninguna clase sobre el vehículo, por lo que el caso de robo, accidente e incendio, deberá notificarlo de inmediato a la compañía y a la Policía Nacional procediendo a levantar acta de circunstancia, depositando copia de acta al momento de hacer entrega del vehículo, no obstante será siempre responsable de pago del deducible que se fije al momento de firmar este contrato. Si como producto de un accidente la otra parte conviene en cubrir los daños, gastos e indemnizaciones y la compañía recobra el deducible, el mismo le será devuelto al cliente en el tiempo oportuno.",
+        "Bajo ningún concepto, el cliente abandonará el vehículo en ningún lugar, todo ello para evitar robo y/o perdida de piezas y accesorios, por lo que la violación de la presente cláusula anula el seguro en su favor y lo hace responsable de daños, gastos y perjuicio.",
+        "Los impuestos de un 16% exigidos por el Gobierno será añadido a cada factura y demás impuestos, taza y contribuciones que serán vigente y la que puedan ser creadas por autoridades y leyes del Estado.",
+        "La compañía se compromete a entregar el vehículo en condiciones de prestar el servicio convenido y contactar seguro de ley.",
+        "El contrato será suscrito por el cliente después de inspeccionar el vehículo y encontrarlo en estado satisfactorio, por la que él será responsable del mismo, a partir de ese momento.",
+        "En caso de que el cliente cambie de dirección estipulada en el contrato, deberá notificarlo inmediatamente a la compañía y su incumplimiento faculta a cualquier miembro de la Policía Nacional a recoger el vehículo, no importa el lugar, el momento o la persona que se encuentre custodiando el mismo, y será entregado a la compañía.",
+        "Cualquier multa impuesta o que se genere por concepto de uso o conducción del vehículo será saldada antes de cerrar el contrato.",
+        "Si llegara la fecha y el vehículo no es devuelto a la Compañía, será reportado como robado a la Policía Nacional, como responsable del mismo el cliente suscribiente, con todas las consecuencias legales.",
+        "Será a cargo de la cuenta del cliente los gastos en que incurra la compañía por salir en busca del vehículo.",
+        "Todos los gastos, facturas, daños e indemnizaciones que se generen en virtud del presente contrato generan en favor de la Compañía el privilegio de cobro sobre bienes muebles e inmuebles propiedad del cliente contenido en los artículos 583 al 625 del Código del Procedimiento Civil, con todas sus consecuencia legales, sin autorización previa, asimilando el derecho generado el Título ejecutivo necesario para tales actuaciones.",
+        "El cliente se compromete a pagar la suma de 100 pesos por cada placa o sticker que sea quitado al vehículo.",
+        "La Compañía no se hace responsable de cosas u objetos dejados dentro del interior del vehículo.",
+        "Si el cliente decide entregar el vehículo antes del tiempo que está acordado en el contrato, éste perderá el 80% de la cantidad restante.",
+        "Después de 30 días pasa al departamento legal."
+      ],
+      "condiciones_cierre": "Así se conviene y pacta, libre y voluntariamente en dos (2) originales del mismo y efecto, uno para cada parte."
     },
     "tarifs": {
       "title": "Tarifas",

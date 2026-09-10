@@ -510,6 +510,7 @@ export type Database = {
       }
       reservations: {
         Row: {
+          assurance: string | null
           caution_usd: number | null
           client_id: string
           created_at: string
@@ -529,6 +530,7 @@ export type Database = {
           vehicule_id: string
         }
         Insert: {
+          assurance?: string | null
           caution_usd?: number | null
           client_id: string
           created_at?: string
@@ -548,6 +550,7 @@ export type Database = {
           vehicule_id: string
         }
         Update: {
+          assurance?: string | null
           caution_usd?: number | null
           client_id?: string
           created_at?: string

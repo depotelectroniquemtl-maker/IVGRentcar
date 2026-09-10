@@ -23,7 +23,7 @@ export default async function EditarReservaPage({
   const { data: reservation } = await supabase
     .from("reservations")
     .select(
-      "id, numero, client_id, vehicule_id, date_debut, date_fin, date_retour_reelle, heure_debut, heure_fin, lieu_prise_en_charge, statut, prix_total_usd, caution_usd, notes, clients(nom)",
+      "id, numero, client_id, vehicule_id, date_debut, date_fin, date_retour_reelle, heure_debut, heure_fin, lieu_prise_en_charge, statut, prix_total_usd, caution_usd, assurance, notes, clients(nom)",
     )
     .eq("id", id)
     .single();

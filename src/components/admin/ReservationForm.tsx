@@ -21,6 +21,7 @@ type Reservation = {
   statut: (typeof STATUTS)[number];
   prix_total_usd: number | null;
   caution_usd: number | null;
+  assurance: string | null;
   notes: string | null;
 };
 
@@ -85,6 +86,7 @@ export function ReservationForm({
     reservation?.prix_total_usd?.toString() ?? prefill?.prixEstime?.toString() ?? "",
   );
   const [caution, setCaution] = useState(reservation?.caution_usd?.toString() ?? "");
+  const [assurance, setAssurance] = useState(reservation?.assurance ?? "");
   const [notes, setNotes] = useState(reservation?.notes ?? "");
 
   const [loading, setLoading] = useState(false);
@@ -143,6 +145,7 @@ export function ReservationForm({
       statut,
       prix_total_usd: prixTotal ? Number(prixTotal) : null,
       caution_usd: caution ? Number(caution) : null,
+      assurance: assurance.trim() || null,
       notes: notes || null,
     };
 
@@ -317,6 +320,17 @@ export function ReservationForm({
                 step="0.01"
                 value={caution}
                 onChange={(e) => setCaution(e.target.value)}
+                className={inputClass}
+              />
+            </label>
+
+            <label className="block text-sm">
+              <span className={labelClass}>{t("field_assurance")}</span>
+              <input
+                type="text"
+                value={assurance}
+                onChange={(e) => setAssurance(e.target.value)}
+                placeholder={t("field_assurance_placeholder")}
                 className={inputClass}
               />
             </label>

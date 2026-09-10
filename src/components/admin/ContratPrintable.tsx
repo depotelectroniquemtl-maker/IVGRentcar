@@ -50,6 +50,7 @@ export type ContratPrintableData = {
     diasRentado: number;
     precioPorDia: number | null;
     precioTotal: number | null;
+    assurance: string | null;
   };
   contrat: {
     heureRemise: string | null;
@@ -155,6 +156,7 @@ export function ContratPrintable({
             label={t("field_balance")}
             value={contrat?.soldeUsd != null ? `US$ ${contrat.soldeUsd}` : null}
           />
+          <Champ label={t("field_assurance")} value={reservation.assurance} />
         </div>
 
         <div className="relative mt-3 flex items-center justify-between px-4">

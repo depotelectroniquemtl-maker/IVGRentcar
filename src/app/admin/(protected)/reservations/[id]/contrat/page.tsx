@@ -53,7 +53,7 @@ export default async function ContratImprimablePage({
   const { data: reservation } = await supabase
     .from("reservations")
     .select(
-      "id, numero, date_debut, date_fin, prix_total_usd, clients(nom, adresse, telephone, nationalite, cedula, residencia, passeport, passeport_expiration, numero_permis, permis_expiration), vehicules(plaque, couleur, categories_vehicules(nom))",
+      "id, numero, date_debut, date_fin, prix_total_usd, assurance, clients(nom, adresse, telephone, nationalite, cedula, residencia, passeport, passeport_expiration, numero_permis, permis_expiration), vehicules(plaque, couleur, categories_vehicules(nom))",
     )
     .eq("id", id)
     .single();
@@ -102,6 +102,7 @@ export default async function ContratImprimablePage({
       diasRentado: dias,
       precioPorDia,
       precioTotal: reservation.prix_total_usd,
+      assurance: reservation.assurance,
     },
     contrat: contrat
       ? {

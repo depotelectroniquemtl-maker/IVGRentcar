@@ -214,15 +214,18 @@ export function ContratPrintable({
 
       <div className="mt-8 grid grid-cols-3 gap-6 text-center text-[10px]">
         {[
-          { label: t("signature_cliente"), imagen: signatureClient },
-          { label: t("signature_garante"), imagen: null },
-          { label: t("signature_rentado_por"), imagen: null },
-        ].map(({ label, imagen }) => (
+          { label: t("signature_cliente"), imagen: signatureClient, nombre: null },
+          { label: t("signature_garante"), imagen: null, nombre: null },
+          // Signature de la gérante toujours présente (asset statique), pas liée à la
+          // capture de signature par réservation comme celle du client.
+          { label: t("signature_rentado_por"), imagen: "/firma-isabel-hulmann.png", nombre: "Isabel Hulmann Polanco" },
+        ].map(({ label, imagen, nombre }) => (
           <div key={label} className="flex flex-col">
-            <div className="flex h-12 items-end justify-center border-b border-black">
+            <div className="flex h-12 flex-col items-center justify-end border-b border-black">
+              {nombre && <p className="text-[8px] font-medium text-black/70">{nombre}</p>}
               {imagen && (
-                // eslint-disable-next-line @next/next/no-img-element -- data URI, pas un asset optimisable par next/image
-                <img src={imagen} alt="" className="max-h-11 object-contain" />
+                // eslint-disable-next-line @next/next/no-img-element -- data URI (signature écran) ou asset statique
+                <img src={imagen} alt="" className="max-h-8 object-contain" />
               )}
             </div>
             <p className="mt-1">{label}</p>

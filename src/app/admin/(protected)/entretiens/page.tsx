@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
-import { Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { EditRowLink, Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { EntretienRowActions } from "@/components/admin/EntretienRowActions";
 import { SearchInput } from "@/components/admin/SearchInput";
 import { Pagination } from "@/components/admin/Pagination";
@@ -121,7 +121,10 @@ export default async function EntretiensPage({
                       )}
                     </td>
                     <td className="px-4 py-3">
-                      <EntretienRowActions id={e.id} />
+                      <div className="flex items-center justify-end gap-1">
+                        <EditRowLink href={`/admin/entretiens/${e.id}`} title={tCommon("edit")} />
+                        <EntretienRowActions id={e.id} />
+                      </div>
                     </td>
                   </tr>
                 );

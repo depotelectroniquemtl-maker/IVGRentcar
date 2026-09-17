@@ -389,6 +389,8 @@
       "field_proximo": "Next maintenance due (optional)",
       "field_notas": "Notes",
       "submit_create": "Save record",
+      "edit_title": "Edit maintenance record — {vehiculo}",
+      "save_changes": "Save changes",
       "history_title": "Maintenance history",
       "history_empty": "No maintenance logged yet.",
       "history_add": "Log maintenance"

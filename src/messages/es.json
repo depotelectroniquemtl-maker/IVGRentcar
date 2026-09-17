@@ -389,6 +389,8 @@
       "field_proximo": "Próximo mantenimiento (opcional)",
       "field_notas": "Notas",
       "submit_create": "Guardar registro",
+      "edit_title": "Editar mantenimiento — {vehiculo}",
+      "save_changes": "Guardar cambios",
       "history_title": "Historial de mantenimiento",
       "history_empty": "Sin mantenimiento registrado.",
       "history_add": "Registrar mantenimiento"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -9,18 +9,33 @@ import { FormSection, inputClass, labelClass, primaryButtonClass, secondaryLinkC
 
 const TYPES = ["vidange", "freins", "pneus", "reparation", "inspection", "autre"] as const;
 
+type Entretien = {
+  id: string;
+  vehicule_id: string;
+  type: string;
+  date_entretien: string;
+  cout_usd: number | null;
+  prochain_entretien: string | null;
+  notes: string | null;
+};
+
 export function EntretienForm({
   title,
   vehicules,
   vehiculeIdPreseleccionado,
+  entretien,
+  secondaryActions,
 }: {
   title: string;
   vehicules: { id: string; plaque: string | null; categorie_nom: string }[];
   vehiculeIdPreseleccionado?: string;
+  entretien?: Entretien;
+  secondaryActions?: ReactNode;
 }) {
   const router = useRouter();
   const t = useTranslations("admin.entretiens");
   const tCommon = useTranslations("admin.common");
+  const editing = Boolean(entretien);
 
   const TYPE_LABELS: Record<(typeof TYPES)[number], string> = {
     vidange: tCommon("entretien_type_vidange"),
@@ -31,12 +46,16 @@ export function EntretienForm({
     autre: tCommon("entretien_type_autre"),
   };
 
-  const [vehiculeId, setVehiculeId] = useState(vehiculeIdPreseleccionado ?? "");
-  const [type, setType] = useState<(typeof TYPES)[number]>("vidange");
-  const [dateEntretien, setDateEntretien] = useState(() => new Date().toISOString().slice(0, 10));
-  const [cout, setCout] = useState("");
-  const [prochainEntretien, setProchainEntretien] = useState("");
-  const [notes, setNotes] = useState("");
+  const [vehiculeId, setVehiculeId] = useState(entretien?.vehicule_id ?? vehiculeIdPreseleccionado ?? "");
+  const [type, setType] = useState<(typeof TYPES)[number]>(
+    (entretien?.type as (typeof TYPES)[number] | undefined) ?? "vidange",
+  );
+  const [dateEntretien, setDateEntretien] = useState(
+    entretien?.date_entretien ?? (() => new Date().toISOString().slice(0, 10))(),
+  );
+  const [cout, setCout] = useState(entretien?.cout_usd != null ? String(entretien.cout_usd) : "");
+  const [prochainEntretien, setProchainEntretien] = useState(entretien?.prochain_entretien ?? "");
+  const [notes, setNotes] = useState(entretien?.notes ?? "");
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,14 +66,18 @@ export function EntretienForm({
     setError(null);
 
     const supabase = createClient();
-    const { error } = await supabase.from("entretiens").insert({
+    const payload = {
       vehicule_id: vehiculeId,
       type,
       date_entretien: dateEntretien,
       cout_usd: cout ? Number(cout) : null,
       prochain_entretien: prochainEntretien || null,
       notes: notes || null,
-    });
+    };
+
+    const { error } = editing
+      ? await supabase.from("entretiens").update(payload).eq("id", entretien!.id)
+      : await supabase.from("entretiens").insert(payload);
 
     if (error) {
       setError(error.message);
@@ -75,10 +98,12 @@ export function EntretienForm({
             {tCommon("cancel")}
           </Link>
           <button type="submit" disabled={loading} className={primaryButtonClass}>
-            {loading ? tCommon("saving") : t("submit_create")}
+            {loading ? tCommon("saving") : editing ? t("save_changes") : t("submit_create")}
           </button>
         </div>
       </div>
+
+      {secondaryActions}
 
       {error && <p className="text-sm text-red-600">{error}</p>}
 

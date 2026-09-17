@@ -389,6 +389,8 @@
       "field_proximo": "Prochain entretien (optionnel)",
       "field_notas": "Notes",
       "submit_create": "Enregistrer",
+      "edit_title": "Modifier l'entretien — {vehiculo}",
+      "save_changes": "Enregistrer les modifications",
       "history_title": "Historique d'entretien",
       "history_empty": "Aucun entretien enregistré.",
       "history_add": "Ajouter un entretien"

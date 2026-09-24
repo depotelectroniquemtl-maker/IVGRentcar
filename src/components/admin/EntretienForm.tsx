@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import type { GroupeVehicule } from "@/lib/vehicule-groupe";
 import { FormSection, inputClass, labelClass, primaryButtonClass, secondaryLinkClass } from "@/components/admin/form-ui";
 
 const TYPES = ["vidange", "freins", "pneus", "reparation", "inspection", "autre"] as const;
@@ -24,12 +25,14 @@ export function EntretienForm({
   vehicules,
   vehiculeIdPreseleccionado,
   entretien,
+  groupe,
   secondaryActions,
 }: {
   title: string;
   vehicules: { id: string; plaque: string | null; categorie_nom: string }[];
   vehiculeIdPreseleccionado?: string;
   entretien?: Entretien;
+  groupe: GroupeVehicule;
   secondaryActions?: ReactNode;
 }) {
   const router = useRouter();
@@ -85,7 +88,7 @@ export function EntretienForm({
       return;
     }
 
-    router.push("/admin/entretiens");
+    router.push(`/admin/entretiens/${groupe}`);
     router.refresh();
   }
 
@@ -94,7 +97,7 @@ export function EntretienForm({
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-ink">{title}</h1>
         <div className="flex items-center gap-3">
-          <Link href="/admin/entretiens" className={secondaryLinkClass}>
+          <Link href={`/admin/entretiens/${groupe}`} className={secondaryLinkClass}>
             {tCommon("cancel")}
           </Link>
           <button type="submit" disabled={loading} className={primaryButtonClass}>

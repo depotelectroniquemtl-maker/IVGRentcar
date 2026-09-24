@@ -218,7 +218,7 @@ export default async function AidePage() {
           <ChapterHead n="06" title={tSidebar("nav_entretiens")} />
           <p className="mb-5 max-w-[62ch] text-[15px] text-ink-soft">{t("c06_intro")}</p>
           <Steps items={[t.rich("c06_step1", { b }), t.rich("c06_step2", { b }), t("c06_step3")]} />
-          <RealScreenshot url="ivjrentcar.com/admin/entretiens" src="/aide/06-entretien.png" alt="Liste des entretiens" />
+          <RealScreenshot url="ivjrentcar.com/admin/entretiens/voitures" src="/aide/06-entretien.png" alt="Liste des entretiens" />
         </>
       ),
     },

@@ -19,7 +19,8 @@ const NAV_GROUPS = [
       { href: "/admin/demandes", key: "nav_demandes", adminOnly: false },
       { href: "/admin/reservations", key: "nav_reservations", adminOnly: false },
       { href: "/admin/calendrier", key: "nav_calendrier", adminOnly: false },
-      { href: "/admin/entretiens", key: "nav_entretiens", adminOnly: false },
+      { href: "/admin/entretiens/voitures", key: "nav_entretiens_voitures", adminOnly: false },
+      { href: "/admin/entretiens/quads", key: "nav_entretiens_quads", adminOnly: false },
     ],
   },
   {
@@ -36,7 +37,8 @@ const NAV_GROUPS = [
     items: [
       { href: "/admin/utilisateurs", key: "nav_utilisateurs", adminOnly: true },
       { href: "/admin/journal", key: "nav_journal", adminOnly: true },
-      { href: "/admin/rentabilite", key: "nav_rentabilite", adminOnly: true },
+      { href: "/admin/rentabilite/voitures", key: "nav_rentabilite_voitures", adminOnly: true },
+      { href: "/admin/rentabilite/quads", key: "nav_rentabilite_quads", adminOnly: true },
     ],
   },
 ] as const;

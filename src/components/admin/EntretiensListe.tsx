@@ -87,7 +87,7 @@ export async function EntretiensListe({
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <StatCard label={t("stat_registros")} value={registros} />
-        <StatCard label={t("stat_costo_mes")} value={`US$ ${costoEsteMes}`} />
+        <StatCard label={t("stat_costo_mes")} value={`US$ ${costoEsteMes.toFixed(2)}`} />
         <StatCard label={t("stat_proximos_30")} value={proximos30dias} tone="warn" />
       </div>
 
@@ -118,7 +118,7 @@ export async function EntretiensListe({
                     <td className="px-4 py-3">{TYPE_LABELS[e.type] ?? e.type}</td>
                     <td className="px-4 py-3">{e.date_entretien}</td>
                     <td className="px-4 py-3">
-                      {e.cout_usd ? `US$ ${e.cout_usd}` : tCommon("dash")}
+                      {e.cout_usd ? `US$ ${e.cout_usd.toFixed(2)}` : tCommon("dash")}
                     </td>
                     <td className="px-4 py-3">
                       {vencido ? (

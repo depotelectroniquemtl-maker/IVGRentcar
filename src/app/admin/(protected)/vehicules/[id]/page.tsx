@@ -93,7 +93,7 @@ export default async function EditarVehiculoPage({
                     <span className="text-ink-soft">{e.date_entretien}</span>
                   </div>
                   <div className="flex items-center justify-between text-ink-soft">
-                    <span>{e.cout_usd ? `US$ ${e.cout_usd}` : tCommon("dash")}</span>
+                    <span>{e.cout_usd ? `US$ ${e.cout_usd.toFixed(2)}` : tCommon("dash")}</span>
                     {e.prochain_entretien && (
                       <span>
                         {tEntretiens("col_proximo")}: {e.prochain_entretien}

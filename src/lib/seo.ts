@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { routing, type AppLocale } from "@/i18n/routing";
 import { BUSINESS_NAME, SITE_URL } from "@/lib/constants";
 
-// Photo du hero (flotte sur la plage) réutilisée comme image sociale par défaut pour
-// toutes les pages — évite de dépendre d'une image dédiée par page qui n'existe pas encore.
-// Exportée : le layout racine (fallback statique, avant que la page ne résolve son propre
-// generateMetadata) réutilise la même image plutôt que de la dupliquer.
+// Recadrage 1200x630 (ratio 1.91:1 recommandé par Facebook) de la photo du hero, en JPEG :
+// Facebook/WhatsApp gèrent mal le WebP pour og:image. Image sociale par défaut de toutes
+// les pages. Exportée : le layout racine (fallback statique) réutilise la même image.
 export const OG_IMAGE = {
-  url: `${SITE_URL}/hero/hero-tropical-fleet.webp`,
-  width: 1774,
-  height: 887,
+  url: `${SITE_URL}/og/og-image.jpg`,
+  width: 1200,
+  height: 630,
+  type: "image/jpeg",
 };
 
 const OG_LOCALE: Record<AppLocale, string> = {

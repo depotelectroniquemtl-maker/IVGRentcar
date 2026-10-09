@@ -132,6 +132,11 @@ export function FleetCard({
               );
             })}
           </div>
+          {isCar && (
+            <p className="mt-2 text-center text-[11px] font-medium text-ink-soft">
+              {t("insurance_note")}
+            </p>
+          )}
 
           <Link
             href="/reservar"

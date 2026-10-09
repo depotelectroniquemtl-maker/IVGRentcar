@@ -97,6 +97,7 @@
     },
     "capacity_persons": "{count} personnes",
     "payment_note": "Paiement par carte accepté.",
+    "insurance_note": "Assurance complète non incluse",
     "reserve": "Réserver sur WhatsApp",
     "no_photo": "Photo à venir",
     "amenity_ac": "Climatisation",

@@ -97,6 +97,7 @@
     },
     "capacity_persons": "{count} people",
     "payment_note": "We accept card payment.",
+    "insurance_note": "Full insurance not included",
     "reserve": "Book on WhatsApp",
     "no_photo": "Photo coming soon",
     "amenity_ac": "Air conditioning",

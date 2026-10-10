@@ -51,7 +51,7 @@ export function FleetCard({
   ] as const;
 
   return (
-    <div className="overflow-hidden rounded-lg border border-black/5 bg-white shadow-sm">
+    <div className="flex h-full flex-col overflow-hidden rounded-lg border border-black/5 bg-white shadow-sm">
       <div className="relative aspect-[6/5] w-full bg-black/5">
         {images ? (
           images.map((src, i) => (
@@ -89,7 +89,7 @@ export function FleetCard({
         </span>
       </div>
 
-      <div className="flex flex-col gap-2 p-5">
+      <div className="flex flex-1 flex-col gap-2 p-5">
         <p className="text-[11px] font-black uppercase tracking-wider text-brand">
           {categorie.nom}
         </p>
@@ -107,7 +107,7 @@ export function FleetCard({
           </span>
         </div>
 
-        <div className="mt-3 border-t border-black/10 pt-3">
+        <div className="mt-auto border-t border-black/10 pt-3">
           <div className="grid grid-cols-3 gap-1.5">
             {PALIERS.map(({ key, labelKey }, i) => {
               const prix = formatUsd(categorie.tarifs[key]);
@@ -132,10 +132,14 @@ export function FleetCard({
               );
             })}
           </div>
-          {isCar && (
-            <p className="mt-2 text-center text-[11px] font-medium text-ink-soft">
+          {isCar ? (
+            <p className="mt-2 min-h-4 text-center text-[11px] font-medium leading-4 text-ink-soft">
               {t("insurance_note")}
             </p>
+          ) : (
+            // Réserve la hauteur de la mention d'assurance pour aligner le bouton d'une
+            // carte à l'autre quand plusieurs colonnes sont affichées (inutile en mobile).
+            <div aria-hidden="true" className="mt-2 hidden min-h-4 sm:block" />
           )}
 
           <Link

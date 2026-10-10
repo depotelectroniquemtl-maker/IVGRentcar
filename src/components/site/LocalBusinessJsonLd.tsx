@@ -27,7 +27,7 @@ export function LocalBusinessJsonLd() {
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Plaza Italia #35, Avenida Juan Pablo Duarte",
+      streetAddress: "Plaza Italia #22, Avenida Juan Pablo Duarte",
       addressLocality: "Las Terrenas",
       addressRegion: "Samaná",
       addressCountry: "DO",

@@ -29,7 +29,7 @@ export function AdminMobileNav({
     <div className="border-b-[3px] border-brand bg-ink text-white lg:hidden print:hidden">
       <div className="flex items-center justify-between px-4 py-4">
         <p className="font-bold">
-          <span className="text-brand">I.V.J</span> Polanco
+          <span className="text-brand">IVJ</span> Rentcar
         </p>
         <button
           type="button"

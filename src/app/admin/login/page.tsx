@@ -43,7 +43,7 @@ export default function LoginPage() {
         className="w-full max-w-sm rounded-lg bg-white p-8 shadow-lg"
       >
         <p className="mb-1 text-center font-bold text-ink">
-          <span className="text-brand">I.V.J</span> Polanco
+          <span className="text-brand">IVJ</span> Rentcar
         </p>
         <h1 className="mb-6 text-center text-sm text-ink-soft">{t("subtitle")}</h1>
 

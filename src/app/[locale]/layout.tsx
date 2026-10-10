@@ -19,7 +19,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 // de [locale] et admin (chacun garde son propre <html lang> pour rester précis par langue),
 // ce fichier reste le fallback le plus proche de la racine : utile si une page ne résout pas
 // encore sa propre metadata (erreur, route future sans generateMetadata...).
-const FALLBACK_TITLE = "I.V.J Polanco Rent a Car — Las Terrenas";
+const FALLBACK_TITLE = "IVJ Rentcar — Las Terrenas";
 const FALLBACK_DESCRIPTION =
   "Alquiler de autos, camionetas 4x4 y cuadriciclos en Las Terrenas, República Dominicana. Tu confianza en el volante.";
 

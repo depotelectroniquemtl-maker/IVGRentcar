@@ -28,7 +28,7 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-2 border-t border-white/15 pt-6 text-xs text-white/60 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {new Date().getFullYear()} I.V.J Polanco Rent a Car · {t("footer.location")}
+            © {new Date().getFullYear()} IVJ Rentcar · {t("footer.location")}
           </p>
           <p>WhatsApp: +{WHATSAPP_NUMBER}</p>
           <Link href="/admin/login" className="text-white/40 transition hover:text-white/70">

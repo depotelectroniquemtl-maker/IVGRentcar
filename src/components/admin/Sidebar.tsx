@@ -97,7 +97,7 @@ export async function Sidebar({ profile }: { profile: Profile }) {
         <div className="overflow-y-auto">
           <div className="border-b border-white/10 px-4 py-5">
             <p className="font-bold">
-              <span className="text-brand">I.V.J</span> Polanco
+              <span className="text-brand">IVJ</span> Rentcar
             </p>
             <p className="text-xs text-white/50">{t("subtitle")}</p>
           </div>

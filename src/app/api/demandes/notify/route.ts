@@ -36,7 +36,7 @@ export async function POST(request: Request) {
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
-      from: "IVJ Polanco Rent a Car <reservas@ivjrentcar.com>",
+      from: "IVJ Rentcar <reservas@ivjrentcar.com>",
       to: "contact@ivjrentcar.com",
       replyTo: email || undefined,
       subject: `Nouvelle demande de réservation — ${nom}`,

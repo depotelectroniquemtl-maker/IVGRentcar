@@ -132,15 +132,6 @@ export function FleetCard({
               );
             })}
           </div>
-          {isCar ? (
-            <p className="mt-2 min-h-4 text-center text-[11px] font-medium leading-4 text-ink-soft">
-              {t("insurance_note")}
-            </p>
-          ) : (
-            // Réserve la hauteur de la mention d'assurance pour aligner le bouton d'une
-            // carte à l'autre quand plusieurs colonnes sont affichées (inutile en mobile).
-            <div aria-hidden="true" className="mt-2 hidden min-h-4 sm:block" />
-          )}
 
           <Link
             href="/reservar"

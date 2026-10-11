@@ -3,12 +3,13 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 import { splitLines } from "@/lib/splitLines";
+import { CookieSettingsButton } from "@/components/site/CookieSettingsButton";
 
 // Reproduit le pied de page de la reference fournie : bandeau sombre nettement plus
 // haut que l'ancienne version compacte, logo en haut a gauche, gros slogan sur deux
 // lignes, puis une ligne de bas de page separee par une bordure fine (copyright +
 // localisation a gauche, WhatsApp a droite).
-export function Footer() {
+export function Footer({ showCookieSettings = false }: { showCookieSettings?: boolean }) {
   const t = useTranslations("site");
 
   return (
@@ -31,6 +32,9 @@ export function Footer() {
             © {new Date().getFullYear()} IVJ Rentcar · {t("footer.location")}
           </p>
           <p>WhatsApp: +{WHATSAPP_NUMBER}</p>
+          {showCookieSettings && (
+            <CookieSettingsButton className="text-left text-white/60 underline-offset-2 transition hover:text-white hover:underline" />
+          )}
           <Link href="/admin/login" className="text-white/40 transition hover:text-white/70">
             {t("footer.admin")}
           </Link>

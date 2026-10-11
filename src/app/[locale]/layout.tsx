@@ -7,6 +7,7 @@ import { hasLocale, routing } from "@/i18n/routing";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { LocalBusinessJsonLd } from "@/components/site/LocalBusinessJsonLd";
+import { AnalyticsConsent } from "@/components/site/AnalyticsConsent";
 import { BUSINESS_NAME, SITE_URL } from "@/lib/constants";
 import { OG_IMAGE } from "@/lib/seo";
 import "../globals.css";
@@ -66,6 +67,12 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
+  // Google Analytics 4 : variable publique lue au BUILD (NEXT_PUBLIC_*). Absente => aucun
+  // script, aucun bandeau, aucun lien de gestion des cookies (local, développement).
+  // Ce layout est celui de la vitrine : le back-office (/admin) a son propre layout racine
+  // et n'est donc jamais suivi.
+  const gaId = process.env.NEXT_PUBLIC_GA_ID?.trim() || undefined;
+
   return (
     <html lang={locale} className={inter.variable}>
       <body className="flex min-h-screen flex-col font-sans antialiased">
@@ -73,7 +80,8 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <Header />
           <main className="flex-1">{children}</main>
-          <Footer />
+          <Footer showCookieSettings={Boolean(gaId)} />
+          {gaId && <AnalyticsConsent gaId={gaId} />}
         </NextIntlClientProvider>
       </body>
     </html>

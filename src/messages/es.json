@@ -19,6 +19,13 @@
       "admin": "Admin"
     }
   },
+  "cookies": {
+    "title": "Medición de audiencia",
+    "text": "Este sitio usa Google Analytics para medir las visitas. Solo se activa si lo aceptas, y puedes cambiar de opinión en cualquier momento (enlace al pie de la página).",
+    "accept": "Aceptar",
+    "refuse": "Rechazar",
+    "manage": "Gestionar cookies"
+  },
   "seo": {
     "home": {
       "title": "Alquiler de autos y cuadriciclos en Las Terrenas | IVJ Rentcar",

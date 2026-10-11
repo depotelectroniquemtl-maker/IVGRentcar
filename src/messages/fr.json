@@ -19,6 +19,13 @@
       "admin": "Admin"
     }
   },
+  "cookies": {
+    "title": "Mesure d'audience",
+    "text": "Ce site utilise Google Analytics pour mesurer les visites. Il n'est activé que si vous l'acceptez, et vous pouvez changer d'avis à tout moment (lien en bas de page).",
+    "accept": "Accepter",
+    "refuse": "Refuser",
+    "manage": "Gérer les cookies"
+  },
   "seo": {
     "home": {
       "title": "Location de voitures et quads à Las Terrenas | IVJ Rentcar",

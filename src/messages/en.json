@@ -1,6 +1,6 @@
 {
   "site": {
-    "name": "I.V.J Polanco Rent a Car",
+    "name": "IVJ Rentcar",
     "tagline": "Your confidence behind the wheel",
     "nav": {
       "home": "Home",
@@ -19,29 +19,36 @@
       "admin": "Admin"
     }
   },
+  "cookies": {
+    "title": "Audience measurement",
+    "text": "This site uses Google Analytics to measure visits. It is only enabled if you accept, and you can change your mind at any time (link in the footer).",
+    "accept": "Accept",
+    "refuse": "Decline",
+    "manage": "Manage cookies"
+  },
   "seo": {
     "home": {
-      "title": "Car & Quad Rental in Las Terrenas | I.V.J Polanco Rent a Car",
+      "title": "Car & Quad Rental in Las Terrenas | IVJ Rentcar",
       "description": "Rent cars, 4x4s and quads in Las Terrenas, Dominican Republic. Easy WhatsApp booking, fast reply, insurance included."
     },
     "flotte": {
-      "title": "Fleet & Rental Rates | I.V.J Polanco Rent a Car",
+      "title": "Fleet & Rental Rates | IVJ Rentcar",
       "description": "Browse our fleet of cars, 4x4s and quads in Las Terrenas with tiered rates (1-3 days, 4+ days, 15+ days). Book instantly via WhatsApp."
     },
     "lasTerrenas": {
-      "title": "Discover Las Terrenas | I.V.J Polanco Rent a Car",
+      "title": "Discover Las Terrenas | IVJ Rentcar",
       "description": "Our favorite spots in Las Terrenas: beaches, the fishermen's village, El Limón, the Samaná peninsula. Explore freely with your own set of wheels."
     },
     "faq": {
-      "title": "Frequently Asked Questions | I.V.J Polanco Rent a Car",
+      "title": "Frequently Asked Questions | IVJ Rentcar",
       "description": "Answers to the most common questions about renting a car or quad in Las Terrenas: documents, deposit, minimum age, insurance."
     },
     "contact": {
-      "title": "Contact | I.V.J Polanco Rent a Car",
-      "description": "Get in touch with I.V.J Polanco Rent a Car in Las Terrenas via WhatsApp. Address, hours and details to book your vehicle."
+      "title": "Contact | IVJ Rentcar",
+      "description": "Get in touch with IVJ Rentcar in Las Terrenas via WhatsApp. Address, hours and details to book your vehicle."
     },
     "reservar": {
-      "title": "Book a Vehicle | I.V.J Polanco Rent a Car",
+      "title": "Book a Vehicle | IVJ Rentcar",
       "description": "Request availability and today's rate for a car, 4x4 or quad in Las Terrenas. Fast reply, no commitment."
     }
   },
@@ -145,7 +152,7 @@
     "places_title": "Featured spots",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Samaná Peninsula"],
     "cta": "See fleet & rates",
-    "photo_credit": "© IVJ Rent Car",
+    "photo_credit": "© IVJ Rentcar",
     "gallery": [
       { "caption": "Las Terrenas, between village and ocean" },
       { "caption": "The freedom to explore the coast" },
@@ -234,7 +241,7 @@
   },
   "admin": {
     "meta": {
-      "title": "Dashboard — I.V.J Polanco Rent a Car"
+      "title": "Dashboard — IVJ Rentcar"
     },
     "login": {
       "subtitle": "Internal panel — sign in",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
+import { FaqJsonLd } from "@/components/site/FaqJsonLd";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
 
@@ -28,10 +29,11 @@ export default async function FaqPage({
   setRequestLocale(locale);
 
   const t = await getTranslations("faq");
-  const items = t.raw("items") as { question: string; answer: string }[];
+  const items = t.raw("items") as { question: string; answer: string; schema?: boolean }[];
 
   return (
     <Container className="flex flex-col gap-8 py-16">
+      <FaqJsonLd items={items.filter((item) => item.schema)} />
       <div>
         <h1 className="text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">
           {t("title")}

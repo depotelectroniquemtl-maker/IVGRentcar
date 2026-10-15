@@ -16,7 +16,10 @@
       "address": "Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, D.R.",
       "tagline": "Explore freely.\nReturn happy.",
       "location": "Las Terrenas, Dominican Republic",
-      "admin": "Admin"
+      "admin": "Admin",
+      "link_conditions": "Rental conditions",
+      "link_legal": "Legal notice",
+      "link_privacy": "Privacy"
     }
   },
   "cookies": {
@@ -24,7 +27,8 @@
     "text": "This site uses Google Analytics to measure visits. It is only enabled if you accept, and you can change your mind at any time (link in the footer).",
     "accept": "Accept",
     "refuse": "Decline",
-    "manage": "Manage cookies"
+    "manage": "Manage cookies",
+    "privacy_link": "Privacy policy"
   },
   "seo": {
     "home": {
@@ -50,6 +54,18 @@
     "reservar": {
       "title": "Book a Vehicle | IVJ Rentcar",
       "description": "Request availability and today's rate for a car, 4x4 or quad in Las Terrenas. Fast reply, no commitment."
+    },
+    "conditions": {
+      "title": "Rental conditions | IVJ Rentcar",
+      "description": "Minimum age, deposit per vehicle, insurance and delivery: the essentials for renting a car or quad in Las Terrenas."
+    },
+    "mentions": {
+      "title": "Legal notice | IVJ Rentcar",
+      "description": "Publisher, contact details and hosting of the ivjrentcar.com website (IVJ Rentcar, Las Terrenas)."
+    },
+    "confidentialite": {
+      "title": "Privacy and cookies | IVJ Rentcar",
+      "description": "What data the site collects, how Google Analytics works with your consent, and how to manage your cookies."
     }
   },
   "home": {
@@ -164,23 +180,41 @@
     "items": [
       {
         "question": "What do I need to rent?",
-        "answer": "A valid driver's license, passport or ID, and a security deposit may be required. Exact requirements vary by vehicle and will be confirmed before booking."
+        "answer": "A valid driver's license, passport or ID, and a security deposit may be required. Exact requirements vary by vehicle and will be confirmed before booking. To know the required documents and years of driving experience, contact us on WhatsApp or through the form."
+      },
+      {
+        "question": "How old do I have to be to rent?",
+        "answer": "The driver must be at least 25 years old.",
+        "schema": true
+      },
+      {
+        "question": "What is the security deposit?",
+        "answer": "The deposit is US$1,000 for the Kia Seltos, US$500 for the other car models and US$300 for quads. For the scooter, the payment method and the refund of the deposit, contact us: we confirm them before booking."
       },
       {
         "question": "Is insurance included?",
-        "answer": "Full insurance is not included in the rate. Coverage details and any deductible will be explained in your quote and rental agreement."
+        "answer": "Full insurance is not included in the rate. Coverage details and any deductible will be explained in your quote and rental agreement.",
+        "schema": true
       },
       {
         "question": "Can you deliver the vehicle?",
-        "answer": "Delivery may be available depending on location and schedule."
+        "answer": "The vehicle is usually handed over at our office: Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. Delivery to the airport is possible for a fee; contact us for the amount and the details."
       },
       {
         "question": "How do I confirm my reservation?",
         "answer": "After your request, IVJ will confirm availability, total price, deposit and the steps required to secure the vehicle."
       },
       {
+        "question": "Is there a mileage limit?",
+        "answer": "Contact us for the mileage conditions: we confirm them before booking."
+      },
+      {
+        "question": "Can I cancel my booking?",
+        "answer": "Contact us for the cancellation conditions: we confirm them before booking."
+      },
+      {
         "question": "What is the fuel and cancellation policy?",
-        "answer": "Fuel, cancellation, late-return and damage policies will be provided with your final rental terms before you confirm."
+        "answer": "Fuel, cancellation, late-return and damage policies will be provided with your final rental terms before you confirm. See also our Rental conditions page."
       }
     ]
   },
@@ -237,6 +271,162 @@
     "address": "Address",
     "hours": "Hours",
     "hours_value": "Every day, by reservation"
+  },
+  "legal": {
+    "updated": "Last updated: October 2026",
+    "conditions": {
+      "title": "Rental conditions",
+      "intro": "The essentials of our conditions for renting a car or quad. The full conditions are in the quote and the rental agreement, confirmed before booking.",
+      "cta": "A question about these conditions? Message us on WhatsApp.",
+      "sections": [
+        {
+          "heading": "Driver",
+          "paragraphs": [
+            "The driver must be at least 25 years old.",
+            "To know the required documents and years of driving experience, contact us: we confirm them before booking."
+          ]
+        },
+        {
+          "heading": "Security deposit",
+          "list": [
+            "Kia Seltos: US$1,000",
+            "Other car models: US$500",
+            "Quads: US$300"
+          ],
+          "after": [
+            "For the scooter, the payment method and the refund of the deposit, contact us: we confirm them before booking."
+          ]
+        },
+        {
+          "heading": "Rates",
+          "paragraphs": [
+            "Rates are in US dollars (US$) and depend on the rental length. They are on the Fleet and rates page."
+          ],
+          "link": {
+            "label": "See the fleet and rates",
+            "href": "/flotte"
+          }
+        },
+        {
+          "heading": "Insurance",
+          "paragraphs": [
+            "Full insurance is not included in the rate.",
+            "Coverage details and any deductible will be explained in your quote and rental agreement."
+          ]
+        },
+        {
+          "heading": "Pickup and delivery",
+          "paragraphs": [
+            "The vehicle is usually handed over at our office: {address}",
+            "Delivery to the airport is possible for a fee; contact us for the amount and the details."
+          ]
+        },
+        {
+          "heading": "Other conditions",
+          "paragraphs": [
+            "Mileage, cancellation, fuel, late return and damage: contact us for the conditions. They are provided before the booking is confirmed."
+          ]
+        }
+      ]
+    },
+    "mentions": {
+      "title": "Legal notice",
+      "intro": "Legal information about the ivjrentcar.com website.",
+      "sections": [
+        {
+          "heading": "Site publisher",
+          "paragraphs": [
+            "The ivjrentcar.com website is published by I.V.J Polanco Rent a Car (trade name: IVJ Rentcar).",
+            "Address: {address}",
+            "Email: {email}",
+            "Phone / WhatsApp: {phone}"
+          ]
+        },
+        {
+          "heading": "Hosting",
+          "paragraphs": [
+            "The website is hosted by Vercel Inc. (vercel.com)."
+          ]
+        },
+        {
+          "heading": "Personal data and cookies",
+          "paragraphs": [
+            "To learn what data is collected and how to manage your cookies, see our Privacy and cookies page."
+          ],
+          "link": {
+            "label": "Privacy and cookies",
+            "href": "/confidentialite"
+          }
+        },
+        {
+          "heading": "Rental conditions",
+          "paragraphs": [
+            "The rental conditions are detailed on the Rental conditions page."
+          ],
+          "link": {
+            "label": "Rental conditions",
+            "href": "/conditions"
+          }
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy and cookies",
+      "intro": "This page explains what data the site collects, why, and how to manage your choices.",
+      "sections": [
+        {
+          "heading": "Who is responsible",
+          "paragraphs": [
+            "I.V.J Polanco Rent a Car (trade name: IVJ Rentcar).",
+            "Address: {address}",
+            "Contact: {email}"
+          ]
+        },
+        {
+          "heading": "Reservation request form",
+          "paragraphs": [
+            "If you send a reservation request, we receive your name, your WhatsApp number, your email (optional), the vehicle and dates requested, the pickup location and your notes.",
+            "This data is used to answer your request and prepare your booking."
+          ]
+        },
+        {
+          "heading": "Where your data is stored",
+          "paragraphs": [
+            "Requests are saved in our database, hosted by Supabase (servers in the United States).",
+            "Each request is also reported to us by a notification email sent through the Resend service, which contains the request information.",
+            "The website is hosted by Vercel."
+          ]
+        },
+        {
+          "heading": "Third-party services",
+          "paragraphs": [
+            "When you type the pickup location in the form, the text you type is sent to the Photon address search service (Komoot) to suggest results."
+          ]
+        },
+        {
+          "heading": "Cookies and audience measurement",
+          "paragraphs": [
+            "With your consent, we use Google Analytics 4 to measure visits to the site.",
+            "By default, everything is refused: no data is sent to Google until you click “Accept”. If you decline, no data is sent to Google Analytics and no measurement cookie is set.",
+            "If you accept, Google Analytics measures page views and two actions: clicking a WhatsApp button and submitting a reservation request. These measurements contain no personal data (no name, phone or email). Advertising cookies stay disabled.",
+            "Your choice is remembered on your device. You can change it at any time with the “Manage cookies” link at the bottom of every page.",
+            "The internal administration panel is never tracked."
+          ]
+        },
+        {
+          "heading": "Retention period",
+          "paragraphs": [
+            "We keep your data for as long as needed to handle your request and manage the rental. To know the exact period, contact us."
+          ]
+        },
+        {
+          "heading": "Your rights",
+          "paragraphs": [
+            "You can write to us at {email} to ask for access to your data, its correction or its deletion."
+          ]
+        }
+      ]
+    }
   },
   "admin": {
     "meta": {

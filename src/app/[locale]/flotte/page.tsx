@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ExternalButtonLink } from "@/components/ui/Button";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { FleetGrid } from "@/components/site/FleetGrid";
 import { PriceTable } from "@/components/site/PriceTable";
 import { whatsappUrl } from "@/lib/constants";
@@ -54,6 +55,7 @@ export default async function FlottePage({
 
       <div>
         <ExternalButtonLink href={whatsappUrl()} variant="whatsapp">
+          <WhatsAppIcon className="h-5 w-5" />
           {t("reserve")}
         </ExternalButtonLink>
       </div>

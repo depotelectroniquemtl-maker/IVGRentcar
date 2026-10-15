@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { LocaleSwitcher } from "@/components/site/LocaleSwitcher";
 import { ExternalButtonLink } from "@/components/ui/Button";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { MobileMenu } from "@/components/site/MobileMenu";
 import { whatsappUrl } from "@/lib/constants";
 
@@ -49,12 +50,16 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <LocaleSwitcher />
+          {/* Icône seule sous 640 px (le texte est masqué, d'où l'aria-label), icône + texte
+              à partir de sm. */}
           <ExternalButtonLink
             href={whatsappUrl()}
             variant="dark"
-            className="hidden px-5 py-2.5 text-xs sm:inline-flex"
+            aria-label="WhatsApp"
+            className="h-10 w-10 text-xs max-sm:px-0 sm:w-auto"
           >
-            WhatsApp
+            <WhatsAppIcon className="h-4 w-4" />
+            <span className="hidden sm:inline">WhatsApp</span>
           </ExternalButtonLink>
           <MobileMenu />
         </div>

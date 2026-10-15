@@ -35,6 +35,7 @@ type AnalyticsWindow = Window & {
   dataLayer?: unknown[];
   gtag?: Gtag;
   __ivjConsentDefaultSet?: boolean;
+  __ivjAnalyticsActive?: boolean;
 };
 
 // Même définition que le snippet officiel : gtag doit empiler l'objet `arguments`
@@ -104,4 +105,43 @@ export function sendPageView(pathname: string) {
     page_location: `${window.location.origin}${pathname}`,
     page_path: pathname,
   });
+}
+
+// Le suivi n'est « actif » que lorsque le visiteur a accepté ET que GA4 est configuré
+// (posé par AnalyticsConsent). Tant que ce n'est pas le cas, trackEvent ne fait rien : un
+// événement ne doit jamais être mis en file d'attente pendant un refus ou avant le choix,
+// car gtag.js le renverrait ensuite après un « Accepter » tardif.
+export function setAnalyticsActive(active: boolean) {
+  (window as AnalyticsWindow).__ivjAnalyticsActive = active;
+}
+
+type EventParams = Record<string, string | number | boolean | undefined>;
+
+// Envoie un événement personnalisé à GA4, uniquement avec le consentement. Les paramètres
+// ne doivent contenir AUCUNE donnée personnelle (nom, téléphone, WhatsApp, courriel).
+export function trackEvent(name: string, params: EventParams = {}) {
+  if (typeof window === "undefined") return;
+  if (!(window as AnalyticsWindow).__ivjAnalyticsActive) return;
+  ensureGtag()("event", name, params);
+}
+
+// Lien vers WhatsApp (wa.me) ? Compare le nom d'hôte, pas une simple sous-chaîne.
+export function isWhatsAppLink(link: HTMLAnchorElement): boolean {
+  try {
+    return new URL(link.href).hostname === "wa.me";
+  } catch {
+    return false;
+  }
+}
+
+// Emplacement du bouton : data-wa-location posé sur le lien (header, hero, flotte, contact,
+// ...) ; à défaut, déduit de l'endroit de la page (en-tête, pied de page, page de réservation)
+// pour que tout futur lien wa.me soit suivi sans rien oublier.
+export function whatsappLocation(link: HTMLAnchorElement): string {
+  const declared = link.dataset.waLocation;
+  if (declared) return declared;
+  if (link.closest("header")) return "header";
+  if (link.closest("footer")) return "footer";
+  if (window.location.pathname.includes("/reservar")) return "reservation";
+  return "other";
 }

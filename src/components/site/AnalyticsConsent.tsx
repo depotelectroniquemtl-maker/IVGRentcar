@@ -3,17 +3,21 @@
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import {
   OPEN_SETTINGS_EVENT,
   deleteAnalyticsCookies,
   disableTracking,
   ensureGtag,
+  isWhatsAppLink,
   readConsent,
   saveConsent,
   sendPageView,
+  setAnalyticsActive,
   setDefaultConsent,
+  trackEvent,
   updateConsent,
+  whatsappLocation,
   type ConsentChoice,
 } from "@/lib/analytics";
 
@@ -30,6 +34,7 @@ const BUTTON_CLASS =
 // la page), uniquement avec le consentement.
 export function AnalyticsConsent({ gaId }: { gaId: string }) {
   const t = useTranslations("cookies");
+  const locale = useLocale();
   const pathname = usePathname();
   const [ready, setReady] = useState(false);
   const [consent, setConsent] = useState<ConsentChoice | null>(null);
@@ -55,6 +60,7 @@ export function AnalyticsConsent({ gaId }: { gaId: string }) {
   // Application du choix à GA4. Déclaré avant l'effet des pages vues : à l'acceptation,
   // la configuration part avant le premier page_view.
   useEffect(() => {
+    setAnalyticsActive(consent === "granted");
     if (consent === "granted") {
       disableTracking(gaId, false);
       updateConsent("granted");
@@ -74,6 +80,26 @@ export function AnalyticsConsent({ gaId }: { gaId: string }) {
   useEffect(() => {
     if (consent === "granted") sendPageView(pathname);
   }, [consent, pathname]);
+
+  // Événement « whatsapp_click » : clic (ou clic du milieu) sur TOUT lien vers wa.me, où qu'il
+  // soit sur la vitrine. Écouteur global en phase de capture : couvre aussi les futurs
+  // boutons. Sans consentement, trackEvent ne fait rien. Paramètres : emplacement + langue.
+  useEffect(() => {
+    function onClick(event: MouseEvent) {
+      const link = (event.target as Element | null)?.closest?.("a");
+      if (!link || !isWhatsAppLink(link as HTMLAnchorElement)) return;
+      trackEvent("whatsapp_click", {
+        button_location: whatsappLocation(link as HTMLAnchorElement),
+        language: locale,
+      });
+    }
+    document.addEventListener("click", onClick, true);
+    document.addEventListener("auxclick", onClick, true);
+    return () => {
+      document.removeEventListener("click", onClick, true);
+      document.removeEventListener("auxclick", onClick, true);
+    };
+  }, [locale]);
 
   function choose(choice: ConsentChoice) {
     saveConsent(choice);

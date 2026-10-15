@@ -28,8 +28,8 @@
   },
   "seo": {
     "home": {
-      "title": "Alquiler de autos y cuadriciclos en Las Terrenas | IVJ Rentcar",
-      "description": "Alquila autos, 4x4 y cuadriciclos en Las Terrenas, República Dominicana. Reserva fácil por WhatsApp, respuesta rápida, seguro incluido."
+      "title": "Alquiler de autos y quads en Las Terrenas | IVJ Rentcar",
+      "description": "Alquiler de autos, 4x4 y cuadriciclos en Las Terrenas. Tarifas por tramos claras, reserva en línea o por WhatsApp, respuesta rápida."
     },
     "flotte": {
       "title": "Flota y tarifas de alquiler | IVJ Rentcar",
@@ -168,7 +168,7 @@
       },
       {
         "question": "¿Incluye seguro?",
-        "answer": "La cobertura y el deducible se explicarán en la cotización y contrato."
+        "answer": "El seguro completo no está incluido en la tarifa. La cobertura y el deducible se explicarán en la cotización y contrato."
       },
       {
         "question": "¿Entregan el vehículo?",

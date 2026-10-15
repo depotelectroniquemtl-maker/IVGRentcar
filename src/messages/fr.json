@@ -29,7 +29,7 @@
   "seo": {
     "home": {
       "title": "Location de voitures et quads à Las Terrenas | IVJ Rentcar",
-      "description": "Location de voitures, 4x4 et quads à Las Terrenas, République Dominicaine. Réservation simple par WhatsApp, réponse rapide, assurance incluse."
+      "description": "Location de voitures, 4x4 et quads à Las Terrenas. Tarifs dégressifs clairs, réservation en ligne ou par WhatsApp, réponse rapide."
     },
     "flotte": {
       "title": "Flotte et tarifs de location | IVJ Rentcar",
@@ -168,7 +168,7 @@
       },
       {
         "question": "L'assurance est-elle incluse ?",
-        "answer": "La couverture et la franchise éventuelle seront expliquées dans le devis et le contrat."
+        "answer": "L'assurance complète n'est pas incluse dans le tarif. La couverture et la franchise éventuelle seront expliquées dans le devis et le contrat."
       },
       {
         "question": "Livrez-vous le véhicule ?",

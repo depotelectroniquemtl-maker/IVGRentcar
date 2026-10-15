@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ExternalButtonLink } from "@/components/ui/Button";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { BUSINESS_ADDRESS, WHATSAPP_NUMBER, whatsappUrl } from "@/lib/constants";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
@@ -57,6 +58,7 @@ export default async function ContactPage({
 
       <div>
         <ExternalButtonLink href={whatsappUrl()} variant="whatsapp">
+          <WhatsAppIcon className="h-5 w-5" />
           {t("whatsapp")}
         </ExternalButtonLink>
       </div>

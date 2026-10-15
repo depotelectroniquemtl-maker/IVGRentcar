@@ -90,7 +90,9 @@ export function AnalyticsConsent({ gaId }: { gaId: string }) {
       if (!link || !isWhatsAppLink(link as HTMLAnchorElement)) return;
       trackEvent("whatsapp_click", {
         button_location: whatsappLocation(link as HTMLAnchorElement),
-        language: locale,
+        // « language » est un champ réservé de gtag (langue du navigateur) : GA4 l'absorbe au
+        // lieu d'en faire un paramètre d'événement. D'où « site_language ».
+        site_language: locale,
       });
     }
     document.addEventListener("click", onClick, true);

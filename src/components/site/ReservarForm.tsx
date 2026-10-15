@@ -281,7 +281,7 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     if (!error) {
       trackEvent("generate_lead", {
         vehicle_category: categoriaActual?.nom,
-        language: locale,
+        site_language: locale,
       });
     }
 

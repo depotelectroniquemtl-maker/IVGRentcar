@@ -54,7 +54,7 @@ export default async function FlottePage({
       <p className="text-sm text-ink-soft">{t("payment_note")}</p>
 
       <div>
-        <ExternalButtonLink href={whatsappUrl()} variant="whatsapp">
+        <ExternalButtonLink href={whatsappUrl()} variant="whatsapp" data-wa-location="flotte">
           <WhatsAppIcon className="h-5 w-5" />
           {t("reserve")}
         </ExternalButtonLink>

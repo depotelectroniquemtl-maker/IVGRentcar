@@ -56,6 +56,7 @@ export function Header() {
             href={whatsappUrl()}
             variant="dark"
             aria-label="WhatsApp"
+            data-wa-location="header"
             className="h-10 w-10 text-xs max-sm:px-0 sm:w-auto"
           >
             <WhatsAppIcon className="h-4 w-4" />

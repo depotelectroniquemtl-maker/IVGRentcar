@@ -2,8 +2,9 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import Image from "next/image";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { createClient } from "@/lib/supabase/client";
+import { trackEvent } from "@/lib/analytics";
 import { AvailabilityCalendar } from "@/components/site/AvailabilityCalendar";
 import { FLEET_IMAGES } from "@/lib/fleet-images";
 import type { CategorieAvecTarifs } from "@/lib/types";
@@ -43,6 +44,7 @@ const labelClass = "mb-1 block font-medium text-ink";
 
 export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[] }) {
   const t = useTranslations("reservar");
+  const locale = useLocale();
 
   const [nom, setNom] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -273,6 +275,15 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     });
 
     setEstadoEnvio(error ? "error" : "success");
+
+    // Conversion GA4 : uniquement après l'enregistrement réussi de la demande (pas au clic),
+    // et jamais de donnée personnelle — seulement la catégorie de véhicule et la langue.
+    if (!error) {
+      trackEvent("generate_lead", {
+        vehicle_category: categoriaActual?.nom,
+        language: locale,
+      });
+    }
 
     // La demande est déjà enregistrée dans le backoffice quoi qu'il arrive ici — un échec
     // de notification e-mail (clé absente, service en panne) ne doit jamais bloquer

@@ -57,7 +57,7 @@ export default async function ContactPage({
       </dl>
 
       <div>
-        <ExternalButtonLink href={whatsappUrl()} variant="whatsapp">
+        <ExternalButtonLink href={whatsappUrl()} variant="whatsapp" data-wa-location="contact">
           <WhatsAppIcon className="h-5 w-5" />
           {t("whatsapp")}
         </ExternalButtonLink>

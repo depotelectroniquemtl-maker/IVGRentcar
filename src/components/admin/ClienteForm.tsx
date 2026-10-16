@@ -51,7 +51,8 @@ export function ClienteForm({
   const parsedTel = isE164(initialTel) ? parsePhoneNumberFromString(initialTel) : undefined;
   const [telephone, setTelephone] = useState(parsedTel ? parsedTel.formatNational() : initialTel);
   const [paysTel, setPaysTel] = useState<CountryCode>(
-    parsedTel?.country ?? defaultCountryForLocale(locale),
+    // Admin en espagnol : République dominicaine (clientèle locale), contrairement au site public.
+    parsedTel?.country ?? (locale === "es" ? "DO" : defaultCountryForLocale(locale)),
   );
   const [errorTel, setErrorTel] = useState<string | null>(null);
   const [telTouched, setTelTouched] = useState(false);

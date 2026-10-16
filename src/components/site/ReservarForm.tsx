@@ -3,9 +3,12 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
+import type { CountryCode } from "libphonenumber-js/min";
 import { createClient } from "@/lib/supabase/client";
 import { trackEvent } from "@/lib/analytics";
 import { AvailabilityCalendar } from "@/components/site/AvailabilityCalendar";
+import { PhoneField } from "@/components/site/PhoneField";
+import { defaultCountryForLocale, normalizePhone } from "@/lib/phone";
 import { FLEET_IMAGES } from "@/lib/fleet-images";
 import type { CategorieAvecTarifs } from "@/lib/types";
 
@@ -48,6 +51,8 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
 
   const [nom, setNom] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
+  const [paysTel, setPaysTel] = useState<CountryCode>(() => defaultCountryForLocale(locale));
+  const [errorTel, setErrorTel] = useState<string | null>(null);
   const [email, setEmail] = useState("");
   const [categorieId, setCategorieId] = useState("");
   const [lieu, setLieu] = useState("");
@@ -253,26 +258,55 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     e.preventDefault();
     if (!puedeEnviar) return;
 
+    // Validation du numéro avant tout envoi (le serveur le revalide de toute façon).
+    const tel = normalizePhone(whatsapp, paysTel);
+    if (!tel.ok) {
+      setErrorTel(t(`phone_error_${tel.error}`));
+      return;
+    }
+    setErrorTel(null);
+
     setEstadoEnvio("submitting");
 
     const precioTexto = precioEstimado !== null ? `US$ ${precioEstimado}` : null;
 
-    const supabase = createClient();
-    // Insertion anonyme autorisée par la policy "demandes_insert_public" — pas
-    // besoin d'être connecté pour soumettre une demande depuis la vitrine.
-    const { error } = await supabase.from("demandes_reservation").insert({
-      nom,
-      whatsapp,
-      email: email || null,
-      vehicule_id: vehiculeId,
-      date_debut: dateDebut,
-      date_fin: dateFin,
-      heure_debut: horaInicio || null,
-      heure_fin: horaFin || null,
-      lieu_prise_en_charge: lieu || null,
-      notes: notes || null,
-      prix_estime_usd: precioEstimado,
-    });
+    // Enregistrement via la route serveur, qui revalide le numéro puis le stocke en E.164.
+    let error = false;
+    try {
+      const res = await fetch("/api/demandes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom,
+          whatsapp,
+          whatsapp_country: paysTel,
+          email: email || null,
+          vehicule_id: vehiculeId,
+          date_debut: dateDebut,
+          date_fin: dateFin,
+          heure_debut: horaInicio || null,
+          heure_fin: horaFin || null,
+          lieu_prise_en_charge: lieu || null,
+          notes: notes || null,
+          prix_estime_usd: precioEstimado,
+          langue: locale,
+        }),
+      });
+      if (!res.ok) {
+        error = true;
+        if (res.status === 422) {
+          const data = (await res.json().catch(() => null)) as { error?: string } | null;
+          const code = data?.error?.replace("phone_", "");
+          if (code === "invalid" || code === "wrong_country" || code === "required") {
+            setErrorTel(t(`phone_error_${code}`));
+            setEstadoEnvio("idle");
+            return;
+          }
+        }
+      }
+    } catch {
+      error = true;
+    }
 
     setEstadoEnvio(error ? "error" : "success");
 
@@ -293,7 +327,7 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         nom,
-        whatsapp,
+        whatsapp: tel.e164,
         email: email || null,
         categoria: categoriaActual?.nom ?? null,
         inicio: dateDebut,
@@ -310,6 +344,7 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     setEstadoEnvio("idle");
     setNom("");
     setWhatsapp("");
+    setErrorTel(null);
     setEmail("");
     setCategorieId("");
     setLieu("");
@@ -349,16 +384,20 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       </label>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm">
-          <span className={labelClass}>{t("field_whatsapp")}</span>
-          <input
-            type="tel"
-            required
-            value={whatsapp}
-            onChange={(e) => setWhatsapp(e.target.value)}
-            className={inputClass}
-          />
-        </label>
+        <PhoneField
+          label={t("field_whatsapp")}
+          country={paysTel}
+          onCountryChange={(c) => {
+            setPaysTel(c);
+            setErrorTel(null);
+          }}
+          value={whatsapp}
+          onValueChange={(v) => {
+            setWhatsapp(v);
+            setErrorTel(null);
+          }}
+          error={errorTel}
+        />
 
         <label className="block text-sm">
           <span className={labelClass}>{t("field_email")}</span>

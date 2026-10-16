@@ -34,6 +34,7 @@ type Prefill = {
   heureFin?: string;
   lieu?: string;
   prixEstime?: number;
+  demandeId?: string;
   demandeNom?: string;
   demandeWhatsapp?: string;
 };
@@ -159,6 +160,15 @@ export function ReservationForm({
       setError(error.code === "23P01" ? t("error_overlap") : error.message);
       setLoading(false);
       return;
+    }
+
+    // Réservation créée depuis une demande : la demande passe à « Convertie ». Pas de lien
+    // demande ↔ réservation en base, seulement le statut.
+    if (!editing && prefill?.demandeId) {
+      await supabase
+        .from("demandes_reservation")
+        .update({ statut: "convertie" })
+        .eq("id", prefill.demandeId);
     }
 
     router.push("/admin/reservations");

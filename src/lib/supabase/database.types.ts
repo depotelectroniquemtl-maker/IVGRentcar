@@ -67,6 +67,8 @@ export type Database = {
           permis_expiration: string | null
           residencia: string | null
           telephone: string | null
+          telephone_a_verifier: boolean
+          telephone_original: string | null
           updated_at: string
         }
         Insert: {
@@ -85,6 +87,8 @@ export type Database = {
           permis_expiration?: string | null
           residencia?: string | null
           telephone?: string | null
+          telephone_a_verifier?: boolean
+          telephone_original?: string | null
           updated_at?: string
         }
         Update: {
@@ -103,6 +107,8 @@ export type Database = {
           permis_expiration?: string | null
           residencia?: string | null
           telephone?: string | null
+          telephone_a_verifier?: boolean
+          telephone_original?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -228,6 +234,7 @@ export type Database = {
           heure_debut: string | null
           heure_fin: string | null
           id: string
+          langue: string | null
           lieu_prise_en_charge: string | null
           nom: string
           notes: string | null
@@ -236,6 +243,8 @@ export type Database = {
           updated_at: string
           vehicule_id: string
           whatsapp: string
+          whatsapp_a_verifier: boolean
+          whatsapp_original: string | null
         }
         Insert: {
           created_at?: string
@@ -245,6 +254,7 @@ export type Database = {
           heure_debut?: string | null
           heure_fin?: string | null
           id?: string
+          langue?: string | null
           lieu_prise_en_charge?: string | null
           nom: string
           notes?: string | null
@@ -253,6 +263,8 @@ export type Database = {
           updated_at?: string
           vehicule_id: string
           whatsapp: string
+          whatsapp_a_verifier?: boolean
+          whatsapp_original?: string | null
         }
         Update: {
           created_at?: string
@@ -262,6 +274,7 @@ export type Database = {
           heure_debut?: string | null
           heure_fin?: string | null
           id?: string
+          langue?: string | null
           lieu_prise_en_charge?: string | null
           nom?: string
           notes?: string | null
@@ -270,6 +283,8 @@ export type Database = {
           updated_at?: string
           vehicule_id?: string
           whatsapp?: string
+          whatsapp_a_verifier?: boolean
+          whatsapp_original?: string | null
         }
         Relationships: [
           {

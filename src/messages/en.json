@@ -262,7 +262,13 @@
     "error_submit": "Couldn't save the request, but we already opened WhatsApp so you can confirm it directly.",
     "success_title": "Request sent!",
     "success_text": "Your request has been received. We'll get in touch with you shortly on WhatsApp.",
-    "new_request": "Send another request"
+    "new_request": "Send another request",
+    "phone_country": "Phone country",
+    "phone_country_search": "Search a country…",
+    "phone_country_none": "No country found",
+    "phone_error_required": "Please enter your WhatsApp number.",
+    "phone_error_invalid": "This number is not valid for the selected country. Check it or change the country.",
+    "phone_error_wrong_country": "This number does not match the selected country (the +1 code is shared). Choose the right country."
   },
   "contact": {
     "title": "Contact",
@@ -911,7 +917,11 @@
       "statut_contactee": "Contacted",
       "statut_convertie": "Converted",
       "statut_rejetee": "Rejected",
-      "convert": "Convert to reservation"
+      "convert": "Convert to reservation",
+      "a_verifier": "To check",
+      "a_verifier_hint": "Country of this number is uncertain: WhatsApp link disabled until it is confirmed",
+      "whatsapp_open": "Open WhatsApp with a prefilled message",
+      "email_button": "Email"
     },
     "utilisateurs": {
       "title": "Users",

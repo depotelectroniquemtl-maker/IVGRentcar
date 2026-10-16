@@ -12,6 +12,7 @@ import { createClient } from "@/lib/supabase/client";
 // arrive sur le formulaire avec le client déjà sélectionné.
 export function ConvertirDemandeButton({
   label,
+  demandeId,
   nom,
   whatsapp,
   email,
@@ -24,6 +25,7 @@ export function ConvertirDemandeButton({
   prix,
 }: {
   label: string;
+  demandeId: string;
   nom: string;
   whatsapp: string;
   email: string | null;
@@ -69,6 +71,7 @@ export function ConvertirDemandeButton({
       vehicule_id: vehiculeId,
       date_debut: dateDebut,
       date_fin: dateFin,
+      demande_id: demandeId,
       demande_nom: nom,
       demande_whatsapp: whatsapp,
     });

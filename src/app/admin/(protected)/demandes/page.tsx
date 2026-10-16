@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { DemandeStatutSelect } from "@/components/admin/DemandeStatutSelect";
@@ -23,6 +24,20 @@ export default async function DemandesPage({
       "id, nom, whatsapp, whatsapp_a_verifier, langue, email, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
     )
     .order("created_at", { ascending: false });
+
+  // Réservation créée à partir de chaque demande (lien demande_id), pour « Voir la réservation ».
+  const { data: liens } = demandes?.length
+    ? await supabase
+        .from("reservations")
+        .select("id, demande_id")
+        .in(
+          "demande_id",
+          demandes.map((d) => d.id),
+        )
+    : { data: [] };
+  const reservationParDemande = new Map(
+    (liens ?? []).flatMap((r) => (r.demande_id ? [[r.demande_id, r.id] as const] : [])),
+  );
 
   const nuevas = demandes?.filter((d) => d.statut === "nouvelle").length ?? 0;
   const contactadas = demandes?.filter((d) => d.statut === "contactee").length ?? 0;
@@ -134,6 +149,14 @@ export default async function DemandesPage({
                           {t("email_button")}
                         </a>
                       )}
+                      {reservationParDemande.has(d.id) ? (
+                        <Link
+                          href={`/admin/reservations/${reservationParDemande.get(d.id)}`}
+                          className="inline-flex items-center rounded-md bg-brand/10 px-2.5 py-1 text-xs font-semibold text-brand-dark transition-colors hover:bg-brand/20"
+                        >
+                          {t("view_reservation")}
+                        </Link>
+                      ) : (
                       <ConvertirDemandeButton
                         label={t("convert")}
                         nom={d.nom}
@@ -148,6 +171,7 @@ export default async function DemandesPage({
                         lieu={d.lieu_prise_en_charge ?? undefined}
                         prix={d.prix_estime_usd ? String(d.prix_estime_usd) : undefined}
                       />
+                      )}
                     </div>
                   </td>
                 </tr>

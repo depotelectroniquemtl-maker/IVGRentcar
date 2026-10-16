@@ -921,7 +921,8 @@
       "a_verifier": "To check",
       "a_verifier_hint": "Country of this number is uncertain: WhatsApp link disabled until it is confirmed",
       "whatsapp_open": "Open WhatsApp with a prefilled message",
-      "email_button": "Email"
+      "email_button": "Email",
+      "view_reservation": "View reservation"
     },
     "utilisateurs": {
       "title": "Users",

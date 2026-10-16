@@ -192,7 +192,7 @@
       },
       {
         "question": "What is the security deposit?",
-        "answer": "The deposit is US$1,000 for the Kia Seltos, US$500 for the other car models and US$300 for quads. For the scooter, the payment method and the refund of the deposit, contact us: we confirm them before booking."
+        "answer": "Deposit amounts are in US dollars (US$): US$1,000 for the Kia Seltos, US$500 for the other car models and US$300 for quads. For the scooter, the amount is confirmed before booking."
       },
       {
         "question": "Is insurance included?",
@@ -297,13 +297,16 @@
         },
         {
           "heading": "Security deposit",
+          "paragraphs": [
+            "Deposit amounts are in US dollars (US$)."
+          ],
           "list": [
             "Kia Seltos: US$1,000",
             "Other car models: US$500",
             "Quads: US$300"
           ],
           "after": [
-            "For the scooter, the payment method and the refund of the deposit, contact us: we confirm them before booking."
+            "For the scooter, the deposit amount is confirmed before booking."
           ]
         },
         {
@@ -926,7 +929,8 @@
       "a_verifier_hint": "Country of this number is uncertain: WhatsApp link disabled until it is confirmed",
       "whatsapp_open": "Open WhatsApp with a prefilled message",
       "email_button": "Email",
-      "view_reservation": "View reservation"
+      "view_reservation": "View reservation",
+      "already_converted": "Already converted"
     },
     "utilisateurs": {
       "title": "Users",

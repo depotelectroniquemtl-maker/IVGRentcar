@@ -156,6 +156,10 @@ export default async function DemandesPage({
                         >
                           {t("view_reservation")}
                         </Link>
+                      ) : d.statut === "convertie" ? (
+                        <span className="px-2.5 py-1 text-xs font-semibold text-ink-soft">
+                          {t("already_converted")}
+                        </span>
                       ) : (
                       <ConvertirDemandeButton
                         label={t("convert")}

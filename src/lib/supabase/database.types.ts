@@ -25,6 +25,7 @@ export type Database = {
           id: string
           nom: string
           ordre_affichage: number
+          slug: string | null
           type: string
           updated_at: string
         }
@@ -35,6 +36,7 @@ export type Database = {
           id?: string
           nom: string
           ordre_affichage?: number
+          slug?: string | null
           type?: string
           updated_at?: string
         }
@@ -45,6 +47,7 @@ export type Database = {
           id?: string
           nom?: string
           ordre_affichage?: number
+          slug?: string | null
           type?: string
           updated_at?: string
         }

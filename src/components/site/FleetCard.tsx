@@ -45,7 +45,7 @@ export function FleetCard({
 
   const isCar = categorie.type === "voiture";
   // Page détaillée (SEO local) quand elle existe pour cette catégorie.
-  const pageSlug = slugForCategory(categorie.nom);
+  const pageSlug = slugForCategory(categorie);
 
   const PALIERS = [
     { key: "1_3_jours", labelKey: "tier_1_3" },

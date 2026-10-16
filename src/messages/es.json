@@ -192,7 +192,7 @@
       },
       {
         "question": "¿Cuánto es el depósito de garantía?",
-        "answer": "El depósito es de US$ 1,000 para la Kia Seltos, US$ 500 para los demás modelos de auto y US$ 300 para los cuadriciclos. Para la scooter, la forma de pago y la devolución del depósito, contáctanos: lo confirmamos antes de reservar."
+        "answer": "Los montos del depósito son en dólares estadounidenses (US$): US$ 1,000 para el Kia Seltos, US$ 500 para los demás modelos de auto y US$ 300 para los cuadriciclos. Para la scooter, el monto se confirma antes de reservar."
       },
       {
         "question": "¿Incluye seguro?",
@@ -297,13 +297,16 @@
         },
         {
           "heading": "Depósito de garantía",
+          "paragraphs": [
+            "Los montos del depósito son en dólares estadounidenses (US$)."
+          ],
           "list": [
             "Kia Seltos: US$ 1,000",
             "Otros modelos de auto: US$ 500",
             "Cuadriciclos: US$ 300"
           ],
           "after": [
-            "Para la scooter, la forma de pago y la devolución del depósito, contáctanos: lo confirmamos antes de reservar."
+            "Para la scooter, el monto del depósito se confirma antes de reservar."
           ]
         },
         {
@@ -926,7 +929,8 @@
       "a_verifier_hint": "País del número incierto: enlace de WhatsApp desactivado hasta confirmarlo",
       "whatsapp_open": "Abrir WhatsApp con un mensaje prellenado",
       "email_button": "Correo",
-      "view_reservation": "Ver la reserva"
+      "view_reservation": "Ver la reserva",
+      "already_converted": "Ya convertida"
     },
     "utilisateurs": {
       "title": "Usuarios",

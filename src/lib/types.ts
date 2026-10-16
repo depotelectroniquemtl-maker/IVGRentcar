@@ -18,6 +18,8 @@ export interface CategorieVehicule {
   type: TypeVehicule;
   capacite_personnes: number | null;
   actif: boolean;
+  // Identifiant d'URL stable des pages publiques /flotte/<slug> (null = pas de page).
+  slug: string | null;
 }
 
 export interface Tarif {

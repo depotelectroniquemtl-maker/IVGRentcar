@@ -18,7 +18,7 @@ export async function getCatalogue(): Promise<CategorieAvecTarifs[]> {
   const [{ data, error }, { data: flotteActive, error: flotteError }] = await Promise.all([
     supabase
       .from("categories_vehicules")
-      .select("id, nom, type, capacite_personnes, actif, tarifs(palier, prix_usd)")
+      .select("id, nom, slug, type, capacite_personnes, actif, tarifs(palier, prix_usd)")
       .eq("actif", true)
       .order("ordre_affichage")
       .order("nom"),
@@ -52,6 +52,7 @@ export async function getCatalogue(): Promise<CategorieAvecTarifs[]> {
       return {
         id: categorie.id,
         nom: categorie.nom,
+        slug: categorie.slug,
         type: categorie.type as TypeVehicule,
         capacite_personnes: categorie.capacite_personnes,
         actif: categorie.actif,

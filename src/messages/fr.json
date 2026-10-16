@@ -192,7 +192,7 @@
       },
       {
         "question": "Quel est le dépôt de garantie (caution) ?",
-        "answer": "La caution est de 1 000 US$ pour la Kia Seltos, de 500 US$ pour les autres modèles de voiture et de 300 US$ pour les quads. Pour le scooter, le mode de paiement et le remboursement de la caution, contactez-nous : nous le confirmons avant la réservation."
+        "answer": "Les montants de la caution sont en dollars américains (US$) : 1 000 US$ pour la Kia Seltos, 500 US$ pour les autres modèles de voiture et 300 US$ pour les quads. Pour le scooter, le montant est confirmé avant la réservation."
       },
       {
         "question": "L'assurance est-elle incluse ?",
@@ -297,13 +297,16 @@
         },
         {
           "heading": "Caution (dépôt de garantie)",
+          "paragraphs": [
+            "Les montants de la caution sont en dollars américains (US$)."
+          ],
           "list": [
             "Kia Seltos : 1 000 US$",
             "Autres modèles de voiture : 500 US$",
             "Quads : 300 US$"
           ],
           "after": [
-            "Pour le scooter, le mode de paiement et le remboursement de la caution, contactez-nous : nous le confirmons avant la réservation."
+            "Pour le scooter, le montant de la caution est confirmé avant la réservation."
           ]
         },
         {
@@ -926,7 +929,8 @@
       "a_verifier_hint": "Pays du numéro incertain : lien WhatsApp désactivé tant qu'il n'est pas confirmé",
       "whatsapp_open": "Ouvrir WhatsApp avec un message prérempli",
       "email_button": "Courriel",
-      "view_reservation": "Voir la réservation"
+      "view_reservation": "Voir la réservation",
+      "already_converted": "Déjà convertie"
     },
     "utilisateurs": {
       "title": "Utilisateurs",

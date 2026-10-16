@@ -656,6 +656,7 @@
       "section_direccion": "Dirección",
       "field_nombre": "Nombre completo",
       "field_telefono": "Teléfono",
+      "a_verifier_hint": "Número por verificar: país desconocido. Elija el país y corrija el número para guardarlo en formato internacional.",
       "field_correo": "Correo",
       "field_licencia": "N.º de licencia",
       "field_licencia_exp": "Vencimiento de la licencia",

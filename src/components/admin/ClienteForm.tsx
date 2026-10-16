@@ -4,13 +4,18 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useLocale } from "next-intl";
+import { parsePhoneNumberFromString, type CountryCode } from "libphonenumber-js/min";
 import { createClient } from "@/lib/supabase/client";
+import { PhoneField } from "@/components/site/PhoneField";
+import { defaultCountryForLocale, isE164, normalizePhone } from "@/lib/phone";
 import { Card, inputClass, labelClass, primaryButtonClass, secondaryLinkClass } from "@/components/admin/form-ui";
 
 type Cliente = {
   id: string;
   nom: string;
   telephone: string | null;
+  telephone_a_verifier?: boolean;
   email: string | null;
   numero_permis: string | null;
   permis_expiration: string | null;
@@ -35,10 +40,22 @@ export function ClienteForm({
   const router = useRouter();
   const t = useTranslations("admin.clients");
   const tCommon = useTranslations("admin.common");
+  const tReservar = useTranslations("reservar");
+  const locale = useLocale();
   const editing = Boolean(cliente);
 
   const [nom, setNom] = useState(cliente?.nom ?? "");
-  const [telephone, setTelephone] = useState(cliente?.telephone ?? "");
+  // Numéro déjà en E.164 : on affiche le pays et le numéro national. Sinon (ancien numéro en
+  // format libre, « à vérifier »), on affiche la valeur brute telle quelle, sans deviner de pays.
+  const initialTel = cliente?.telephone ?? "";
+  const parsedTel = isE164(initialTel) ? parsePhoneNumberFromString(initialTel) : undefined;
+  const [telephone, setTelephone] = useState(parsedTel ? parsedTel.formatNational() : initialTel);
+  const [paysTel, setPaysTel] = useState<CountryCode>(
+    // Admin en espagnol : République dominicaine (clientèle locale), contrairement au site public.
+    parsedTel?.country ?? (locale === "es" ? "DO" : defaultCountryForLocale(locale)),
+  );
+  const [errorTel, setErrorTel] = useState<string | null>(null);
+  const [telTouched, setTelTouched] = useState(false);
   const [email, setEmail] = useState(cliente?.email ?? "");
   const [numeroPermis, setNumeroPermis] = useState(cliente?.numero_permis ?? "");
   const [permisExpiration, setPermisExpiration] = useState(cliente?.permis_expiration ?? "");
@@ -57,13 +74,32 @@ export function ClienteForm({
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setLoading(true);
     setError(null);
+
+    // Téléphone : vide = autorisé ; modifié = validé et enregistré en E.164 ; non modifié
+    // (ancien numéro « à vérifier ») = conservé tel quel, avec son marqueur.
+    let telephoneFinal: string | null = cliente?.telephone ?? null;
+    let aVerifier = cliente?.telephone_a_verifier ?? false;
+    if (!telephone.trim()) {
+      telephoneFinal = null;
+      aVerifier = false;
+    } else if (telTouched || !editing) {
+      const tel = normalizePhone(telephone, paysTel);
+      if (!tel.ok) {
+        setErrorTel(tReservar(`phone_error_${tel.error}`));
+        return;
+      }
+      telephoneFinal = tel.e164;
+      aVerifier = false;
+    }
+    setErrorTel(null);
+    setLoading(true);
 
     const supabase = createClient();
     const payload = {
       nom,
-      telephone: telephone || null,
+      telephone: telephoneFinal,
+      telephone_a_verifier: aVerifier,
       email: email || null,
       numero_permis: numeroPermis || null,
       permis_expiration: permisExpiration || null,
@@ -123,15 +159,31 @@ export function ClienteForm({
             </label>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <label className="block text-sm">
-                <span className={labelClass}>{t("field_telefono")}</span>
-                <input
-                  type="tel"
+              <div>
+                <PhoneField
+                  id="client-telephone"
+                  required={false}
+                  label={t("field_telefono")}
+                  country={paysTel}
+                  onCountryChange={(c) => {
+                    setPaysTel(c);
+                    setTelTouched(true);
+                    setErrorTel(null);
+                  }}
                   value={telephone}
-                  onChange={(e) => setTelephone(e.target.value)}
-                  className={inputClass}
+                  onValueChange={(v) => {
+                    setTelephone(v);
+                    setTelTouched(true);
+                    setErrorTel(null);
+                  }}
+                  error={errorTel}
                 />
-              </label>
+                {cliente?.telephone_a_verifier && !telTouched && (
+                  <p className="mt-1 text-xs font-medium text-amber-800">
+                    ⚠ {t("a_verifier_hint")}
+                  </p>
+                )}
+              </div>
 
               <label className="block text-sm">
                 <span className={labelClass}>{t("field_correo")}</span>

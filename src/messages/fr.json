@@ -656,6 +656,7 @@
       "section_direccion": "Adresse",
       "field_nombre": "Nom complet",
       "field_telefono": "Téléphone",
+      "a_verifier_hint": "Numéro à vérifier : pays inconnu. Choisissez le pays et corrigez le numéro pour l'enregistrer en format international.",
       "field_correo": "E-mail",
       "field_licencia": "N° de permis",
       "field_licencia_exp": "Expiration du permis",

@@ -15,6 +15,7 @@ export function ConvertirDemandeButton({
   demandeId,
   nom,
   whatsapp,
+  whatsappAVerifier,
   email,
   vehiculeId,
   dateDebut,
@@ -28,6 +29,7 @@ export function ConvertirDemandeButton({
   demandeId: string;
   nom: string;
   whatsapp: string;
+  whatsappAVerifier?: boolean;
   email: string | null;
   vehiculeId: string;
   dateDebut: string;
@@ -55,7 +57,12 @@ export function ConvertirDemandeButton({
     if (!clientId) {
       const { data: nouveau, error } = await supabase
         .from("clients")
-        .insert({ nom, telephone: whatsapp, email: email || null })
+        .insert({
+          nom,
+          telephone: whatsapp,
+          telephone_a_verifier: whatsappAVerifier ?? false,
+          email: email || null,
+        })
         .select("id")
         .single();
 

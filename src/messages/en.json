@@ -656,6 +656,7 @@
       "section_direccion": "Address",
       "field_nombre": "Full name",
       "field_telefono": "Phone",
+      "a_verifier_hint": "Number to check: country unknown. Choose the country and fix the number to save it in international format.",
       "field_correo": "Email",
       "field_licencia": "License number",
       "field_licencia_exp": "License expiration",

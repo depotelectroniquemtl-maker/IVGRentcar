@@ -161,6 +161,7 @@ export default async function DemandesPage({
                         label={t("convert")}
                         nom={d.nom}
                         whatsapp={d.whatsapp}
+                        whatsappAVerifier={d.whatsapp_a_verifier}
                         demandeId={d.id}
                         email={d.email}
                         vehiculeId={d.vehicule_id}

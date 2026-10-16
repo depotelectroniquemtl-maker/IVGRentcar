@@ -18,6 +18,8 @@ export function PhoneField({
   value,
   onValueChange,
   error,
+  id = "whatsapp-input",
+  required = true,
 }: {
   label: string;
   country: CountryCode;
@@ -25,6 +27,8 @@ export function PhoneField({
   value: string;
   onValueChange: (v: string) => void;
   error: string | null;
+  id?: string;
+  required?: boolean;
 }) {
   const t = useTranslations("reservar");
   const locale = useLocale();
@@ -98,7 +102,7 @@ export function PhoneField({
 
   return (
     <div className="block text-sm" ref={rootRef}>
-      <label htmlFor="whatsapp-input" className="mb-1 block font-medium text-ink">
+      <label htmlFor={id} className="mb-1 block font-medium text-ink">
         {label}
       </label>
       <div className="relative flex gap-2">
@@ -118,15 +122,15 @@ export function PhoneField({
         </button>
 
         <input
-          id="whatsapp-input"
+          id={id}
           type="tel"
           inputMode="tel"
           autoComplete="tel-national"
-          required
+          required={required}
           value={value}
           onChange={(e) => onValueChange(e.target.value)}
           aria-invalid={error ? true : undefined}
-          aria-describedby={error ? "whatsapp-error" : undefined}
+          aria-describedby={error ? `${id}-error` : undefined}
           className={`${inputClass} min-h-[44px] min-w-0 flex-1 ${error ? "border-red-500" : ""}`}
         />
 
@@ -155,7 +159,7 @@ export function PhoneField({
         )}
       </div>
       {error && (
-        <p id="whatsapp-error" role="alert" className="mt-1 text-sm text-red-600">
+        <p id={`${id}-error`} role="alert" className="mt-1 text-sm text-red-600">
           {error}
         </p>
       )}

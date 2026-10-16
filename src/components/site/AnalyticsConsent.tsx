@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Script from "next/script";
 import { usePathname } from "next/navigation";
+import { Link } from "@/i18n/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import {
   OPEN_SETTINGS_EVENT,
@@ -125,7 +126,12 @@ export function AnalyticsConsent({ gaId }: { gaId: string }) {
           className="fixed inset-x-0 bottom-0 z-[60] border-t border-black/10 bg-white px-4 py-3 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] sm:px-6"
         >
           <div className="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-            <p className="text-xs leading-snug text-ink-soft sm:text-sm">{t("text")}</p>
+            <p className="text-xs leading-snug text-ink-soft sm:text-sm">
+              {t("text")}{" "}
+              <Link href="/confidentialite" className="font-medium text-ink underline">
+                {t("privacy_link")}
+              </Link>
+            </p>
             <div className="flex shrink-0 gap-2">
               <button type="button" onClick={() => choose("granted")} className={BUTTON_CLASS}>
                 {t("accept")}

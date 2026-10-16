@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Link as LocaleLink } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { WHATSAPP_NUMBER } from "@/lib/constants";
 import { splitLines } from "@/lib/splitLines";
@@ -32,9 +33,20 @@ export function Footer({ showCookieSettings = false }: { showCookieSettings?: bo
             © {new Date().getFullYear()} IVJ Rentcar · {t("footer.location")}
           </p>
           <p>WhatsApp: +{WHATSAPP_NUMBER}</p>
-          {showCookieSettings && (
-            <CookieSettingsButton className="text-left text-white/60 underline-offset-2 transition hover:text-white hover:underline" />
-          )}
+          <nav className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <LocaleLink href="/conditions" className="text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+              {t("footer.link_conditions")}
+            </LocaleLink>
+            <LocaleLink href="/mentions-legales" className="text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+              {t("footer.link_legal")}
+            </LocaleLink>
+            <LocaleLink href="/confidentialite" className="text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+              {t("footer.link_privacy")}
+            </LocaleLink>
+            {showCookieSettings && (
+              <CookieSettingsButton className="text-left text-white/60 underline-offset-2 transition hover:text-white hover:underline" />
+            )}
+          </nav>
           <Link href="/admin/login" className="text-white/40 transition hover:text-white/70">
             {t("footer.admin")}
           </Link>

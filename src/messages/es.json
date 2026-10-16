@@ -16,7 +16,10 @@
       "address": "Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, R.D.",
       "tagline": "Explora con libertad.\nRegresa feliz.",
       "location": "Las Terrenas, República Dominicana",
-      "admin": "Admin"
+      "admin": "Admin",
+      "link_conditions": "Condiciones de alquiler",
+      "link_legal": "Aviso legal",
+      "link_privacy": "Privacidad"
     }
   },
   "cookies": {
@@ -24,7 +27,8 @@
     "text": "Este sitio usa Google Analytics para medir las visitas. Solo se activa si lo aceptas, y puedes cambiar de opinión en cualquier momento (enlace al pie de la página).",
     "accept": "Aceptar",
     "refuse": "Rechazar",
-    "manage": "Gestionar cookies"
+    "manage": "Gestionar cookies",
+    "privacy_link": "Política de privacidad"
   },
   "seo": {
     "home": {
@@ -50,6 +54,18 @@
     "reservar": {
       "title": "Reservar un vehículo | IVJ Rentcar",
       "description": "Solicita disponibilidad y la tarifa del día para un auto, 4x4 o cuadriciclo en Las Terrenas. Respuesta rápida, sin compromiso."
+    },
+    "conditions": {
+      "title": "Condiciones de alquiler | IVJ Rentcar",
+      "description": "Edad mínima, depósito por vehículo, seguro y entrega: lo esencial para alquilar un auto o cuadriciclo en Las Terrenas."
+    },
+    "mentions": {
+      "title": "Aviso legal | IVJ Rentcar",
+      "description": "Editor, datos de contacto y alojamiento del sitio ivjrentcar.com (IVJ Rentcar, Las Terrenas)."
+    },
+    "confidentialite": {
+      "title": "Privacidad y cookies | IVJ Rentcar",
+      "description": "Qué datos recoge el sitio, cómo funciona Google Analytics con tu consentimiento y cómo gestionar tus cookies."
     }
   },
   "home": {
@@ -164,23 +180,41 @@
     "items": [
       {
         "question": "¿Qué necesito para alquilar?",
-        "answer": "Puede requerirse licencia vigente, pasaporte o identificación y depósito. Los requisitos se confirman antes de reservar."
+        "answer": "Puede requerirse licencia vigente, pasaporte o identificación y depósito. Los requisitos se confirman antes de reservar. Para conocer los documentos exigidos y los años de licencia, contáctanos por WhatsApp o por el formulario."
+      },
+      {
+        "question": "¿Qué edad se necesita para alquilar?",
+        "answer": "El conductor debe tener al menos 25 años.",
+        "schema": true
+      },
+      {
+        "question": "¿Cuánto es el depósito de garantía?",
+        "answer": "El depósito es de US$ 1,000 para la Kia Seltos, US$ 500 para los demás modelos de auto y US$ 300 para los cuadriciclos. Para la scooter, la forma de pago y la devolución del depósito, contáctanos: lo confirmamos antes de reservar."
       },
       {
         "question": "¿Incluye seguro?",
-        "answer": "El seguro completo no está incluido en la tarifa. La cobertura y el deducible se explicarán en la cotización y contrato."
+        "answer": "El seguro completo no está incluido en la tarifa. La cobertura y el deducible se explicarán en la cotización y contrato.",
+        "schema": true
       },
       {
         "question": "¿Entregan el vehículo?",
-        "answer": "Puede haber entrega según la ubicación y disponibilidad."
+        "answer": "El vehículo se entrega normalmente en nuestro local: Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. La entrega en el aeropuerto es posible con un costo adicional; contáctanos para el monto y los detalles."
       },
       {
         "question": "¿Cómo confirmo?",
         "answer": "IVJ confirmará disponibilidad, precio, depósito y pasos para asegurar el vehículo."
       },
       {
+        "question": "¿Hay límite de kilometraje?",
+        "answer": "Contáctanos para conocer las condiciones de kilometraje: las confirmamos antes de reservar."
+      },
+      {
+        "question": "¿Puedo cancelar mi reserva?",
+        "answer": "Contáctanos para conocer las condiciones de cancelación: las confirmamos antes de reservar."
+      },
+      {
         "question": "¿Políticas de combustible y cancelación?",
-        "answer": "Se informarán combustible, cancelación, retrasos y daños antes de confirmar."
+        "answer": "Se informarán combustible, cancelación, retrasos y daños antes de confirmar. Consulta también nuestra página de Condiciones de alquiler."
       }
     ]
   },
@@ -237,6 +271,162 @@
     "address": "Dirección",
     "hours": "Horario",
     "hours_value": "Todos los días, con reserva previa"
+  },
+  "legal": {
+    "updated": "Última actualización: octubre de 2026",
+    "conditions": {
+      "title": "Condiciones de alquiler",
+      "intro": "Lo esencial de nuestras condiciones para alquilar un auto o cuadriciclo. Las condiciones completas figuran en la cotización y en el contrato de alquiler, confirmados antes de reservar.",
+      "cta": "¿Tienes una pregunta sobre estas condiciones? Escríbenos por WhatsApp.",
+      "sections": [
+        {
+          "heading": "Conductor",
+          "paragraphs": [
+            "El conductor debe tener al menos 25 años.",
+            "Para conocer los documentos exigidos y los años de licencia, contáctanos: lo confirmamos antes de reservar."
+          ]
+        },
+        {
+          "heading": "Depósito de garantía",
+          "list": [
+            "Kia Seltos: US$ 1,000",
+            "Otros modelos de auto: US$ 500",
+            "Cuadriciclos: US$ 300"
+          ],
+          "after": [
+            "Para la scooter, la forma de pago y la devolución del depósito, contáctanos: lo confirmamos antes de reservar."
+          ]
+        },
+        {
+          "heading": "Tarifas",
+          "paragraphs": [
+            "Las tarifas son en dólares (US$) y dependen de la duración del alquiler. Figuran en la página Flota y tarifas."
+          ],
+          "link": {
+            "label": "Ver la flota y las tarifas",
+            "href": "/flotte"
+          }
+        },
+        {
+          "heading": "Seguro",
+          "paragraphs": [
+            "El seguro completo no está incluido en la tarifa.",
+            "La cobertura y el deducible se explicarán en la cotización y contrato."
+          ]
+        },
+        {
+          "heading": "Entrega y recogida",
+          "paragraphs": [
+            "El vehículo se entrega normalmente en nuestro local: {address}",
+            "La entrega en el aeropuerto es posible con un costo adicional; contáctanos para el monto y los detalles."
+          ]
+        },
+        {
+          "heading": "Otras condiciones",
+          "paragraphs": [
+            "Kilometraje, cancelación, combustible, retrasos y daños: contáctanos para conocer las condiciones. Se informan antes de confirmar la reserva."
+          ]
+        }
+      ]
+    },
+    "mentions": {
+      "title": "Aviso legal",
+      "intro": "Información legal sobre el sitio ivjrentcar.com.",
+      "sections": [
+        {
+          "heading": "Editor del sitio",
+          "paragraphs": [
+            "El sitio ivjrentcar.com es editado por I.V.J Polanco Rent a Car (nombre comercial: IVJ Rentcar).",
+            "Dirección: {address}",
+            "Correo: {email}",
+            "Teléfono / WhatsApp: {phone}"
+          ]
+        },
+        {
+          "heading": "Alojamiento",
+          "paragraphs": [
+            "El sitio está alojado por Vercel Inc. (vercel.com)."
+          ]
+        },
+        {
+          "heading": "Datos personales y cookies",
+          "paragraphs": [
+            "Para saber qué datos se recogen y cómo gestionar tus cookies, consulta nuestra página de Privacidad y cookies."
+          ],
+          "link": {
+            "label": "Privacidad y cookies",
+            "href": "/confidentialite"
+          }
+        },
+        {
+          "heading": "Condiciones de alquiler",
+          "paragraphs": [
+            "Las condiciones de alquiler se detallan en la página Condiciones de alquiler."
+          ],
+          "link": {
+            "label": "Condiciones de alquiler",
+            "href": "/conditions"
+          }
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacidad y cookies",
+      "intro": "Esta página explica qué datos recoge el sitio, por qué, y cómo gestionar tus opciones.",
+      "sections": [
+        {
+          "heading": "Quién es el responsable",
+          "paragraphs": [
+            "I.V.J Polanco Rent a Car (nombre comercial: IVJ Rentcar).",
+            "Dirección: {address}",
+            "Contacto: {email}"
+          ]
+        },
+        {
+          "heading": "Formulario de solicitud de reserva",
+          "paragraphs": [
+            "Si envías una solicitud de reserva, recibimos tu nombre, tu número de WhatsApp, tu correo (opcional), el vehículo y las fechas solicitadas, el lugar de recogida y tus notas.",
+            "Estos datos sirven para responder a tu solicitud y preparar tu reserva."
+          ]
+        },
+        {
+          "heading": "Dónde se guardan tus datos",
+          "paragraphs": [
+            "Las solicitudes se guardan en nuestra base de datos, alojada en Supabase (servidores en Estados Unidos).",
+            "Cada solicitud también nos llega por un correo de notificación enviado mediante el servicio Resend, que contiene la información de la solicitud.",
+            "El sitio está alojado en Vercel."
+          ]
+        },
+        {
+          "heading": "Servicios de terceros",
+          "paragraphs": [
+            "Cuando escribes el lugar de recogida en el formulario, el texto escrito se envía al servicio de búsqueda de direcciones Photon (Komoot) para proponer sugerencias."
+          ]
+        },
+        {
+          "heading": "Cookies y medición de audiencia",
+          "paragraphs": [
+            "Con tu consentimiento, usamos Google Analytics 4 para medir las visitas al sitio.",
+            "Por defecto todo está rechazado: no se envía ningún dato a Google hasta que hagas clic en «Aceptar». Si rechazas, no se envía ningún dato a Google Analytics y no se coloca ninguna cookie de medición.",
+            "Si aceptas, Google Analytics mide las páginas vistas y dos acciones: el clic en un botón de WhatsApp y el envío de una solicitud de reserva. Estas mediciones no contienen datos personales (ni nombre, ni teléfono, ni correo). Las cookies publicitarias siguen desactivadas.",
+            "Tu elección se guarda en tu dispositivo. Puedes cambiarla en cualquier momento con el enlace «Gestionar cookies» al pie de cada página.",
+            "El panel de administración interno nunca se rastrea."
+          ]
+        },
+        {
+          "heading": "Plazo de conservación",
+          "paragraphs": [
+            "Conservamos tus datos el tiempo necesario para atender tu solicitud y gestionar el alquiler. Para conocer el plazo exacto, contáctanos."
+          ]
+        },
+        {
+          "heading": "Tus derechos",
+          "paragraphs": [
+            "Puedes escribirnos a {email} para pedir acceso a tus datos, su corrección o su eliminación."
+          ]
+        }
+      ]
+    }
   },
   "admin": {
     "meta": {

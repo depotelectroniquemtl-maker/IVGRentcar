@@ -262,7 +262,13 @@
     "error_submit": "La demande n'a pas pu être enregistrée, mais WhatsApp est déjà ouvert pour la confirmer directement.",
     "success_title": "Demande envoyée !",
     "success_text": "Votre demande a bien été reçue. Nous vous contacterons rapidement par WhatsApp.",
-    "new_request": "Envoyer une autre demande"
+    "new_request": "Envoyer une autre demande",
+    "phone_country": "Pays du numéro",
+    "phone_country_search": "Rechercher un pays…",
+    "phone_country_none": "Aucun pays trouvé",
+    "phone_error_required": "Indiquez votre numéro WhatsApp.",
+    "phone_error_invalid": "Ce numéro n'est pas valide pour le pays choisi. Vérifiez-le ou changez de pays.",
+    "phone_error_wrong_country": "Ce numéro ne correspond pas au pays choisi (l'indicatif +1 est partagé). Choisissez le bon pays."
   },
   "contact": {
     "title": "Contact",
@@ -911,7 +917,11 @@
       "statut_contactee": "Contactée",
       "statut_convertie": "Convertie",
       "statut_rejetee": "Rejetée",
-      "convert": "Convertir en réservation"
+      "convert": "Convertir en réservation",
+      "a_verifier": "À vérifier",
+      "a_verifier_hint": "Pays du numéro incertain : lien WhatsApp désactivé tant qu'il n'est pas confirmé",
+      "whatsapp_open": "Ouvrir WhatsApp avec un message prérempli",
+      "email_button": "Courriel"
     },
     "utilisateurs": {
       "title": "Utilisateurs",

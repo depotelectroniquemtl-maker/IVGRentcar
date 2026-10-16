@@ -4,6 +4,7 @@ import { DemandeStatutSelect } from "@/components/admin/DemandeStatutSelect";
 import { ConvertirDemandeButton } from "@/components/admin/ConvertirDemandeButton";
 import { StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { SearchInput } from "@/components/admin/SearchInput";
+import { buildContactMessage, mailtoHref, whatsappHref } from "@/lib/contact-messages";
 
 export default async function DemandesPage({
   searchParams,
@@ -19,7 +20,7 @@ export default async function DemandesPage({
   const { data: demandes, error } = await supabase
     .from("demandes_reservation")
     .select(
-      "id, nom, whatsapp, email, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
+      "id, nom, whatsapp, whatsapp_a_verifier, langue, email, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
     )
     .order("created_at", { ascending: false });
 
@@ -72,10 +73,41 @@ export default async function DemandesPage({
           </thead>
           <tbody>
             {demandesFiltradas?.map((d) => {
+              const vehiculeNom = d.vehicules?.categories_vehicules?.nom ?? null;
+              const message = buildContactMessage({
+                nom: d.nom,
+                vehicule: vehiculeNom,
+                dateDebut: d.date_debut,
+                dateFin: d.date_fin,
+                prix: d.prix_estime_usd,
+                langue: d.langue,
+              });
               return (
                 <tr key={d.id} className={trClass}>
                   <td className="px-4 py-3 font-medium text-ink">{d.nom}</td>
-                  <td className="px-4 py-3">{d.whatsapp}</td>
+                  <td className="px-4 py-3">
+                    {d.whatsapp_a_verifier ? (
+                      <div className="flex flex-col items-start gap-1">
+                        <span className="whitespace-nowrap">{d.whatsapp}</span>
+                        <span
+                          title={t("a_verifier_hint")}
+                          className="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-semibold text-amber-800"
+                        >
+                          ⚠ {t("a_verifier")}
+                        </span>
+                      </div>
+                    ) : (
+                      <a
+                        href={whatsappHref(d.whatsapp, message.body)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title={t("whatsapp_open")}
+                        className="whitespace-nowrap font-medium text-brand-dark underline-offset-2 hover:underline"
+                      >
+                        {d.whatsapp}
+                      </a>
+                    )}
+                  </td>
                   <td className="px-4 py-3">
                     {d.vehicules?.categories_vehicules?.nom ?? tCommon("dash")}
                     {d.vehicules?.plaque ? ` (${d.vehicules.plaque})` : ""}
@@ -92,11 +124,21 @@ export default async function DemandesPage({
                     <DemandeStatutSelect id={d.id} statut={d.statut} />
                   </td>
                   <td className="px-4 py-3">
-                    <div className="flex justify-end">
+                    <div className="flex flex-wrap items-center justify-end gap-2">
+                      {d.email && (
+                        <a
+                          href={mailtoHref(d.email, message.subject, message.body)}
+                          title={d.email}
+                          className="inline-flex items-center rounded-md border border-black/15 px-2.5 py-1 text-xs font-semibold text-ink transition-colors hover:bg-black/5"
+                        >
+                          {t("email_button")}
+                        </a>
+                      )}
                       <ConvertirDemandeButton
                         label={t("convert")}
                         nom={d.nom}
                         whatsapp={d.whatsapp}
+                        demandeId={d.id}
                         email={d.email}
                         vehiculeId={d.vehicule_id}
                         dateDebut={d.date_debut}

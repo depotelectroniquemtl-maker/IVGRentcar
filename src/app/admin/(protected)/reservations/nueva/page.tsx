@@ -14,6 +14,7 @@ export default async function NuevaReservaPage({
     heure_fin?: string;
     lieu?: string;
     prix?: string;
+    demande_id?: string;
     demande_nom?: string;
     demande_whatsapp?: string;
   }>;
@@ -53,6 +54,7 @@ export default async function NuevaReservaPage({
         heureFin: params.heure_fin,
         lieu: params.lieu,
         prixEstime: params.prix ? Number(params.prix) : undefined,
+        demandeId: params.demande_id,
         demandeNom: params.demande_nom,
         demandeWhatsapp: params.demande_whatsapp,
       }}

@@ -259,7 +259,7 @@
     "unavailable": "Non disponible pour ces dates — essayez un autre véhicule ou d'autres dates.",
     "error_dates": "La date de fin doit être égale ou postérieure à la date de début.",
     "checking_error": "Impossible de vérifier la disponibilité.",
-    "error_submit": "La demande n'a pas pu être enregistrée, mais WhatsApp est déjà ouvert pour la confirmer directement.",
+    "error_submit": "La demande n'a pas pu être enregistrée. Réessayez dans un instant ou écrivez-nous directement sur WhatsApp.",
     "success_title": "Demande envoyée !",
     "success_text": "Votre demande a bien été reçue. Nous vous contacterons rapidement par WhatsApp.",
     "new_request": "Envoyer une autre demande",

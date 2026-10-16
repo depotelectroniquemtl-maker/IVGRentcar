@@ -259,7 +259,7 @@
     "unavailable": "Not available for these dates — try another vehicle or different dates.",
     "error_dates": "The end date must be on or after the start date.",
     "checking_error": "Couldn't check availability.",
-    "error_submit": "Couldn't save the request, but we already opened WhatsApp so you can confirm it directly.",
+    "error_submit": "Couldn't save the request. Please try again in a moment or message us directly on WhatsApp.",
     "success_title": "Request sent!",
     "success_text": "Your request has been received. We'll get in touch with you shortly on WhatsApp.",
     "new_request": "Send another request",

@@ -21,7 +21,7 @@ export function Header() {
       {/* Pas de <Container> ici (même raison que le hero) : l'ancien site pousse le
           header depuis le bord de l'écran (padding en vw), sinon le logo recule vers le
           centre sur les écrans larges au lieu de rester proche du bord. */}
-      <div className="flex h-20 items-center justify-between gap-4 px-4 sm:h-24 sm:px-6 lg:px-[4vw]">
+      <div className="flex h-20 items-center justify-between gap-2 px-4 min-[380px]:gap-4 sm:h-24 sm:px-6 lg:px-[4vw]">
         <Link href="/" className="shrink-0">
           <Image
             src="/logo.png"
@@ -29,7 +29,7 @@ export function Header() {
             width={220}
             height={70}
             priority
-            className="h-12 w-auto sm:h-[70px]"
+            className="h-10 w-auto min-[380px]:h-12 sm:h-[70px]"
           />
         </Link>
 
@@ -48,7 +48,7 @@ export function Header() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 min-[380px]:gap-4">
           <LocaleSwitcher />
           {/* Icône seule sous 640 px (le texte est masqué, d'où l'aria-label), icône + texte
               à partir de sm. */}

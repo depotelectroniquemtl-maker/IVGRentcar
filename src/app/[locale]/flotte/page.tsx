@@ -5,6 +5,7 @@ import { ExternalButtonLink } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { FleetGrid } from "@/components/site/FleetGrid";
 import { PriceTable } from "@/components/site/PriceTable";
+import { FleetHubLinks } from "@/components/site/FleetHubLinks";
 import { whatsappUrl } from "@/lib/constants";
 import { getCatalogue } from "@/lib/data/catalogue";
 import type { AppLocale } from "@/i18n/routing";
@@ -48,6 +49,8 @@ export default async function FlottePage({
       </div>
 
       <FleetGrid categories={catalogue} />
+
+      <FleetHubLinks />
 
       <PriceTable categories={catalogue} />
 

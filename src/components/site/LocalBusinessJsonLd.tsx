@@ -1,4 +1,10 @@
-import { BUSINESS_EMAIL, BUSINESS_NAME, SITE_URL, WHATSAPP_NUMBER } from "@/lib/constants";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_ID,
+  BUSINESS_NAME,
+  SITE_URL,
+  WHATSAPP_NUMBER,
+} from "@/lib/constants";
 
 const DAYS = [
   "Monday",
@@ -19,6 +25,7 @@ export function LocalBusinessJsonLd() {
   const data = {
     "@context": "https://schema.org",
     "@type": "AutoRental",
+    "@id": BUSINESS_ID,
     name: BUSINESS_NAME,
     image: `${SITE_URL}/hero/hero-tropical-fleet.webp`,
     url: SITE_URL,

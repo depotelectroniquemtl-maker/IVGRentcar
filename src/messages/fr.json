@@ -125,6 +125,9 @@
     "amenity_ac": "Climatisation",
     "amenity_on_request": "Selon disponibilité",
     "card_cta": "Réserver",
+    "card_details": "Voir la fiche",
+    "hub_voitures": "Location de voiture à Las Terrenas",
+    "hub_quads": "Location de quad à Las Terrenas",
     "vehicle_copy": {
       "Hyundai": {
         "title": "Compacte et pratique",
@@ -184,7 +187,7 @@
       },
       {
         "question": "Quel âge faut-il avoir pour louer ?",
-        "answer": "Le conducteur doit avoir au moins 25 ans.",
+        "answer": "Le conducteur doit avoir au moins 25 ans pour les voitures et 16 ans pour les quads.",
         "schema": true
       },
       {
@@ -288,7 +291,7 @@
         {
           "heading": "Conducteur",
           "paragraphs": [
-            "Le conducteur doit avoir au moins 25 ans.",
+            "Le conducteur doit avoir au moins 25 ans pour les voitures et 16 ans pour les quads.",
             "Pour connaître les documents exigés et les années de permis, contactez-nous : nous le confirmons avant la réservation."
           ]
         },
@@ -1077,6 +1080,225 @@
       "c11_step2": "Cochez les accessoires remis avec le véhicule.",
       "c11_step3": "<b>Enregistrer le contrat</b>, puis <b>Signer à l'écran</b> pour faire signer le client directement sur l'appareil.",
       "c11_signature_note": "<b>Signature en plein écran.</b> Sur <b>Signer à l'écran</b>, le menu latéral disparaît entièrement — utile quand la tablette ou l'ordinateur passe entre les mains du client pour signer, sans qu'il voie ou ne touche le reste du panneau."
+    }
+  },
+  "fleetPages": {
+    "ui": {
+      "home": "Accueil",
+      "fleet": "Flotte",
+      "hub_quads": "Location de quad",
+      "hub_voitures": "Location de voiture",
+      "specs_title": "Caractéristiques",
+      "prices_title": "Tarifs en US$",
+      "price_note": "Prix en dollars US, selon la durée de location. Les conditions détaillées figurent sur la page Conditions de location.",
+      "reserve": "Réserver",
+      "whatsapp": "Écrire sur WhatsApp",
+      "whatsapp_message": "Bonjour, je souhaite louer : {vehicule}.",
+      "faq_title": "Questions fréquentes",
+      "others_title": "Autres véhicules",
+      "see_conditions": "Conditions de location",
+      "see_faq": "Toutes les questions fréquentes",
+      "see_fleet": "Flotte et tarifs complets",
+      "from_hub": "Retour à : {hub}",
+      "details": "Voir la fiche",
+      "capacity": "{count} personnes",
+      "tiers_title": "Durée de location",
+      "other_models": "D'autres modèles sont disponibles : consultez la page flotte et tarifs."
+    },
+    "pages": {
+      "quad-300cc": {
+        "seo_title": "Quad 300cc à louer à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Quad 4 roues 300cc à louer à Las Terrenas : casque fourni, location dès une journée, 16 ans minimum. Tarifs par durée, réservation en ligne ou WhatsApp.",
+        "h1": "Location de quad 300cc à Las Terrenas",
+        "eyebrow": "Quad 4 roues",
+        "specs": [
+          "Quad 4 roues, 300cc",
+          "Casque fourni",
+          "Location minimale : une journée",
+          "Âge minimum : 16 ans"
+        ],
+        "intro": [
+          "Notre quad 4 roues 300cc se loue pour une journée au minimum, avec le casque fourni. Il accueille 2 personnes et se récupère à notre local de Plaza Italia #22, à Las Terrenas, où il revient aussi à la fin de la location.",
+          "C'est une manière simple de se déplacer à Las Terrenas et d'explorer les environs, sur la péninsule de Samaná, à son propre rythme. Le conducteur doit avoir 16 ans au moins.",
+          "Le tarif dépend de la durée : il diminue avec les paliers de 4 jours et de 15 jours et plus. Pour réserver, remplissez le formulaire en ligne ou écrivez-nous sur WhatsApp : nous confirmons la disponibilité avant tout engagement."
+        ],
+        "faq": [
+          {
+            "question": "Quel âge faut-il avoir pour louer un quad ?",
+            "answer": "L'âge minimum est de 16 ans pour les quads."
+          },
+          {
+            "question": "Le casque est-il fourni ?",
+            "answer": "Oui, le casque est fourni avec le quad."
+          },
+          {
+            "question": "Quelle est la durée minimale de location ?",
+            "answer": "La location minimale est d'une journée."
+          },
+          {
+            "question": "Combien de personnes peuvent monter sur le quad ?",
+            "answer": "Le quad 4 roues 300cc accueille {count} personnes."
+          },
+          {
+            "question": "Où récupère-t-on le quad ?",
+            "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où le quad est aussi rendu."
+          }
+        ],
+        "alts": [
+          "Quads 4 roues alignés au bord de la mer",
+          "Groupe de conducteurs à quad sur une plage bordée de palmiers",
+          "Quad roulant sur une rue pavée bordée de palmiers"
+        ]
+      },
+      "kia-seltos": {
+        "seo_title": "Location Kia Seltos à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Louez un Kia Seltos 2026 à Las Terrenas : automatique, essence, 5 places, 2 à 3 bagages. Tarifs par durée, réservation en ligne ou par WhatsApp.",
+        "h1": "Location Kia Seltos à Las Terrenas",
+        "eyebrow": "SUV · modèle 2026",
+        "specs": [
+          "Modèle 2026",
+          "Boîte automatique, essence",
+          "Bagages : 2 à 3 bagages et de petites valises",
+          "Âge minimum du conducteur : 25 ans"
+        ],
+        "intro": [
+          "Le Kia Seltos 2026 est un SUV automatique à essence qui accueille 5 personnes. Il prend 2 à 3 bagages, plus de petites valises : de quoi partir en couple ou en famille.",
+          "On l'utilise pour circuler à Las Terrenas comme partout en République dominicaine, avec un usage familial en tête. Il se récupère et se rend à notre local de Plaza Italia #22.",
+          "Les tarifs ci-dessous varient selon la durée de la location. Réservez en ligne ou écrivez-nous sur WhatsApp ; le conducteur doit avoir 25 ans au moins."
+        ],
+        "faq": [
+          {
+            "question": "Le Kia Seltos est-il automatique ?",
+            "answer": "Oui, toutes nos voitures sont automatiques et fonctionnent à l'essence."
+          },
+          {
+            "question": "Quel âge faut-il avoir pour le louer ?",
+            "answer": "Le conducteur doit avoir au moins 25 ans."
+          },
+          {
+            "question": "Combien de bagages peut-on emporter ?",
+            "answer": "De 2 à 3 bagages, plus de petites valises."
+          },
+          {
+            "question": "Combien de personnes peut-il accueillir ?",
+            "answer": "Le Kia Seltos accueille {count} personnes."
+          },
+          {
+            "question": "Où récupère-t-on la voiture ?",
+            "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où elle est aussi rendue."
+          }
+        ],
+        "alts": [
+          "Kia Seltos blanc, vue de trois quarts avant"
+        ]
+      },
+      "suzuki-xl7": {
+        "seo_title": "Location Suzuki XL7 7 places à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Suzuki XL7 7 places à louer à Las Terrenas : automatique, essence, idéal pour les groupes. Tarifs par durée, réservation en ligne ou par WhatsApp.",
+        "h1": "Location Suzuki XL7 7 places à Las Terrenas",
+        "eyebrow": "7 places",
+        "specs": [
+          "Boîte automatique, essence",
+          "Bagages : 1 bagage lorsque les 7 places sont déployées",
+          "Âge minimum du conducteur : 25 ans"
+        ],
+        "intro": [
+          "Le Suzuki XL7 est notre voiture à 7 places, automatique et à essence. Elle convient aux familles et aux groupes qui veulent voyager ensemble.",
+          "Quand les 7 places sont déployées, l'espace restant ne permet de charger qu'un seul bagage : pensez-y si vous voyagez nombreux avec des valises.",
+          "On l'utilise pour circuler à Las Terrenas et partout en République dominicaine. Récupération et retour à notre local de Plaza Italia #22. Tarifs par durée ci-dessous ; réservez en ligne ou par WhatsApp (conducteur de 25 ans minimum)."
+        ],
+        "faq": [
+          {
+            "question": "Combien de places a le Suzuki XL7 ?",
+            "answer": "Le Suzuki XL7 accueille {count} personnes."
+          },
+          {
+            "question": "Combien de bagages peut-on emporter avec 7 personnes ?",
+            "answer": "Avec les 7 places déployées, un seul bagage peut être chargé."
+          },
+          {
+            "question": "Est-il automatique ?",
+            "answer": "Oui, toutes nos voitures sont automatiques et fonctionnent à l'essence."
+          },
+          {
+            "question": "Quel âge faut-il avoir pour le louer ?",
+            "answer": "Le conducteur doit avoir au moins 25 ans."
+          },
+          {
+            "question": "Où récupère-t-on la voiture ?",
+            "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où elle est aussi rendue."
+          }
+        ],
+        "alts": [
+          "Suzuki XL7 noir devant une pergola en bois"
+        ]
+      },
+      "hyundai-tucson-4x4": {
+        "seo_title": "Location Hyundai Tucson 4x4 à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Hyundai Tucson 4x4 à louer à Las Terrenas : automatique, essence, 5 places, 2 à 3 bagages. Tarifs par durée, réservation en ligne ou WhatsApp.",
+        "h1": "Location Hyundai Tucson 4x4 à Las Terrenas",
+        "eyebrow": "SUV 4x4",
+        "specs": [
+          "4x4",
+          "Boîte automatique, essence",
+          "Bagages : 2 à 3 bagages et de petites valises",
+          "Âge minimum du conducteur : 25 ans"
+        ],
+        "intro": [
+          "Le Hyundai Tucson 4x4 est une voiture plus spacieuse, automatique et à essence, pour 5 personnes. Elle prend 2 à 3 bagages, plus de petites valises.",
+          "Elle s'adresse à ceux qui veulent de la place pour la famille et leurs affaires, sur les trajets de Las Terrenas comme partout en République dominicaine. Remise et retour à notre local de Plaza Italia #22.",
+          "Consultez les tarifs selon la durée, puis réservez en ligne ou par WhatsApp. Le conducteur doit avoir 25 ans au moins."
+        ],
+        "faq": [
+          {
+            "question": "Le Tucson 4x4 est-il automatique ?",
+            "answer": "Oui, toutes nos voitures sont automatiques et fonctionnent à l'essence."
+          },
+          {
+            "question": "Quel âge faut-il avoir pour le louer ?",
+            "answer": "Le conducteur doit avoir au moins 25 ans."
+          },
+          {
+            "question": "Combien de bagages peut-on emporter ?",
+            "answer": "De 2 à 3 bagages, plus de petites valises."
+          },
+          {
+            "question": "Combien de personnes peut-il accueillir ?",
+            "answer": "Le Hyundai Tucson 4x4 accueille {count} personnes."
+          },
+          {
+            "question": "Où récupère-t-on la voiture ?",
+            "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où elle est aussi rendue."
+          }
+        ],
+        "alts": [
+          "Hyundai Tucson gris devant la mer et des palmiers"
+        ]
+      }
+    },
+    "hubs": {
+      "quads": {
+        "seo_title": "Location de quad à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Louez un quad 4 roues 300cc à Las Terrenas : casque fourni, dès une journée, 16 ans minimum. Réservez en ligne ou par WhatsApp avec IVJ Rentcar.",
+        "h1": "Location de quad à Las Terrenas",
+        "intro": [
+          "IVJ Rentcar loue des quads 4 roues 300cc à Las Terrenas, dans la péninsule de Samaná. La location commence à une journée, le casque est fourni et l'âge minimum est de 16 ans.",
+          "Chaque quad accueille 2 personnes. La remise et le retour se font à notre local de Plaza Italia #22. Le tarif baisse avec la durée : les trois paliers sont détaillés sur la fiche du quad.",
+          "Réservez en ligne ou par WhatsApp ; nous confirmons la disponibilité avant tout engagement."
+        ],
+        "cars_link": "Vous cherchez plutôt une voiture ? Voir la location de voiture à Las Terrenas"
+      },
+      "voitures": {
+        "seo_title": "Location de voiture à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Voitures à louer à Las Terrenas : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, essence, 25 ans minimum. Réservez en ligne ou par WhatsApp.",
+        "h1": "Location de voiture à Las Terrenas",
+        "intro": [
+          "Louez une voiture à Las Terrenas pour circuler dans la péninsule de Samaná et partout en République dominicaine. Toutes nos voitures sont automatiques et à essence ; le conducteur doit avoir 25 ans au moins.",
+          "Kia Seltos, Suzuki XL7 à 7 places, Hyundai Tucson 4x4 : choisissez selon le nombre de personnes et de bagages. Les tarifs par durée sont détaillés sur chaque fiche. Remise et retour à notre local de Plaza Italia #22.",
+          "Réservez en ligne ou par WhatsApp ; nous confirmons la disponibilité avant tout engagement."
+        ],
+        "quads_link": "Vous cherchez un quad ? Voir la location de quad à Las Terrenas"
+      }
     }
   }
 }

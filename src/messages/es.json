@@ -125,6 +125,9 @@
     "amenity_ac": "Aire acondicionado",
     "amenity_on_request": "Según disponibilidad",
     "card_cta": "Reservar",
+    "card_details": "Ver detalles",
+    "hub_voitures": "Alquiler de carros en Las Terrenas",
+    "hub_quads": "Alquiler de cuatrimotos en Las Terrenas",
     "vehicle_copy": {
       "Hyundai": {
         "title": "Compacto y práctico",
@@ -184,7 +187,7 @@
       },
       {
         "question": "¿Qué edad se necesita para alquilar?",
-        "answer": "El conductor debe tener al menos 25 años.",
+        "answer": "El conductor debe tener al menos 25 años para los carros y 16 para los quads.",
         "schema": true
       },
       {
@@ -288,7 +291,7 @@
         {
           "heading": "Conductor",
           "paragraphs": [
-            "El conductor debe tener al menos 25 años.",
+            "El conductor debe tener al menos 25 años para los carros y 16 para los quads.",
             "Para conocer los documentos exigidos y los años de licencia, contáctanos: lo confirmamos antes de reservar."
           ]
         },
@@ -1077,6 +1080,240 @@
       "c11_step2": "Marca los accesorios entregados con el vehículo.",
       "c11_step3": "<b>Guardar contrato</b>, y luego <b>Firmar en pantalla</b> para que el cliente firme directamente en el dispositivo.",
       "c11_signature_note": "<b>Firma en pantalla completa.</b> Al pulsar <b>Firmar en pantalla</b>, el menú lateral desaparece por completo — útil cuando la tablet o el ordenador pasa a manos del cliente para firmar, sin que vea ni toque el resto del panel."
+    }
+  },
+  "fleetPages": {
+    "ui": {
+      "home": "Inicio",
+      "fleet": "Flota",
+      "hub_quads": "Alquiler de quads",
+      "hub_voitures": "Alquiler de carros",
+      "specs_title": "Características",
+      "prices_title": "Tarifas en US$",
+      "price_note": "Precios en dólares (US$), según la duración del alquiler. Los detalles están en la página de Condiciones de alquiler.",
+      "reserve": "Reservar",
+      "whatsapp": "Escribir por WhatsApp",
+      "whatsapp_message": "Hola, quisiera alquilar: {vehicule}.",
+      "faq_title": "Preguntas frecuentes",
+      "others_title": "Otros vehículos",
+      "see_conditions": "Condiciones de alquiler",
+      "see_faq": "Todas las preguntas frecuentes",
+      "see_fleet": "Flota y tarifas completas",
+      "from_hub": "Ver todos: {hub}",
+      "details": "Ver detalles",
+      "capacity": "{count} personas",
+      "tiers_title": "Duración del alquiler",
+      "other_models": "Hay otros modelos disponibles: consulta la página de flota y tarifas."
+    },
+    "pages": {
+      "quad-300cc": {
+        "seo_title": "Alquiler de quad 300cc en Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un quad de 4 ruedas 300cc en Las Terrenas: casco incluido, desde un día, edad mínima 16 años. Tarifas por duración, reserva en línea o WhatsApp.",
+        "h1": "Alquiler de quad 300cc en Las Terrenas",
+        "eyebrow": "Quad de 4 ruedas",
+        "specs": [
+          "Quad de 4 ruedas, 300cc",
+          "Casco incluido",
+          "Alquiler mínimo: un día",
+          "Edad mínima: 16 años"
+        ],
+        "intro": [
+          "Nuestro quad de 4 ruedas y 300cc se alquila por un día como mínimo, con el casco incluido. Tiene capacidad para 2 personas y se retira en nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve al terminar el alquiler.",
+          "Es una forma sencilla de moverte por Las Terrenas y de conocer los alrededores de la península de Samaná a tu propio ritmo. El conductor debe tener al menos 16 años.",
+          "La tarifa depende de la duración: baja en los tramos de 4 días y de 15 días o más. Para reservar, llena el formulario en línea o escríbenos por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
+        ],
+        "faq": [
+          {
+            "question": "¿Qué edad mínima se necesita para alquilar un quad?",
+            "answer": "La edad mínima para los quads es de 16 años."
+          },
+          {
+            "question": "¿El casco está incluido?",
+            "answer": "Sí, el casco se entrega con el quad."
+          },
+          {
+            "question": "¿Cuál es el alquiler mínimo?",
+            "answer": "El alquiler mínimo es de un día."
+          },
+          {
+            "question": "¿Cuántas personas caben en el quad?",
+            "answer": "El quad de 4 ruedas 300cc tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Dónde se retira el quad?",
+            "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          }
+        ],
+        "alts": [
+          "Quads de 4 ruedas alineados junto al mar",
+          "Grupo de conductores de quad en una playa con palmeras",
+          "Quad circulando por una calle adoquinada bordeada de palmeras"
+        ]
+      },
+      "kia-seltos": {
+        "seo_title": "Alquiler de Kia Seltos en Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un Kia Seltos 2026 en Las Terrenas: automático, gasolina, 5 plazas, 2 a 3 maletas. Tarifas por duración, reserva en línea o por WhatsApp.",
+        "h1": "Alquiler de Kia Seltos en Las Terrenas",
+        "eyebrow": "SUV · modelo 2026",
+        "specs": [
+          "Modelo 2026",
+          "Caja automática, gasolina",
+          "Aire acondicionado",
+          "Equipaje: 2 a 3 maletas y maletas pequeñas",
+          "Edad mínima del conductor: 25 años"
+        ],
+        "intro": [
+          "El Kia Seltos 2026 es un SUV automático de gasolina para 5 personas. Lleva de 2 a 3 maletas más algunas maletas pequeñas: suficiente para una pareja o una familia.",
+          "Sirve para moverte por Las Terrenas y por toda la República Dominicana, pensado sobre todo para uso familiar. Se retira y se devuelve en nuestro local de Plaza Italia #22.",
+          "Las tarifas de abajo cambian según la duración del alquiler. Reserva en línea o escríbenos por WhatsApp; el conductor debe tener al menos 25 años."
+        ],
+        "faq": [
+          {
+            "question": "¿El Kia Seltos es automático?",
+            "answer": "Sí, todos nuestros carros son automáticos y funcionan con gasolina."
+          },
+          {
+            "question": "¿Los carros tienen aire acondicionado?",
+            "answer": "Sí, todos nuestros carros tienen aire acondicionado."
+          },
+          {
+            "question": "¿Qué edad se necesita para alquilarlo?",
+            "answer": "El conductor debe tener al menos 25 años."
+          },
+          {
+            "question": "¿Cuánto equipaje cabe?",
+            "answer": "De 2 a 3 maletas, más maletas pequeñas."
+          },
+          {
+            "question": "¿Para cuántas personas tiene capacidad?",
+            "answer": "El Kia Seltos tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Dónde se retira el carro?",
+            "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          }
+        ],
+        "alts": [
+          "Kia Seltos blanco, vista de tres cuartos delantera"
+        ]
+      },
+      "suzuki-xl7": {
+        "seo_title": "Alquiler Suzuki XL7 7 puestos, Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un Suzuki XL7 de 7 puestos en Las Terrenas: automático, gasolina, ideal para grupos. Tarifas por duración, reserva en línea o por WhatsApp.",
+        "h1": "Alquiler de Suzuki XL7 de 7 puestos en Las Terrenas",
+        "eyebrow": "7 puestos",
+        "specs": [
+          "Caja automática, gasolina",
+          "Aire acondicionado",
+          "Equipaje: 1 maleta con los 7 asientos en uso",
+          "Edad mínima del conductor: 25 años"
+        ],
+        "intro": [
+          "El Suzuki XL7 es nuestro carro de 7 puestos, automático y de gasolina. Es adecuado para familias y grupos que quieren viajar juntos.",
+          "Con los 7 asientos en uso, solo queda espacio para una maleta: tenlo en cuenta si viajan muchos y con equipaje.",
+          "Úsalo para moverte por Las Terrenas y por toda la República Dominicana. Se retira y se devuelve en nuestro local de Plaza Italia #22. Abajo están las tarifas por duración; reserva en línea o por WhatsApp (conductor de 25 años como mínimo)."
+        ],
+        "faq": [
+          {
+            "question": "¿Cuántos puestos tiene el Suzuki XL7?",
+            "answer": "El Suzuki XL7 tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Los carros tienen aire acondicionado?",
+            "answer": "Sí, todos nuestros carros tienen aire acondicionado."
+          },
+          {
+            "question": "¿Cuánto equipaje cabe con 7 personas?",
+            "answer": "Con los 7 asientos en uso, solo cabe una maleta."
+          },
+          {
+            "question": "¿Es automático?",
+            "answer": "Sí, todos nuestros carros son automáticos y funcionan con gasolina."
+          },
+          {
+            "question": "¿Qué edad se necesita para alquilarlo?",
+            "answer": "El conductor debe tener al menos 25 años."
+          },
+          {
+            "question": "¿Dónde se retira el carro?",
+            "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          }
+        ],
+        "alts": [
+          "Suzuki XL7 negro frente a una pérgola de madera"
+        ]
+      },
+      "hyundai-tucson-4x4": {
+        "seo_title": "Alquiler Hyundai Tucson 4x4 en Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un Hyundai Tucson 4x4 en Las Terrenas: automático, gasolina, 5 plazas, 2 a 3 maletas. Tarifas por duración, reserva en línea o WhatsApp.",
+        "h1": "Alquiler de Hyundai Tucson 4x4 en Las Terrenas",
+        "eyebrow": "SUV 4x4",
+        "specs": [
+          "4x4",
+          "Caja automática, gasolina",
+          "Aire acondicionado",
+          "Equipaje: 2 a 3 maletas y maletas pequeñas",
+          "Edad mínima del conductor: 25 años"
+        ],
+        "intro": [
+          "El Hyundai Tucson 4x4 es un carro más espacioso, automático y de gasolina, para 5 personas. Lleva de 2 a 3 maletas más maletas pequeñas.",
+          "Está pensado para quien quiere espacio para la familia y sus cosas, tanto en los recorridos de Las Terrenas como por toda la República Dominicana. Se retira y se devuelve en nuestro local de Plaza Italia #22.",
+          "Mira las tarifas según la duración y reserva en línea o por WhatsApp. El conductor debe tener al menos 25 años."
+        ],
+        "faq": [
+          {
+            "question": "¿El Tucson 4x4 es automático?",
+            "answer": "Sí, todos nuestros carros son automáticos y funcionan con gasolina."
+          },
+          {
+            "question": "¿Los carros tienen aire acondicionado?",
+            "answer": "Sí, todos nuestros carros tienen aire acondicionado."
+          },
+          {
+            "question": "¿Qué edad se necesita para alquilarlo?",
+            "answer": "El conductor debe tener al menos 25 años."
+          },
+          {
+            "question": "¿Cuánto equipaje cabe?",
+            "answer": "De 2 a 3 maletas, más maletas pequeñas."
+          },
+          {
+            "question": "¿Para cuántas personas tiene capacidad?",
+            "answer": "El Hyundai Tucson 4x4 tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Dónde se retira el carro?",
+            "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          }
+        ],
+        "alts": [
+          "Hyundai Tucson gris frente al mar y las palmeras"
+        ]
+      }
+    },
+    "hubs": {
+      "quads": {
+        "seo_title": "Alquiler de cuatrimotos en Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un quad de 4 ruedas 300cc en Las Terrenas: casco incluido, desde un día, edad mínima 16 años. Reserva en línea o por WhatsApp con IVJ Rentcar.",
+        "h1": "Alquiler de cuatrimotos y quads en Las Terrenas",
+        "intro": [
+          "IVJ Rentcar alquila quads de 4 ruedas y 300cc en Las Terrenas, en la península de Samaná. El alquiler empieza en un día, el casco está incluido y la edad mínima es de 16 años.",
+          "Cada quad tiene capacidad para 2 personas. La entrega y la devolución se hacen en nuestro local de Plaza Italia #22. La tarifa baja con la duración: los tres tramos aparecen en la ficha del quad.",
+          "Reserva en línea o por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
+        ],
+        "cars_link": "¿Buscas un carro? Ver alquiler de carros en Las Terrenas"
+      },
+      "voitures": {
+        "seo_title": "Alquiler de carros en Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un carro en Las Terrenas: Kia Seltos, Suzuki XL7 de 7 puestos, Hyundai Tucson 4x4. Automáticos, gasolina, 25 años mínimo. Reserva en línea o WhatsApp.",
+        "h1": "Alquiler de carros en Las Terrenas",
+        "intro": [
+          "Alquila un carro en Las Terrenas para recorrer la península de Samaná y el resto de la República Dominicana. Todos nuestros carros son automáticos, con aire acondicionado y de gasolina; el conductor debe tener al menos 25 años.",
+          "Kia Seltos, Suzuki XL7 de 7 puestos, Hyundai Tucson 4x4: elige según el número de personas y de maletas. Las tarifas por duración están en la ficha de cada carro. La entrega y la devolución se hacen en nuestro local de Plaza Italia #22.",
+          "Reserva en línea o por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
+        ],
+        "quads_link": "¿Buscas un quad? Ver alquiler de quads en Las Terrenas"
+      }
     }
   }
 }

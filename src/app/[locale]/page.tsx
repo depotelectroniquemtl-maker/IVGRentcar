@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/Container";
 import { Link } from "@/i18n/navigation";
 import { ButtonLink } from "@/components/ui/Button";
 import { FleetGrid } from "@/components/site/FleetGrid";
+import { FleetHubLinks } from "@/components/site/FleetHubLinks";
 import { WhySection } from "@/components/site/WhySection";
 import { LasTerrenasBanner } from "@/components/site/LasTerrenasBanner";
 import { VideoSection } from "@/components/site/VideoSection";
@@ -115,6 +116,7 @@ export default async function HomePage({
             </ButtonLink>
           </div>
           <FleetGrid categories={catalogue} />
+          <FleetHubLinks />
         </Container>
       </section>
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { FLEET_IMAGES } from "@/lib/fleet-images";
+import { slugForCategory } from "@/lib/fleet-pages";
 import type { CategorieAvecTarifs } from "@/lib/types";
 
 function formatUsd(value: number | null) {
@@ -43,6 +44,8 @@ export function FleetCard({
   }, [images]);
 
   const isCar = categorie.type === "voiture";
+  // Page détaillée (SEO local) quand elle existe pour cette catégorie.
+  const pageSlug = slugForCategory(categorie.nom);
 
   const PALIERS = [
     { key: "1_3_jours", labelKey: "tier_1_3" },
@@ -95,6 +98,14 @@ export function FleetCard({
         </p>
         {copy && <h3 className="text-xl font-bold leading-tight text-ink">{copy.title}</h3>}
         {copy && <p className="text-sm leading-relaxed text-ink-soft">{copy.description}</p>}
+        {pageSlug && (
+          <Link
+            href={`/flotte/${pageSlug}`}
+            className="text-sm font-semibold text-brand hover:underline"
+          >
+            {t("card_details")} →
+          </Link>
+        )}
 
         <div className="mt-1 flex flex-wrap gap-2">
           {categorie.capacite_personnes && (

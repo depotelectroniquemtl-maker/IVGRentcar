@@ -9,6 +9,9 @@ export const BUSINESS_EMAIL = "contact@ivjrentcar.com";
 // robots.txt, sitemap.xml et le balisage JSON-LD, tous regroupés sur cette seule source.
 export const SITE_URL = "https://ivjrentcar.com";
 
+// Identifiant JSON-LD de l'entreprise (LocalBusiness) : les pages produit s'y rattachent.
+export const BUSINESS_ID = `${SITE_URL}/#business`;
+
 export function whatsappUrl(message?: string) {
   const base = `https://wa.me/${WHATSAPP_NUMBER}`;
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;

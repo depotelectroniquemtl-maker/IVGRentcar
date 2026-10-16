@@ -26,12 +26,16 @@ export function pageMetadata({
   path,
   title,
   description,
+  image,
 }: {
   locale: AppLocale;
   path: string;
   title: string;
   description: string;
+  // Image sociale propre à la page (ex. photo du véhicule) ; défaut : OG_IMAGE.
+  image?: { url: string; width: number; height: number };
 }): Metadata {
+  const ogImage = image ? { ...image, alt: title } : { ...OG_IMAGE, alt: title };
   const url = `${SITE_URL}/${locale}${path}`;
   const languages = Object.fromEntries(
     routing.locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),
@@ -51,13 +55,13 @@ export function pageMetadata({
       siteName: BUSINESS_NAME,
       locale: OG_LOCALE[locale],
       type: "website",
-      images: [{ ...OG_IMAGE, alt: title }],
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [OG_IMAGE.url],
+      images: [ogImage.url],
     },
   };
 }

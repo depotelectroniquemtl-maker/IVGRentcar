@@ -1099,7 +1099,7 @@
       "see_conditions": "Condiciones de alquiler",
       "see_faq": "Todas las preguntas frecuentes",
       "see_fleet": "Flota y tarifas completas",
-      "from_hub": "Volver a: {hub}",
+      "from_hub": "Ver todos: {hub}",
       "details": "Ver detalles",
       "capacity": "{count} personas",
       "tiers_title": "Duración del alquiler",
@@ -1158,6 +1158,7 @@
         "specs": [
           "Modelo 2026",
           "Caja automática, gasolina",
+          "Aire acondicionado",
           "Equipaje: 2 a 3 maletas y maletas pequeñas",
           "Edad mínima del conductor: 25 años"
         ],
@@ -1170,6 +1171,10 @@
           {
             "question": "¿El Kia Seltos es automático?",
             "answer": "Sí, todos nuestros carros son automáticos y funcionan con gasolina."
+          },
+          {
+            "question": "¿Los carros tienen aire acondicionado?",
+            "answer": "Sí, todos nuestros carros tienen aire acondicionado."
           },
           {
             "question": "¿Qué edad se necesita para alquilarlo?",
@@ -1199,6 +1204,7 @@
         "eyebrow": "7 puestos",
         "specs": [
           "Caja automática, gasolina",
+          "Aire acondicionado",
           "Equipaje: 1 maleta con los 7 asientos en uso",
           "Edad mínima del conductor: 25 años"
         ],
@@ -1211,6 +1217,10 @@
           {
             "question": "¿Cuántos puestos tiene el Suzuki XL7?",
             "answer": "El Suzuki XL7 tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Los carros tienen aire acondicionado?",
+            "answer": "Sí, todos nuestros carros tienen aire acondicionado."
           },
           {
             "question": "¿Cuánto equipaje cabe con 7 personas?",
@@ -1241,6 +1251,7 @@
         "specs": [
           "4x4",
           "Caja automática, gasolina",
+          "Aire acondicionado",
           "Equipaje: 2 a 3 maletas y maletas pequeñas",
           "Edad mínima del conductor: 25 años"
         ],
@@ -1253,6 +1264,10 @@
           {
             "question": "¿El Tucson 4x4 es automático?",
             "answer": "Sí, todos nuestros carros son automáticos y funcionan con gasolina."
+          },
+          {
+            "question": "¿Los carros tienen aire acondicionado?",
+            "answer": "Sí, todos nuestros carros tienen aire acondicionado."
           },
           {
             "question": "¿Qué edad se necesita para alquilarlo?",
@@ -1293,7 +1308,7 @@
         "seo_description": "Alquila un carro en Las Terrenas: Kia Seltos, Suzuki XL7 de 7 puestos, Hyundai Tucson 4x4. Automáticos, gasolina, 25 años mínimo. Reserva en línea o WhatsApp.",
         "h1": "Alquiler de carros en Las Terrenas",
         "intro": [
-          "Alquila un carro en Las Terrenas para recorrer la península de Samaná y el resto de la República Dominicana. Todos nuestros carros son automáticos y de gasolina; el conductor debe tener al menos 25 años.",
+          "Alquila un carro en Las Terrenas para recorrer la península de Samaná y el resto de la República Dominicana. Todos nuestros carros son automáticos, con aire acondicionado y de gasolina; el conductor debe tener al menos 25 años.",
           "Kia Seltos, Suzuki XL7 de 7 puestos, Hyundai Tucson 4x4: elige según el número de personas y de maletas. Las tarifas por duración están en la ficha de cada carro. La entrega y la devolución se hacen en nuestro local de Plaza Italia #22.",
           "Reserva en línea o por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
         ],

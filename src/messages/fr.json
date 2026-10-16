@@ -1099,7 +1099,7 @@
       "see_conditions": "Conditions de location",
       "see_faq": "Toutes les questions fréquentes",
       "see_fleet": "Flotte et tarifs complets",
-      "from_hub": "Retour à : {hub}",
+      "from_hub": "Voir tous les {hub}",
       "details": "Voir la fiche",
       "capacity": "{count} personnes",
       "tiers_title": "Durée de location",
@@ -1158,6 +1158,7 @@
         "specs": [
           "Modèle 2026",
           "Boîte automatique, essence",
+          "Climatisation",
           "Bagages : 2 à 3 bagages et de petites valises",
           "Âge minimum du conducteur : 25 ans"
         ],
@@ -1170,6 +1171,10 @@
           {
             "question": "Le Kia Seltos est-il automatique ?",
             "answer": "Oui, toutes nos voitures sont automatiques et fonctionnent à l'essence."
+          },
+          {
+            "question": "Les voitures sont-elles climatisées ?",
+            "answer": "Oui, toutes nos voitures sont climatisées."
           },
           {
             "question": "Quel âge faut-il avoir pour le louer ?",
@@ -1199,6 +1204,7 @@
         "eyebrow": "7 places",
         "specs": [
           "Boîte automatique, essence",
+          "Climatisation",
           "Bagages : 1 bagage lorsque les 7 places sont déployées",
           "Âge minimum du conducteur : 25 ans"
         ],
@@ -1211,6 +1217,10 @@
           {
             "question": "Combien de places a le Suzuki XL7 ?",
             "answer": "Le Suzuki XL7 accueille {count} personnes."
+          },
+          {
+            "question": "Les voitures sont-elles climatisées ?",
+            "answer": "Oui, toutes nos voitures sont climatisées."
           },
           {
             "question": "Combien de bagages peut-on emporter avec 7 personnes ?",
@@ -1241,6 +1251,7 @@
         "specs": [
           "4x4",
           "Boîte automatique, essence",
+          "Climatisation",
           "Bagages : 2 à 3 bagages et de petites valises",
           "Âge minimum du conducteur : 25 ans"
         ],
@@ -1253,6 +1264,10 @@
           {
             "question": "Le Tucson 4x4 est-il automatique ?",
             "answer": "Oui, toutes nos voitures sont automatiques et fonctionnent à l'essence."
+          },
+          {
+            "question": "Les voitures sont-elles climatisées ?",
+            "answer": "Oui, toutes nos voitures sont climatisées."
           },
           {
             "question": "Quel âge faut-il avoir pour le louer ?",
@@ -1293,7 +1308,7 @@
         "seo_description": "Voitures à louer à Las Terrenas : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, essence, 25 ans minimum. Réservez en ligne ou par WhatsApp.",
         "h1": "Location de voiture à Las Terrenas",
         "intro": [
-          "Louez une voiture à Las Terrenas pour circuler dans la péninsule de Samaná et partout en République dominicaine. Toutes nos voitures sont automatiques et à essence ; le conducteur doit avoir 25 ans au moins.",
+          "Louez une voiture à Las Terrenas pour circuler dans la péninsule de Samaná et partout en République dominicaine. Toutes nos voitures sont automatiques, climatisées et à essence ; le conducteur doit avoir 25 ans au moins.",
           "Kia Seltos, Suzuki XL7 à 7 places, Hyundai Tucson 4x4 : choisissez selon le nombre de personnes et de bagages. Les tarifs par durée sont détaillés sur chaque fiche. Remise et retour à notre local de Plaza Italia #22.",
           "Réservez en ligne ou par WhatsApp ; nous confirmons la disponibilité avant tout engagement."
         ],

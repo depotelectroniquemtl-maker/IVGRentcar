@@ -1099,7 +1099,7 @@
       "see_conditions": "Rental conditions",
       "see_faq": "All frequently asked questions",
       "see_fleet": "Full fleet and rates",
-      "from_hub": "Back to: {hub}",
+      "from_hub": "See all {hub}",
       "details": "View details",
       "capacity": "{count} people",
       "tiers_title": "Rental length",
@@ -1158,6 +1158,7 @@
         "specs": [
           "2026 model",
           "Automatic gearbox, petrol",
+          "Air conditioning",
           "Luggage: 2 to 3 bags plus small suitcases",
           "Minimum driver age: 25"
         ],
@@ -1170,6 +1171,10 @@
           {
             "question": "Is the Kia Seltos an automatic?",
             "answer": "Yes, all of our cars are automatic and run on petrol."
+          },
+          {
+            "question": "Do the cars have air conditioning?",
+            "answer": "Yes, all of our cars are air-conditioned."
           },
           {
             "question": "How old do I need to be to rent it?",
@@ -1199,6 +1204,7 @@
         "eyebrow": "7 seats",
         "specs": [
           "Automatic gearbox, petrol",
+          "Air conditioning",
           "Luggage: 1 bag when all 7 seats are in use",
           "Minimum driver age: 25"
         ],
@@ -1211,6 +1217,10 @@
           {
             "question": "How many seats does the Suzuki XL7 have?",
             "answer": "The Suzuki XL7 seats {count} people."
+          },
+          {
+            "question": "Do the cars have air conditioning?",
+            "answer": "Yes, all of our cars are air-conditioned."
           },
           {
             "question": "How much luggage fits with 7 people on board?",
@@ -1241,6 +1251,7 @@
         "specs": [
           "4x4",
           "Automatic gearbox, petrol",
+          "Air conditioning",
           "Luggage: 2 to 3 bags plus small suitcases",
           "Minimum driver age: 25"
         ],
@@ -1253,6 +1264,10 @@
           {
             "question": "Is the Tucson 4x4 an automatic?",
             "answer": "Yes, all of our cars are automatic and run on petrol."
+          },
+          {
+            "question": "Do the cars have air conditioning?",
+            "answer": "Yes, all of our cars are air-conditioned."
           },
           {
             "question": "How old do I need to be to rent it?",
@@ -1293,7 +1308,7 @@
         "seo_description": "Rent a car in Las Terrenas: Kia Seltos, 7-seater Suzuki XL7, Hyundai Tucson 4x4. Automatic, petrol, minimum age 25. Book online or on WhatsApp.",
         "h1": "Car rental in Las Terrenas",
         "intro": [
-          "Rent a car in Las Terrenas to get around the Samaná peninsula and the rest of the Dominican Republic. All of our cars are automatic and petrol-powered; the driver must be at least 25.",
+          "Rent a car in Las Terrenas to get around the Samaná peninsula and the rest of the Dominican Republic. All of our cars are automatic, air-conditioned and petrol-powered; the driver must be at least 25.",
           "Kia Seltos, 7-seat Suzuki XL7, Hyundai Tucson 4x4: pick the one that fits your group and luggage. Rates by rental length are on each car's page. Pick-up and return are at our office on Plaza Italia #22.",
           "Book online or on WhatsApp, and we will confirm availability before you commit."
         ],

@@ -135,6 +135,8 @@ export function ReservationForm({
     setError(null);
 
     const supabase = createClient();
+    // Lien vers la demande d'origine, seulement à la création depuis une demande.
+    const demandeId = !editing ? prefill?.demandeId : undefined;
     const payload = {
       client_id: clientId,
       vehicule_id: vehiculeId,
@@ -148,6 +150,7 @@ export function ReservationForm({
       caution_usd: caution ? Number(caution) : null,
       assurance: assurance.trim() || null,
       notes: notes || null,
+      ...(demandeId ? { demande_id: demandeId } : {}),
     };
 
     const { error } = editing
@@ -162,13 +165,12 @@ export function ReservationForm({
       return;
     }
 
-    // Réservation créée depuis une demande : la demande passe à « Convertie ». Pas de lien
-    // demande ↔ réservation en base, seulement le statut.
-    if (!editing && prefill?.demandeId) {
+    // Réservation créée depuis une demande : la demande passe à « Convertie ».
+    if (demandeId) {
       await supabase
         .from("demandes_reservation")
         .update({ statut: "convertie" })
-        .eq("id", prefill.demandeId);
+        .eq("id", demandeId);
     }
 
     router.push("/admin/reservations");

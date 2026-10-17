@@ -4,29 +4,18 @@ import { getAdminTranslator } from "@/lib/admin-i18n";
 import { EditRowLink, Pill, StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { SearchInput } from "@/components/admin/SearchInput";
 import { Pagination } from "@/components/admin/Pagination";
+import { RetournerReservationButton } from "@/components/admin/RetournerReservationButton";
+import { calcularFase } from "@/lib/reservation-fase";
 
 const PAGE_SIZE = 20;
 
-function calcularFase(
-  dateDebut: string,
-  dateFin: string,
-  statut: string,
-  dateRetourReelle: string | null,
-) {
-  if (statut === "annulee") return "annulee";
-  const hoy = new Date().toISOString().slice(0, 10);
-  if (hoy < dateDebut) return "a_venir";
-  if (hoy > dateFin) {
-    if (!dateRetourReelle && statut === "confirmee") return "en_retraso";
-    return "terminee";
-  }
-  return "en_cours";
-}
-
+// Couleurs alignées sur le calendrier : en cours = bleu plein, à venir = bleu clair,
+// en attente = gris pointillé, en retard = rouge, terminée = vert (avec coche).
 const FASE_CLASSNAMES: Record<string, string> = {
-  a_venir: "bg-blue-100 text-blue-700",
-  en_cours: "bg-green-100 text-green-700",
-  terminee: "bg-black/10 text-ink-soft",
+  a_venir: "bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-300",
+  en_cours: "bg-blue-600 text-white",
+  en_attente: "border border-dashed border-black/40 bg-black/[0.03] text-ink-soft",
+  terminee: "bg-green-100 text-green-700",
   en_retraso: "bg-red-100 text-red-700",
   annulee: "bg-red-100 text-red-700",
 };
@@ -138,14 +127,26 @@ export default async function ReservationsPage({
                       {r.prix_total_usd ? `US$ ${r.prix_total_usd}` : tCommon("dash")}
                     </td>
                     <td className="px-4 py-3">
-                      <Pill className={FASE_CLASSNAMES[fase]}>
+                      <Pill className={FASE_CLASSNAMES[r.statut === "en_attente" ? "en_attente" : fase]}>
+                        {fase === "terminee" && <span aria-hidden="true">✓</span>}
+                        {fase === "en_retraso" && <span aria-hidden="true">⚠</span>}
                         {FASE_LABELS[fase]}
                         {r.statut === "en_attente" &&
                           ` · ${tCommon("reservation_statut_en_attente")}`}
                       </Pill>
                     </td>
                     <td className="px-4 py-3">
-                      <div className="flex justify-end">
+                      <div className="flex items-center justify-end gap-2">
+                        {(fase === "en_cours" || fase === "en_retraso") && (
+                          <RetournerReservationButton
+                            id={r.id}
+                            numero={r.numero}
+                            client={r.clients?.nom ?? tCommon("dash")}
+                            vehicule={`${r.vehicules?.categories_vehicules?.nom ?? tCommon("dash")} (${r.vehicules?.plaque ?? tCommon("dash")})`}
+                            dateDebut={r.date_debut}
+                            dateFin={r.date_fin}
+                          />
+                        )}
                         <EditRowLink href={`/admin/reservations/${r.id}`} title={tCommon("edit")} />
                       </div>
                     </td>

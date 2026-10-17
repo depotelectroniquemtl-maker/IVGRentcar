@@ -9,6 +9,8 @@ import {
   type GroupeCle,
 } from "@/components/admin/CalendrierGrid";
 import { CalendrierMoisPicker } from "@/components/admin/CalendrierMoisPicker";
+import { calcularFase } from "@/lib/reservation-fase";
+import { BLOCAGE_BARRE, FASES_LEGENDE, FASE_BARRE, type CalFase } from "@/lib/calendrier-styles";
 import {
   addDays,
   addMonths,
@@ -22,6 +24,20 @@ import {
 
 type Filtre = "tous" | GroupeCle;
 const FILTRES: Filtre[] = ["tous", "quads", "voitures", "scooter"];
+
+// Statut affiché sur la barre : en attente (statut stocké) sinon phase calculée.
+// Les réservations annulées ne sont pas lues (filtrées plus bas), comme avant.
+function faseCalendrier(
+  debut: string,
+  fin: string,
+  statut: string,
+  retour: string | null,
+  today: string,
+): CalFase {
+  if (statut === "en_attente") return "en_attente";
+  const fase = calcularFase(debut, fin, statut, retour, today);
+  return fase === "annulee" ? "terminee" : fase;
+}
 
 function groupeDuType(type: string | null | undefined): GroupeCle {
   if (type === "quad") return "quads";
@@ -42,6 +58,7 @@ export default async function CalendrierPage({
   const supabase = createClient();
   const t = await getAdminTranslator("admin.calendrier");
   const tCommon = await getAdminTranslator("admin.common");
+  const tRes = await getAdminTranslator("admin.reservations");
   const locale = await getAdminLocale();
 
   // Paramètres d'affichage (aucun n'influence les données, seulement la plage et le filtre).
@@ -75,7 +92,7 @@ export default async function CalendrierPage({
         .order("plaque"),
       supabase
         .from("reservations")
-        .select("id, vehicule_id, date_debut, date_fin, statut, clients(nom)")
+        .select("id, vehicule_id, date_debut, date_fin, statut, date_retour_reelle, clients(nom)")
         .neq("statut", "annulee")
         .lte("date_debut", end)
         .gte("date_fin", start),
@@ -120,6 +137,7 @@ export default async function CalendrierPage({
       label: r.clients?.nom ?? tCommon("dash"),
       debut: r.date_debut,
       fin: r.date_fin,
+      fase: faseCalendrier(r.date_debut, r.date_fin, r.statut, r.date_retour_reelle, today),
     });
   }
   for (const i of indisponibilites ?? []) {
@@ -189,6 +207,13 @@ export default async function CalendrierPage({
     { cle: "14", label: t("view_14") },
     { cle: "mois", label: t("view_month") },
   ];
+  const FASE_LABELS: Record<CalFase, string> = {
+    a_venir: tRes("fase_a_venir"),
+    en_cours: tRes("fase_en_cours"),
+    en_attente: tRes("stat_pendientes"),
+    en_retraso: tRes("fase_en_retraso"),
+    terminee: tRes("fase_terminee"),
+  };
   const FILTRE_LABELS: Record<Filtre, string> = {
     tous: t("filter_all"),
     quads: t("filter_quads"),
@@ -259,12 +284,14 @@ export default async function CalendrierPage({
           {t("summary", { vehicules: idsAffiches.size, reservations: nbReservations })}
         </p>
         <div className="flex items-center gap-4">
+          {FASES_LEGENDE.map((f) => (
+            <span key={f} className="flex items-center gap-1.5">
+              <span className={`inline-block h-3 w-4 rounded-sm border ${FASE_BARRE[f]}`} />
+              {FASE_LABELS[f]}
+            </span>
+          ))}
           <span className="flex items-center gap-1.5">
-            <span className="inline-block h-3 w-3 rounded bg-blue-100" />
-            {t("legend_reservation")}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <span className="inline-block h-3 w-3 rounded bg-orange-100" />
+            <span className={`inline-block h-3 w-4 rounded-sm border ${BLOCAGE_BARRE}`} />
             {t("legend_indisponibilite")}
           </span>
         </div>

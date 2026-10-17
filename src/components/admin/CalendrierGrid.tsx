@@ -11,6 +11,7 @@ import {
   initiales,
   semaineIso,
 } from "@/lib/calendrier-dates";
+import { BLOCAGE_BARRE, FASE_BARRE, FASE_ICONE, type CalFase } from "@/lib/calendrier-styles";
 
 export type CalendrierVue = "7" | "14" | "mois";
 export type GroupeCle = "quads" | "scooter" | "voitures";
@@ -20,6 +21,8 @@ export type CalendrierIntervalle = {
   label: string;
   debut: string;
   fin: string;
+  // Statut affiché (réservations seulement) ; absent pour un blocage.
+  fase?: CalFase;
 };
 export type CalendrierGroupe = {
   cle: GroupeCle;
@@ -47,6 +50,7 @@ export function CalendrierGrid({
   emptyLabel: string;
 }) {
   const t = useTranslations("admin.calendrier");
+  const tRes = useTranslations("admin.reservations");
   const locale = useLocale();
   const router = useRouter();
   const [selection, setSelection] = useState<Selection | null>(null);
@@ -112,6 +116,15 @@ export function CalendrierGrid({
     });
     return res;
   }, [jours]);
+
+  const faseLabel = (f: CalFase) =>
+    ({
+      a_venir: tRes("fase_a_venir"),
+      en_cours: tRes("fase_en_cours"),
+      en_attente: tRes("stat_pendientes"),
+      en_retraso: tRes("fase_en_retraso"),
+      terminee: tRes("fase_terminee"),
+    })[f];
 
   const fmtCourt = (iso: string) => formatDate(iso, locale, { day: "numeric", month: "short" });
   const fmtLong = (iso: string) =>
@@ -284,9 +297,12 @@ export function CalendrierGrid({
                       const longueur = finIdx - debutIdx + 1;
                       const texte = compact && longueur <= 2 ? initiales(it.label) : it.label;
                       const resa = it.type === "reservation";
-                      const couleur = resa
-                        ? "bg-blue-100 text-blue-800 hover:bg-blue-200 border-blue-200"
-                        : "bg-orange-100 text-orange-800 hover:bg-orange-200 border-orange-200";
+                      const fase = resa ? (it.fase ?? "a_venir") : null;
+                      const couleur = fase ? FASE_BARRE[fase] : BLOCAGE_BARRE;
+                      const icone = fase ? FASE_ICONE[fase] : undefined;
+                      // En cours : trait bleu plus foncé à gauche (sauf barre coupée à gauche).
+                      const accent =
+                        fase === "en_cours" && !avant ? "border-l-4 border-l-blue-900" : "";
                       const coins = `${avant ? "rounded-l-none border-l-0" : "rounded-l-md"} ${
                         apres ? "rounded-r-none border-r-0" : "rounded-r-md"
                       }`;
@@ -297,6 +313,7 @@ export function CalendrierGrid({
                           debut: fmtCourt(it.debut),
                           fin: fmtCourt(it.fin),
                         }),
+                        fase ? faseLabel(fase) : null,
                         avant ? t("continues_before") : null,
                         apres ? t("continues_after") : null,
                       ]
@@ -306,10 +323,11 @@ export function CalendrierGrid({
                         gridRow: 1,
                         gridColumn: `${debutIdx + 2} / span ${longueur}`,
                       };
-                      const classe = `z-10 mx-px my-1 flex min-w-0 items-center gap-0.5 overflow-hidden border px-1 text-[10px] font-semibold leading-tight ${couleur} ${coins}`;
+                      const classe = `z-10 mx-px my-1 flex min-w-0 items-center gap-0.5 overflow-hidden border px-1 text-[10px] font-semibold leading-tight ${couleur} ${accent} ${coins}`;
                       const contenu = (
                         <>
                           {avant && <span aria-hidden="true">‹</span>}
+                          {icone && <span aria-hidden="true">{icone}</span>}
                           <span className="min-w-0 flex-1 truncate text-left">{texte}</span>
                           {apres && <span aria-hidden="true">›</span>}
                         </>
@@ -360,6 +378,14 @@ export function CalendrierGrid({
                   {t("details_client")}
                 </dt>
                 <dd className="font-semibold text-ink">{selection.label}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] font-bold uppercase tracking-wider text-ink-soft">
+                  {t("details_status")}
+                </dt>
+                <dd className="text-ink">
+                  {selection.fase ? `${FASE_ICONE[selection.fase] ?? ""} ${faseLabel(selection.fase)}`.trim() : ""}
+                </dd>
               </div>
               <div>
                 <dt className="text-[11px] font-bold uppercase tracking-wider text-ink-soft">

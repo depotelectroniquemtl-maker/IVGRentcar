@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { definirRetourReservation } from "@/lib/reservation-retour";
 import { secondaryLinkClass } from "@/components/admin/form-ui";
 
 // Bascule réversible (même logique que le toggle actif de VehiculeRowActions.tsx) : pas
@@ -25,10 +26,8 @@ export function MarcarDevueltoButton({
   async function toggle() {
     setLoading(true);
     const supabase = createClient();
-    await supabase
-      .from("reservations")
-      .update({ date_retour_reelle: dateRetourReelle ? null : new Date().toISOString() })
-      .eq("id", id);
+    // Même logique de retour que le bouton « Retourner » de la liste (reservation-retour.ts).
+    await definirRetourReservation(supabase, id, !dateRetourReelle);
     setLoading(false);
     router.refresh();
   }

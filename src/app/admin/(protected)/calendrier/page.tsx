@@ -10,7 +10,7 @@ import {
 } from "@/components/admin/CalendrierGrid";
 import { CalendrierMoisPicker } from "@/components/admin/CalendrierMoisPicker";
 import { calcularFase } from "@/lib/reservation-fase";
-import { BLOCAGE_BARRE, FASES_LEGENDE, FASE_BARRE, type CalFase } from "@/lib/calendrier-styles";
+import { BLOCAGE_BARRE, FASES_LEGENDE, FASE_BARRE, FASE_ICONE, type CalFase } from "@/lib/calendrier-styles";
 import {
   addDays,
   addMonths,
@@ -305,6 +305,44 @@ export default async function CalendrierPage({
         vue={vue}
         emptyLabel={filtre === "tous" ? t("empty") : t("empty_filter")}
       />
+
+      <section
+        aria-labelledby="calendrier-legende"
+        className="rounded-lg border border-black/10 bg-white p-5 shadow-sm"
+      >
+        <h2 id="calendrier-legende" className="text-sm font-bold text-ink">
+          {t("legend_help_title")}
+        </h2>
+        <ul className="mt-3 grid gap-x-8 gap-y-2.5 text-sm text-ink-soft md:grid-cols-2">
+          {FASES_LEGENDE.map((f) => (
+            <li key={f} className="flex items-start gap-3">
+              <span
+                aria-hidden="true"
+                className={`mt-0.5 inline-flex h-5 w-9 shrink-0 items-center justify-center rounded border text-[11px] font-semibold ${FASE_BARRE[f]}`}
+              >
+                {FASE_ICONE[f] ?? ""}
+              </span>
+              <span>
+                <strong className="font-semibold text-ink">{FASE_LABELS[f]}</strong> —{" "}
+                {t(`legend_help_${f}`)}
+              </span>
+            </li>
+          ))}
+          <li className="flex items-start gap-3">
+            <span
+              aria-hidden="true"
+              className={`mt-0.5 inline-flex h-5 w-9 shrink-0 rounded border ${BLOCAGE_BARRE}`}
+            />
+            <span>
+              <strong className="font-semibold text-ink">{t("legend_indisponibilite")}</strong> —{" "}
+              {t("legend_help_blocage")}
+            </span>
+          </li>
+        </ul>
+        <p className="mt-3 border-t border-black/5 pt-3 text-xs text-ink-soft">
+          {t("legend_help_libres")}
+        </p>
+      </section>
     </div>
   );
 }

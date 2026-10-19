@@ -1064,7 +1064,7 @@
       "filter_reset": "Reiniciar",
       "filter_hint_all_time": "Todas las fechas, sin filtro.",
       "empty": "Sin datos para este período.",
-      "footnote": "El ingreso corresponde al precio total de las reservas no anuladas. El saldo pendiente ya está incluido en ese ingreso — no es dinero adicional, solo lo que aún no se ha cobrado. El resultado neto solo resta los costos de mantenimiento registrados; no considera otros gastos (combustible, seguro, etc.). El saldo de compra pendiente (ingresado en la ficha del vehículo) no se ve afectado por el filtro de período y no se resta del resultado neto — es una deuda de capital sobre el vehículo, no un gasto del período. Neto tras saldar la deuda es la única columna que resta ese saldo de compra del resultado neto; sin saldo registrado, simplemente coincide con el resultado neto.",
+      "footnote": "El ingreso corresponde al precio total de las reservas no anuladas, sin contar las reservas próximas (aún no empezadas), las pendientes (aún no confirmadas) ni las atrasadas (fecha de fin pasada sin devolución confirmada). El saldo pendiente ya está incluido en ese ingreso — no es dinero adicional, solo lo que aún no se ha cobrado. El resultado neto solo resta los costos de mantenimiento registrados; no considera otros gastos (combustible, seguro, etc.). El saldo de compra pendiente (ingresado en la ficha del vehículo) no se ve afectado por el filtro de período y no se resta del resultado neto — es una deuda de capital sobre el vehículo, no un gasto del período. Neto tras saldar la deuda es la única columna que resta ese saldo de compra del resultado neto; sin saldo registrado, simplemente coincide con el resultado neto.",
       "list_title": "Clientes que alquilaron en el período",
       "list_totals_detail": "{reservations, plural, one {# reserva} other {# reservas}} · {clients, plural, one {# cliente} other {# clientes}}",
       "list_summary": "{clients, plural, one {# cliente} other {# clientes}} · {reservations, plural, one {# reserva} other {# reservas}} · {jours, plural, one {# día} other {# días}} · {montant}",
@@ -1080,7 +1080,7 @@
       "show_all": "Ver todo ({count})",
       "show_less": "Ver menos",
       "export_csv": "Exportar a CSV",
-      "list_note": "Misma regla que las cifras de arriba: reservas no canceladas cuya fecha de inicio cae en el período (una reserva que termina después del período se cuenta completa). Por eso se incluyen las reservas próximas y pendientes; su estado se indica. El monto es el precio de la reserva, no un pago cobrado: la base de datos no tiene pagos registrados.",
+      "list_note": "Misma regla que las cifras de arriba: reservas no canceladas cuya fecha de inicio cae en el período (una reserva que termina después del período se cuenta completa). Las reservas próximas, pendientes y atrasadas se excluyen, igual que en el informe: solo se cuentan los alquileres en curso o terminados. El monto es el precio de la reserva, no un pago cobrado: la base de datos no tiene pagos registrados.",
       "list_mismatch": "Diferencia inesperada entre esta lista y el informe de arriba: {liste} frente a {rapport}.",
       "csv_file": "clientes"
     },

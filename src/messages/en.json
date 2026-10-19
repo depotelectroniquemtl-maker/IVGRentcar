@@ -1064,7 +1064,7 @@
       "filter_reset": "Reset",
       "filter_hint_all_time": "All dates — no filter applied.",
       "empty": "No data for this period.",
-      "footnote": "Revenue is the total price of non-cancelled reservations. The balance due is already included in that revenue — it's not extra money, just what hasn't been collected yet. The net result only subtracts logged maintenance costs; it doesn't account for other expenses (fuel, insurance, etc.). The purchase balance owed (entered on the vehicle's page) isn't affected by the period filter and isn't subtracted from the net result — it's a capital debt on the vehicle, not a period expense. Net after payoff is the only column that subtracts this purchase balance from the net result; with no balance entered, it simply matches the net result.",
+      "footnote": "Revenue is the total price of non-cancelled reservations, excluding upcoming reservations (not started yet), pending ones (not confirmed yet) and overdue ones (end date passed without a confirmed return). The balance due is already included in that revenue — it's not extra money, just what hasn't been collected yet. The net result only subtracts logged maintenance costs; it doesn't account for other expenses (fuel, insurance, etc.). The purchase balance owed (entered on the vehicle's page) isn't affected by the period filter and isn't subtracted from the net result — it's a capital debt on the vehicle, not a period expense. Net after payoff is the only column that subtracts this purchase balance from the net result; with no balance entered, it simply matches the net result.",
       "list_title": "Clients who rented during the period",
       "list_totals_detail": "{reservations, plural, one {# reservation} other {# reservations}} · {clients, plural, one {# client} other {# clients}}",
       "list_summary": "{clients, plural, one {# client} other {# clients}} · {reservations, plural, one {# reservation} other {# reservations}} · {jours, plural, one {# day} other {# days}} · {montant}",
@@ -1080,7 +1080,7 @@
       "show_all": "Show all ({count})",
       "show_less": "Show less",
       "export_csv": "Export to CSV",
-      "list_note": "Same rule as the figures above: non-cancelled reservations whose start date falls in the period (a reservation ending after the period is counted in full). Upcoming and pending reservations are therefore included; their status is shown. The amount is the reservation price, not a collected payment: the database holds no recorded payments.",
+      "list_note": "Same rule as the figures above: non-cancelled reservations whose start date falls in the period (a reservation ending after the period is counted in full). Upcoming, pending and overdue reservations are excluded, as in the report: only ongoing or completed rentals are counted. The amount is the reservation price, not a collected payment: the database holds no recorded payments.",
       "list_mismatch": "Unexpected difference between this list and the report above: {liste} versus {rapport}.",
       "csv_file": "clients"
     },

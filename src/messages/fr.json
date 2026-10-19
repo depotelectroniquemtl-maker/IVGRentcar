@@ -1064,7 +1064,7 @@
       "filter_reset": "Réinitialiser",
       "filter_hint_all_time": "Toutes les dates, faute de filtre.",
       "empty": "Aucune donnée pour cette période.",
-      "footnote": "Le revenu correspond au prix total des réservations non annulées. Le reste à payer est déjà inclus dans ce revenu — ce n'est pas de l'argent en plus, juste ce qui n'a pas encore été encaissé. Le résultat net ne déduit que les coûts d'entretien enregistrés ; il ne tient pas compte des autres charges (carburant, assurance, etc.). Le solde d'achat dû (saisi sur la fiche du véhicule) n'est pas affecté par le filtre de période et n'est pas déduit du résultat net — c'est une dette de capital sur le véhicule, pas une charge de la période. Le net après remboursement est la seule colonne qui déduit ce solde d'achat du résultat net ; sans solde renseigné, elle reprend simplement le résultat net.",
+      "footnote": "Le revenu correspond au prix total des réservations non annulées, hors réservations à venir (pas encore commencées), en attente (pas encore confirmées) et en retard (date de fin dépassée sans retour confirmé). Le reste à payer est déjà inclus dans ce revenu — ce n'est pas de l'argent en plus, juste ce qui n'a pas encore été encaissé. Le résultat net ne déduit que les coûts d'entretien enregistrés ; il ne tient pas compte des autres charges (carburant, assurance, etc.). Le solde d'achat dû (saisi sur la fiche du véhicule) n'est pas affecté par le filtre de période et n'est pas déduit du résultat net — c'est une dette de capital sur le véhicule, pas une charge de la période. Le net après remboursement est la seule colonne qui déduit ce solde d'achat du résultat net ; sans solde renseigné, elle reprend simplement le résultat net.",
       "list_title": "Clients ayant loué sur la période",
       "list_totals_detail": "{reservations, plural, one {# réservation} other {# réservations}} · {clients, plural, one {# client} other {# clients}}",
       "list_summary": "{clients, plural, one {# client} other {# clients}} · {reservations, plural, one {# réservation} other {# réservations}} · {jours, plural, one {# jour} other {# jours}} · {montant}",
@@ -1080,7 +1080,7 @@
       "show_all": "Voir tout ({count})",
       "show_less": "Réduire la liste",
       "export_csv": "Exporter en CSV",
-      "list_note": "Même règle que les chiffres ci-dessus : réservations non annulées dont la date de début est dans la période (une réservation qui se termine après la période est comptée en entier). Les réservations à venir et en attente sont donc incluses ; leur statut est indiqué. Le montant est le prix de la réservation, pas un paiement encaissé : la base ne contient pas de paiements enregistrés.",
+      "list_note": "Même règle que les chiffres ci-dessus : réservations non annulées dont la date de début est dans la période (une réservation qui se termine après la période est comptée en entier). Les réservations à venir, en attente et en retard sont exclues, comme dans le rapport : seules les locations en cours ou terminées sont comptées. Le montant est le prix de la réservation, pas un paiement encaissé : la base ne contient pas de paiements enregistrés.",
       "list_mismatch": "Écart inattendu entre cette liste et le rapport ci-dessus : {liste} contre {rapport}.",
       "csv_file": "clients"
     },

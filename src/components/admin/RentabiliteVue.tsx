@@ -5,7 +5,7 @@ import { groupeDeType, type GroupeVehicule } from "@/lib/vehicule-groupe";
 import { StatCard, tableCardClass, thClass, thNumClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { RentabiliteClientsListe, type LocationLigne } from "@/components/admin/RentabiliteClientsListe";
 import { calcularFase } from "@/lib/reservation-fase";
-import { diffDays } from "@/lib/calendrier-dates";
+import { aujourdhui, diffDays } from "@/lib/calendrier-dates";
 
 // Écran réservé aux admins — données financières, même logique de garde que /utilisateurs.
 export async function RentabiliteVue({
@@ -46,7 +46,9 @@ export async function RentabiliteVue({
         .neq("statut", "annulee"),
       supabase
         .from("contrats_location")
-        .select("solde_usd, reservations(vehicule_id, date_debut, statut)"),
+        .select(
+          "solde_usd, reservations(vehicule_id, date_debut, date_fin, date_retour_reelle, statut)",
+        ),
       supabase.from("entretiens").select("vehicule_id, cout_usd, date_entretien"),
     ]);
 
@@ -61,10 +63,24 @@ export async function RentabiliteVue({
     return true;
   };
 
+  // Seules les locations réellement en cours ou terminées comptent : sont exclues du rapport
+  // comme de la liste des clients les réservations en attente (pas confirmées), à venir (pas
+  // encore commencées) et en retard (date de fin dépassée, retour non confirmé). La phase est
+  // celle de la liste des réservations ; « aujourd'hui » = jour civil de Las Terrenas.
+  const aujourdhuiLocal = aujourdhui();
+  const compte = (statut: string, debut: string, fin: string, retour: string | null) => {
+    if (statut === "en_attente") return false;
+    const fase = calcularFase(debut, fin, statut, retour, aujourdhuiLocal);
+    return fase === "en_cours" || fase === "terminee";
+  };
+
   const revenuParVehicule = new Map<string, number>();
   const reservationsParVehicule = new Map<string, number>();
   for (const r of reservations ?? []) {
-    if (!dansLaPeriode(r.date_debut)) continue;
+    if (!dansLaPeriode(r.date_debut) ||
+      !compte(r.statut, r.date_debut, r.date_fin, r.date_retour_reelle)
+    )
+      continue;
     revenuParVehicule.set(r.vehicule_id, (revenuParVehicule.get(r.vehicule_id) ?? 0) + (r.prix_total_usd ?? 0));
     reservationsParVehicule.set(r.vehicule_id, (reservationsParVehicule.get(r.vehicule_id) ?? 0) + 1);
   }
@@ -73,6 +89,7 @@ export async function RentabiliteVue({
   for (const c of contrats ?? []) {
     const resa = c.reservations;
     if (!resa || resa.statut === "annulee" || !dansLaPeriode(resa.date_debut)) continue;
+    if (!compte(resa.statut, resa.date_debut, resa.date_fin, resa.date_retour_reelle)) continue;
     if (!c.solde_usd || c.solde_usd <= 0) continue;
     resteParVehicule.set(resa.vehicule_id, (resteParVehicule.get(resa.vehicule_id) ?? 0) + c.solde_usd);
   }
@@ -139,7 +156,12 @@ export async function RentabiliteVue({
   };
   const fmtMontant = (n: number) => `US$ ${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
   const locations: LocationLigne[] = (reservations ?? [])
-    .filter((r) => vehiculesDuGroupe.has(r.vehicule_id) && dansLaPeriode(r.date_debut))
+    .filter(
+      (r) =>
+        vehiculesDuGroupe.has(r.vehicule_id) &&
+        dansLaPeriode(r.date_debut) &&
+        compte(r.statut, r.date_debut, r.date_fin, r.date_retour_reelle),
+    )
     .sort((a, b) => b.date_debut.localeCompare(a.date_debut) || b.numero - a.numero)
     .map((r) => {
       const fase = calcularFase(r.date_debut, r.date_fin, r.statut, r.date_retour_reelle);

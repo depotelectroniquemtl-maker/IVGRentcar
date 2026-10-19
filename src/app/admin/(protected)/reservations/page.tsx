@@ -5,20 +5,9 @@ import { EditRowLink, Pill, StatCard, tableCardClass, thClass, theadClass, trCla
 import { SearchInput } from "@/components/admin/SearchInput";
 import { Pagination } from "@/components/admin/Pagination";
 import { RetournerReservationButton } from "@/components/admin/RetournerReservationButton";
-import { calcularFase } from "@/lib/reservation-fase";
+import { FASE_BADGE_CLASSES, calcularFase } from "@/lib/reservation-fase";
 
 const PAGE_SIZE = 20;
-
-// Couleurs alignées sur le calendrier : en cours = bleu plein, à venir = bleu clair,
-// en attente = gris pointillé, en retard = rouge, terminée = vert (avec coche).
-const FASE_CLASSNAMES: Record<string, string> = {
-  a_venir: "bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-300",
-  en_cours: "bg-blue-600 text-white",
-  en_attente: "border border-dashed border-black/40 bg-black/[0.03] text-ink-soft",
-  terminee: "bg-green-100 text-green-700",
-  en_retraso: "bg-red-100 text-red-700",
-  annulee: "bg-red-100 text-red-700",
-};
 
 export default async function ReservationsPage({
   searchParams,
@@ -127,7 +116,7 @@ export default async function ReservationsPage({
                       {r.prix_total_usd ? `US$ ${r.prix_total_usd}` : tCommon("dash")}
                     </td>
                     <td className="px-4 py-3">
-                      <Pill className={FASE_CLASSNAMES[r.statut === "en_attente" ? "en_attente" : fase]}>
+                      <Pill className={FASE_BADGE_CLASSES[r.statut === "en_attente" ? "en_attente" : fase]}>
                         {fase === "terminee" && <span aria-hidden="true">✓</span>}
                         {fase === "en_retraso" && <span aria-hidden="true">⚠</span>}
                         {FASE_LABELS[fase]}

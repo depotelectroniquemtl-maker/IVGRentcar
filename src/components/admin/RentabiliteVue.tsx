@@ -3,6 +3,9 @@ import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { groupeDeType, type GroupeVehicule } from "@/lib/vehicule-groupe";
 import { StatCard, tableCardClass, thClass, thNumClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { RentabiliteClientsListe, type LocationLigne } from "@/components/admin/RentabiliteClientsListe";
+import { calcularFase } from "@/lib/reservation-fase";
+import { aujourdhui, diffDays } from "@/lib/calendrier-dates";
 
 // Écran réservé aux admins — données financières, même logique de garde que /utilisateurs.
 export async function RentabiliteVue({
@@ -35,11 +38,17 @@ export async function RentabiliteVue({
         .select("id, plaque, actif, solde_achat_usd, categories_vehicules(nom, type)"),
       supabase
         .from("reservations")
-        .select("vehicule_id, prix_total_usd, statut, date_debut")
+        // Colonnes ajoutées (lecture seule) pour la liste des clients ; le calcul du rapport
+        // ci-dessous n'utilise que vehicule_id, prix_total_usd et date_debut, comme avant.
+        .select(
+          "id, numero, vehicule_id, client_id, date_debut, date_fin, date_retour_reelle, prix_total_usd, statut, clients(nom)",
+        )
         .neq("statut", "annulee"),
       supabase
         .from("contrats_location")
-        .select("solde_usd, reservations(vehicule_id, date_debut, statut)"),
+        .select(
+          "solde_usd, reservations(vehicule_id, date_debut, date_fin, date_retour_reelle, statut)",
+        ),
       supabase.from("entretiens").select("vehicule_id, cout_usd, date_entretien"),
     ]);
 
@@ -54,10 +63,24 @@ export async function RentabiliteVue({
     return true;
   };
 
+  // Seules les locations réellement en cours ou terminées comptent : sont exclues du rapport
+  // comme de la liste des clients les réservations en attente (pas confirmées), à venir (pas
+  // encore commencées) et en retard (date de fin dépassée, retour non confirmé). La phase est
+  // celle de la liste des réservations ; « aujourd'hui » = jour civil de Las Terrenas.
+  const aujourdhuiLocal = aujourdhui();
+  const compte = (statut: string, debut: string, fin: string, retour: string | null) => {
+    if (statut === "en_attente") return false;
+    const fase = calcularFase(debut, fin, statut, retour, aujourdhuiLocal);
+    return fase === "en_cours" || fase === "terminee";
+  };
+
   const revenuParVehicule = new Map<string, number>();
   const reservationsParVehicule = new Map<string, number>();
   for (const r of reservations ?? []) {
-    if (!dansLaPeriode(r.date_debut)) continue;
+    if (!dansLaPeriode(r.date_debut) ||
+      !compte(r.statut, r.date_debut, r.date_fin, r.date_retour_reelle)
+    )
+      continue;
     revenuParVehicule.set(r.vehicule_id, (revenuParVehicule.get(r.vehicule_id) ?? 0) + (r.prix_total_usd ?? 0));
     reservationsParVehicule.set(r.vehicule_id, (reservationsParVehicule.get(r.vehicule_id) ?? 0) + 1);
   }
@@ -66,6 +89,7 @@ export async function RentabiliteVue({
   for (const c of contrats ?? []) {
     const resa = c.reservations;
     if (!resa || resa.statut === "annulee" || !dansLaPeriode(resa.date_debut)) continue;
+    if (!compte(resa.statut, resa.date_debut, resa.date_fin, resa.date_retour_reelle)) continue;
     if (!c.solde_usd || c.solde_usd <= 0) continue;
     resteParVehicule.set(resa.vehicule_id, (resteParVehicule.get(resa.vehicule_id) ?? 0) + c.solde_usd);
   }
@@ -115,6 +139,61 @@ export async function RentabiliteVue({
     }),
     { revenu: 0, reste: 0, cout: 0, net: 0, soldeAchat: 0, netApresRemboursement: 0 },
   );
+
+  // Liste des clients : mêmes réservations que le rapport (non annulées, date de début dans la
+  // période) et mêmes véhicules (groupe affiché). Une ligne par réservation, plus récente d'abord.
+  const vehiculesDuGroupe = new Map(
+    (vehicules ?? [])
+      .filter((v) => groupeDeType(v.categories_vehicules?.type) === groupe)
+      .map((v) => [v.id, `${v.categories_vehicules?.nom ?? tCommon("dash")} (${v.plaque ?? tCommon("dash")})`]),
+  );
+  const faseLabels: Record<string, string> = {
+    a_venir: tReservations("fase_a_venir"),
+    en_cours: tReservations("fase_en_cours"),
+    terminee: tReservations("fase_terminee"),
+    en_retraso: tReservations("fase_en_retraso"),
+    annulee: tReservations("fase_annulee"),
+  };
+  const fmtMontant = (n: number) => `US$ ${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+  const locations: LocationLigne[] = (reservations ?? [])
+    .filter(
+      (r) =>
+        vehiculesDuGroupe.has(r.vehicule_id) &&
+        dansLaPeriode(r.date_debut) &&
+        compte(r.statut, r.date_debut, r.date_fin, r.date_retour_reelle),
+    )
+    .sort((a, b) => b.date_debut.localeCompare(a.date_debut) || b.numero - a.numero)
+    .map((r) => {
+      const fase = calcularFase(r.date_debut, r.date_fin, r.statut, r.date_retour_reelle);
+      const montant = r.prix_total_usd ?? 0;
+      return {
+        id: r.id,
+        numero: r.numero,
+        clientId: r.client_id,
+        client: r.clients?.nom ?? tCommon("dash"),
+        vehicule: vehiculesDuGroupe.get(r.vehicule_id) ?? tCommon("dash"),
+        debut: r.date_debut,
+        fin: r.date_fin,
+        // Même règle que le prix et le contrat : fin − début, minimum 1 jour.
+        jours: Math.max(diffDays(r.date_debut, r.date_fin), 1),
+        montant,
+        montantFmt: fmtMontant(montant),
+        fase,
+        enAttente: r.statut === "en_attente",
+        faseLabel: faseLabels[fase],
+      };
+    });
+  const totalListe = locations.reduce((s, l) => s + l.montant, 0);
+  const nbListe = locations.length;
+  const nbRapport = lignes.reduce((s, l) => s + l.reservations, 0);
+  // Garde-fou : la liste doit correspondre exactement au rapport (revenu et nombre de réservations).
+  const ecart =
+    totalListe !== totaux.revenu || nbListe !== nbRapport
+      ? {
+          liste: `${nbListe} / ${fmtMontant(totalListe)}`,
+          rapport: `${nbRapport} / ${fmtMontant(totaux.revenu)}`,
+        }
+      : null;
 
   const fmt = (n: number) => `US$ ${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
 
@@ -221,6 +300,14 @@ export async function RentabiliteVue({
           </table>
         </div>
       </div>
+
+      <RentabiliteClientsListe
+        lignes={locations}
+        groupe={groupe}
+        periode={`${debut || "debut"}_${fin || "fin"}`}
+        totalFmt={fmtMontant(totalListe)}
+        ecart={ecart}
+      />
 
       <p className="max-w-[70ch] text-xs text-ink-soft">{t("footnote")}</p>
     </div>

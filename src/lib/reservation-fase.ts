@@ -1,5 +1,17 @@
 import { aujourdhui } from "@/lib/calendrier-dates";
 
+// Couleurs des badges de phase (liste des réservations, rentabilité) : alignées sur le
+// calendrier — en cours = bleu plein, à venir = bleu clair, en attente = gris pointillé,
+// en retard = rouge, terminée = vert (avec coche).
+export const FASE_BADGE_CLASSES: Record<string, string> = {
+  a_venir: "bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-300",
+  en_cours: "bg-blue-600 text-white",
+  en_attente: "border border-dashed border-black/40 bg-black/[0.03] text-ink-soft",
+  terminee: "bg-green-100 text-green-700",
+  en_retraso: "bg-red-100 text-red-700",
+  annulee: "bg-red-100 text-red-700",
+};
+
 export type Fase = "annulee" | "a_venir" | "en_cours" | "en_retraso" | "terminee";
 
 // Phase d'une réservation (calculée, jamais stockée : le statut stocké reste en_attente /

@@ -23,8 +23,8 @@ export function TierPrices({ tarifs }: { tarifs: CategorieAvecTarifs["tarifs"] }
             }`}
           >
             <span
-              className={`text-[10px] font-semibold uppercase leading-tight tracking-wide ${
-                i === 0 ? "text-white/85" : "text-ink-soft"
+              className={`text-[11px] font-semibold uppercase leading-tight tracking-wide ${
+                i === 0 ? "text-white" : "text-ink-soft"
               }`}
             >
               {t(`table.${labelKey}`)}
@@ -32,6 +32,12 @@ export function TierPrices({ tarifs }: { tarifs: CategorieAvecTarifs["tarifs"] }
             <span className="mt-1 text-lg font-extrabold tabular-nums">
               {prix !== null ? `US$${prix.toFixed(0)}` : "—"}
             </span>
+            {/* Chaque palier est un tarif PAR JOUR (prix total = tarif du palier × nombre de jours). */}
+            {prix !== null && (
+              <span className={`text-[11px] leading-tight ${i === 0 ? "text-white" : "text-ink-soft"}`}>
+                {t("per_day")}
+              </span>
+            )}
           </div>
         );
       })}

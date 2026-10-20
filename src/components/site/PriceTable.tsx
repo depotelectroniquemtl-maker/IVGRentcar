@@ -6,6 +6,16 @@ function formatUsd(value: number | null) {
   return `US$ ${value.toFixed(0)}`;
 }
 
+// Chaque palier est un tarif PAR JOUR (prix total = tarif du palier × nombre de jours).
+function PerDay({ value, label }: { value: number | null; label: string }) {
+  return (
+    <>
+      {formatUsd(value)}
+      {value !== null && <span className="ml-1 text-xs font-normal text-ink-soft">{label}</span>}
+    </>
+  );
+}
+
 /**
  * Grille tarifaire — reprend la structure de la fiche tarifaire papier du client
  * (1 rangée par véhicule, 3 colonnes de palier colorées), en composant réutilisable.
@@ -44,13 +54,13 @@ export function PriceTable({ categories }: { categories: CategorieAvecTarifs[] }
                   : "—"}
               </td>
               <td className="px-4 py-3 font-medium text-green-700">
-                {formatUsd(cat.tarifs["1_3_jours"])}
+                <PerDay value={cat.tarifs["1_3_jours"]} label={t("per_day")} />
               </td>
               <td className="px-4 py-3 font-medium text-blue-700">
-                {formatUsd(cat.tarifs["4_plus_jours"])}
+                <PerDay value={cat.tarifs["4_plus_jours"]} label={t("per_day")} />
               </td>
               <td className="px-4 py-3 font-medium text-purple-700">
-                {formatUsd(cat.tarifs["15_plus_jours"])}
+                <PerDay value={cat.tarifs["15_plus_jours"]} label={t("per_day")} />
               </td>
             </tr>
           ))}

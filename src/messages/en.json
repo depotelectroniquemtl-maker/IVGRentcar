@@ -12,6 +12,9 @@
     },
     "reservar_cta": "Book now",
     "footer": {
+      "link_quads": "Quad rental",
+      "link_cars": "Car rental",
+      "link_contact": "Contact",
       "rights": "All rights reserved.",
       "address": "Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, D.R.",
       "tagline": "Explore freely.\nReturn happy.",
@@ -98,6 +101,7 @@
       "discover_more": "Discover Las Terrenas"
     },
     "video": {
+      "play": "Play video",
       "title": "Live the experience",
       "quad_caption": "Quad tour in Las Terrenas",
       "shop_caption": "Our local service point"
@@ -109,8 +113,9 @@
     }
   },
   "flotte": {
+    "per_day": "per day",
     "title": "Fleet & rates",
-    "subtitle": "Prices in US dollars, based on rental duration.",
+    "subtitle": "Prices in US dollars per day, based on rental duration.",
     "table": {
       "vehicle": "Vehicle",
       "tier_1_3": "1 to 3 days",
@@ -1178,13 +1183,15 @@
   },
   "fleetPages": {
     "ui": {
+      "see_all_quads": "See all our quads",
+      "see_all_cars": "See all our cars",
       "home": "Home",
       "fleet": "Fleet",
       "hub_quads": "Quad rental",
       "hub_voitures": "Car rental",
       "specs_title": "Key facts",
       "prices_title": "Rates in US$",
-      "price_note": "Prices in US dollars, depending on rental length. Full details are on the Rental conditions page.",
+      "price_note": "Prices in US dollars per day, depending on rental length. Full details are on the Rental conditions page.",
       "reserve": "Book now",
       "whatsapp": "Message us on WhatsApp",
       "whatsapp_message": "Hello, I would like to rent: {vehicule}.",
@@ -1193,7 +1200,6 @@
       "see_conditions": "Rental conditions",
       "see_faq": "All frequently asked questions",
       "see_fleet": "Full fleet and rates",
-      "from_hub": "See all {hub}",
       "details": "View details",
       "capacity": "{count} people",
       "tiers_title": "Rental length",
@@ -1201,20 +1207,21 @@
     },
     "pages": {
       "quad-300cc": {
-        "seo_title": "300cc quad for rent in Las Terrenas | IVJ Rentcar",
-        "seo_description": "Rent a 300cc 4-wheel quad in Las Terrenas: helmet provided, from one day, minimum age 16. Rates by rental length, book online or on WhatsApp.",
-        "h1": "300cc quad rental in Las Terrenas",
+        "seo_title": "300cc quad: rates, helmet, minimum age | IVJ Rentcar",
+        "seo_description": "300cc 4-wheel quad: seats 2, helmet provided, minimum age 16, US$ 300 deposit. Daily rates by rental length, book online or on WhatsApp.",
+        "h1": "300cc 4-wheel quad in Las Terrenas",
         "eyebrow": "4-wheel quad",
         "specs": [
           "4-wheel quad, 300cc",
           "Helmet provided",
           "Minimum rental: one day",
-          "Minimum age: 16"
+          "Minimum age: 16",
+          "Deposit: US$ 300"
         ],
         "intro": [
-          "Our 300cc four-wheel quad is rented for one day at minimum, and the helmet is provided. It seats 2 people. You pick it up at our office on Plaza Italia #22 in Las Terrenas and bring it back there at the end of the rental.",
-          "It is an easy way to get around Las Terrenas and explore the surroundings of the Samaná peninsula at your own pace. The rider must be at least 16 years old.",
-          "The rate depends on how long you rent: it goes down at the 4-day and 15-day-and-over tiers. To book, fill in the online form or message us on WhatsApp, and we will confirm availability before you commit to anything."
+          "The 300cc four-wheel quad seats 2 people and is rented from one day, helmet provided. You pick it up at our office on Plaza Italia #22 in Las Terrenas and bring it back there.",
+          "The rider must be at least 16 and a US$ 300 deposit is required. It is an easy way to get around Las Terrenas and explore the Samaná peninsula at your own pace.",
+          "Each tier is a daily rate: it goes down from 4 days and again from 15 days and over, and for long rentals prices are negotiable. To book, fill in the online form or message us on WhatsApp, and we will confirm availability before you commit to anything."
         ],
         "faq": [
           {
@@ -1236,6 +1243,14 @@
           {
             "question": "Where do I pick up the quad?",
             "answer": "At our office on Plaza Italia #22 in Las Terrenas, where the quad is also returned."
+          },
+          {
+            "question": "What is the deposit for a quad?",
+            "answer": "The deposit is US$ 300 for a quad."
+          },
+          {
+            "question": "Are prices negotiable?",
+            "answer": "For long-term rentals, prices are negotiable."
           }
         ],
         "alts": [
@@ -1388,18 +1403,18 @@
     "hubs": {
       "quads": {
         "seo_title": "ATV & quad rental in Las Terrenas | IVJ Rentcar",
-        "seo_description": "Rent a 300cc 4-wheel ATV quad in Las Terrenas: helmet provided, from one day, minimum age 16. Book online or on WhatsApp with IVJ Rentcar.",
+        "seo_description": "Renting a quad in Las Terrenas: from one day, helmet provided, minimum age 16, pick-up at Plaza Italia #22. Daily rates, book online or on WhatsApp.",
         "h1": "ATV & quad rental in Las Terrenas",
         "intro": [
-          "IVJ Rentcar rents 300cc four-wheel quads (ATVs) in Las Terrenas, on the Samaná peninsula. Rentals start at one day, the helmet is provided and the minimum age is 16.",
-          "Each quad seats 2 people. Pick-up and return are at our office on Plaza Italia #22. The rate goes down with the length of the rental; the three tiers are shown on the quad page.",
-          "Book online or on WhatsApp, and we will confirm availability before you commit."
+          "Renting a quad in Las Terrenas is simple: rentals start at one day, the helmet is provided and the rider must be at least 16. IVJ Rentcar is based at Plaza Italia #22, where the quad is handed over and returned.",
+          "The rate is per day and goes down with the length of the rental; a US$ 300 deposit is required for a quad. For long rentals, prices are negotiable.",
+          "Book online or on WhatsApp, and we will confirm availability before you commit. The quad's key facts, rates and frequently asked questions are on its page."
         ],
         "cars_link": "Looking for a car instead? See car rental in Las Terrenas"
       },
       "voitures": {
         "seo_title": "Car rental in Las Terrenas | IVJ Rentcar",
-        "seo_description": "Rent a car in Las Terrenas: Kia Seltos, 7-seater Suzuki XL7, Hyundai Tucson 4x4. Automatic, petrol, minimum age 25. Book online or on WhatsApp.",
+        "seo_description": "Rent a car in Las Terrenas, Samaná: Kia Seltos, 7-seater Suzuki XL7, Hyundai Tucson 4x4. Automatic, petrol, minimum age 25. Book online or on WhatsApp.",
         "h1": "Car rental in Las Terrenas",
         "intro": [
           "Rent a car in Las Terrenas to get around the Samaná peninsula and the rest of the Dominican Republic. All of our cars are automatic, air-conditioned and petrol-powered; the driver must be at least 25.",

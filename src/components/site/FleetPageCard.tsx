@@ -9,10 +9,14 @@ import type { CategorieAvecTarifs } from "@/lib/types";
 export function FleetPageCard({
   slug,
   categorie,
+  headingLevel = "h3",
 }: {
   slug: FleetPageSlug;
   categorie: CategorieAvecTarifs;
+  // Sur les hubs, la carte suit directement le H1 : son titre est un H2 (même rendu visuel).
+  headingLevel?: "h2" | "h3";
 }) {
+  const Heading = headingLevel;
   const t = useTranslations("fleetPages");
   const page = FLEET_PAGES[slug];
   const photo = page.photos[0];
@@ -33,11 +37,11 @@ export function FleetPageCard({
         />
       </Link>
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <h3 className="text-xl font-bold text-ink">
+        <Heading className="text-xl font-bold text-ink">
           <Link href={`/flotte/${slug}`} className="hover:text-brand">
             {page.label}
           </Link>
-        </h3>
+        </Heading>
         <TierPrices tarifs={categorie.tarifs} />
         <Link
           href={`/flotte/${slug}`}

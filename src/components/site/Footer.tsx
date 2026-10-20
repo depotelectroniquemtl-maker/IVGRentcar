@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Link as LocaleLink } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { WHATSAPP_NUMBER } from "@/lib/constants";
+import { BUSINESS_ADDRESS, PHONE_DISPLAY } from "@/lib/constants";
 import { splitLines } from "@/lib/splitLines";
 import { CookieSettingsButton } from "@/components/site/CookieSettingsButton";
 
@@ -28,23 +28,33 @@ export function Footer({ showCookieSettings = false }: { showCookieSettings?: bo
           {splitLines(t("footer.tagline"))}
         </h2>
 
-        <div className="mt-10 flex flex-col gap-2 border-t border-white/15 pt-6 text-xs text-white/60 sm:mt-14 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/15 pt-6 text-xs text-white/60 sm:mt-14 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-6">
           <p>
             © {new Date().getFullYear()} IVJ Rentcar · {t("footer.location")}
           </p>
-          <p>WhatsApp: +{WHATSAPP_NUMBER}</p>
-          <nav className="flex flex-wrap items-center gap-x-4 gap-y-1">
-            <LocaleLink href="/conditions" className="text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+          <address className="not-italic">{BUSINESS_ADDRESS}</address>
+          <p>WhatsApp: {PHONE_DISPLAY}</p>
+          <nav className="flex flex-wrap items-center gap-x-4">
+            <LocaleLink href="/flotte/voitures" className="inline-block py-1 text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+              {t("footer.link_cars")}
+            </LocaleLink>
+            <LocaleLink href="/flotte/quads" className="inline-block py-1 text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+              {t("footer.link_quads")}
+            </LocaleLink>
+            <LocaleLink href="/contact" className="inline-block py-1 text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+              {t("footer.link_contact")}
+            </LocaleLink>
+            <LocaleLink href="/conditions" className="inline-block py-1 text-white/60 underline-offset-2 transition hover:text-white hover:underline">
               {t("footer.link_conditions")}
             </LocaleLink>
-            <LocaleLink href="/mentions-legales" className="text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+            <LocaleLink href="/mentions-legales" className="inline-block py-1 text-white/60 underline-offset-2 transition hover:text-white hover:underline">
               {t("footer.link_legal")}
             </LocaleLink>
-            <LocaleLink href="/confidentialite" className="text-white/60 underline-offset-2 transition hover:text-white hover:underline">
+            <LocaleLink href="/confidentialite" className="inline-block py-1 text-white/60 underline-offset-2 transition hover:text-white hover:underline">
               {t("footer.link_privacy")}
             </LocaleLink>
             {showCookieSettings && (
-              <CookieSettingsButton className="text-left text-white/60 underline-offset-2 transition hover:text-white hover:underline" />
+              <CookieSettingsButton className="inline-block py-1 text-left text-white/60 underline-offset-2 transition hover:text-white hover:underline" />
             )}
           </nav>
           <Link href="/admin/login" className="text-white/40 transition hover:text-white/70">

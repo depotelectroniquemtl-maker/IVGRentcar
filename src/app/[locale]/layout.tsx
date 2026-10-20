@@ -22,7 +22,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 // encore sa propre metadata (erreur, route future sans generateMetadata...).
 const FALLBACK_TITLE = "IVJ Rentcar — Las Terrenas";
 const FALLBACK_DESCRIPTION =
-  "Alquiler de autos, camionetas 4x4 y cuadriciclos en Las Terrenas, República Dominicana. Tu confianza en el volante.";
+  "Alquiler de carros, camionetas 4x4 y cuadriciclos en Las Terrenas, República Dominicana. Tu confianza en el volante.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

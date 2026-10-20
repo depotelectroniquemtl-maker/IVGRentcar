@@ -17,8 +17,10 @@ export function BreadcrumbJsonLd({ locale, crumbs }: { locale: string; crumbs: C
   return <JsonLd data={data} />;
 }
 
-// Product + une Offer par palier de prix (USD), rattaché au LocalBusiness existant par son
-// @id. Aucune note, aucun avis, aucune disponibilité : rien de tout cela n'est publié.
+// Product + une Offer par palier de prix (USD, PAR JOUR : le prix total est le tarif du palier
+// multiplié par le nombre de jours, voir calculer_prix_total), rattaché au LocalBusiness
+// existant par son @id. Aucune note, aucun avis, aucune disponibilité : rien de tout cela
+// n'est publié.
 export function ProductJsonLd({
   locale,
   path,
@@ -47,6 +49,13 @@ export function ProductJsonLd({
       name: o.name,
       price: o.price.toFixed(2),
       priceCurrency: "USD",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        price: o.price.toFixed(2),
+        priceCurrency: "USD",
+        unitCode: "DAY",
+        referenceQuantity: { "@type": "QuantitativeValue", value: 1, unitCode: "DAY" },
+      },
       url,
       seller: { "@id": BUSINESS_ID },
     })),

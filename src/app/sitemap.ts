@@ -30,7 +30,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [...STATIC_PATHS, ...vehiclePaths].flatMap((path) =>
     routing.locales.map((locale) => ({
       url: `${SITE_URL}/${locale}${path}`,
-      lastModified: new Date(),
+      // Pas de lastModified : aucune date de modification fiable n'existe pour ces pages (le
+      // catalogue lu ne la fournit pas, les textes sont dans le code). `new Date()` changeait à
+      // chaque génération, ce que les moteurs apprennent à ignorer.
       alternates: {
         languages: Object.fromEntries(
           routing.locales.map((l) => [l, `${SITE_URL}/${l}${path}`]),

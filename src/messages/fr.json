@@ -12,6 +12,9 @@
     },
     "reservar_cta": "Réserver",
     "footer": {
+      "link_quads": "Location de quads",
+      "link_cars": "Location de voitures",
+      "link_contact": "Contact",
       "rights": "Tous droits réservés.",
       "address": "Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, R.D.",
       "tagline": "Explorez librement.\nRevenez heureux.",
@@ -98,6 +101,7 @@
       "discover_more": "Découvrir Las Terrenas"
     },
     "video": {
+      "play": "Lire la vidéo",
       "title": "Vivez l'expérience",
       "quad_caption": "Sortie en quad à Las Terrenas",
       "shop_caption": "Notre point de service local"
@@ -109,8 +113,9 @@
     }
   },
   "flotte": {
+    "per_day": "par jour",
     "title": "Flotte et tarifs",
-    "subtitle": "Prix en dollars US, selon la durée de location.",
+    "subtitle": "Prix en dollars US par jour, selon la durée de location.",
     "table": {
       "vehicle": "Véhicule",
       "tier_1_3": "1 à 3 jours",
@@ -1178,13 +1183,15 @@
   },
   "fleetPages": {
     "ui": {
+      "see_all_quads": "Voir tous nos quads",
+      "see_all_cars": "Voir toutes nos voitures",
       "home": "Accueil",
       "fleet": "Flotte",
       "hub_quads": "Location de quad",
       "hub_voitures": "Location de voiture",
       "specs_title": "Caractéristiques",
       "prices_title": "Tarifs en US$",
-      "price_note": "Prix en dollars US, selon la durée de location. Les conditions détaillées figurent sur la page Conditions de location.",
+      "price_note": "Prix en dollars US par jour, selon la durée de location. Les conditions détaillées figurent sur la page Conditions de location.",
       "reserve": "Réserver",
       "whatsapp": "Écrire sur WhatsApp",
       "whatsapp_message": "Bonjour, je souhaite louer : {vehicule}.",
@@ -1193,7 +1200,6 @@
       "see_conditions": "Conditions de location",
       "see_faq": "Toutes les questions fréquentes",
       "see_fleet": "Flotte et tarifs complets",
-      "from_hub": "Voir tous les {hub}",
       "details": "Voir la fiche",
       "capacity": "{count} personnes",
       "tiers_title": "Durée de location",
@@ -1201,20 +1207,21 @@
     },
     "pages": {
       "quad-300cc": {
-        "seo_title": "Quad 300cc à louer à Las Terrenas | IVJ Rentcar",
-        "seo_description": "Quad 4 roues 300cc à louer à Las Terrenas : casque fourni, location dès une journée, 16 ans minimum. Tarifs par durée, réservation en ligne ou WhatsApp.",
-        "h1": "Location de quad 300cc à Las Terrenas",
+        "seo_title": "Quad 300cc : tarifs, casque, âge minimum | IVJ Rentcar",
+        "seo_description": "Quad 4 roues 300cc : 2 personnes, casque fourni, 16 ans minimum, caution 300 US$. Tarifs par jour selon la durée, réservation en ligne ou WhatsApp.",
+        "h1": "Quad 4 roues 300cc à Las Terrenas",
         "eyebrow": "Quad 4 roues",
         "specs": [
           "Quad 4 roues, 300cc",
           "Casque fourni",
           "Location minimale : une journée",
-          "Âge minimum : 16 ans"
+          "Âge minimum : 16 ans",
+          "Caution : 300 US$"
         ],
         "intro": [
-          "Notre quad 4 roues 300cc se loue pour une journée au minimum, avec le casque fourni. Il accueille 2 personnes et se récupère à notre local de Plaza Italia #22, à Las Terrenas, où il revient aussi à la fin de la location.",
-          "C'est une manière simple de se déplacer à Las Terrenas et d'explorer les environs, sur la péninsule de Samaná, à son propre rythme. Le conducteur doit avoir 16 ans au moins.",
-          "Le tarif dépend de la durée : il diminue avec les paliers de 4 jours et de 15 jours et plus. Pour réserver, remplissez le formulaire en ligne ou écrivez-nous sur WhatsApp : nous confirmons la disponibilité avant tout engagement."
+          "Le quad 4 roues 300cc accueille 2 personnes et se loue à partir d'une journée, casque fourni. Il se récupère à notre local de Plaza Italia #22, à Las Terrenas, où il est aussi rendu.",
+          "Le conducteur doit avoir 16 ans au moins et une caution de 300 US$ est demandée. C'est une manière simple de se déplacer à Las Terrenas et d'explorer les environs, sur la péninsule de Samaná, à son rythme.",
+          "Chaque palier est un tarif par jour : il baisse à partir de 4 jours puis de 15 jours et plus, et pour une location longue les prix sont négociables. Pour réserver, remplissez le formulaire en ligne ou écrivez-nous sur WhatsApp : nous confirmons la disponibilité avant tout engagement."
         ],
         "faq": [
           {
@@ -1236,6 +1243,14 @@
           {
             "question": "Où récupère-t-on le quad ?",
             "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où le quad est aussi rendu."
+          },
+          {
+            "question": "Quelle est la caution pour un quad ?",
+            "answer": "La caution est de 300 US$ pour un quad."
+          },
+          {
+            "question": "Les prix sont-ils négociables ?",
+            "answer": "Pour une location de longue durée, les prix sont négociables."
           }
         ],
         "alts": [
@@ -1388,18 +1403,18 @@
     "hubs": {
       "quads": {
         "seo_title": "Location de quad à Las Terrenas | IVJ Rentcar",
-        "seo_description": "Louez un quad 4 roues 300cc à Las Terrenas : casque fourni, dès une journée, 16 ans minimum. Réservez en ligne ou par WhatsApp avec IVJ Rentcar.",
+        "seo_description": "Louer un quad à Las Terrenas : dès 1 jour, casque fourni, 16 ans minimum, remise à Plaza Italia #22. Tarifs par jour, réservation en ligne ou WhatsApp.",
         "h1": "Location de quad à Las Terrenas",
         "intro": [
-          "IVJ Rentcar loue des quads 4 roues 300cc à Las Terrenas, dans la péninsule de Samaná. La location commence à une journée, le casque est fourni et l'âge minimum est de 16 ans.",
-          "Chaque quad accueille 2 personnes. La remise et le retour se font à notre local de Plaza Italia #22. Le tarif baisse avec la durée : les trois paliers sont détaillés sur la fiche du quad.",
-          "Réservez en ligne ou par WhatsApp ; nous confirmons la disponibilité avant tout engagement."
+          "Louer un quad à Las Terrenas est simple : la location commence à une journée, le casque est fourni et le conducteur doit avoir 16 ans au moins. IVJ Rentcar est installé à Plaza Italia #22, où le quad est remis et rendu.",
+          "Le tarif est calculé par jour et baisse avec la durée de la location ; une caution de 300 US$ est demandée pour un quad. Pour une location de longue durée, les prix sont négociables.",
+          "Réservez en ligne ou par WhatsApp : nous confirmons la disponibilité avant tout engagement. Caractéristiques, tarifs et questions fréquentes du quad sont sur sa fiche."
         ],
         "cars_link": "Vous cherchez plutôt une voiture ? Voir la location de voiture à Las Terrenas"
       },
       "voitures": {
         "seo_title": "Location de voiture à Las Terrenas | IVJ Rentcar",
-        "seo_description": "Voitures à louer à Las Terrenas : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, essence, 25 ans minimum. Réservez en ligne ou par WhatsApp.",
+        "seo_description": "Voitures à louer à Las Terrenas, Samaná : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, essence, 25 ans minimum. Réservation en ligne ou WhatsApp.",
         "h1": "Location de voiture à Las Terrenas",
         "intro": [
           "Louez une voiture à Las Terrenas pour circuler dans la péninsule de Samaná et partout en République dominicaine. Toutes nos voitures sont automatiques, climatisées et à essence ; le conducteur doit avoir 25 ans au moins.",

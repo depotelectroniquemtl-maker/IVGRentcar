@@ -77,7 +77,7 @@ export default async function FleetHubPage({
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((c) => (
-          <FleetPageCard key={c.slug} slug={c.slug} categorie={c.categorie} />
+          <FleetPageCard key={c.slug} slug={c.slug} categorie={c.categorie} headingLevel="h2" />
         ))}
       </div>
 

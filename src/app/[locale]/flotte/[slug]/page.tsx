@@ -154,7 +154,9 @@ export default async function FleetVehiclePage({
             alt={alts[0]}
             fill
             priority
-            sizes="(min-width: 1024px) 50vw, 100vw"
+            // Photo portrait plafonnée à 420 px de large (maxWidth du conteneur) : ne pas demander
+            // 50 % de l'écran sur grand écran.
+            sizes={portrait ? "(min-width: 480px) 420px, 100vw" : "(min-width: 1024px) 50vw, 100vw"}
             className="object-cover"
           />
         </div>
@@ -279,7 +281,7 @@ export default async function FleetVehiclePage({
 
       <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-brand">
         <Link href={hubPath} className="hover:underline">
-          {t("ui.from_hub", { hub: hubLabel })} →
+          {t(page.hub === "quads" ? "ui.see_all_quads" : "ui.see_all_cars")} →
         </Link>
         <Link href="/conditions" className="hover:underline">
           {t("ui.see_conditions")} →

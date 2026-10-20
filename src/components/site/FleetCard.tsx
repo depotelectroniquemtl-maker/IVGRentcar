@@ -130,8 +130,8 @@ export function FleetCard({
                   }`}
                 >
                   <span
-                    className={`text-[9px] font-semibold uppercase leading-tight tracking-wide ${
-                      i === 0 ? "text-white/85" : "text-ink-soft"
+                    className={`text-[11px] font-semibold uppercase leading-tight tracking-wide ${
+                      i === 0 ? "text-white" : "text-ink-soft"
                     }`}
                   >
                     {t(`table.${labelKey}`)}
@@ -139,6 +139,12 @@ export function FleetCard({
                   <span className="mt-0.5 text-sm font-extrabold tabular-nums">
                     {prix ? `US$${prix}` : "—"}
                   </span>
+                  {/* Palier = tarif PAR JOUR (prix total = tarif du palier × nombre de jours). */}
+                  {prix && (
+                    <span className={`text-[11px] leading-tight ${i === 0 ? "text-white" : "text-ink-soft"}`}>
+                      {t("per_day")}
+                    </span>
+                  )}
                 </div>
               );
             })}

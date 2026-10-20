@@ -12,6 +12,9 @@
     },
     "reservar_cta": "Reservar",
     "footer": {
+      "link_quads": "Alquiler de quads",
+      "link_cars": "Alquiler de carros",
+      "link_contact": "Contacto",
       "rights": "Todos los derechos reservados.",
       "address": "Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, R.D.",
       "tagline": "Explora con libertad.\nRegresa feliz.",
@@ -32,12 +35,12 @@
   },
   "seo": {
     "home": {
-      "title": "Alquiler de autos y quads en Las Terrenas | IVJ Rentcar",
-      "description": "Alquiler de autos, 4x4 y cuadriciclos en Las Terrenas. Tarifas por tramos claras, reserva en línea o por WhatsApp, respuesta rápida."
+      "title": "Alquiler de carros y quads en Las Terrenas | IVJ Rentcar",
+      "description": "Alquiler de carros, 4x4 y cuadriciclos en Las Terrenas. Tarifas por tramos claras, reserva en línea o por WhatsApp, respuesta rápida."
     },
     "flotte": {
       "title": "Flota y tarifas de alquiler | IVJ Rentcar",
-      "description": "Descubre nuestra flota de autos, 4x4 y cuadriciclos en Las Terrenas con tarifas por tramos (1-3 días, 4+ días, 15+ días). Reserva por WhatsApp."
+      "description": "Descubre nuestra flota de carros, 4x4 y cuadriciclos en Las Terrenas con tarifas por tramos (1-3 días, 4+ días, 15+ días). Reserva por WhatsApp."
     },
     "lasTerrenas": {
       "title": "Descubre Las Terrenas | IVJ Rentcar",
@@ -45,7 +48,7 @@
     },
     "faq": {
       "title": "Preguntas frecuentes | IVJ Rentcar",
-      "description": "Respuestas a las preguntas más frecuentes sobre el alquiler de autos y cuadriciclos en Las Terrenas: documentos, depósito, edad mínima, seguro."
+      "description": "Respuestas a las preguntas más frecuentes sobre el alquiler de carros y cuadriciclos en Las Terrenas: documentos, depósito, edad mínima, seguro."
     },
     "contact": {
       "title": "Contacto | IVJ Rentcar",
@@ -53,11 +56,11 @@
     },
     "reservar": {
       "title": "Reservar un vehículo | IVJ Rentcar",
-      "description": "Solicita disponibilidad y la tarifa del día para un auto, 4x4 o cuadriciclo en Las Terrenas. Respuesta rápida, sin compromiso."
+      "description": "Solicita disponibilidad y la tarifa del día para un carro, 4x4 o cuadriciclo en Las Terrenas. Respuesta rápida, sin compromiso."
     },
     "conditions": {
       "title": "Condiciones de alquiler | IVJ Rentcar",
-      "description": "Edad mínima, depósito por vehículo, seguro y entrega: lo esencial para alquilar un auto o cuadriciclo en Las Terrenas."
+      "description": "Edad mínima, depósito por vehículo, seguro y entrega: lo esencial para alquilar un carro o cuadriciclo en Las Terrenas."
     },
     "mentions": {
       "title": "Aviso legal | IVJ Rentcar",
@@ -98,6 +101,7 @@
       "discover_more": "Descubre Las Terrenas"
     },
     "video": {
+      "play": "Reproducir el video",
       "title": "Vive la experiencia",
       "quad_caption": "Paseo en cuadriciclo por Las Terrenas",
       "shop_caption": "Nuestro punto de servicio local"
@@ -109,8 +113,9 @@
     }
   },
   "flotte": {
+    "per_day": "por día",
     "title": "Flota y tarifas",
-    "subtitle": "Precios en dólares (US$), según la duración del alquiler.",
+    "subtitle": "Precios en dólares (US$) por día, según la duración del alquiler.",
     "table": {
       "vehicle": "Vehículo",
       "tier_1_3": "1 a 3 días",
@@ -192,7 +197,7 @@
       },
       {
         "question": "¿Cuánto es el depósito de garantía?",
-        "answer": "Los montos del depósito son en dólares estadounidenses (US$): US$ 1,000 para el Kia Seltos, US$ 500 para los demás modelos de auto y US$ 300 para los cuadriciclos. Para la scooter, el monto se confirma antes de reservar."
+        "answer": "Los montos del depósito son en dólares estadounidenses (US$): US$ 1,000 para el Kia Seltos, US$ 500 para los demás modelos de carro y US$ 300 para los cuadriciclos. Para la scooter, el monto se confirma antes de reservar."
       },
       {
         "question": "¿Incluye seguro?",
@@ -287,7 +292,7 @@
     "updated": "Última actualización: octubre de 2026",
     "conditions": {
       "title": "Condiciones de alquiler",
-      "intro": "Lo esencial de nuestras condiciones para alquilar un auto o cuadriciclo. Las condiciones completas figuran en la cotización y en el contrato de alquiler, confirmados antes de reservar.",
+      "intro": "Lo esencial de nuestras condiciones para alquilar un carro o cuadriciclo. Las condiciones completas figuran en la cotización y en el contrato de alquiler, confirmados antes de reservar.",
       "cta": "¿Tienes una pregunta sobre estas condiciones? Escríbenos por WhatsApp.",
       "sections": [
         {
@@ -304,7 +309,7 @@
           ],
           "list": [
             "Kia Seltos: US$ 1,000",
-            "Otros modelos de auto: US$ 500",
+            "Otros modelos de carro: US$ 500",
             "Cuadriciclos: US$ 300"
           ],
           "after": [
@@ -1178,13 +1183,15 @@
   },
   "fleetPages": {
     "ui": {
+      "see_all_quads": "Ver todos nuestros quads",
+      "see_all_cars": "Ver todos nuestros carros",
       "home": "Inicio",
       "fleet": "Flota",
       "hub_quads": "Alquiler de quads",
       "hub_voitures": "Alquiler de carros",
       "specs_title": "Características",
       "prices_title": "Tarifas en US$",
-      "price_note": "Precios en dólares (US$), según la duración del alquiler. Los detalles están en la página de Condiciones de alquiler.",
+      "price_note": "Precios en dólares (US$) por día, según la duración del alquiler. Los detalles están en la página de Condiciones de alquiler.",
       "reserve": "Reservar",
       "whatsapp": "Escribir por WhatsApp",
       "whatsapp_message": "Hola, quisiera alquilar: {vehicule}.",
@@ -1193,7 +1200,6 @@
       "see_conditions": "Condiciones de alquiler",
       "see_faq": "Todas las preguntas frecuentes",
       "see_fleet": "Flota y tarifas completas",
-      "from_hub": "Ver todos: {hub}",
       "details": "Ver detalles",
       "capacity": "{count} personas",
       "tiers_title": "Duración del alquiler",
@@ -1201,20 +1207,21 @@
     },
     "pages": {
       "quad-300cc": {
-        "seo_title": "Alquiler de quad 300cc en Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquila un quad de 4 ruedas 300cc en Las Terrenas: casco incluido, desde un día, edad mínima 16 años. Tarifas por duración, reserva en línea o WhatsApp.",
-        "h1": "Alquiler de quad 300cc en Las Terrenas",
+        "seo_title": "Quad 300cc: tarifas, casco, edad mínima | IVJ Rentcar",
+        "seo_description": "Quad de 4 ruedas 300cc: 2 personas, casco incluido, 16 años mínimo, depósito US$ 300. Tarifas por día según la duración, reserva en línea o WhatsApp.",
+        "h1": "Quad de 4 ruedas 300cc en Las Terrenas",
         "eyebrow": "Quad de 4 ruedas",
         "specs": [
           "Quad de 4 ruedas, 300cc",
           "Casco incluido",
           "Alquiler mínimo: un día",
-          "Edad mínima: 16 años"
+          "Edad mínima: 16 años",
+          "Depósito: US$ 300"
         ],
         "intro": [
-          "Nuestro quad de 4 ruedas y 300cc se alquila por un día como mínimo, con el casco incluido. Tiene capacidad para 2 personas y se retira en nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve al terminar el alquiler.",
-          "Es una forma sencilla de moverte por Las Terrenas y de conocer los alrededores de la península de Samaná a tu propio ritmo. El conductor debe tener al menos 16 años.",
-          "La tarifa depende de la duración: baja en los tramos de 4 días y de 15 días o más. Para reservar, llena el formulario en línea o escríbenos por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
+          "El quad de 4 ruedas 300cc tiene capacidad para 2 personas y se alquila desde un día, con el casco incluido. Se retira en nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve.",
+          "El conductor debe tener al menos 16 años y se pide un depósito de US$ 300. Es una forma sencilla de moverte por Las Terrenas y de conocer los alrededores de la península de Samaná a tu propio ritmo.",
+          "Cada tramo es una tarifa por día: baja desde los 4 días y de nuevo desde los 15 días o más, y para alquileres largos los precios son negociables. Para reservar, llena el formulario en línea o escríbenos por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
         ],
         "faq": [
           {
@@ -1236,6 +1243,14 @@
           {
             "question": "¿Dónde se retira el quad?",
             "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          },
+          {
+            "question": "¿Cuál es el depósito para un quad?",
+            "answer": "El depósito es de US$ 300 para un quad."
+          },
+          {
+            "question": "¿Los precios son negociables?",
+            "answer": "Para alquileres de larga duración, los precios son negociables."
           }
         ],
         "alts": [
@@ -1292,10 +1307,10 @@
         ]
       },
       "suzuki-xl7": {
-        "seo_title": "Alquiler Suzuki XL7 7 puestos, Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquila un Suzuki XL7 de 7 puestos en Las Terrenas: automático, gasolina, ideal para grupos. Tarifas por duración, reserva en línea o por WhatsApp.",
-        "h1": "Alquiler de Suzuki XL7 de 7 puestos en Las Terrenas",
-        "eyebrow": "7 puestos",
+        "seo_title": "Alquiler Suzuki XL7 7 plazas, Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un Suzuki XL7 de 7 plazas en Las Terrenas: automático, gasolina, ideal para grupos. Tarifas por duración, reserva en línea o por WhatsApp.",
+        "h1": "Alquiler de Suzuki XL7 de 7 plazas en Las Terrenas",
+        "eyebrow": "7 plazas",
         "specs": [
           "Caja automática, gasolina",
           "Aire acondicionado",
@@ -1303,13 +1318,13 @@
           "Edad mínima del conductor: 25 años"
         ],
         "intro": [
-          "El Suzuki XL7 es nuestro carro de 7 puestos, automático y de gasolina. Es adecuado para familias y grupos que quieren viajar juntos.",
+          "El Suzuki XL7 es nuestro carro de 7 plazas, automático y de gasolina. Es adecuado para familias y grupos que quieren viajar juntos.",
           "Con los 7 asientos en uso, solo queda espacio para una maleta: tenlo en cuenta si viajan muchos y con equipaje.",
           "Úsalo para moverte por Las Terrenas y por toda la República Dominicana. Se retira y se devuelve en nuestro local de Plaza Italia #22. Abajo están las tarifas por duración; reserva en línea o por WhatsApp (conductor de 25 años como mínimo)."
         ],
         "faq": [
           {
-            "question": "¿Cuántos puestos tiene el Suzuki XL7?",
+            "question": "¿Cuántas plazas tiene el Suzuki XL7?",
             "answer": "El Suzuki XL7 tiene capacidad para {count} personas."
           },
           {
@@ -1387,23 +1402,23 @@
     },
     "hubs": {
       "quads": {
-        "seo_title": "Alquiler de cuatrimotos en Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquila un quad de 4 ruedas 300cc en Las Terrenas: casco incluido, desde un día, edad mínima 16 años. Reserva en línea o por WhatsApp con IVJ Rentcar.",
-        "h1": "Alquiler de cuatrimotos y quads en Las Terrenas",
+        "seo_title": "Alquiler de quads y cuatrimotos, Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquilar un quad en Las Terrenas: desde 1 día, casco incluido, edad mínima 16 años, entrega en Plaza Italia #22. Tarifas por día, reserva en línea o WhatsApp.",
+        "h1": "Alquiler de quads y cuatrimotos en Las Terrenas",
         "intro": [
-          "IVJ Rentcar alquila quads de 4 ruedas y 300cc en Las Terrenas, en la península de Samaná. El alquiler empieza en un día, el casco está incluido y la edad mínima es de 16 años.",
-          "Cada quad tiene capacidad para 2 personas. La entrega y la devolución se hacen en nuestro local de Plaza Italia #22. La tarifa baja con la duración: los tres tramos aparecen en la ficha del quad.",
-          "Reserva en línea o por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
+          "Alquilar un quad en Las Terrenas es sencillo: el alquiler empieza en un día, el casco está incluido y el conductor debe tener al menos 16 años. IVJ Rentcar está en Plaza Italia #22, donde se entrega y se devuelve el quad.",
+          "La tarifa se calcula por día y baja con la duración del alquiler; para un quad se pide un depósito de US$ 300. Para alquileres de larga duración, los precios son negociables.",
+          "Reserva en línea o por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso. Las características, las tarifas y las preguntas frecuentes del quad están en su ficha."
         ],
         "cars_link": "¿Buscas un carro? Ver alquiler de carros en Las Terrenas"
       },
       "voitures": {
         "seo_title": "Alquiler de carros en Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquila un carro en Las Terrenas: Kia Seltos, Suzuki XL7 de 7 puestos, Hyundai Tucson 4x4. Automáticos, gasolina, 25 años mínimo. Reserva en línea o WhatsApp.",
+        "seo_description": "Alquila un carro en Las Terrenas, Samaná: Kia Seltos, Suzuki XL7 de 7 plazas, Tucson 4x4. Automáticos, gasolina, 25 años mínimo. Reserva en línea o WhatsApp.",
         "h1": "Alquiler de carros en Las Terrenas",
         "intro": [
           "Alquila un carro en Las Terrenas para recorrer la península de Samaná y el resto de la República Dominicana. Todos nuestros carros son automáticos, con aire acondicionado y de gasolina; el conductor debe tener al menos 25 años.",
-          "Kia Seltos, Suzuki XL7 de 7 puestos, Hyundai Tucson 4x4: elige según el número de personas y de maletas. Las tarifas por duración están en la ficha de cada carro. La entrega y la devolución se hacen en nuestro local de Plaza Italia #22.",
+          "Kia Seltos, Suzuki XL7 de 7 plazas, Hyundai Tucson 4x4: elige según el número de personas y de maletas. Las tarifas por duración están en la ficha de cada carro. La entrega y la devolución se hacen en nuestro local de Plaza Italia #22.",
           "Reserva en línea o por WhatsApp; confirmamos la disponibilidad antes de cualquier compromiso."
         ],
         "quads_link": "¿Buscas un quad? Ver alquiler de quads en Las Terrenas"

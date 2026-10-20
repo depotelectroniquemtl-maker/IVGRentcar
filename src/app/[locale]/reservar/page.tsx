@@ -2,11 +2,16 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ReservarForm } from "@/components/site/ReservarForm";
-import { getCatalogue } from "@/lib/data/catalogue";
+import { getCatalogueFrais } from "@/lib/data/catalogue";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
 
 const ETAPES = [1, 2, 3] as const;
+
+// Toujours rendue à la demande : la liste des catégories de la réservation ne doit jamais venir
+// d'un cache. Les prix et les disponibilités sont de toute façon calculés en direct par le
+// formulaire (RPC appelées depuis le navigateur).
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -31,7 +36,10 @@ export default async function ReservarPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [t, catalogue] = await Promise.all([getTranslations("reservar"), getCatalogue()]);
+  const t = await getTranslations("reservar");
+  // Base injoignable : le formulaire s'affiche avec un message clair et l'alternative WhatsApp,
+  // sans rien enregistrer (categories = null).
+  const catalogue = await getCatalogueFrais().catch(() => null);
 
   return (
     <div className="bg-black/[0.02] py-16 sm:py-24">

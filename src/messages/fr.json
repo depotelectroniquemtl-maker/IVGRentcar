@@ -263,6 +263,8 @@
     "error_dates": "La date de fin doit être égale ou postérieure à la date de début.",
     "checking_error": "Impossible de vérifier la disponibilité.",
     "error_submit": "La demande n'a pas pu être enregistrée. Réessayez dans un instant ou écrivez-nous directement sur WhatsApp.",
+    "service_unavailable": "Le service de réservation en ligne est momentanément indisponible : vos choix ne peuvent pas être vérifiés pour le moment et rien n'a été enregistré. Réessayez dans quelques minutes ou écrivez-nous sur WhatsApp.",
+    "service_unavailable_cta": "Écrire sur WhatsApp",
     "success_title": "Demande envoyée !",
     "success_text": "Votre demande a bien été reçue. Nous vous contacterons rapidement par WhatsApp.",
     "new_request": "Envoyer une autre demande",

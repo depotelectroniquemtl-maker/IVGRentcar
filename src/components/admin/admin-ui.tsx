@@ -18,21 +18,30 @@ const STAT_TONE_CLASS = {
   warn: "text-amber-600",
   crit: "text-red-600",
   muted: "text-ink-soft",
+  info: "text-sky-700",
 } as const;
 
 export function StatCard({
   label,
   value,
   tone = "neutral",
+  sub,
 }: {
   label: string;
   value: number | string;
   tone?: keyof typeof STAT_TONE_CLASS;
+  // Précision en petit sous la valeur (optionnelle).
+  sub?: string;
 }) {
   return (
-    <div className="rounded-lg border border-black/10 bg-white p-4 shadow-sm">
+    <div
+      className={`rounded-lg border p-4 shadow-sm ${
+        tone === "info" ? "border-sky-200 bg-sky-50" : "border-black/10 bg-white"
+      }`}
+    >
       <div className="text-[11px] font-bold uppercase tracking-wider text-ink-soft">{label}</div>
       <div className={`mt-2 text-2xl font-bold tabular-nums text-ink ${STAT_TONE_CLASS[tone]}`}>{value}</div>
+      {sub && <div className="mt-1 text-xs text-ink-soft">{sub}</div>}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
@@ -28,6 +28,8 @@ export type LocationLigne = {
   fase: string;
   enAttente: boolean;
   faseLabel: string;
+  // Catégorie exclusive : réel (en cours/terminée), à venir confirmée, en attente.
+  categorie: "reel" | "avenir" | "attente";
 };
 
 const LIGNES_INITIALES = 25;
@@ -44,13 +46,17 @@ export function RentabiliteClientsListe({
   lignes,
   groupe,
   periode,
-  totalFmt,
+  avecPeriode,
+  statuts,
+  selecteur,
   ecart,
 }: {
   lignes: LocationLigne[];
   groupe: string;
   periode: string;
-  totalFmt: string;
+  avecPeriode: boolean;
+  statuts: string[];
+  selecteur: ReactNode;
   ecart: { liste: string; rapport: string } | null;
 }) {
   const t = useTranslations("admin.rentabilite");
@@ -58,8 +64,23 @@ export function RentabiliteClientsListe({
   const tRes = useTranslations("admin.reservations");
   const [toutVoir, setToutVoir] = useState(false);
 
+  const fmtMontant = (n: number) => `US$ ${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
   const clients = new Set(lignes.map((l) => l.clientId)).size;
   const jours = lignes.reduce((s, l) => s + l.jours, 0);
+  const totalFmt = fmtMontant(lignes.reduce((s, l) => s + l.montant, 0));
+  // Sous-totaux séparés : réel (= revenu du rapport) et à venir / en attente.
+  const sousTotal = (reel: boolean) => {
+    const sel = lignes.filter((l) => (l.categorie === "reel") === reel);
+    return {
+      n: sel.length,
+      clients: new Set(sel.map((l) => l.clientId)).size,
+      jours: sel.reduce((s, l) => s + l.jours, 0),
+      montant: fmtMontant(sel.reduce((s, l) => s + l.montant, 0)),
+    };
+  };
+  const stReel = sousTotal(true);
+  const stAvenir = sousTotal(false);
+  const avenirCoche = statuts.includes("avenir") || statuts.includes("attente");
   const visibles = toutVoir ? lignes : lignes.slice(0, LIGNES_INITIALES);
 
   function exporter() {
@@ -106,7 +127,7 @@ export function RentabiliteClientsListe({
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 id="rentabilite-clients" className="text-lg font-bold text-ink">
-            {t("list_title")}
+            {t(avecPeriode ? "list_title" : "list_title_all")}
           </h2>
           {lignes.length > 0 && (
             <p className="mt-1 text-sm text-ink-soft">
@@ -129,6 +150,8 @@ export function RentabiliteClientsListe({
           </button>
         )}
       </div>
+
+      {selecteur}
 
       <div className={tableCardClass}>
         <div className="overflow-x-auto">
@@ -213,25 +236,38 @@ export function RentabiliteClientsListe({
             </tbody>
             {lignes.length > 0 && (
               <tfoot>
-                <tr className="border-t-2 border-black/10 bg-black/[0.03] font-semibold text-ink">
-                  <th
-                    scope="row"
-                    className="sticky left-0 z-10 bg-[#f7f7f7] px-4 py-3 text-left"
-                  >
-                    {t("total_label")}
-                  </th>
-                  <td className="px-4 py-3" colSpan={3}>
-                    {t("list_totals_detail", {
-                      clients,
-                      reservations: lignes.length,
-                    })}
-                  </td>
-                  <td className="px-4 py-3 text-right tabular-nums">{jours}</td>
-                  <td className="px-4 py-3 text-right tabular-nums">
-                    {totalFmt}
-                  </td>
-                  <td className="px-4 py-3" />
-                </tr>
+                {[
+                  { cle: "reel", label: t("subtotal_reel"), st: stReel, afficher: statuts.includes("reel") },
+                  {
+                    cle: "avenir",
+                    label: t("subtotal_avenir"),
+                    st: stAvenir,
+                    afficher: avenirCoche,
+                  },
+                ]
+                  .filter((x) => x.afficher)
+                  .map((x) => (
+                    <tr
+                      key={x.cle}
+                      className="border-t-2 border-black/10 bg-black/[0.03] font-semibold text-ink"
+                    >
+                      <th
+                        scope="row"
+                        className="sticky left-0 z-10 bg-[#f7f7f7] px-4 py-3 text-left"
+                      >
+                        {x.label}
+                      </th>
+                      <td className="px-4 py-3" colSpan={3}>
+                        {t("list_totals_detail", {
+                          clients: x.st.clients,
+                          reservations: x.st.n,
+                        })}
+                      </td>
+                      <td className="px-4 py-3 text-right tabular-nums">{x.st.jours}</td>
+                      <td className="px-4 py-3 text-right tabular-nums">{x.st.montant}</td>
+                      <td className="px-4 py-3" />
+                    </tr>
+                  ))}
               </tfoot>
             )}
           </table>

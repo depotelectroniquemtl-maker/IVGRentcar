@@ -6,6 +6,9 @@ import { useLocale, useTranslations } from "next-intl";
 import type { CountryCode } from "libphonenumber-js/min";
 import { createClient } from "@/lib/supabase/client";
 import { trackEvent } from "@/lib/analytics";
+import { ExternalButtonLink } from "@/components/ui/Button";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
+import { whatsappUrl } from "@/lib/constants";
 import { AvailabilityCalendar } from "@/components/site/AvailabilityCalendar";
 import { PhoneField } from "@/components/site/PhoneField";
 import { defaultCountryForLocale, normalizePhone } from "@/lib/phone";
@@ -45,7 +48,9 @@ const inputClass =
   "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
 const labelClass = "mb-1 block font-medium text-ink";
 
-export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[] }) {
+// categories = null : la base n'a pas répondu au chargement de la page.
+export function ReservarForm({ categories: categoriesProp }: { categories: CategorieAvecTarifs[] | null }) {
+  const categories = categoriesProp ?? [];
   const t = useTranslations("reservar");
   const locale = useLocale();
 
@@ -77,6 +82,9 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
   const [disponibilidad, setDisponibilidad] = useState<Disponibilidad>("idle");
   const [precioEstimado, setPrecioEstimado] = useState<number | null>(null);
   const [estadoEnvio, setEstadoEnvio] = useState<EstadoEnvio>("idle");
+  // Une lecture en direct (véhicules, périodes, prix) a échoué : on le dit au visiteur au lieu
+  // d'afficher « aucun véhicule » ou un prix manquant sans explication.
+  const [erreurService, setErreurService] = useState(false);
 
   const categoriaActual = categories.find((c) => c.id === categorieId);
 
@@ -90,6 +98,7 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     setDateFin("");
     setPeriodesIndisponibles([]);
     setDisponibilidad("idle");
+    setErreurService(false);
 
     if (!categorieId) return;
 
@@ -99,8 +108,9 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     const supabase = createClient();
     supabase
       .rpc("vehicules_publics_par_categorie", { p_categorie_id: categorieId })
-      .then(({ data }) => {
+      .then(({ data, error }) => {
         if (cancelado) return;
+        if (error) setErreurService(true);
         setVehicules(data ?? []);
         // Un seul véhicule dans la catégorie : on le sélectionne directement plutôt que
         // de forcer un clic superflu sur son unique carte (source de confusion signalée).
@@ -129,8 +139,10 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
     const supabase = createClient();
     supabase
       .rpc("periodes_indisponibles_vehicule", { p_vehicule_id: vehiculeId })
-      .then(({ data }) => {
-        if (!cancelado) setPeriodesIndisponibles(data ?? []);
+      .then(({ data, error }) => {
+        if (cancelado) return;
+        if (error) setErreurService(true);
+        setPeriodesIndisponibles(data ?? []);
       });
 
     return () => {
@@ -183,8 +195,10 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
         p_date_debut: dateDebut,
         p_date_fin: dateFin,
       })
-      .then(({ data }) => {
-        if (!cancelado) setPrecioEstimado(typeof data === "number" ? data : null);
+      .then(({ data, error }) => {
+        if (cancelado) return;
+        if (error) setErreurService(true);
+        setPrecioEstimado(typeof data === "number" ? data : null);
       });
 
     return () => {
@@ -372,6 +386,21 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
       onSubmit={handleSubmit}
       className="flex flex-col gap-4 rounded-lg bg-white p-8 shadow-sm"
     >
+      {(categoriesProp === null || erreurService || disponibilidad === "error") && (
+        <div
+          role="alert"
+          className="flex flex-col gap-3 rounded-md border border-amber-300 bg-amber-50 p-4 text-sm text-ink"
+        >
+          <p>{t("service_unavailable")}</p>
+          <div>
+            <ExternalButtonLink href={whatsappUrl()} variant="whatsapp" data-wa-location="reservation">
+              <WhatsAppIcon className="h-5 w-5" />
+              {t("service_unavailable_cta")}
+            </ExternalButtonLink>
+          </div>
+        </div>
+      )}
+
       <label className="block text-sm">
         <span className={labelClass}>{t("field_nombre")}</span>
         <input
@@ -438,7 +467,7 @@ export function ReservarForm({ categories }: { categories: CategorieAvecTarifs[]
             <p className="text-sm text-ink-soft">{t("loading_vehiculos")}</p>
           )}
 
-          {!vehiculesLoading && vehicules.length === 0 && (
+          {!vehiculesLoading && vehicules.length === 0 && !erreurService && (
             <p className="text-sm text-ink-soft">{t("no_vehiculos")}</p>
           )}
 

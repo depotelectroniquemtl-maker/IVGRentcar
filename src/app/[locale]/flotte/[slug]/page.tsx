@@ -40,7 +40,6 @@ export async function generateMetadata({
   if (!isFleetPageSlug(slug)) return {};
   const t = await getTranslations({ locale, namespace: "fleetPages" });
   const photo = FLEET_PAGES[slug].photos[0];
-  const catalogue = await getCatalogue();
   const metadata = pageMetadata({
     locale: locale as AppLocale,
     path: `/flotte/${slug}`,
@@ -49,7 +48,14 @@ export async function generateMetadata({
     image: { url: `${SITE_URL}${photo.src}`, width: photo.width, height: photo.height },
   });
   // Véhicule retiré ou inactif : la page répond 404, et par prudence n'est jamais indexable.
-  return categoryForSlug(slug, catalogue) ? metadata : { ...metadata, robots: { index: false } };
+  // Mais une lecture qui ÉCHOUE n'est pas une absence : sans réponse de la base, on ne pose
+  // jamais noindex (la page garde sa meta normale).
+  try {
+    const catalogue = await getCatalogue();
+    return categoryForSlug(slug, catalogue) ? metadata : { ...metadata, robots: { index: false } };
+  } catch {
+    return metadata;
+  }
 }
 
 export default async function FleetVehiclePage({

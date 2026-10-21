@@ -12,6 +12,9 @@
     },
     "reservar_cta": "Réserver",
     "footer": {
+      "col_fleet": "Flotte",
+      "col_info": "Informations",
+      "col_contact": "Contact",
       "link_quads": "Location de quads",
       "link_cars": "Location de voitures",
       "link_contact": "Contact",

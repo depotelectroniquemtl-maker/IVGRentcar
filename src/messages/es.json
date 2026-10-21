@@ -12,6 +12,9 @@
     },
     "reservar_cta": "Reservar",
     "footer": {
+      "col_fleet": "Flota",
+      "col_info": "Información",
+      "col_contact": "Contacto",
       "link_quads": "Alquiler de quads",
       "link_cars": "Alquiler de carros",
       "link_contact": "Contacto",

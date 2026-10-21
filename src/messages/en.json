@@ -12,6 +12,9 @@
     },
     "reservar_cta": "Book now",
     "footer": {
+      "col_fleet": "Fleet",
+      "col_info": "Information",
+      "col_contact": "Contact",
       "link_quads": "Quad rental",
       "link_cars": "Car rental",
       "link_contact": "Contact",

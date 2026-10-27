@@ -163,6 +163,9 @@ export function ClienteForm({
                 <PhoneField
                   id="client-telephone"
                   required={false}
+                  // Pays toujours affichés en français dans l'admin (la recherche comprend aussi
+                  // l'anglais et l'espagnol).
+                  namesLocale="fr"
                   label={t("field_telefono")}
                   country={paysTel}
                   onCountryChange={(c) => {

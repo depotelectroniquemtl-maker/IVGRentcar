@@ -1,16 +1,24 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useLocale, useTranslations } from "next-intl";
 import type { CountryCode } from "libphonenumber-js/min";
-import { TOP_COUNTRIES, allCountries, callingCode } from "@/lib/phone";
+import { TOP_COUNTRIES, allCountries, callingCode, foldText } from "@/lib/phone";
 import "flag-icons/css/flag-icons.min.css";
 
 const inputClass =
   "w-full rounded border border-black/20 px-3 py-2 focus:border-brand focus:outline-none";
 
+// Langues dans lesquelles on peut chercher un pays, quelle que soit la langue d'affichage.
+const SEARCH_LOCALES = ["fr", "en", "es"];
+
+type Position = { left: number; width: number; maxHeight: number; top?: number; bottom?: number };
+
 // Champ téléphone avec sélecteur de pays (drapeau + indicatif) à gauche. Le pays est
 // contrôlé par le parent : il sert à valider puis normaliser le numéro en E.164.
+// `namesLocale` : langue des noms de pays affichés (par défaut celle de l'interface) ; la
+// recherche, elle, comprend toujours le français, l'anglais et l'espagnol.
 export function PhoneField({
   label,
   country,
@@ -20,6 +28,7 @@ export function PhoneField({
   error,
   id = "whatsapp-input",
   required = true,
+  namesLocale,
 }: {
   label: string;
   country: CountryCode;
@@ -29,16 +38,34 @@ export function PhoneField({
   error: string | null;
   id?: string;
   required?: boolean;
+  namesLocale?: string;
 }) {
   const t = useTranslations("reservar");
-  const locale = useLocale();
+  const uiLocale = useLocale();
+  const locale = namesLocale ?? uiLocale;
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [pos, setPos] = useState<Position | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const popRef = useRef<HTMLDivElement>(null);
 
   const names = useMemo(() => {
     const dn = new Intl.DisplayNames([locale], { type: "region" });
     return (c: CountryCode) => dn.of(c) ?? c;
+  }, [locale]);
+
+  // Texte de recherche de chaque pays : noms fr/en/es (+ langue d'affichage), code ISO, indicatif.
+  const haystacks = useMemo(() => {
+    const dns = Array.from(new Set([locale, ...SEARCH_LOCALES])).map(
+      (l) => new Intl.DisplayNames([l], { type: "region" }),
+    );
+    const map = new Map<CountryCode, string>();
+    for (const c of allCountries()) {
+      const parts = dns.map((dn) => foldText(dn.of(c) ?? ""));
+      map.set(c, [...parts, c.toLowerCase(), callingCode(c)].join(" | "));
+    }
+    return map;
   }, [locale]);
 
   const { top, others } = useMemo(() => {
@@ -48,10 +75,44 @@ export function PhoneField({
     return { top: TOP_COUNTRIES, others: rest };
   }, [names, locale]);
 
+  // Menu placé en position fixe (rendu dans <body>) : aucune carte à overflow masqué ne peut
+  // le rogner. Il s'ouvre au-dessus du champ s'il manque de place en dessous.
+  function place() {
+    const b = buttonRef.current;
+    if (!b) return;
+    const r = b.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const width = Math.min(352, vw - 24);
+    const left = Math.max(12, Math.min(r.left, vw - width - 12));
+    const spaceBelow = vh - r.bottom - 16;
+    const spaceAbove = r.top - 16;
+    const below = spaceBelow >= 300 || spaceBelow >= spaceAbove;
+    const maxHeight = Math.max(200, Math.min(440, below ? spaceBelow : spaceAbove));
+    setPos(
+      below
+        ? { left, width, maxHeight, top: r.bottom + 4 }
+        : { left, width, maxHeight, bottom: vh - r.top + 4 },
+    );
+  }
+
+  useLayoutEffect(() => {
+    if (!open) return;
+    place();
+    window.addEventListener("resize", place);
+    window.addEventListener("scroll", place, true);
+    return () => {
+      window.removeEventListener("resize", place);
+      window.removeEventListener("scroll", place, true);
+    };
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
     function onDown(e: MouseEvent | TouchEvent) {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+      const target = e.target as Node;
+      if (rootRef.current?.contains(target) || popRef.current?.contains(target)) return;
+      setOpen(false);
     }
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") setOpen(false);
@@ -66,17 +127,18 @@ export function PhoneField({
     };
   }, [open]);
 
-  const q = query.trim().toLowerCase();
-  const matches = (c: CountryCode) =>
-    !q ||
-    names(c).toLowerCase().includes(q) ||
-    c.toLowerCase() === q ||
-    callingCode(c).includes(q.replace(/^\+?/, "+"));
+  const tokens = foldText(query).split(" ").filter(Boolean);
+  const matches = (c: CountryCode) => {
+    if (tokens.length === 0) return true;
+    const hay = haystacks.get(c) ?? "";
+    return tokens.every((tok) => hay.includes(tok));
+  };
 
   function choose(c: CountryCode) {
     onCountryChange(c);
     setOpen(false);
     setQuery("");
+    buttonRef.current?.focus();
   }
 
   function row(c: CountryCode) {
@@ -97,8 +159,59 @@ export function PhoneField({
     );
   }
 
-  const topShown = top.filter(matches);
-  const othersShown = others.filter(matches);
+  // Un code ISO saisi en entier (« DO ») place ce pays en premier.
+  const exact = tokens.length === 1 ? tokens[0].toUpperCase() : null;
+  const byExactCode = (a: CountryCode, b: CountryCode) => Number(b === exact) - Number(a === exact);
+  const topShown = top.filter(matches).sort(byExactCode);
+  const othersShown = others.filter(matches).sort(byExactCode);
+
+  const menu =
+    open && pos ? (
+      <div
+        ref={popRef}
+        style={{
+          position: "fixed",
+          left: pos.left,
+          width: pos.width,
+          top: pos.top,
+          bottom: pos.bottom,
+        }}
+        className="z-[100] rounded border border-black/15 bg-white text-ink shadow-lg"
+      >
+        <input
+          type="search"
+          autoFocus
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            // Entrée choisit le premier pays trouvé ; elle ne doit jamais envoyer un formulaire.
+            if (e.key === "Enter") {
+              e.preventDefault();
+              const first = topShown[0] ?? othersShown[0];
+              if (first) choose(first);
+            }
+          }}
+          placeholder={t("phone_country_search")}
+          aria-label={t("phone_country_search")}
+          className="w-full rounded-t border-b border-black/10 px-3 py-2.5 text-base focus:outline-none"
+        />
+        <ul
+          role="listbox"
+          aria-label={t("phone_country")}
+          style={{ maxHeight: pos.maxHeight - 52 }}
+          className="overflow-y-auto overscroll-contain"
+        >
+          {topShown.map(row)}
+          {topShown.length > 0 && othersShown.length > 0 && (
+            <li role="separator" className="border-t border-black/10" />
+          )}
+          {othersShown.map(row)}
+          {topShown.length === 0 && othersShown.length === 0 && (
+            <li className="px-3 py-3 text-sm text-ink-soft">{t("phone_country_none")}</li>
+          )}
+        </ul>
+      </div>
+    ) : null;
 
   return (
     <div className="block text-sm" ref={rootRef}>
@@ -107,6 +220,7 @@ export function PhoneField({
       </label>
       <div className="relative flex gap-2">
         <button
+          ref={buttonRef}
           type="button"
           aria-haspopup="listbox"
           aria-expanded={open}
@@ -133,31 +247,8 @@ export function PhoneField({
           aria-describedby={error ? `${id}-error` : undefined}
           className={`${inputClass} min-h-[44px] min-w-0 flex-1 ${error ? "border-red-500" : ""}`}
         />
-
-        {open && (
-          <div className="absolute left-0 top-full z-20 mt-1 w-[min(20rem,calc(100vw-3rem))] rounded border border-black/15 bg-white shadow-lg">
-            <input
-              type="search"
-              autoFocus
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={t("phone_country_search")}
-              aria-label={t("phone_country_search")}
-              className="w-full border-b border-black/10 px-3 py-2.5 text-base focus:outline-none"
-            />
-            <ul role="listbox" aria-label={t("phone_country")} className="max-h-64 overflow-y-auto">
-              {topShown.map(row)}
-              {topShown.length > 0 && othersShown.length > 0 && (
-                <li role="separator" className="border-t border-black/10" />
-              )}
-              {othersShown.map(row)}
-              {topShown.length === 0 && othersShown.length === 0 && (
-                <li className="px-3 py-3 text-sm text-ink-soft">{t("phone_country_none")}</li>
-              )}
-            </ul>
-          </div>
-        )}
       </div>
+      {menu && createPortal(menu, document.body)}
       {error && (
         <p id={`${id}-error`} role="alert" className="mt-1 text-sm text-red-600">
           {error}

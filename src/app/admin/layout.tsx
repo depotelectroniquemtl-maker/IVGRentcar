@@ -37,7 +37,7 @@ export default async function AdminRootLayout({
           // next-intl gère très bien à l'exécution mais que son type AbstractIntlMessages
           // n'autorise pas comme feuille de message — cast local pour ce seul décalage de
           // typage, sans rapport avec un vrai risque runtime.
-          messages={{ admin: messages.admin } as any}
+          messages={{ admin: messages.admin, reservar: messages.reservar } as any}
         >
           {children}
         </NextIntlClientProvider>

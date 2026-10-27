@@ -27,6 +27,17 @@ export function allCountries(): CountryCode[] {
   return getCountries();
 }
 
+// Texte comparable pour la recherche : sans accents, en minuscules, ponctuation remplacée
+// par des espaces (« République  dominicaine » et « republique dominicaine » deviennent identiques).
+export function foldText(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9+]+/g, " ")
+    .trim();
+}
+
 export type PhoneError = "required" | "invalid" | "wrong_country";
 
 export type PhoneResult = { ok: true; e164: string } | { ok: false; error: PhoneError };

@@ -12,6 +12,8 @@ import {
   semaineIso,
 } from "@/lib/calendrier-dates";
 import { BLOCAGE_BARRE, FASE_BARRE, FASE_ICONE, type CalFase } from "@/lib/calendrier-styles";
+// Tailwind n'analyse pas src/lib : les classes jaunes de FASE_BARRE.a_venir sont listées ici pour être générées.
+// bg-yellow-300 text-yellow-950 border-yellow-500 hover:bg-yellow-200
 
 export type CalendrierVue = "7" | "14" | "mois";
 export type GroupeCle = "quads" | "scooter" | "voitures";

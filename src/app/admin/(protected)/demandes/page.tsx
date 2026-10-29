@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { getAdminLocale, getAdminTranslator } from "@/lib/admin-i18n";
+import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { SearchInput } from "@/components/admin/SearchInput";
 import { DemandesSuivi, type DemandeVue } from "@/components/admin/DemandesSuivi";
 import { buildContactMessage, mailtoHref, whatsappHref } from "@/lib/contact-messages";
@@ -33,6 +34,9 @@ export default async function DemandesPage({
   const locale = await getAdminLocale();
   const t = await getAdminTranslator("admin.demandes");
   const maintenant = new Date();
+  // « Supprimer la demande » n'est proposé qu'aux administrateurs (la base le refuse de toute
+  // façon aux autres : policy demandes_delete_admin).
+  const estAdmin = (await getCurrentProfile())?.role === "admin";
 
   const [{ data: demandes, error }, { data: clients }] = await Promise.all([
     supabase
@@ -46,18 +50,19 @@ export default async function DemandesPage({
     supabase.from("clients").select("id, nom, telephone").not("telephone", "is", null),
   ]);
 
-  // Réservation créée à partir de chaque demande (lien demande_id), pour « Voir la réservation ».
+  // Réservation créée à partir de chaque demande (lien demande_id), pour « Voir la réservation »
+  // et « Annuler la réservation » (son statut dit si elle est encore active).
   const { data: liens } = demandes?.length
     ? await supabase
         .from("reservations")
-        .select("id, demande_id")
+        .select("id, demande_id, statut")
         .in(
           "demande_id",
           demandes.map((d) => d.id),
         )
     : { data: [] };
   const reservationParDemande = new Map(
-    (liens ?? []).flatMap((r) => (r.demande_id ? [[r.demande_id, r.id] as const] : [])),
+    (liens ?? []).flatMap((r) => (r.demande_id ? [[r.demande_id, r] as const] : [])),
   );
   const fiches: ClientRef[] = (clients ?? []).flatMap((c) =>
     c.telephone ? [{ id: c.id, nom: c.nom, telephone: c.telephone }] : [],
@@ -69,7 +74,8 @@ export default async function DemandesPage({
     const creee = new Date(d.created_at);
     const majee = new Date(d.updated_at);
     const alerte = alerteDe(statut, creee, majee, maintenant);
-    const reservationId = reservationParDemande.get(d.id) ?? null;
+    const reservation = reservationParDemande.get(d.id) ?? null;
+    const reservationId = reservation?.id ?? null;
     const categorie = d.vehicules?.categories_vehicules?.nom ?? null;
     const vehicule = [categorie, d.vehicules?.annee].filter(Boolean).join(" ") || null;
     const message = buildContactMessage({
@@ -120,6 +126,7 @@ export default async function DemandesPage({
         ligneStatut,
         recueLe: t("recue_le", recue),
         reservationId,
+        reservationAnnulee: reservation?.statut === "annulee",
         client: rattacherClient(d.whatsapp, fiches),
         waHref: d.whatsapp_a_verifier ? null : whatsappHref(d.whatsapp, message.body),
         mailHref: d.email ? mailtoHref(d.email, message.subject, message.body) : null,
@@ -148,6 +155,7 @@ export default async function DemandesPage({
         ongletInitial={onglet}
         selectionInitiale={selection ?? null}
         aucuneDemande={vues.length === 0}
+        estAdmin={estAdmin}
       />
     </div>
   );

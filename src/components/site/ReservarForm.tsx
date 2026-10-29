@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import type { CountryCode } from "libphonenumber-js/min";
@@ -62,6 +62,10 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
   const [categorieId, setCategorieId] = useState("");
   const [lieu, setLieu] = useState("");
   const [notes, setNotes] = useState("");
+  // Anti-robot sans service tiers : champ piège invisible (un humain ne le voit ni ne le remplit)
+  // et durée de remplissage envoyée au serveur, qui refuse un envoi trop rapide.
+  const [champPiege, setChampPiege] = useState("");
+  const debutRemplissage = useRef(Date.now());
 
   const [vehicules, setVehicules] = useState<VehiculoPublico[]>([]);
   const [vehiculesLoading, setVehiculesLoading] = useState(false);
@@ -282,9 +286,8 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
 
     setEstadoEnvio("submitting");
 
-    const precioTexto = precioEstimado !== null ? `US$ ${precioEstimado}` : null;
-
-    // Enregistrement via la route serveur, qui revalide le numéro puis le stocke en E.164.
+    // Enregistrement via la route serveur, qui revalide tout, recalcule le prix (celui affiché
+    // ici n'est qu'indicatif et n'est pas envoyé) et envoie elle-même la notification e-mail.
     let error = false;
     try {
       const res = await fetch("/api/demandes", {
@@ -302,12 +305,15 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
           heure_fin: horaFin || null,
           lieu_prise_en_charge: lieu || null,
           notes: notes || null,
-          prix_estime_usd: precioEstimado,
           langue: locale,
+          champ_piege: champPiege,
+          duree_remplissage_ms: Date.now() - debutRemplissage.current,
         }),
       });
       if (!res.ok) {
         error = true;
+        // Véhicule pris entre-temps : on réaffiche le message de disponibilité existant.
+        if (res.status === 409) setDisponibilidad("unavailable");
         if (res.status === 422) {
           const data = (await res.json().catch(() => null)) as { error?: string } | null;
           const code = data?.error?.replace("phone_", "");
@@ -332,26 +338,6 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
         site_language: locale,
       });
     }
-
-    // La demande est déjà enregistrée dans le backoffice quoi qu'il arrive ici — un échec
-    // de notification e-mail (clé absente, service en panne) ne doit jamais bloquer
-    // l'écran de succès du visiteur.
-    fetch("/api/demandes/notify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nom,
-        whatsapp: tel.e164,
-        email: email || null,
-        categoria: categoriaActual?.nom ?? null,
-        inicio: dateDebut,
-        horaInicio: horaInicio || null,
-        fin: dateFin,
-        horaFin: horaFin || null,
-        lugar: lieu || null,
-        precio: precioTexto,
-      }),
-    }).catch(() => {});
   }
 
   function reinicializar() {
@@ -363,6 +349,8 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
     setCategorieId("");
     setLieu("");
     setNotes("");
+    setChampPiege("");
+    debutRemplissage.current = Date.now();
   }
 
   if (estadoEnvio === "success") {
@@ -406,6 +394,7 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
         <input
           type="text"
           required
+          maxLength={200}
           value={nom}
           onChange={(e) => setNom(e.target.value)}
           className={inputClass}
@@ -432,6 +421,7 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
           <span className={labelClass}>{t("field_email")}</span>
           <input
             type="email"
+            maxLength={254}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={inputClass}
@@ -602,6 +592,7 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
         <span className={labelClass}>{t("field_lugar")}</span>
         <input
           type="text"
+          maxLength={500}
           value={lieu}
           onChange={(e) => {
             setLieu(e.target.value);
@@ -638,10 +629,27 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
+          maxLength={2000}
           rows={3}
           className={inputClass}
         />
       </label>
+
+      {/* Champ piège : hors écran, ignoré des lecteurs d'écran, du clavier et du remplissage
+          automatique ; seul un robot qui remplit tous les champs le renseigne. */}
+      <div aria-hidden="true" className="absolute -left-[10000px] h-px w-px overflow-hidden">
+        <label>
+          Ne pas remplir
+          <input
+            type="text"
+            name="ivj_hp_ref"
+            tabIndex={-1}
+            autoComplete="off"
+            value={champPiege}
+            onChange={(e) => setChampPiege(e.target.value)}
+          />
+        </label>
+      </div>
 
       {estadoEnvio === "error" && <p className="text-sm text-red-600">{t("error_submit")}</p>}
 

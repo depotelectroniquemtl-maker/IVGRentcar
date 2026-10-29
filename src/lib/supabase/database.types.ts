@@ -835,6 +835,26 @@ export type Database = {
           categorie_id: string
         }[]
       }
+      creer_demande_publique: {
+        Args: {
+          p_date_debut: string
+          p_date_fin: string
+          p_email: string | null
+          p_heure_debut: string | null
+          p_heure_fin: string | null
+          p_langue: string | null
+          p_lieu_prise_en_charge: string | null
+          p_nom: string
+          p_notes: string | null
+          p_vehicule_id: string
+          p_whatsapp: string
+        }
+        Returns: {
+          categorie_nom: string
+          demande_id: string
+          prix_estime_usd: number | null
+        }[]
+      }
       disponibilite_categorie: {
         Args: {
           p_categorie_id: string

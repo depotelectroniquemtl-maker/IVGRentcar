@@ -4,7 +4,7 @@
 export type CalFase = "a_venir" | "en_cours" | "en_attente" | "en_retraso" | "terminee";
 
 export const FASE_BARRE: Record<CalFase, string> = {
-  a_venir: "bg-blue-50 text-blue-800 border-blue-400 hover:bg-blue-100",
+  a_venir: "bg-yellow-300 text-yellow-950 border-yellow-500 hover:bg-yellow-200",
   en_cours: "bg-blue-600 text-white border-blue-700 hover:bg-blue-700",
   en_attente: "bg-white text-ink-soft border-dashed border-gray-400 hover:bg-gray-50",
   en_retraso: "bg-red-100 text-red-800 border-red-500 hover:bg-red-200",

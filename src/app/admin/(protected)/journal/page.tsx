@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getCurrentProfile } from "@/lib/supabase/queries/profile";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { Pagination } from "@/components/admin/Pagination";
-import { StatCard, tableCardClass, thClass, thNumClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import type { Json } from "@/lib/supabase/database.types";
 
 const PAGE_SIZE = 50;
@@ -221,7 +221,7 @@ export default async function JournalPage({
                 <th className={thClass}>{t("col_usuario")}</th>
                 <th className={thClass}>{t("col_accion")}</th>
                 <th className={thClass}>{t("col_tabla")}</th>
-                <th className={thNumClass}>{t("col_detalles")}</th>
+                <th className={thClass}>{t("col_detalles")}</th>
               </tr>
             </thead>
             <tbody>
@@ -245,29 +245,51 @@ export default async function JournalPage({
                     <td className="px-4 py-3 text-ink-soft">
                       {TABLE_LABELS[l.table_cible] ?? l.table_cible}
                     </td>
-                    <td className="px-4 py-3 text-right">
-                      <details className="group text-left">
-                        <summary className="inline-block cursor-pointer text-sm font-semibold text-brand hover:underline">
-                          {t("ver_detalles")}
-                        </summary>
-                        <div className="mt-2 flex flex-col gap-1.5 rounded-md bg-black/[0.02] p-3 text-xs">
-                          {diff.length === 0 ? (
-                            <p className="text-ink-soft">{t("sin_cambios")}</p>
-                          ) : (
-                            diff.map((d) => (
-                              <div key={d.champ} className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] items-baseline gap-2">
-                                <code className="truncate text-[11px] text-ink-soft">{d.champ}</code>
-                                <span className="truncate text-red-700 line-through">
-                                  {formatValeur(d.avant, tCommon)}
-                                </span>
-                                <span className="truncate text-emerald-700">
-                                  {formatValeur(d.apres, tCommon)}
-                                </span>
-                              </div>
-                            ))
-                          )}
-                        </div>
-                      </details>
+                    <td className="px-4 py-3">
+                      {l.operation === "UPDATE" ? (
+                        // Modification : les champs changés sont listés directement, en entier
+                        // (« prix_total_usd : 700 → 650 »), sans avoir à ouvrir le détail.
+                        diff.length === 0 ? (
+                          <p className="text-xs text-ink-soft">{t("sin_cambios")}</p>
+                        ) : (
+                          <ul className="flex flex-col gap-1 text-xs">
+                            {diff.map((d) => (
+                              <li key={d.champ} className="[overflow-wrap:anywhere]">
+                                <code className="text-[11px] font-semibold text-ink">{d.champ}</code>
+                                <span className="text-ink-soft"> : </span>
+                                <span className="sr-only">{t("valeur_avant")} </span>
+                                <span className="text-ink-soft">{formatValeur(d.avant, tCommon)}</span>
+                                <span aria-hidden="true" className="text-ink-soft"> → </span>
+                                <span className="sr-only"> {t("valeur_apres")} </span>
+                                <span className="font-semibold text-ink">{formatValeur(d.apres, tCommon)}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )
+                      ) : (
+                        <details className="group text-left">
+                          <summary className="inline-block cursor-pointer text-sm font-semibold text-brand hover:underline">
+                            {t("ver_detalles")}
+                          </summary>
+                          <div className="mt-2 flex flex-col gap-1.5 rounded-md bg-black/[0.02] p-3 text-xs">
+                            {diff.length === 0 ? (
+                              <p className="text-ink-soft">{t("sin_cambios")}</p>
+                            ) : (
+                              diff.map((d) => (
+                                <div key={d.champ} className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] items-baseline gap-2">
+                                  <code className="truncate text-[11px] text-ink-soft">{d.champ}</code>
+                                  <span className="truncate text-red-700 line-through">
+                                    {formatValeur(d.avant, tCommon)}
+                                  </span>
+                                  <span className="truncate text-emerald-700">
+                                    {formatValeur(d.apres, tCommon)}
+                                  </span>
+                                </div>
+                              ))
+                            )}
+                          </div>
+                        </details>
+                      )}
                     </td>
                   </tr>
                 );

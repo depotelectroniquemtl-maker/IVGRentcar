@@ -991,7 +991,7 @@
       "a_verifier": "À vérifier",
       "a_verifier_hint": "Pays du numéro incertain : lien WhatsApp désactivé tant qu'il n'est pas confirmé",
       "whatsapp_open": "Ouvrir WhatsApp avec un message prérempli",
-      "email_button": "Courriel",
+      "client_open": "Ouvrir la fiche client",
       "view_reservation": "Voir la réservation",
       "already_converted": "Déjà convertie"
     },

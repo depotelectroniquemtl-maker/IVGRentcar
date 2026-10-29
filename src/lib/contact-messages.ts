@@ -1,4 +1,4 @@
-// Messages préremplis envoyés aux clients depuis /admin/demandes (WhatsApp et courriel),
+// Messages préremplis envoyés aux clients depuis /admin/demandes (lien WhatsApp),
 // dans la langue du site au moment de la demande. Volontairement neutres : uniquement nom,
 // véhicule, dates et prix estimé — jamais d'assurance, d'aéroport ni de montant de caution.
 
@@ -96,8 +96,4 @@ function join(lignes: (string | null)[]): string {
 // wa.me attend l'indicatif et le numéro en chiffres uniquement (pas de "+").
 export function whatsappHref(e164: string, text: string): string {
   return `https://wa.me/${e164.replace(/\D/g, "")}?text=${encodeURIComponent(text)}`;
-}
-
-export function mailtoHref(email: string, subject: string, body: string): string {
-  return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }

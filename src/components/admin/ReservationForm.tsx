@@ -95,19 +95,35 @@ export function ReservationForm({
 
   const fechasValidas = !dateDebut || !dateFin || dateFin >= dateDebut;
 
-  // Prix pré-rempli automatiquement dès que véhicule + dates changent, mais reste
-  // modifiable à la main ensuite (demande explicite du client, ex: remise). On saute le
-  // tout premier passage pour ne jamais écraser un prix déjà personnalisé au chargement
-  // (édition d'une réservation existante, ou prix précalculé venant d'une demande).
-  const premierRendu = useRef(true);
+  // Prix convenu protégé. Le tarif automatique (calculer_prix_total) est recalculé à chaque
+  // changement de véhicule ou de dates et gardé dans prixAuto. Deux modes :
+  //   - automatique : le prix suit le tarif, et chaque mise à jour est annoncée (jamais en
+  //     silence) ;
+  //   - protégé : le prix a été saisi à la main, ou le prix enregistré diffère du tarif à
+  //     l'ouverture (remise négociée, ancien tarif). Un changement de dates ou de véhicule ne
+  //     le touche alors jamais : un encadré montre le tarif automatique et laisse choisir.
+  // Vider le champ repasse en mode automatique. Sans tarif pour le véhicule (null), le prix
+  // n'est pas modifié et rien n'est affiché.
+  const [prixAuto, setPrixAuto] = useState<number | null>(null);
+  const [protege, setProtege] = useState(false);
+  const [avis, setAvis] = useState<
+    { type: "ecart"; auto: number } | { type: "maj"; avant: number | null; apres: number } | null
+  >(null);
+  const etat = useRef({ prixTotal, protege });
+  etat.current = { prixTotal, protege };
+  // Ouverture : premier calcul pour le véhicule et les dates initiaux. Marquée traitée seulement
+  // quand ce calcul aboutit (le double appel des effets en mode strict ne la consomme pas).
+  const cleInitiale = useRef(`${vehiculeId}|${dateDebut}|${dateFin}`);
+  const ouvertureTraitee = useRef(false);
+
   useEffect(() => {
-    if (premierRendu.current) {
-      premierRendu.current = false;
-      return;
-    }
+    const ouverture = !ouvertureTraitee.current && `${vehiculeId}|${dateDebut}|${dateFin}` === cleInitiale.current;
 
     const categorieId = vehicules.find((v) => v.id === vehiculeId)?.categorie_id;
-    if (!categorieId || !dateDebut || !dateFin || !fechasValidas) return;
+    if (!categorieId || !dateDebut || !dateFin || !fechasValidas) {
+      setPrixAuto(null);
+      return;
+    }
 
     let cancelado = false;
     const supabase = createClient();
@@ -118,7 +134,36 @@ export function ReservationForm({
         p_date_fin: dateFin,
       })
       .then(({ data }) => {
-        if (!cancelado && typeof data === "number") setPrixTotal(data.toString());
+        if (cancelado) return;
+        const ouvertureEnAttente = !ouvertureTraitee.current;
+        ouvertureTraitee.current = true;
+        const auto = typeof data === "number" ? data : null;
+        setPrixAuto(auto);
+        if (auto === null) {
+          setAvis(null);
+          return;
+        }
+        const actuel = etat.current.prixTotal === "" ? null : Number(etat.current.prixTotal);
+
+        // Ouverture (réservation existante ou préremplie) : le prix affiché n'est jamais modifié ;
+        // s'il diffère du tarif, il est considéré comme convenu.
+        if (ouverture) {
+          if (actuel !== null && !memePrix(actuel, auto)) setProtege(true);
+          return;
+        }
+        // Dates changées avant la fin du calcul d'ouverture : un prix déjà présent est
+        // considéré comme convenu (comportement sûr), jamais écrasé.
+        if (ouvertureEnAttente && actuel !== null && !memePrix(actuel, auto)) {
+          setProtege(true);
+          setAvis({ type: "ecart", auto });
+          return;
+        }
+        if (etat.current.protege) {
+          setAvis(actuel !== null && !memePrix(actuel, auto) ? { type: "ecart", auto } : null);
+          return;
+        }
+        setPrixTotal(auto.toString());
+        setAvis(actuel !== null && memePrix(actuel, auto) ? null : { type: "maj", avant: actuel, apres: auto });
       });
 
     return () => {
@@ -126,6 +171,20 @@ export function ReservationForm({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [vehiculeId, dateDebut, dateFin]);
+
+  function saisirPrix(valeur: string) {
+    setPrixTotal(valeur);
+    setAvis(null);
+    // Une valeur différente du tarif automatique active la protection ; vider le champ ou
+    // retaper exactement le tarif repasse en mode automatique.
+    setProtege(valeur !== "" && (prixAuto === null || !memePrix(Number(valeur), prixAuto)));
+  }
+
+  function utiliserTarifAuto(auto: number) {
+    setPrixTotal(auto.toString());
+    setProtege(false);
+    setAvis(null);
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -318,11 +377,44 @@ export function ReservationForm({
                 min={0}
                 step="0.01"
                 value={prixTotal}
-                onChange={(e) => setPrixTotal(e.target.value)}
+                onChange={(e) => saisirPrix(e.target.value)}
                 className={inputClass}
               />
-              <span className="mt-1 block text-xs text-ink-soft">{t("field_precio_hint")}</span>
+              <span className="mt-1 block text-xs text-ink-soft">
+                {protege ? t("prix_convenu_hint") : t("field_precio_hint")}
+              </span>
             </label>
+
+            {avis?.type === "ecart" && (
+              <div role="alert" className="rounded-md border border-amber-300 bg-amber-50 px-3 py-2.5 text-sm text-amber-950">
+                <p>
+                  {t("prix_convenu_ecart", { convenu: Number(prixTotal), auto: avis.auto })}
+                </p>
+                <div className="mt-2 flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => utiliserTarifAuto(avis.auto)}
+                    className="rounded-md bg-ink px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-black"
+                  >
+                    {t("prix_utiliser_auto")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setAvis(null)}
+                    className="rounded-md border border-amber-400 bg-white px-3 py-1.5 text-xs font-semibold text-amber-950 transition-colors hover:bg-amber-100"
+                  >
+                    {t("prix_garder_convenu")}
+                  </button>
+                </div>
+              </div>
+            )}
+            {avis?.type === "maj" && (
+              <p role="status" className="rounded-md border border-sky-200 bg-sky-50 px-3 py-2 text-sm text-sky-950">
+                {avis.avant === null
+                  ? t("prix_auto_applique", { apres: avis.apres })
+                  : t("prix_auto_maj", { avant: avis.avant, apres: avis.apres })}
+              </p>
+            )}
 
             <label className="block text-sm">
               <span className={labelClass}>{t("field_deposito")}</span>
@@ -377,4 +469,9 @@ export function ReservationForm({
       </div>
     </form>
   );
+}
+
+// Comparaison au centime près (le champ accepte deux décimales, la base renvoie un numeric).
+function memePrix(a: number, b: number) {
+  return Math.abs(a - b) < 0.005;
 }

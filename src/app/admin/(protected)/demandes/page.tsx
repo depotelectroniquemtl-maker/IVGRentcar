@@ -1,35 +1,56 @@
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { getAdminTranslator } from "@/lib/admin-i18n";
-import { DemandeStatutSelect } from "@/components/admin/DemandeStatutSelect";
-import { ConvertirDemandeButton } from "@/components/admin/ConvertirDemandeButton";
-import { StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
+import { getAdminLocale, getAdminTranslator } from "@/lib/admin-i18n";
 import { SearchInput } from "@/components/admin/SearchInput";
-import { buildContactMessage, whatsappHref } from "@/lib/contact-messages";
+import { DemandesSuivi, type DemandeVue } from "@/components/admin/DemandesSuivi";
+import { buildContactMessage, mailtoHref, whatsappHref } from "@/lib/contact-messages";
+import {
+  ONGLETS,
+  alerteDe,
+  barreDe,
+  dateHeureComplete,
+  datesCourtes,
+  estStatut,
+  heureCourte,
+  ilYA,
+  ongletDe,
+  prixCourt,
+  rattacherClient,
+  type ClientRef,
+  type Onglet,
+} from "@/lib/demandes/suivi";
 
+// Suivi des demandes par étapes (onglets À traiter / En discussion / Converties / Sans suite).
+// Tout ce qui dépend de l'heure (alertes, « il y a 2 jours ») est calculé ici, côté serveur,
+// avec une seule horloge, puis transmis tel quel à la liste et au panneau de détail.
 export default async function DemandesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>;
+  searchParams: Promise<{ q?: string; onglet?: string; d?: string }>;
 }) {
-  const { q: qRaw } = await searchParams;
+  const { q: qRaw, onglet: ongletRaw, d: selection } = await searchParams;
   const q = qRaw?.trim().toLowerCase() ?? "";
   const supabase = createClient();
+  const locale = await getAdminLocale();
   const t = await getAdminTranslator("admin.demandes");
-  const tCommon = await getAdminTranslator("admin.common");
+  const maintenant = new Date();
 
-  const { data: demandes, error } = await supabase
-    .from("demandes_reservation")
-    .select(
-      "id, nom, whatsapp, whatsapp_a_verifier, langue, email, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, vehicules(plaque, categories_vehicules(nom))",
-    )
-    .order("created_at", { ascending: false });
+  const [{ data: demandes, error }, { data: clients }] = await Promise.all([
+    supabase
+      .from("demandes_reservation")
+      .select(
+        "id, nom, whatsapp, whatsapp_a_verifier, langue, email, notes, vehicule_id, date_debut, date_fin, heure_debut, heure_fin, lieu_prise_en_charge, prix_estime_usd, statut, created_at, updated_at, vehicules(plaque, annee, categories_vehicules(nom))",
+      )
+      .order("created_at", { ascending: false }),
+    // Toutes les fiches avec un téléphone : rattachement par numéro exact, et repérage des
+    // numéros proches avant de créer une fiche.
+    supabase.from("clients").select("id, nom, telephone").not("telephone", "is", null),
+  ]);
 
   // Réservation créée à partir de chaque demande (lien demande_id), pour « Voir la réservation ».
   const { data: liens } = demandes?.length
     ? await supabase
         .from("reservations")
-        .select("id, demande_id, client_id")
+        .select("id, demande_id")
         .in(
           "demande_id",
           demandes.map((d) => d.id),
@@ -38,189 +59,96 @@ export default async function DemandesPage({
   const reservationParDemande = new Map(
     (liens ?? []).flatMap((r) => (r.demande_id ? [[r.demande_id, r.id] as const] : [])),
   );
-
-  // Fiche client de chaque demande, pour rendre le nom cliquable : le client de la réservation
-  // liée (demande convertie) s'il existe, sinon l'unique fiche client portant le même numéro
-  // WhatsApp. Aucune fiche, ou plusieurs fiches pour ce numéro : le nom reste du texte simple.
-  const { data: clientsMemeTel } = demandes?.length
-    ? await supabase
-        .from("clients")
-        .select("id, telephone")
-        .in(
-          "telephone",
-          Array.from(new Set(demandes.map((d) => d.whatsapp))),
-        )
-    : { data: [] };
-  const clientsParTel = new Map<string, string[]>();
-  for (const c of clientsMemeTel ?? []) {
-    if (c.telephone) clientsParTel.set(c.telephone, [...(clientsParTel.get(c.telephone) ?? []), c.id]);
-  }
-  const clientParDemande = new Map(
-    (demandes ?? []).flatMap((d) => {
-      const viaReservation = liens?.find((r) => r.demande_id === d.id)?.client_id;
-      const memeTel = clientsParTel.get(d.whatsapp);
-      const id = viaReservation ?? (memeTel?.length === 1 ? memeTel[0] : null);
-      return id ? [[d.id, id] as const] : [];
-    }),
+  const fiches: ClientRef[] = (clients ?? []).flatMap((c) =>
+    c.telephone ? [{ id: c.id, nom: c.nom, telephone: c.telephone }] : [],
   );
 
-  const nuevas = demandes?.filter((d) => d.statut === "nouvelle").length ?? 0;
-  const contactadas = demandes?.filter((d) => d.statut === "contactee").length ?? 0;
-  const convertidas = demandes?.filter((d) => d.statut === "convertie").length ?? 0;
-  const rechazadas = demandes?.filter((d) => d.statut === "rejetee").length ?? 0;
+  const vues: DemandeVue[] = (demandes ?? []).flatMap((d) => {
+    if (!estStatut(d.statut)) return [];
+    const statut = d.statut;
+    const creee = new Date(d.created_at);
+    const majee = new Date(d.updated_at);
+    const alerte = alerteDe(statut, creee, majee, maintenant);
+    const reservationId = reservationParDemande.get(d.id) ?? null;
+    const categorie = d.vehicules?.categories_vehicules?.nom ?? null;
+    const vehicule = [categorie, d.vehicules?.annee].filter(Boolean).join(" ") || null;
+    const message = buildContactMessage({
+      nom: d.nom,
+      vehicule: categorie,
+      dateDebut: d.date_debut,
+      dateFin: d.date_fin,
+      prix: d.prix_estime_usd,
+      langue: d.langue,
+    });
+    const recue = dateHeureComplete(creee, locale);
 
-  const demandesFiltradas = q
-    ? demandes?.filter((d) =>
-        [d.nom, d.whatsapp, d.vehicules?.categories_vehicules?.nom, d.vehicules?.plaque]
-          .filter((v): v is string => Boolean(v))
-          .some((v) => v.toLowerCase().includes(q)),
-      )
-    : demandes;
+    let ligneStatut: string;
+    if (statut === "nouvelle") ligneStatut = t("age_recue", { quand: ilYA(creee, maintenant, locale) });
+    else if (statut === "contactee") ligneStatut = t("age_contact", { quand: ilYA(majee, maintenant, locale) });
+    else if (statut === "convertie")
+      ligneStatut = reservationId
+        ? t("age_convertie", { quand: ilYA(majee, maintenant, locale) })
+        : t("ancienne_conversion");
+    else ligneStatut = t("age_sans_suite", { quand: ilYA(majee, maintenant, locale) });
+
+    return [
+      {
+        id: d.id,
+        nom: d.nom,
+        whatsapp: d.whatsapp,
+        whatsappAVerifier: d.whatsapp_a_verifier,
+        email: d.email,
+        notes: d.notes,
+        vehiculeId: d.vehicule_id,
+        vehicule,
+        plaque: d.vehicules?.plaque ?? null,
+        dateDebut: d.date_debut,
+        dateFin: d.date_fin,
+        dates: datesCourtes(d.date_debut, d.date_fin, locale, maintenant),
+        heureDebut: d.heure_debut?.slice(0, 5) ?? null,
+        heureFin: d.heure_fin?.slice(0, 5) ?? null,
+        heures: [heureCourte(d.heure_debut, locale), heureCourte(d.heure_fin, locale)]
+          .filter(Boolean)
+          .join(" → ") || null,
+        lieu: d.lieu_prise_en_charge,
+        prix: d.prix_estime_usd,
+        prixTexte: prixCourt(d.prix_estime_usd),
+        statut,
+        onglet: ongletDe(statut, alerte),
+        alerte,
+        barre: barreDe(statut, alerte),
+        ligneStatut,
+        recueLe: t("recue_le", recue),
+        reservationId,
+        client: rattacherClient(d.whatsapp, fiches),
+        waHref: d.whatsapp_a_verifier ? null : whatsappHref(d.whatsapp, message.body),
+        mailHref: d.email ? mailtoHref(d.email, message.subject, message.body) : null,
+      },
+    ];
+  });
+
+  const filtrees = q
+    ? vues.filter((d) => [d.nom, d.whatsapp].some((v) => v.toLowerCase().includes(q)))
+    : vues;
+  const onglet: Onglet = ONGLETS.find((o) => o === ongletRaw) ?? "a_traiter";
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
         <p className="text-sm text-ink-soft">{t("subtitle")}</p>
       </div>
 
       {error && <p className="text-sm text-red-600">{error.message}</p>}
 
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <StatCard label={t("statut_nouvelle")} value={nuevas} />
-        <StatCard label={t("statut_contactee")} value={contactadas} tone="warn" />
-        <StatCard label={t("statut_convertie")} value={convertidas} />
-        <StatCard label={t("statut_rejetee")} value={rechazadas} tone="muted" />
-      </div>
-
       <SearchInput placeholder={t("search_placeholder")} />
 
-      <div className={tableCardClass}>
-        <div className="overflow-x-auto">
-        <table className="w-full min-w-[720px] text-left text-sm">
-          <thead className={theadClass}>
-            <tr>
-              <th className={thClass}>{t("col_nombre")}</th>
-              <th className={thClass}>{t("col_whatsapp")}</th>
-              <th className={thClass}>{t("col_vehiculo")}</th>
-              <th className={thClass}>{t("col_del")}</th>
-              <th className={thClass}>{t("col_al")}</th>
-              <th className={thClass}>{t("col_horario")}</th>
-              <th className={thClass}>{t("col_precio")}</th>
-              <th className={thClass}>{t("col_estado")}</th>
-              <th className={`${thClass} text-right`}>{t("col_acciones")}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {demandesFiltradas?.map((d) => {
-              const vehiculeNom = d.vehicules?.categories_vehicules?.nom ?? null;
-              const message = buildContactMessage({
-                nom: d.nom,
-                vehicule: vehiculeNom,
-                dateDebut: d.date_debut,
-                dateFin: d.date_fin,
-                prix: d.prix_estime_usd,
-                langue: d.langue,
-              });
-              return (
-                <tr key={d.id} className={trClass}>
-                  <td className="px-4 py-3 font-medium text-ink">
-                    {clientParDemande.has(d.id) ? (
-                      <Link
-                        href={`/admin/clients/${clientParDemande.get(d.id)}`}
-                        title={t("client_open")}
-                        className="text-brand-dark underline-offset-2 hover:underline"
-                      >
-                        {d.nom}
-                      </Link>
-                    ) : (
-                      d.nom
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    {d.whatsapp_a_verifier ? (
-                      <div className="flex flex-col items-start gap-1">
-                        <span className="whitespace-nowrap">{d.whatsapp}</span>
-                        <span
-                          title={t("a_verifier_hint")}
-                          className="rounded bg-amber-100 px-1.5 py-0.5 text-xs font-semibold text-amber-800"
-                        >
-                          ⚠ {t("a_verifier")}
-                        </span>
-                      </div>
-                    ) : (
-                      <a
-                        href={whatsappHref(d.whatsapp, message.body)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        title={t("whatsapp_open")}
-                        className="whitespace-nowrap font-medium text-brand-dark underline-offset-2 hover:underline"
-                      >
-                        {d.whatsapp}
-                      </a>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    {d.vehicules?.categories_vehicules?.nom ?? tCommon("dash")}
-                    {d.vehicules?.plaque ? ` (${d.vehicules.plaque})` : ""}
-                  </td>
-                  <td className="px-4 py-3">{d.date_debut}</td>
-                  <td className="px-4 py-3">{d.date_fin}</td>
-                  <td className="px-4 py-3">
-                    {d.heure_debut ?? tCommon("dash")} → {d.heure_fin ?? tCommon("dash")}
-                  </td>
-                  <td className="px-4 py-3">
-                    {d.prix_estime_usd ? `US$ ${d.prix_estime_usd}` : tCommon("dash")}
-                  </td>
-                  <td className="px-4 py-3">
-                    <DemandeStatutSelect id={d.id} statut={d.statut} />
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex flex-wrap items-center justify-end gap-2">
-                      {reservationParDemande.has(d.id) ? (
-                        <Link
-                          href={`/admin/reservations/${reservationParDemande.get(d.id)}`}
-                          className="inline-flex items-center rounded-md bg-brand/10 px-2.5 py-1 text-xs font-semibold text-brand-dark transition-colors hover:bg-brand/20"
-                        >
-                          {t("view_reservation")}
-                        </Link>
-                      ) : d.statut === "convertie" ? (
-                        <span className="px-2.5 py-1 text-xs font-semibold text-ink-soft">
-                          {t("already_converted")}
-                        </span>
-                      ) : (
-                      <ConvertirDemandeButton
-                        label={t("convert")}
-                        nom={d.nom}
-                        whatsapp={d.whatsapp}
-                        whatsappAVerifier={d.whatsapp_a_verifier}
-                        demandeId={d.id}
-                        email={d.email}
-                        vehiculeId={d.vehicule_id}
-                        dateDebut={d.date_debut}
-                        dateFin={d.date_fin}
-                        heureDebut={d.heure_debut?.slice(0, 5)}
-                        heureFin={d.heure_fin?.slice(0, 5)}
-                        lieu={d.lieu_prise_en_charge ?? undefined}
-                        prix={d.prix_estime_usd ? String(d.prix_estime_usd) : undefined}
-                      />
-                      )}
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-            {demandesFiltradas?.length === 0 && (
-              <tr>
-                <td colSpan={9} className="px-4 py-6 text-center text-ink-soft">
-                  {q ? tCommon("no_results") : t("empty")}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-        </div>
-      </div>
+      <DemandesSuivi
+        demandes={filtrees}
+        ongletInitial={onglet}
+        selectionInitiale={selection ?? null}
+        aucuneDemande={vues.length === 0}
+      />
     </div>
   );
 }

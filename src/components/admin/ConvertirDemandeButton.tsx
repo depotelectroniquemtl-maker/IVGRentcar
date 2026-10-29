@@ -12,6 +12,7 @@ import { createClient } from "@/lib/supabase/client";
 // arrive sur le formulaire avec le client déjà sélectionné.
 export function ConvertirDemandeButton({
   label,
+  className = "inline-flex items-center rounded-md bg-brand/10 px-2.5 py-1 text-xs font-semibold text-brand-dark transition-colors hover:bg-brand/20 disabled:opacity-50",
   demandeId,
   nom,
   whatsapp,
@@ -26,6 +27,7 @@ export function ConvertirDemandeButton({
   prix,
 }: {
   label: string;
+  className?: string;
   demandeId: string;
   nom: string;
   whatsapp: string;
@@ -95,7 +97,7 @@ export function ConvertirDemandeButton({
       type="button"
       onClick={handleClick}
       disabled={loading}
-      className="inline-flex items-center rounded-md bg-brand/10 px-2.5 py-1 text-xs font-semibold text-brand-dark transition-colors hover:bg-brand/20 disabled:opacity-50"
+      className={className}
     >
       {loading ? "…" : label}
     </button>

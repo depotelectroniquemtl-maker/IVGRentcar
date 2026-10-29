@@ -45,6 +45,7 @@ export type DemandeVue = {
   ligneStatut: string;
   recueLe: string;
   reservationId: string | null;
+  reservationAnnulee: boolean;
   client: RattachementClient;
   waHref: string | null;
   mailHref: string | null;
@@ -71,6 +72,10 @@ const STATUT_CLASS: Record<StatutDemande, string> = {
 
 const boutonPrincipal =
   "inline-flex items-center justify-center gap-2 rounded-md bg-brand px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-dark disabled:opacity-60";
+// Actions destructives : rouge, toujours dans la zone « Actions sensibles » en bas du panneau,
+// jamais à côté du bouton principal.
+const boutonDanger =
+  "inline-flex items-center justify-center rounded-md border border-red-300 bg-white px-3.5 py-2 text-sm font-semibold text-red-800 transition-colors hover:bg-red-50 disabled:opacity-60";
 const boutonSecondaire =
   "inline-flex items-center justify-center gap-2 rounded-md border border-black/15 bg-white px-3.5 py-2 text-sm font-semibold text-ink transition-colors hover:bg-black/5 disabled:opacity-60";
 
@@ -162,15 +167,20 @@ export function DemandesSuivi({
   ongletInitial,
   selectionInitiale,
   aucuneDemande,
+  estAdmin,
 }: {
   demandes: DemandeVue[];
   ongletInitial: Onglet;
   selectionInitiale: string | null;
   aucuneDemande: boolean;
+  estAdmin: boolean;
 }) {
   const t = useTranslations("admin.demandes");
   const [onglet, setOnglet] = useState<Onglet>(ongletInitial);
   const [selection, setSelection] = useState<string | null>(selectionInitiale);
+  // Demandes supprimées dans cette page : retirées tout de suite de la liste et des compteurs,
+  // sans attendre le rafraîchissement des données serveur.
+  const [supprimees, setSupprimees] = useState<Set<string>>(() => new Set());
 
   // Onglet et demande ouverte gardés dans l'URL (?onglet=…&d=…) : un rechargement ou le retour
   // après la création d'une fiche client rouvre le même écran.
@@ -190,11 +200,12 @@ export function DemandesSuivi({
     majUrl("d", id);
   }
 
+  const visibles = demandes.filter((d) => !supprimees.has(d.id));
   const compteurs = Object.fromEntries(
-    ONGLETS.map((o) => [o, demandes.filter((d) => d.onglet === o).length]),
+    ONGLETS.map((o) => [o, visibles.filter((d) => d.onglet === o).length]),
   ) as Record<Onglet, number>;
-  const liste = demandes.filter((d) => d.onglet === onglet);
-  const ouverte = selection ? demandes.find((d) => d.id === selection) ?? null : null;
+  const liste = visibles.filter((d) => d.onglet === onglet);
+  const ouverte = selection ? visibles.find((d) => d.id === selection) ?? null : null;
 
   return (
     <>
@@ -309,22 +320,50 @@ export function DemandesSuivi({
         )}
       </div>
 
-      {ouverte && <PanneauDemande d={ouverte} onFermer={() => ouvrir(null)} />}
+      {ouverte && (
+        <PanneauDemande
+          d={ouverte}
+          estAdmin={estAdmin}
+          onFermer={() => ouvrir(null)}
+          onSupprimee={(id) => {
+            setSupprimees((avant) => new Set(avant).add(id));
+            ouvrir(null);
+          }}
+        />
+      )}
     </>
   );
 }
 
-function PanneauDemande({ d, onFermer }: { d: DemandeVue; onFermer: () => void }) {
+function PanneauDemande({
+  d,
+  estAdmin,
+  onFermer,
+  onSupprimee,
+}: {
+  d: DemandeVue;
+  estAdmin: boolean;
+  onFermer: () => void;
+  onSupprimee: (id: string) => void;
+}) {
   const t = useTranslations("admin.demandes");
   const router = useRouter();
   const [enCours, setEnCours] = useState(false);
-  const [erreur, setErreur] = useState(false);
+  const [erreur, setErreur] = useState<string | null>(null);
+  const [confirmation, setConfirmation] = useState<"supprimer" | "annuler" | null>(null);
   const fermerRef = useRef<HTMLButtonElement>(null);
+  const confirmationRef = useRef(confirmation);
+  confirmationRef.current = confirmation;
 
   useEffect(() => {
     fermerRef.current?.focus();
+    setConfirmation(null);
+    setErreur(null);
     const surTouche = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onFermer();
+      if (e.key !== "Escape") return;
+      // Échap ferme d'abord la confirmation ouverte, puis le panneau.
+      if (confirmationRef.current) setConfirmation(null);
+      else onFermer();
     };
     window.addEventListener("keydown", surTouche);
     return () => window.removeEventListener("keydown", surTouche);
@@ -334,11 +373,80 @@ function PanneauDemande({ d, onFermer }: { d: DemandeVue; onFermer: () => void }
   // « Convertie » n'est posé que par la conversion réelle (formulaire de réservation).
   async function changerStatut(statut: "contactee" | "rejetee") {
     setEnCours(true);
-    setErreur(false);
+    setErreur(null);
     const { error } = await createClient().from("demandes_reservation").update({ statut }).eq("id", d.id);
     setEnCours(false);
     if (error) {
-      setErreur(true);
+      setErreur(t("erreur_statut"));
+      return;
+    }
+    router.refresh();
+  }
+
+  // Suppression définitive (administrateurs, policy demandes_delete_admin). Refusée tant
+  // qu'une réservation non annulée est liée ; ne touche ni la réservation ni la fiche client
+  // (une réservation annulée liée garde sa ligne : demande_id passe à NULL, ON DELETE SET NULL).
+  async function supprimer() {
+    setEnCours(true);
+    setErreur(null);
+    const supabase = createClient();
+    const { data: actives, error: errLecture } = await supabase
+      .from("reservations")
+      .select("id")
+      .eq("demande_id", d.id)
+      .neq("statut", "annulee");
+    if (errLecture) {
+      setEnCours(false);
+      setErreur(t("erreur_suppression"));
+      return;
+    }
+    if ((actives?.length ?? 0) > 0) {
+      setEnCours(false);
+      setConfirmation(null);
+      setErreur(t("suppression_reservation_active"));
+      return;
+    }
+    // .select() : une suppression refusée par la RLS ne renvoie pas d'erreur, seulement 0 ligne.
+    const { data: supprimees, error } = await supabase
+      .from("demandes_reservation")
+      .delete()
+      .eq("id", d.id)
+      .select("id");
+    setEnCours(false);
+    setConfirmation(null);
+    if (error || !supprimees?.length) {
+      setErreur(t(error ? "erreur_suppression" : "suppression_refusee"));
+      return;
+    }
+    router.refresh();
+    onSupprimee(d.id);
+  }
+
+  // Le client renonce : même écriture que l'annulation dans la fiche de réservation
+  // (ReservationForm : statut = « annulee », la ligne est conservée), puis la demande passe
+  // en « Sans suite ». Si la réservation est déjà annulée, seule la demande est mise à jour.
+  async function annulerReservation() {
+    if (!d.reservationId) return;
+    setEnCours(true);
+    setErreur(null);
+    const supabase = createClient();
+    if (!d.reservationAnnulee) {
+      const { error } = await supabase
+        .from("reservations")
+        .update({ statut: "annulee" })
+        .eq("id", d.reservationId);
+      if (error) {
+        setEnCours(false);
+        setErreur(t("erreur_annulation"));
+        return;
+      }
+    }
+    const { error } = await supabase.from("demandes_reservation").update({ statut: "rejetee" }).eq("id", d.id);
+    setEnCours(false);
+    setConfirmation(null);
+    if (error) {
+      setErreur(t("erreur_annulation_demande"));
+      router.refresh();
       return;
     }
     router.refresh();
@@ -491,7 +599,13 @@ function PanneauDemande({ d, onFermer }: { d: DemandeVue; onFermer: () => void }
                   {t("view_reservation")}
                 </Link>
               ) : (
-                <p className="text-ink-soft">{t("conversion_sans_reservation")}</p>
+                <>
+                  <p className="w-full text-ink-soft">{t("conversion_sans_reservation")}</p>
+                  {/* Faux statut « Convertie » (aucune réservation) : on le corrige. */}
+                  <button type="button" disabled={enCours} onClick={() => changerStatut("contactee")} className={boutonSecondaire}>
+                    {t("btn_remettre_discussion")}
+                  </button>
+                </>
               ))}
             {d.statut === "rejetee" && (
               <button type="button" disabled={enCours} onClick={() => changerStatut("contactee")} className={boutonSecondaire}>
@@ -500,8 +614,8 @@ function PanneauDemande({ d, onFermer }: { d: DemandeVue; onFermer: () => void }
             )}
           </div>
           {erreur && (
-            <p role="alert" className="text-sm text-red-700">
-              {t("erreur_statut")}
+            <p role="alert" className="rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
+              {erreur}
             </p>
           )}
 
@@ -544,6 +658,58 @@ function PanneauDemande({ d, onFermer }: { d: DemandeVue; onFermer: () => void }
               </div>
             )}
           </Section>
+
+          {(estAdmin || (d.statut === "convertie" && d.reservationId)) && (
+            <section className="border-t border-black/10 pt-4" aria-labelledby="demande-zone-sensible">
+              <h3 id="demande-zone-sensible" className="mb-2 text-[11px] font-bold uppercase tracking-wider text-ink-soft">
+                {t("zone_sensible")}
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {d.statut === "convertie" && d.reservationId && (
+                  <button type="button" disabled={enCours} onClick={() => setConfirmation("annuler")} className={boutonDanger}>
+                    {t("btn_annuler_reservation")}
+                  </button>
+                )}
+                {estAdmin && (
+                  <button type="button" disabled={enCours} onClick={() => setConfirmation("supprimer")} className={boutonDanger}>
+                    {t("btn_supprimer")}
+                  </button>
+                )}
+              </div>
+
+              {confirmation && (
+                <div
+                  role="alertdialog"
+                  aria-labelledby="demande-confirmation-titre"
+                  aria-describedby="demande-confirmation-texte"
+                  className="mt-3 rounded-md border border-red-300 bg-red-50 px-3 py-3 text-red-950"
+                >
+                  <p id="demande-confirmation-titre" className="font-semibold">
+                    {t(confirmation === "supprimer" ? "supprimer_titre" : "annuler_titre")}
+                  </p>
+                  <p id="demande-confirmation-texte" className="mt-1">
+                    {confirmation === "supprimer"
+                      ? t("supprimer_texte", { nom: d.nom, source: t("source_site", { vehicule: d.vehicule ?? "—" }) })
+                      : t("annuler_texte")}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      autoFocus
+                      disabled={enCours}
+                      onClick={confirmation === "supprimer" ? supprimer : annulerReservation}
+                      className="inline-flex items-center justify-center rounded-md bg-red-700 px-3.5 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-800 disabled:opacity-60"
+                    >
+                      {t(confirmation === "supprimer" ? "supprimer_confirmer" : "annuler_confirmer")}
+                    </button>
+                    <button type="button" disabled={enCours} onClick={() => setConfirmation(null)} className={boutonSecondaire}>
+                      {t("confirmation_retour")}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
         </div>
       </section>
     </div>

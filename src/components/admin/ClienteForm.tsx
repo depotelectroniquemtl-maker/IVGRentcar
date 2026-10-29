@@ -9,6 +9,7 @@ import { parsePhoneNumberFromString, type CountryCode } from "libphonenumber-js/
 import { createClient } from "@/lib/supabase/client";
 import { PhoneField } from "@/components/site/PhoneField";
 import { defaultCountryForLocale, isE164, normalizePhone } from "@/lib/phone";
+import { LANGUES, estLangue } from "@/lib/demandes/libelles";
 import { Card, inputClass, labelClass, primaryButtonClass, secondaryLinkClass } from "@/components/admin/form-ui";
 
 type Cliente = {
@@ -26,6 +27,7 @@ type Cliente = {
   adresse: string | null;
   residencia: string | null;
   notes: string | null;
+  langue?: string | null;
 };
 
 export function ClienteForm({
@@ -34,14 +36,17 @@ export function ClienteForm({
   cliente,
   prefill,
   retour,
+  demandeId,
 }: {
   title: string;
   secondaryActions?: ReactNode;
   cliente?: Cliente;
   // Nouvelle fiche créée depuis une demande (/admin/demandes) : champs préremplis, puis retour
   // sur la demande après l'enregistrement plutôt que sur la liste des clients.
-  prefill?: { nom?: string; telephone?: string; email?: string };
+  prefill?: { nom?: string; telephone?: string; email?: string; langue?: string };
   retour?: string;
+  // Fiche créée depuis une demande : la demande est liée à la fiche créée (client_id).
+  demandeId?: string;
 }) {
   const router = useRouter();
   const t = useTranslations("admin.clients");
@@ -74,6 +79,7 @@ export function ClienteForm({
   const [adresse, setAdresse] = useState(cliente?.adresse ?? "");
   const [residencia, setResidencia] = useState(cliente?.residencia ?? "");
   const [notes, setNotes] = useState(cliente?.notes ?? "");
+  const [langue, setLangue] = useState(cliente?.langue ?? (estLangue(prefill?.langue) ? prefill.langue : ""));
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -116,16 +122,29 @@ export function ClienteForm({
       adresse: adresse || null,
       residencia: residencia || null,
       notes: notes || null,
+      langue: estLangue(langue) ? langue : null,
     };
 
-    const { error } = editing
-      ? await supabase.from("clients").update(payload).eq("id", cliente!.id)
-      : await supabase.from("clients").insert(payload);
+    const { data: enregistre, error } = editing
+      ? await supabase.from("clients").update(payload).eq("id", cliente!.id).select("id").single()
+      : await supabase.from("clients").insert(payload).select("id").single();
 
     if (error) {
       setError(error.message);
       setLoading(false);
       return;
+    }
+
+    if (!editing && demandeId && enregistre) {
+      const { error: errLien } = await supabase
+        .from("demandes_reservation")
+        .update({ client_id: enregistre.id })
+        .eq("id", demandeId);
+      if (errLien) {
+        setError(errLien.message);
+        setLoading(false);
+        return;
+      }
     }
 
     router.push(retour ?? "/admin/clients");
@@ -204,6 +223,18 @@ export function ClienteForm({
                 />
               </label>
             </div>
+
+            <label className="block text-sm sm:max-w-[50%]">
+              <span className={labelClass}>{t("field_langue")}</span>
+              <select value={langue} onChange={(e) => setLangue(e.target.value)} className={inputClass}>
+                <option value="">{tCommon("dash")}</option>
+                {LANGUES.map((l) => (
+                  <option key={l} value={l}>
+                    {t(`langue_${l}`)}
+                  </option>
+                ))}
+              </select>
+            </label>
           </Card>
 
           <Card title={t("section_documentos")}>

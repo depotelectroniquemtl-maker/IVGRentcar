@@ -17,9 +17,13 @@
 --    - clients.langue : langue du client.
 -- 2. Une saisie manuelle peut être incomplète (véhicule, dates, téléphone « à préciser ») :
 --    vehicule_id, date_debut, date_fin et whatsapp deviennent NULL-ables. Les exigences sont
---    reportées dans le trigger de validation, qui garde EXACTEMENT les règles actuelles pour
---    source = 'site' (WhatsApp E.164 obligatoire, véhicule et dates obligatoires) et exige
---    pour les autres sources un nom non vide et un téléphone E.164 OU un courriel.
+--    reportées :
+--    - dans une contrainte CHECK (demandes_champs_requis), valable à l'insertion ET à la mise
+--      à jour comme les NOT NULL qu'elle remplace : pour source = 'site', WhatsApp, véhicule
+--      et dates restent obligatoires ; pour une saisie manuelle, téléphone OU courriel ;
+--    - dans le trigger de validation (insertion seulement, comme avant), qui garde EXACTEMENT
+--      les règles actuelles pour source = 'site' (WhatsApp E.164) et exige pour les autres
+--      sources un nom non vide et, si un téléphone est donné, le format E.164.
 -- 3. Policy INSERT pour le personnel connecté (authenticated + est_staff()), limitée aux
 --    saisies manuelles : source différente de 'site', statut 'nouvelle' ou 'contactee'
 --    (jamais « convertie »), created_by = l'utilisateur lui-même. anon ne reçoit aucun droit.
@@ -41,6 +45,7 @@
 --     end if;
 --     return new;
 --   end; $f$;
+--   alter table public.demandes_reservation drop constraint if exists demandes_champs_requis;
 --   alter table public.demandes_reservation
 --     alter column whatsapp set not null, alter column vehicule_id set not null,
 --     alter column date_debut set not null, alter column date_fin set not null;
@@ -85,6 +90,20 @@ alter table public.demandes_reservation
   alter column vehicule_id drop not null,
   alter column date_debut drop not null,
   alter column date_fin drop not null;
+
+-- Garanties des anciens NOT NULL, à l'insertion comme à la mise à jour. Pour le site : champ
+-- rempli (pas de format imposé ici : les anciennes lignes au numéro « à vérifier » restent
+-- valides, le format E.164 est contrôlé à l'insertion par le trigger ci-dessous).
+alter table public.demandes_reservation
+  add constraint demandes_champs_requis check (
+    case
+      when source = 'site' then
+        whatsapp is not null and vehicule_id is not null
+        and date_debut is not null and date_fin is not null
+      else
+        whatsapp is not null or nullif(btrim(email), '') is not null
+    end
+  );
 
 -- Même fonction et même trigger BEFORE INSERT qu'en 0030 (nom conservé) ; seule l'INSERTION est
 -- contrôlée, comme avant : les anciennes lignes au numéro « à vérifier » restent modifiables.

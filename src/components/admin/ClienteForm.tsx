@@ -32,10 +32,16 @@ export function ClienteForm({
   title,
   secondaryActions,
   cliente,
+  prefill,
+  retour,
 }: {
   title: string;
   secondaryActions?: ReactNode;
   cliente?: Cliente;
+  // Nouvelle fiche créée depuis une demande (/admin/demandes) : champs préremplis, puis retour
+  // sur la demande après l'enregistrement plutôt que sur la liste des clients.
+  prefill?: { nom?: string; telephone?: string; email?: string };
+  retour?: string;
 }) {
   const router = useRouter();
   const t = useTranslations("admin.clients");
@@ -44,10 +50,10 @@ export function ClienteForm({
   const locale = useLocale();
   const editing = Boolean(cliente);
 
-  const [nom, setNom] = useState(cliente?.nom ?? "");
+  const [nom, setNom] = useState(cliente?.nom ?? prefill?.nom ?? "");
   // Numéro déjà en E.164 : on affiche le pays et le numéro national. Sinon (ancien numéro en
   // format libre, « à vérifier »), on affiche la valeur brute telle quelle, sans deviner de pays.
-  const initialTel = cliente?.telephone ?? "";
+  const initialTel = cliente?.telephone ?? prefill?.telephone ?? "";
   const parsedTel = isE164(initialTel) ? parsePhoneNumberFromString(initialTel) : undefined;
   const [telephone, setTelephone] = useState(parsedTel ? parsedTel.formatNational() : initialTel);
   const [paysTel, setPaysTel] = useState<CountryCode>(
@@ -56,7 +62,7 @@ export function ClienteForm({
   );
   const [errorTel, setErrorTel] = useState<string | null>(null);
   const [telTouched, setTelTouched] = useState(false);
-  const [email, setEmail] = useState(cliente?.email ?? "");
+  const [email, setEmail] = useState(cliente?.email ?? prefill?.email ?? "");
   const [numeroPermis, setNumeroPermis] = useState(cliente?.numero_permis ?? "");
   const [permisExpiration, setPermisExpiration] = useState(cliente?.permis_expiration ?? "");
   const [cedula, setCedula] = useState(cliente?.cedula ?? "");
@@ -122,7 +128,7 @@ export function ClienteForm({
       return;
     }
 
-    router.push("/admin/clients");
+    router.push(retour ?? "/admin/clients");
     router.refresh();
   }
 
@@ -131,7 +137,7 @@ export function ClienteForm({
       <div className="flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-2xl font-bold text-ink">{title}</h1>
         <div className="flex items-center gap-3">
-          <Link href="/admin/clients" className={secondaryLinkClass}>
+          <Link href={retour ?? "/admin/clients"} className={secondaryLinkClass}>
             {tCommon("cancel")}
           </Link>
           <button type="submit" disabled={loading} className={primaryButtonClass}>

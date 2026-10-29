@@ -5,7 +5,7 @@ import { DemandeStatutSelect } from "@/components/admin/DemandeStatutSelect";
 import { ConvertirDemandeButton } from "@/components/admin/ConvertirDemandeButton";
 import { StatCard, tableCardClass, thClass, theadClass, trClass } from "@/components/admin/admin-ui";
 import { SearchInput } from "@/components/admin/SearchInput";
-import { buildContactMessage, mailtoHref, whatsappHref } from "@/lib/contact-messages";
+import { buildContactMessage, whatsappHref } from "@/lib/contact-messages";
 
 export default async function DemandesPage({
   searchParams,
@@ -29,7 +29,7 @@ export default async function DemandesPage({
   const { data: liens } = demandes?.length
     ? await supabase
         .from("reservations")
-        .select("id, demande_id")
+        .select("id, demande_id, client_id")
         .in(
           "demande_id",
           demandes.map((d) => d.id),
@@ -37,6 +37,31 @@ export default async function DemandesPage({
     : { data: [] };
   const reservationParDemande = new Map(
     (liens ?? []).flatMap((r) => (r.demande_id ? [[r.demande_id, r.id] as const] : [])),
+  );
+
+  // Fiche client de chaque demande, pour rendre le nom cliquable : le client de la réservation
+  // liée (demande convertie) s'il existe, sinon l'unique fiche client portant le même numéro
+  // WhatsApp. Aucune fiche, ou plusieurs fiches pour ce numéro : le nom reste du texte simple.
+  const { data: clientsMemeTel } = demandes?.length
+    ? await supabase
+        .from("clients")
+        .select("id, telephone")
+        .in(
+          "telephone",
+          Array.from(new Set(demandes.map((d) => d.whatsapp))),
+        )
+    : { data: [] };
+  const clientsParTel = new Map<string, string[]>();
+  for (const c of clientsMemeTel ?? []) {
+    if (c.telephone) clientsParTel.set(c.telephone, [...(clientsParTel.get(c.telephone) ?? []), c.id]);
+  }
+  const clientParDemande = new Map(
+    (demandes ?? []).flatMap((d) => {
+      const viaReservation = liens?.find((r) => r.demande_id === d.id)?.client_id;
+      const memeTel = clientsParTel.get(d.whatsapp);
+      const id = viaReservation ?? (memeTel?.length === 1 ? memeTel[0] : null);
+      return id ? [[d.id, id] as const] : [];
+    }),
   );
 
   const nuevas = demandes?.filter((d) => d.statut === "nouvelle").length ?? 0;
@@ -99,7 +124,19 @@ export default async function DemandesPage({
               });
               return (
                 <tr key={d.id} className={trClass}>
-                  <td className="px-4 py-3 font-medium text-ink">{d.nom}</td>
+                  <td className="px-4 py-3 font-medium text-ink">
+                    {clientParDemande.has(d.id) ? (
+                      <Link
+                        href={`/admin/clients/${clientParDemande.get(d.id)}`}
+                        title={t("client_open")}
+                        className="text-brand-dark underline-offset-2 hover:underline"
+                      >
+                        {d.nom}
+                      </Link>
+                    ) : (
+                      d.nom
+                    )}
+                  </td>
                   <td className="px-4 py-3">
                     {d.whatsapp_a_verifier ? (
                       <div className="flex flex-col items-start gap-1">
@@ -140,15 +177,6 @@ export default async function DemandesPage({
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap items-center justify-end gap-2">
-                      {d.email && (
-                        <a
-                          href={mailtoHref(d.email, message.subject, message.body)}
-                          title={d.email}
-                          className="inline-flex items-center rounded-md border border-black/15 px-2.5 py-1 text-xs font-semibold text-ink transition-colors hover:bg-black/5"
-                        >
-                          {t("email_button")}
-                        </a>
-                      )}
                       {reservationParDemande.has(d.id) ? (
                         <Link
                           href={`/admin/reservations/${reservationParDemande.get(d.id)}`}

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { lienClass } from "@/components/admin/admin-ui";
 import { useTranslations } from "next-intl";
 import type { Candidat } from "@/lib/demandes/correspondance";
 import { boutonPrincipal, boutonSecondaire } from "@/components/admin/demandes-ui";
@@ -34,7 +35,7 @@ export function ChoixFicheClient({
   const raison = (c: Candidat) =>
     c.parTelephone && c.parCourriel ? t("candidat_tel_courriel") : c.parTelephone ? t("candidat_tel") : t("candidat_courriel");
   const lienFiche = (c: Candidat) => (
-    <Link href={`/admin/clients/${c.id}`} target="_blank" className="font-semibold text-sky-800 underline underline-offset-2 hover:text-sky-950">
+    <Link href={`/admin/clients/${c.id}`} target="_blank" className={lienClass}>
       {c.nom}
     </Link>
   );

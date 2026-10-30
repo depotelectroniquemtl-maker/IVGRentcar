@@ -982,7 +982,7 @@
     "demandes": {
       "title": "Solicitudes",
       "subtitle": "Recibidas del sitio e ingresadas a mano",
-      "search_placeholder": "Nombre, WhatsApp o correo…",
+      "search_placeholder": "Nombre, WhatsApp, correo o vehículo…",
       "empty": "Aún no hay solicitudes.",
       "empty_onglet": "No hay solicitudes en esta pestaña.",
       "onglets_label": "Etapas de las solicitudes",
@@ -1129,7 +1129,21 @@
       "btn_modifier": "Modificar",
       "conversion_incomplete": "Complete el vehículo y las fechas para convertir.",
       "non_renseigne": "no indicado",
-      "sans_telephone": "No hay número de WhatsApp para esta solicitud"
+      "sans_telephone": "No hay número de WhatsApp para esta solicitud",
+      "derniere_recue": "Última solicitud recibida el {date} a las {heure}",
+      "legende_label": "Significado de las barras de color",
+      "legende_retard": "Respuesta atrasada",
+      "legende_relancer": "Por recontactar",
+      "legende_nouvelle": "Nueva",
+      "legende_convertie": "Convertida",
+      "recherche_resultats": "{count, plural, =0 {Ningún resultado} one {# resultado} other {# resultados}} en todas las pestañas para «{q}»",
+      "recherche_effacer": "Borrar la búsqueda",
+      "recherche_aucune": "Ninguna solicitud coincide con «{q}».",
+      "vide_a_traiter": "Todo al día: ninguna solicitud por atender",
+      "vide_en_discussion": "Ninguna solicitud en conversación.",
+      "vide_converties": "Ninguna solicitud convertida por ahora.",
+      "vide_sans_suite": "Ninguna solicitud cerrada sin seguimiento.",
+      "voir_onglet": "Ver «{onglet}»"
     },
     "utilisateurs": {
       "title": "Usuarios",

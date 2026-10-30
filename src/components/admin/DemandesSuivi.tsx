@@ -2,8 +2,9 @@
 
 import { useCallback, useState, type ReactNode } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { tableCardClass } from "@/components/admin/admin-ui";
+import { lienClass, tableCardClass } from "@/components/admin/admin-ui";
 import { IconeMessage } from "@/components/admin/demandes-ui";
 import { PanneauDemande } from "@/components/admin/PanneauDemande";
 import type { VehiculeOption } from "@/components/admin/ChampsVehiculeDates";
@@ -75,6 +76,14 @@ const BARRE_CLASS: Record<NonNullable<Barre> | "aucune", string> = {
   aucune: "border-l-transparent",
 };
 
+// Légende des barres de couleur à gauche des lignes (mêmes classes que BARRE_CLASS).
+const LEGENDE: { barre: NonNullable<Barre>; cle: string }[] = [
+  { barre: "rouge", cle: "legende_retard" },
+  { barre: "orange", cle: "legende_relancer" },
+  { barre: "bleu", cle: "legende_nouvelle" },
+  { barre: "vert", cle: "legende_convertie" },
+];
+
 const STATUT_CLASS: Record<StatutDemande, string> = {
   nouvelle: "bg-sky-100 text-sky-900",
   contactee: "bg-amber-100 text-amber-900",
@@ -113,7 +122,7 @@ export function NomClient({ d, className = "" }: { d: DemandeVue; className?: st
       href={`/admin/clients/${d.lien.id}`}
       title={t("client_open")}
       onClick={(e) => e.stopPropagation()}
-      className={`${base} text-sky-800 underline underline-offset-2 hover:text-sky-950`}
+      className={`${base} ${lienClass}`}
     >
       {d.nom}
     </Link>
@@ -142,6 +151,8 @@ export function DemandesSuivi({
   ongletInitial,
   selectionInitiale,
   aucuneDemande,
+  recherche,
+  derniereRecue,
   estAdmin,
   vehicules,
 }: {
@@ -149,10 +160,16 @@ export function DemandesSuivi({
   ongletInitial: Onglet;
   selectionInitiale: string | null;
   aucuneDemande: boolean;
+  // Texte recherché (?q=…) : la liste montre alors les résultats de tous les onglets.
+  recherche: string | null;
+  // « Dernière demande reçue le … » (fuseau de Santo Domingo), affichée sous un onglet vide.
+  derniereRecue: string | null;
   estAdmin: boolean;
   vehicules: VehiculeOption[];
 }) {
   const t = useTranslations("admin.demandes");
+  const router = useRouter();
+  const pathname = usePathname();
   const [onglet, setOnglet] = useState<Onglet>(ongletInitial);
   const [selection, setSelection] = useState<string | null>(selectionInitiale);
   // Demandes supprimées dans cette page : retirées tout de suite de la liste et des compteurs,
@@ -168,7 +185,22 @@ export function DemandesSuivi({
     window.history.replaceState(null, "", url);
   }, []);
 
+  // Efface la recherche et revient à l'onglet (celui choisi, sinon l'onglet courant).
+  function effacerRecherche(o: Onglet = onglet) {
+    const params = new URLSearchParams(window.location.search);
+    params.delete("q");
+    if (o === "a_traiter") params.delete("onglet");
+    else params.set("onglet", o);
+    setOnglet(o);
+    const qs = params.toString();
+    router.replace(qs ? `${pathname}?${qs}` : pathname);
+  }
+
   function choisirOnglet(o: Onglet) {
+    if (recherche) {
+      effacerRecherche(o);
+      return;
+    }
     setOnglet(o);
     majUrl("onglet", o === "a_traiter" ? null : o);
   }
@@ -181,14 +213,14 @@ export function DemandesSuivi({
   const compteurs = Object.fromEntries(
     ONGLETS.map((o) => [o, visibles.filter((d) => d.onglet === o).length]),
   ) as Record<Onglet, number>;
-  const liste = visibles.filter((d) => d.onglet === onglet);
+  const liste = recherche ? visibles : visibles.filter((d) => d.onglet === onglet);
   const ouverte = selection ? visibles.find((d) => d.id === selection) ?? null : null;
 
   return (
     <>
       <div role="tablist" aria-label={t("onglets_label")} className="flex flex-wrap gap-1 border-b border-black/10">
         {ONGLETS.map((o) => {
-          const actif = o === onglet;
+          const actif = !recherche && o === onglet;
           const urgent = o === "a_traiter" && compteurs[o] > 0;
           return (
             <button
@@ -214,21 +246,52 @@ export function DemandesSuivi({
         })}
       </div>
 
-      <div role="tabpanel" className={tableCardClass}>
+      <ul className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-soft" aria-label={t("legende_label")}>
+        {LEGENDE.map(({ barre, cle }) => (
+          <li key={barre} className="flex items-center gap-1.5">
+            <span aria-hidden="true" className={`h-3.5 border-l-4 ${BARRE_CLASS[barre]}`} />
+            {t(cle)}
+          </li>
+        ))}
+      </ul>
+
+      {recherche && (
         <div
-          className={`hidden border-b border-black/10 border-l-4 border-l-transparent bg-black/[0.03] px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-ink-soft ${GRILLE}`}
-          data-entete
+          role="status"
+          className="flex flex-wrap items-center justify-between gap-2 rounded-md border border-black/10 bg-white px-4 py-2.5 text-sm text-ink"
         >
-          <div>{t("col_client")}</div>
-          <div>{t("col_dates")}</div>
-          <div className="text-right">{t("col_prix")}</div>
-          <div className="min-[620px]:pl-7">{t("col_statut")}</div>
+          <span>{t("recherche_resultats", { count: liste.length, q: recherche })}</span>
+          <button
+            type="button"
+            onClick={() => effacerRecherche()}
+            className="font-semibold text-ink underline underline-offset-2 hover:text-brand"
+          >
+            {t("recherche_effacer")}
+          </button>
         </div>
+      )}
+
+      <div role="tabpanel" className={tableCardClass}>
+        {liste.length > 0 && (
+          <div
+            className={`hidden border-b border-black/10 border-l-4 border-l-transparent bg-black/[0.03] px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-ink-soft ${GRILLE}`}
+            data-entete
+          >
+            <div>{t("col_client")}</div>
+            <div>{t("col_dates")}</div>
+            <div className="text-right">{t("col_prix")}</div>
+            <div className="min-[620px]:pl-7">{t("col_statut")}</div>
+          </div>
+        )}
 
         {liste.length === 0 ? (
-          <p className="px-4 py-8 text-center text-sm text-ink-soft">
-            {aucuneDemande ? t("empty") : t("empty_onglet")}
-          </p>
+          <OngletVide
+            aucuneDemande={aucuneDemande}
+            recherche={recherche}
+            onglet={onglet}
+            derniereRecue={derniereRecue}
+            onOnglet={choisirOnglet}
+          />
         ) : (
           <ul>
             {liste.map((d, i) => (
@@ -313,5 +376,43 @@ export function DemandesSuivi({
         />
       )}
     </>
+  );
+}
+
+// Onglet sans demande : pas d'en-têtes de colonnes, un message utile et, si elle existe, la
+// date de la dernière demande reçue.
+function OngletVide({
+  aucuneDemande,
+  recherche,
+  onglet,
+  derniereRecue,
+  onOnglet,
+}: {
+  aucuneDemande: boolean;
+  recherche: string | null;
+  onglet: Onglet;
+  derniereRecue: string | null;
+  onOnglet: (o: Onglet) => void;
+}) {
+  const t = useTranslations("admin.demandes");
+  const message = aucuneDemande
+    ? t("empty")
+    : recherche
+      ? t("recherche_aucune", { q: recherche })
+      : t(`vide_${onglet}`);
+  return (
+    <div data-vide className="flex flex-col items-center gap-2 px-4 py-10 text-center">
+      <p className="text-sm font-semibold text-ink">{message}</p>
+      {!aucuneDemande && !recherche && onglet === "a_traiter" && (
+        <p className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm">
+          {(["en_discussion", "converties"] as const).map((o) => (
+            <button key={o} type="button" onClick={() => onOnglet(o)} className={lienClass}>
+              {t("voir_onglet", { onglet: t(`onglet_${o}`) })}
+            </button>
+          ))}
+        </p>
+      )}
+      {derniereRecue && <p className="text-xs text-ink-soft">{derniereRecue}</p>}
+    </div>
   );
 }

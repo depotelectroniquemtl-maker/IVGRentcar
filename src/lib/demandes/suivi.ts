@@ -66,6 +66,13 @@ export function ongletDe(statut: StatutDemande, alerte: Alerte): Onglet {
   return statut === "convertie" ? "converties" : "sans_suite";
 }
 
+// Une demande « nécessite une action » quand elle est dans l'onglet À traiter : nouvelle (y
+// compris « Réponse en retard ») ou contactée « À relancer ». Utilisée par la page et par la
+// pastille du menu, pour que les deux comptent exactement la même chose.
+export function demandeATraiter(statut: StatutDemande, suivi: Suivi, maintenant: Date): boolean {
+  return ongletDe(statut, etatSuivi(statut, suivi, maintenant).alerte) === "a_traiter";
+}
+
 export function barreDe(statut: StatutDemande, alerte: Alerte): Barre {
   if (alerte === "retard") return "rouge";
   if (alerte === "relancer") return "orange";

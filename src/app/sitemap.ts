@@ -12,6 +12,7 @@ const STATIC_PATHS = [
   "/flotte",
   ...FLEET_HUBS.map((hub) => `/flotte/${hub}`),
   "/las-terrenas",
+  "/aeroport-el-catey-las-terrenas",
   "/faq",
   "/contact",
   "/reservar",

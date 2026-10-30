@@ -7,6 +7,7 @@ import type { CountryCode } from "libphonenumber-js/min";
 import { createClient } from "@/lib/supabase/client";
 import { trackEvent } from "@/lib/analytics";
 import { ExternalButtonLink } from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { whatsappUrl } from "@/lib/constants";
 import { AvailabilityCalendar } from "@/components/site/AvailabilityCalendar";
@@ -660,6 +661,12 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
       >
         {estadoEnvio === "submitting" ? t("submitting") : t("submit")}
       </button>
+      <p className="text-xs text-ink-soft">
+        {t("privacy_text")}{" "}
+        <Link href="/confidentialite" className="font-medium text-brand underline">
+          {t("privacy_link")}
+        </Link>
+      </p>
     </form>
   );
 }

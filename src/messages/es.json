@@ -49,6 +49,10 @@
       "title": "Descubre Las Terrenas | IVJ Rentcar",
       "description": "Nuestros lugares favoritos en Las Terrenas: playas, el pueblo de los pescadores, El Limón, la península de Samaná. Explora con libertad con tu propio vehículo."
     },
+    "aeroport": {
+      "title": "Aeropuerto El Catey – Las Terrenas: cómo llegar | IVJ Rentcar",
+      "description": "Las Terrenas está a unos 35 minutos en carro del aeropuerto de Samaná El Catey. No tenemos mostrador en el aeropuerto: los vehículos se entregan en nuestro local de Las Terrenas."
+    },
     "faq": {
       "title": "Preguntas frecuentes | IVJ Rentcar",
       "description": "Respuestas a las preguntas más frecuentes sobre el alquiler de carros y cuadriciclos en Las Terrenas: documentos, depósito, edad mínima, seguro."
@@ -63,7 +67,7 @@
     },
     "conditions": {
       "title": "Condiciones de alquiler | IVJ Rentcar",
-      "description": "Edad mínima, depósito por vehículo, seguro y entrega: lo esencial para alquilar un carro o cuadriciclo en Las Terrenas."
+      "description": "Edad mínima, depósito por vehículo, pago, seguro, kilometraje y cancelación: lo esencial para alquilar un carro o cuadriciclo en Las Terrenas."
     },
     "mentions": {
       "title": "Aviso legal | IVJ Rentcar",
@@ -178,6 +182,7 @@
     "places_title": "Lugares destacados",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Península de Samaná"],
     "cta": "Ver flota y tarifas",
+    "aeroport_link": "Llegar por el aeropuerto El Catey: cómo ir a Las Terrenas",
     "photo_credit": "© IVJ Rentcar",
     "gallery": [
       { "caption": "Las Terrenas, entre pueblo y océano" },
@@ -185,13 +190,25 @@
       { "caption": "Playas por descubrir a tu ritmo" }
     ]
   },
+  "aeroport": {
+    "eyebrow": "Información práctica",
+    "title": "Cómo llegar del aeropuerto El Catey a Las Terrenas",
+    "p1": "Las Terrenas está en la costa norte de la península de Samaná.",
+    "p2": "Desde el aeropuerto de Samaná El Catey, el trayecto hasta Las Terrenas dura unos 35 minutos en carro.",
+    "p3": "Organiza tu transporte antes de llegar.",
+    "notice_title": "Importante",
+    "notice": "No tenemos mostrador en el aeropuerto. Los vehículos se entregan en nuestro local, Plaza Italia #22, Las Terrenas.",
+    "cta_reserver": "Solicitar un vehículo",
+    "cta_whatsapp": "Escríbenos por WhatsApp"
+  },
   "faq": {
     "title": "Preguntas frecuentes",
     "subtitle": "Todo lo que necesitas saber antes de reservar tu vehículo.",
     "items": [
       {
         "question": "¿Qué necesito para alquilar?",
-        "answer": "Puede requerirse licencia vigente, pasaporte o identificación y depósito. Los requisitos se confirman antes de reservar. Para conocer los documentos exigidos y los años de licencia, contáctanos por WhatsApp o por el formulario."
+        "answer": "Una licencia de conducir vigente y un documento de identidad.",
+        "schema": true
       },
       {
         "question": "¿Qué edad se necesita para alquilar?",
@@ -203,13 +220,23 @@
         "answer": "Los montos del depósito son en dólares estadounidenses (US$): US$ 1,000 para el Kia Seltos, US$ 500 para los demás modelos de carro y US$ 300 para los cuadriciclos. Para la scooter, el monto se confirma antes de reservar."
       },
       {
-        "question": "¿Incluye seguro?",
-        "answer": "El seguro completo no está incluido en la tarifa. La cobertura y el deducible se explicarán en la cotización y contrato.",
+        "question": "¿Se puede pagar con tarjeta?",
+        "answer": "Se acepta el pago con tarjeta.",
         "schema": true
       },
       {
-        "question": "¿Entregan el vehículo?",
-        "answer": "El vehículo se entrega normalmente en nuestro local: Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. La entrega en el aeropuerto es posible con un costo adicional; contáctanos para el monto y los detalles."
+        "question": "¿Incluye seguro?",
+        "answer": "El seguro básico está incluido en el alquiler. Hay un seguro completo disponible a solicitud.",
+        "schema": true
+      },
+      {
+        "question": "¿Dónde se recoge el vehículo?",
+        "answer": "El vehículo se entrega en nuestro local: Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. No tenemos mostrador en el aeropuerto.",
+        "schema": true,
+        "link": {
+          "label": "Cómo llegar del aeropuerto El Catey a Las Terrenas",
+          "href": "/aeroport-el-catey-las-terrenas"
+        }
       },
       {
         "question": "¿Cómo confirmo?",
@@ -217,15 +244,32 @@
       },
       {
         "question": "¿Hay límite de kilometraje?",
-        "answer": "Contáctanos para conocer las condiciones de kilometraje: las confirmamos antes de reservar."
+        "answer": "El kilometraje es ilimitado.",
+        "schema": true
+      },
+      {
+        "question": "¿Qué pasa con el combustible?",
+        "answer": "El vehículo debe devolverse con el tanque lleno. De lo contrario, se factura un suplemento de US$ 10.",
+        "schema": true
+      },
+      {
+        "question": "¿Qué pasa si devuelvo el vehículo tarde?",
+        "answer": "Un retraso de más de 2 horas implica la facturación de un día de alquiler adicional.",
+        "schema": true
+      },
+      {
+        "question": "¿Qué pasa en caso de daños?",
+        "answer": "En caso de daños al vehículo, se retiene una parte del depósito.",
+        "schema": true
       },
       {
         "question": "¿Puedo cancelar mi reserva?",
-        "answer": "Contáctanos para conocer las condiciones de cancelación: las confirmamos antes de reservar."
+        "answer": "Toda cancelación realizada al menos 2 meses antes del inicio del alquiler da derecho al reembolso del anticipo, menos una penalización del 20 % del anticipo. Los gastos bancarios del reembolso corren por cuenta del cliente. Para una cancelación realizada menos de 2 meses antes del inicio, las condiciones se precisan antes de confirmar la reserva.",
+        "schema": true
       },
       {
-        "question": "¿Políticas de combustible y cancelación?",
-        "answer": "Se informarán combustible, cancelación, retrasos y daños antes de confirmar. Consulta también nuestra página de Condiciones de alquiler."
+        "question": "¿Cuáles son las demás condiciones?",
+        "answer": "Para el resto (el detalle de los seguros, por ejemplo), las condiciones se precisan antes de confirmar la reserva. Consulta también nuestra página de Condiciones de alquiler."
       }
     ]
   },
@@ -260,6 +304,8 @@
     "calendar_end_hint": "Elige la fecha de fin",
     "calendar_reset": "Volver a elegir",
     "price_estimate": "Precio estimado",
+    "privacy_text": "La información que ingresas sirve para responder a tu solicitud de reserva y darle seguimiento.",
+    "privacy_link": "Política de privacidad",
     "price_note": "El precio final se confirma por WhatsApp.",
     "field_lugar": "Lugar de entrega (opcional)",
     "field_notas": "Notas (opcional)",
@@ -302,7 +348,7 @@
           "heading": "Conductor",
           "paragraphs": [
             "El conductor debe tener al menos 25 años para los carros y 16 para los quads.",
-            "Para conocer los documentos exigidos y los años de licencia, contáctanos: lo confirmamos antes de reservar."
+            "Documentos: una licencia de conducir vigente y un documento de identidad."
           ]
         },
         {
@@ -330,23 +376,49 @@
           }
         },
         {
+          "heading": "Pago",
+          "paragraphs": [
+            "Se acepta el pago con tarjeta."
+          ]
+        },
+        {
           "heading": "Seguro",
           "paragraphs": [
-            "El seguro completo no está incluido en la tarifa.",
-            "La cobertura y el deducible se explicarán en la cotización y contrato."
+            "El seguro básico está incluido en el alquiler. Hay un seguro completo disponible a solicitud.",
+            "El detalle de los seguros se precisa antes de confirmar la reserva."
           ]
         },
         {
-          "heading": "Entrega y recogida",
+          "heading": "Entrega del vehículo",
           "paragraphs": [
-            "El vehículo se entrega normalmente en nuestro local: {address}",
-            "La entrega en el aeropuerto es posible con un costo adicional; contáctanos para el monto y los detalles."
+            "El vehículo se entrega en nuestro local: {address}",
+            "No tenemos mostrador en el aeropuerto."
           ]
         },
         {
-          "heading": "Otras condiciones",
+          "heading": "Kilometraje y combustible",
           "paragraphs": [
-            "Kilometraje, cancelación, combustible, retrasos y daños: contáctanos para conocer las condiciones. Se informan antes de confirmar la reserva."
+            "El kilometraje es ilimitado.",
+            "El vehículo debe devolverse con el tanque lleno. De lo contrario, se factura un suplemento de US$ 10."
+          ]
+        },
+        {
+          "heading": "Retraso",
+          "paragraphs": [
+            "Un retraso de más de 2 horas implica la facturación de un día de alquiler adicional."
+          ]
+        },
+        {
+          "heading": "Daños",
+          "paragraphs": [
+            "En caso de daños al vehículo, se retiene una parte del depósito."
+          ]
+        },
+        {
+          "heading": "Cancelación",
+          "paragraphs": [
+            "Toda cancelación realizada al menos 2 meses antes del inicio del alquiler da derecho al reembolso del anticipo, menos una penalización del 20 % del anticipo. Los gastos bancarios del reembolso corren por cuenta del cliente.",
+            "Para una cancelación realizada menos de 2 meses antes del inicio, las condiciones se precisan antes de confirmar la reserva."
           ]
         }
       ]
@@ -438,7 +510,7 @@
         {
           "heading": "Plazo de conservación",
           "paragraphs": [
-            "Conservamos tus datos el tiempo necesario para atender tu solicitud y gestionar el alquiler. Para conocer el plazo exacto, contáctanos."
+            "Los datos se conservan el tiempo necesario para dar seguimiento a tu solicitud y a la relación comercial."
           ]
         },
         {

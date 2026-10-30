@@ -49,6 +49,10 @@
       "title": "Discover Las Terrenas | IVJ Rentcar",
       "description": "Our favorite spots in Las Terrenas: beaches, the fishermen's village, El Limón, the Samaná peninsula. Explore freely with your own set of wheels."
     },
+    "aeroport": {
+      "title": "El Catey Airport to Las Terrenas: how to get there | IVJ Rentcar",
+      "description": "Las Terrenas is about 35 minutes by car from Samaná El Catey Airport. We have no desk at the airport: vehicles are handed over at our office in Las Terrenas."
+    },
     "faq": {
       "title": "Frequently Asked Questions | IVJ Rentcar",
       "description": "Answers to the most common questions about renting a car or quad in Las Terrenas: documents, deposit, minimum age, insurance."
@@ -63,7 +67,7 @@
     },
     "conditions": {
       "title": "Rental conditions | IVJ Rentcar",
-      "description": "Minimum age, deposit per vehicle, insurance and delivery: the essentials for renting a car or quad in Las Terrenas."
+      "description": "Minimum age, deposit per vehicle, payment, insurance, mileage and cancellation: the essentials for renting a car or quad in Las Terrenas."
     },
     "mentions": {
       "title": "Legal notice | IVJ Rentcar",
@@ -178,6 +182,7 @@
     "places_title": "Featured spots",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Samaná Peninsula"],
     "cta": "See fleet & rates",
+    "aeroport_link": "Arriving at El Catey Airport: how to get to Las Terrenas",
     "photo_credit": "© IVJ Rentcar",
     "gallery": [
       { "caption": "Las Terrenas, between village and ocean" },
@@ -185,13 +190,25 @@
       { "caption": "Beaches waiting to be discovered, at your pace" }
     ]
   },
+  "aeroport": {
+    "eyebrow": "Practical info",
+    "title": "How to get from El Catey Airport to Las Terrenas",
+    "p1": "Las Terrenas is on the north coast of the Samaná peninsula.",
+    "p2": "From Samaná El Catey Airport, the drive to Las Terrenas takes about 35 minutes.",
+    "p3": "Plan your transport before you arrive.",
+    "notice_title": "Good to know",
+    "notice": "We do not have a desk at the airport. Vehicles are handed over at our office, Plaza Italia #22, Las Terrenas.",
+    "cta_reserver": "Request a vehicle",
+    "cta_whatsapp": "Message us on WhatsApp"
+  },
   "faq": {
     "title": "Frequently asked questions",
     "subtitle": "Everything you need to know before booking your vehicle.",
     "items": [
       {
         "question": "What do I need to rent?",
-        "answer": "A valid driver's license, passport or ID, and a security deposit may be required. Exact requirements vary by vehicle and will be confirmed before booking. To know the required documents and years of driving experience, contact us on WhatsApp or through the form."
+        "answer": "A valid driver's license and an ID document.",
+        "schema": true
       },
       {
         "question": "How old do I have to be to rent?",
@@ -203,13 +220,23 @@
         "answer": "Deposit amounts are in US dollars (US$): US$1,000 for the Kia Seltos, US$500 for the other car models and US$300 for quads. For the scooter, the amount is confirmed before booking."
       },
       {
-        "question": "Is insurance included?",
-        "answer": "Full insurance is not included in the rate. Coverage details and any deductible will be explained in your quote and rental agreement.",
+        "question": "Can I pay by card?",
+        "answer": "Card payments are accepted.",
         "schema": true
       },
       {
-        "question": "Can you deliver the vehicle?",
-        "answer": "The vehicle is usually handed over at our office: Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. Delivery to the airport is possible for a fee; contact us for the amount and the details."
+        "question": "Is insurance included?",
+        "answer": "Basic insurance is included in the rental. Full insurance is available on request.",
+        "schema": true
+      },
+      {
+        "question": "Where do I pick up the vehicle?",
+        "answer": "The vehicle is handed over at our office: Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. We do not have a desk at the airport.",
+        "schema": true,
+        "link": {
+          "label": "How to get from El Catey Airport to Las Terrenas",
+          "href": "/aeroport-el-catey-las-terrenas"
+        }
       },
       {
         "question": "How do I confirm my reservation?",
@@ -217,15 +244,32 @@
       },
       {
         "question": "Is there a mileage limit?",
-        "answer": "Contact us for the mileage conditions: we confirm them before booking."
+        "answer": "Mileage is unlimited.",
+        "schema": true
+      },
+      {
+        "question": "What about fuel?",
+        "answer": "The vehicle must be returned with a full tank. Otherwise, a US$10 surcharge is charged.",
+        "schema": true
+      },
+      {
+        "question": "What happens if I return the vehicle late?",
+        "answer": "A return more than 2 hours late results in an extra rental day being charged.",
+        "schema": true
+      },
+      {
+        "question": "What happens if the vehicle is damaged?",
+        "answer": "If the vehicle is damaged, part of the security deposit is withheld.",
+        "schema": true
       },
       {
         "question": "Can I cancel my booking?",
-        "answer": "Contact us for the cancellation conditions: we confirm them before booking."
+        "answer": "Any cancellation made at least 2 months before the start of the rental entitles you to a refund of the down payment, minus a penalty of 20% of the down payment. Bank fees for the refund are borne by the customer. For a cancellation made less than 2 months before the start, the conditions are provided before the booking is confirmed.",
+        "schema": true
       },
       {
-        "question": "What is the fuel and cancellation policy?",
-        "answer": "Fuel, cancellation, late-return and damage policies will be provided with your final rental terms before you confirm. See also our Rental conditions page."
+        "question": "What are the other conditions?",
+        "answer": "For the rest (details of insurance, for example), the conditions are provided before the booking is confirmed. See also our Rental conditions page."
       }
     ]
   },
@@ -260,6 +304,8 @@
     "calendar_end_hint": "Pick an end date",
     "calendar_reset": "Choose again",
     "price_estimate": "Estimated price",
+    "privacy_text": "The information you enter is used to answer your booking request and follow up on it.",
+    "privacy_link": "Privacy policy",
     "price_note": "Final price confirmed via WhatsApp.",
     "field_lugar": "Pickup location (optional)",
     "field_notas": "Notes (optional)",
@@ -302,7 +348,7 @@
           "heading": "Driver",
           "paragraphs": [
             "The driver must be at least 25 years old for cars and 16 for quads.",
-            "To know the required documents and years of driving experience, contact us: we confirm them before booking."
+            "Documents: a valid driver's license and an ID document."
           ]
         },
         {
@@ -330,23 +376,49 @@
           }
         },
         {
+          "heading": "Payment",
+          "paragraphs": [
+            "Card payments are accepted."
+          ]
+        },
+        {
           "heading": "Insurance",
           "paragraphs": [
-            "Full insurance is not included in the rate.",
-            "Coverage details and any deductible will be explained in your quote and rental agreement."
+            "Basic insurance is included in the rental. Full insurance is available on request.",
+            "For the details of the insurance, the conditions are provided before the booking is confirmed."
           ]
         },
         {
-          "heading": "Pickup and delivery",
+          "heading": "Vehicle pickup",
           "paragraphs": [
-            "The vehicle is usually handed over at our office: {address}",
-            "Delivery to the airport is possible for a fee; contact us for the amount and the details."
+            "The vehicle is handed over at our office: {address}",
+            "We do not have a desk at the airport."
           ]
         },
         {
-          "heading": "Other conditions",
+          "heading": "Mileage and fuel",
           "paragraphs": [
-            "Mileage, cancellation, fuel, late return and damage: contact us for the conditions. They are provided before the booking is confirmed."
+            "Mileage is unlimited.",
+            "The vehicle must be returned with a full tank. Otherwise, a US$10 surcharge is charged."
+          ]
+        },
+        {
+          "heading": "Late return",
+          "paragraphs": [
+            "A return more than 2 hours late results in an extra rental day being charged."
+          ]
+        },
+        {
+          "heading": "Damage",
+          "paragraphs": [
+            "If the vehicle is damaged, part of the security deposit is withheld."
+          ]
+        },
+        {
+          "heading": "Cancellation",
+          "paragraphs": [
+            "Any cancellation made at least 2 months before the start of the rental entitles you to a refund of the down payment, minus a penalty of 20% of the down payment. Bank fees for the refund are borne by the customer.",
+            "For a cancellation made less than 2 months before the start, the conditions are provided before the booking is confirmed."
           ]
         }
       ]
@@ -438,7 +510,7 @@
         {
           "heading": "Retention period",
           "paragraphs": [
-            "We keep your data for as long as needed to handle your request and manage the rental. To know the exact period, contact us."
+            "Data is kept for as long as needed to follow up on your request and the business relationship."
           ]
         },
         {

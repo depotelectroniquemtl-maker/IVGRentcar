@@ -49,6 +49,10 @@
       "title": "Découvrir Las Terrenas | IVJ Rentcar",
       "description": "Nos adresses préférées à Las Terrenas : plages, village des pêcheurs, El Limón, péninsule de Samaná. Explorez en toute liberté avec votre propre véhicule."
     },
+    "aeroport": {
+      "title": "Aéroport El Catey – Las Terrenas : comment s'y rendre | IVJ Rentcar",
+      "description": "Las Terrenas est à environ 35 minutes en voiture de l'aéroport de Samaná El Catey. Nous n'avons pas de comptoir à l'aéroport : les véhicules sont remis à notre local de Las Terrenas."
+    },
     "faq": {
       "title": "Questions fréquentes | IVJ Rentcar",
       "description": "Réponses aux questions les plus fréquentes sur la location de voitures et quads à Las Terrenas : documents, caution, âge minimum, assurance."
@@ -63,7 +67,7 @@
     },
     "conditions": {
       "title": "Conditions de location | IVJ Rentcar",
-      "description": "Âge minimum, caution par véhicule, assurance et livraison : l'essentiel des conditions pour louer une voiture ou un quad à Las Terrenas."
+      "description": "Âge minimum, caution par véhicule, paiement, assurance, kilométrage et annulation : l'essentiel des conditions pour louer une voiture ou un quad à Las Terrenas."
     },
     "mentions": {
       "title": "Mentions légales | IVJ Rentcar",
@@ -178,6 +182,7 @@
     "places_title": "Lieux à découvrir",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Péninsule de Samaná"],
     "cta": "Voir la flotte et les tarifs",
+    "aeroport_link": "Arriver par l'aéroport El Catey : comment se rendre à Las Terrenas",
     "photo_credit": "© IVJ Rentcar",
     "gallery": [
       { "caption": "Las Terrenas, entre village et océan" },
@@ -185,13 +190,25 @@
       { "caption": "Des plages à explorer à votre rythme" }
     ]
   },
+  "aeroport": {
+    "eyebrow": "Infos pratiques",
+    "title": "Comment se rendre de l'aéroport El Catey à Las Terrenas",
+    "p1": "Las Terrenas se trouve sur la côte nord de la péninsule de Samaná.",
+    "p2": "Depuis l'aéroport de Samaná El Catey, le trajet jusqu'à Las Terrenas dure environ 35 minutes en voiture.",
+    "p3": "Prévoyez votre transport avant votre arrivée.",
+    "notice_title": "À savoir",
+    "notice": "Nous n'avons pas de comptoir à l'aéroport. Les véhicules sont remis à notre local, Plaza Italia #22, Las Terrenas.",
+    "cta_reserver": "Demander un véhicule",
+    "cta_whatsapp": "Écrire sur WhatsApp"
+  },
   "faq": {
     "title": "Foire aux questions",
     "subtitle": "Tout ce qu'il faut savoir avant de réserver votre véhicule.",
     "items": [
       {
         "question": "Que faut-il pour louer ?",
-        "answer": "Un permis valide, un passeport ou une pièce d'identité et un dépôt peuvent être demandés. Les détails seront confirmés avant la réservation. Pour connaître les documents exigés et les années de permis, contactez-nous par WhatsApp ou via le formulaire."
+        "answer": "Un permis de conduire valide et une pièce d'identité.",
+        "schema": true
       },
       {
         "question": "Quel âge faut-il avoir pour louer ?",
@@ -203,13 +220,23 @@
         "answer": "Les montants de la caution sont en dollars américains (US$) : 1 000 US$ pour la Kia Seltos, 500 US$ pour les autres modèles de voiture et 300 US$ pour les quads. Pour le scooter, le montant est confirmé avant la réservation."
       },
       {
-        "question": "L'assurance est-elle incluse ?",
-        "answer": "L'assurance complète n'est pas incluse dans le tarif. La couverture et la franchise éventuelle seront expliquées dans le devis et le contrat.",
+        "question": "Peut-on payer par carte ?",
+        "answer": "Le paiement par carte est accepté.",
         "schema": true
       },
       {
-        "question": "Livrez-vous le véhicule ?",
-        "answer": "Le véhicule est généralement remis à notre local : Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. Une livraison à l'aéroport est possible moyennant des frais ; contactez-nous pour le montant et les modalités."
+        "question": "L'assurance est-elle incluse ?",
+        "answer": "L'assurance de base est incluse dans la location. Une assurance complète est disponible sur demande.",
+        "schema": true
+      },
+      {
+        "question": "Où récupère-t-on le véhicule ?",
+        "answer": "Le véhicule est remis à notre local : Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas. Nous n'avons pas de comptoir à l'aéroport.",
+        "schema": true,
+        "link": {
+          "label": "Comment se rendre de l'aéroport El Catey à Las Terrenas",
+          "href": "/aeroport-el-catey-las-terrenas"
+        }
       },
       {
         "question": "Comment confirmer ?",
@@ -217,15 +244,32 @@
       },
       {
         "question": "Y a-t-il une limite de kilométrage ?",
-        "answer": "Contactez-nous pour connaître les conditions de kilométrage : nous les confirmons avant la réservation."
+        "answer": "Le kilométrage est illimité.",
+        "schema": true
+      },
+      {
+        "question": "Que se passe-t-il pour le carburant ?",
+        "answer": "Le véhicule doit être rendu avec le réservoir plein. Sinon, un supplément de 10 US$ est facturé.",
+        "schema": true
+      },
+      {
+        "question": "Que se passe-t-il en cas de retard ?",
+        "answer": "Un retard de plus de 2 heures entraîne la facturation d'un jour de location supplémentaire.",
+        "schema": true
+      },
+      {
+        "question": "Que se passe-t-il en cas de dommages ?",
+        "answer": "En cas de dommages au véhicule, une partie de la caution est retenue.",
+        "schema": true
       },
       {
         "question": "Puis-je annuler ma réservation ?",
-        "answer": "Contactez-nous pour connaître les conditions d'annulation : nous les confirmons avant la réservation."
+        "answer": "Toute annulation faite au moins 2 mois avant le début de la location donne droit au remboursement de l'acompte, moins une pénalité de 20 % de l'acompte. Les frais bancaires du remboursement sont à la charge du client. Pour une annulation faite moins de 2 mois avant le début, les conditions sont précisées avant la confirmation de la réservation.",
+        "schema": true
       },
       {
-        "question": "Quelles sont les conditions ?",
-        "answer": "Carburant, annulation, retard et dommages seront précisés avant confirmation. Consultez aussi notre page Conditions de location."
+        "question": "Quelles sont les autres conditions ?",
+        "answer": "Pour le reste (détail des assurances, par exemple), les conditions sont précisées avant la confirmation de la réservation. Consultez aussi notre page Conditions de location."
       }
     ]
   },
@@ -260,6 +304,8 @@
     "calendar_end_hint": "Choisissez une date de fin",
     "calendar_reset": "Recommencer",
     "price_estimate": "Prix estimé",
+    "privacy_text": "Les informations saisies servent à répondre à votre demande de réservation et à en assurer le suivi.",
+    "privacy_link": "Politique de confidentialité",
     "price_note": "Le prix final est confirmé par WhatsApp.",
     "field_lugar": "Lieu de prise en charge (optionnel)",
     "field_notas": "Notes (optionnel)",
@@ -302,7 +348,7 @@
           "heading": "Conducteur",
           "paragraphs": [
             "Le conducteur doit avoir au moins 25 ans pour les voitures et 16 ans pour les quads.",
-            "Pour connaître les documents exigés et les années de permis, contactez-nous : nous le confirmons avant la réservation."
+            "Documents : un permis de conduire valide et une pièce d'identité."
           ]
         },
         {
@@ -330,23 +376,49 @@
           }
         },
         {
+          "heading": "Paiement",
+          "paragraphs": [
+            "Le paiement par carte est accepté."
+          ]
+        },
+        {
           "heading": "Assurance",
           "paragraphs": [
-            "L'assurance complète n'est pas incluse dans le tarif.",
-            "La couverture et la franchise éventuelle seront expliquées dans le devis et le contrat."
+            "L'assurance de base est incluse dans la location. Une assurance complète est disponible sur demande.",
+            "Pour le détail des assurances, les conditions sont précisées avant la confirmation de la réservation."
           ]
         },
         {
-          "heading": "Remise et livraison",
+          "heading": "Remise du véhicule",
           "paragraphs": [
-            "Le véhicule est généralement remis à notre local : {address}",
-            "Une livraison à l'aéroport est possible moyennant des frais ; contactez-nous pour le montant et les modalités."
+            "Le véhicule est remis à notre local : {address}",
+            "Nous n'avons pas de comptoir à l'aéroport."
           ]
         },
         {
-          "heading": "Autres conditions",
+          "heading": "Kilométrage et carburant",
           "paragraphs": [
-            "Kilométrage, annulation, carburant, retard et dommages : contactez-nous pour connaître les conditions. Elles sont précisées avant la confirmation de la réservation."
+            "Le kilométrage est illimité.",
+            "Le véhicule doit être rendu avec le réservoir plein. Sinon, un supplément de 10 US$ est facturé."
+          ]
+        },
+        {
+          "heading": "Retard",
+          "paragraphs": [
+            "Un retard de plus de 2 heures entraîne la facturation d'un jour de location supplémentaire."
+          ]
+        },
+        {
+          "heading": "Dommages",
+          "paragraphs": [
+            "En cas de dommages au véhicule, une partie de la caution est retenue."
+          ]
+        },
+        {
+          "heading": "Annulation",
+          "paragraphs": [
+            "Toute annulation faite au moins 2 mois avant le début de la location donne droit au remboursement de l'acompte, moins une pénalité de 20 % de l'acompte. Les frais bancaires du remboursement sont à la charge du client.",
+            "Pour une annulation faite moins de 2 mois avant le début, les conditions sont précisées avant la confirmation de la réservation."
           ]
         }
       ]
@@ -438,7 +510,7 @@
         {
           "heading": "Durée de conservation",
           "paragraphs": [
-            "Nous conservons vos données le temps nécessaire pour traiter votre demande et gérer la location. Pour connaître la durée précise, contactez-nous."
+            "Les données sont conservées le temps nécessaire au suivi de votre demande et de la relation commerciale."
           ]
         },
         {

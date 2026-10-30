@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ButtonLink } from "@/components/ui/Button";
+import { Link } from "@/i18n/navigation";
 import { LasTerrenasBanner } from "@/components/site/LasTerrenasBanner";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
@@ -56,6 +57,11 @@ export default async function LasTerrenasPage({
 
         <div>
           <ButtonLink href="/flotte">{t("cta")}</ButtonLink>
+          <p className="mt-4 text-sm">
+            <Link href="/aeroport-el-catey-las-terrenas" className="text-ink-soft underline hover:text-brand">
+              {t("aeroport_link")}
+            </Link>
+          </p>
         </div>
       </Container>
     </>

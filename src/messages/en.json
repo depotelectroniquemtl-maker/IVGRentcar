@@ -982,7 +982,7 @@
     "demandes": {
       "title": "Requests",
       "subtitle": "Received from the site and entered by hand",
-      "search_placeholder": "Name, WhatsApp or email…",
+      "search_placeholder": "Name, WhatsApp, email or vehicle…",
       "empty": "No requests yet.",
       "empty_onglet": "No requests in this tab.",
       "onglets_label": "Request stages",
@@ -1129,7 +1129,21 @@
       "btn_modifier": "Edit",
       "conversion_incomplete": "Complete the vehicle and dates to convert.",
       "non_renseigne": "not provided",
-      "sans_telephone": "No WhatsApp number for this request"
+      "sans_telephone": "No WhatsApp number for this request",
+      "derniere_recue": "Last request received on {date} at {heure}",
+      "legende_label": "Meaning of the colour bars",
+      "legende_retard": "Late reply",
+      "legende_relancer": "Follow up",
+      "legende_nouvelle": "New",
+      "legende_convertie": "Converted",
+      "recherche_resultats": "{count, plural, =0 {No results} one {# result} other {# results}} across all tabs for “{q}”",
+      "recherche_effacer": "Clear search",
+      "recherche_aucune": "No request matches “{q}”.",
+      "vide_a_traiter": "All caught up: no requests to handle",
+      "vide_en_discussion": "No requests in discussion.",
+      "vide_converties": "No converted requests yet.",
+      "vide_sans_suite": "No requests closed without follow-up.",
+      "voir_onglet": "See “{onglet}”"
     },
     "utilisateurs": {
       "title": "Users",

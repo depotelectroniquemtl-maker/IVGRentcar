@@ -297,7 +297,10 @@ export default async function CalendrierPage({
         </div>
       </div>
 
+      {/* Clé = période et filtre affichés : changer de mois, de semaine, de vue ou de filtre
+          remonte la grille, ce qui ferme le panneau de détail resté ouvert. */}
       <CalendrierGrid
+        key={`${vue}:${jours[0]}:${filtre}`}
         groupes={groupes}
         jours={jours}
         intervalles={intervalles}

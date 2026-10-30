@@ -5,6 +5,7 @@ import { AdminLocaleSwitcher } from "@/components/admin/AdminLocaleSwitcher";
 import { AdminMobileNav, type NavEntry } from "@/components/admin/AdminMobileNav";
 import { getAdminTranslator } from "@/lib/admin-i18n";
 import { createClient } from "@/lib/supabase/server";
+import { demandeATraiter, estStatut } from "@/lib/demandes/suivi";
 
 // Regroupé en trois blocs pour rester lisible à mesure que le nombre d'écrans admin
 // grandit (12 aujourd'hui à plat, difficile à scanner) : Opérations (le quotidien),
@@ -50,13 +51,29 @@ export async function Sidebar({ profile }: { profile: Profile }) {
   const tCommon = await getAdminTranslator("admin.common");
 
   // Repère visuel pour ne pas avoir à ouvrir Demandes juste pour vérifier s'il y a du
-  // nouveau — count() en tête=exact plutôt que de rapatrier les lignes juste pour les
-  // compter.
+  // nouveau : nombre de demandes de l'onglet « À traiter » (nouvelles, en retard ou à
+  // relancer), calculé avec la même règle que la page (demandeATraiter). Seules les colonnes
+  // de suivi sont lues, jamais les coordonnées.
   const supabase = createClient();
-  const { count: demandesNouvelles } = await supabase
+  const maintenant = new Date();
+  const { data: suivis } = await supabase
     .from("demandes_reservation")
-    .select("id", { count: "exact", head: true })
-    .eq("statut", "nouvelle");
+    .select("statut, created_at, contacte_le, derniere_relance_le, prochaine_relance_le")
+    .in("statut", ["nouvelle", "contactee"]);
+  const demandesATraiter = (suivis ?? []).filter(
+    (d) =>
+      estStatut(d.statut) &&
+      demandeATraiter(
+        d.statut,
+        {
+          createdAt: new Date(d.created_at),
+          contacteLe: d.contacte_le ? new Date(d.contacte_le) : null,
+          derniereRelanceLe: d.derniere_relance_le ? new Date(d.derniere_relance_le) : null,
+          prochaineRelance: d.prochaine_relance_le,
+        },
+        maintenant,
+      ),
+  ).length;
 
   const entries: NavEntry[] = [];
   for (const group of NAV_GROUPS) {
@@ -68,7 +85,7 @@ export async function Sidebar({ profile }: { profile: Profile }) {
         type: "link",
         href: item.href,
         label: t(item.key),
-        badge: item.key === "nav_demandes" ? (demandesNouvelles ?? 0) : undefined,
+        badge: item.key === "nav_demandes" ? demandesATraiter : undefined,
       });
     }
   }

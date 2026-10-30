@@ -181,13 +181,20 @@ export default async function DemandesPage({
     ];
   });
 
+  // Recherche dans TOUS les onglets : nom, WhatsApp, courriel et véhicule (catégorie, année,
+  // plaque). Le nombre de résultats et le statut de chaque ligne sont affichés par la liste.
   const filtrees = q
-    ? vues.filter((d) => [d.nom, d.whatsapp, d.email].some((v) => v?.toLowerCase().includes(q)))
+    ? vues.filter((d) =>
+        [d.nom, d.whatsapp, d.email, d.vehicule, d.plaque].some((v) => v?.toLowerCase().includes(q)),
+      )
     : vues;
   const onglet: Onglet = ONGLETS.find((o) => o === ongletRaw) ?? "a_traiter";
+  // Dernière demande reçue (toutes étapes confondues), pour les onglets vides.
+  const derniere = (demandes ?? [])[0]?.created_at;
+  const derniereRecue = derniere ? t("derniere_recue", dateHeureComplete(new Date(derniere), locale)) : null;
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="mx-auto flex w-full max-w-[1200px] flex-col gap-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold text-ink">{t("title")}</h1>
@@ -206,6 +213,8 @@ export default async function DemandesPage({
         ongletInitial={onglet}
         selectionInitiale={selection ?? null}
         aucuneDemande={vues.length === 0}
+        recherche={q ? qRaw!.trim() : null}
+        derniereRecue={derniereRecue}
         estAdmin={estAdmin}
         vehicules={catalogue}
       />

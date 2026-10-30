@@ -10,6 +10,10 @@ export const theadClass = "bg-black/[0.03] text-ink-soft";
 export const thClass = "px-4 py-3 text-[11px] font-bold uppercase tracking-wider";
 export const thNumClass = `${thClass} text-right`;
 export const trClass = "border-t border-black/5 transition-colors hover:bg-black/[0.02]";
+// Lien bleu de l'admin (nom de client, fiche, demande existante) : bleu foncé et souligné,
+// contraste ≥ 7:1 sur fond blanc comme sur le gris pâle des lignes de tableau.
+export const lienClass =
+  "font-semibold text-blue-800 underline decoration-blue-800/60 decoration-[1.5px] underline-offset-2 hover:text-blue-950 hover:decoration-blue-950";
 export const rowIconButtonClass =
   "flex h-9 w-9 items-center justify-center rounded-md text-ink-soft transition-colors hover:bg-black/5 hover:text-ink";
 

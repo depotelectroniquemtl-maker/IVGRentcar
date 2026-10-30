@@ -982,7 +982,7 @@
     "demandes": {
       "title": "Demandes",
       "subtitle": "Reçues du site et saisies à la main",
-      "search_placeholder": "Nom, WhatsApp ou courriel…",
+      "search_placeholder": "Nom, WhatsApp, courriel ou véhicule…",
       "empty": "Aucune demande pour l'instant.",
       "empty_onglet": "Aucune demande dans cet onglet.",
       "onglets_label": "Étapes des demandes",
@@ -1129,7 +1129,21 @@
       "btn_modifier": "Modifier",
       "conversion_incomplete": "Complétez le véhicule et les dates pour convertir.",
       "non_renseigne": "non renseigné",
-      "sans_telephone": "Aucun numéro WhatsApp pour cette demande"
+      "sans_telephone": "Aucun numéro WhatsApp pour cette demande",
+      "derniere_recue": "Dernière demande reçue le {date} à {heure}",
+      "legende_label": "Signification des barres de couleur",
+      "legende_retard": "Réponse en retard",
+      "legende_relancer": "À relancer",
+      "legende_nouvelle": "Nouvelle",
+      "legende_convertie": "Convertie",
+      "recherche_resultats": "{count, plural, =0 {Aucun résultat} one {# résultat} other {# résultats}} dans tous les onglets pour « {q} »",
+      "recherche_effacer": "Effacer la recherche",
+      "recherche_aucune": "Aucune demande ne correspond à « {q} ».",
+      "vide_a_traiter": "Tout est à jour : aucune demande à traiter",
+      "vide_en_discussion": "Aucune demande en discussion.",
+      "vide_converties": "Aucune demande convertie pour l'instant.",
+      "vide_sans_suite": "Aucune demande classée sans suite.",
+      "voir_onglet": "Voir « {onglet} »"
     },
     "utilisateurs": {
       "title": "Utilisateurs",

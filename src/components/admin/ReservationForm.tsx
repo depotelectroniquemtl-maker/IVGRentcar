@@ -71,14 +71,19 @@ export function ReservationForm({
   );
   const [dateDebut, setDateDebut] = useState(reservation?.date_debut ?? prefill?.dateDebut ?? "");
   const [dateFin, setDateFin] = useState(reservation?.date_fin ?? prefill?.dateFin ?? "");
-  // 10:00 par défaut (horaire le plus courant) pour accélérer la saisie manuelle par le
-  // staff — contrairement au formulaire public, ça reste un champ libre, modifiable ici.
-  const [heureDebut, setHeureDebut] = useState(
-    reservation?.heure_debut?.slice(0, 5) ?? prefill?.heureDebut ?? "10:00",
-  );
-  const [heureFin, setHeureFin] = useState(
-    reservation?.heure_fin?.slice(0, 5) ?? prefill?.heureFin ?? "10:00",
-  );
+  // Création : 10:00 par défaut (horaire le plus courant) pour accélérer la saisie manuelle
+  // par le staff — contrairement au formulaire public, ça reste un champ libre, modifiable ici.
+  // Modification : l'heure enregistrée telle quelle, ou un champ vide s'il n'y en a pas ; jamais
+  // de valeur par défaut, et l'heure n'est renvoyée à la base que si elle a été changée ici
+  // (voir handleSubmit) : enregistrer une réservation ne modifie jamais ses heures en silence.
+  const heureDebutInitiale = editing
+    ? (reservation?.heure_debut?.slice(0, 5) ?? "")
+    : (prefill?.heureDebut ?? "10:00");
+  const heureFinInitiale = editing
+    ? (reservation?.heure_fin?.slice(0, 5) ?? "")
+    : (prefill?.heureFin ?? "10:00");
+  const [heureDebut, setHeureDebut] = useState(heureDebutInitiale);
+  const [heureFin, setHeureFin] = useState(heureFinInitiale);
   const [lieu, setLieu] = useState(reservation?.lieu_prise_en_charge ?? prefill?.lieu ?? "");
   const [statut, setStatut] = useState<(typeof STATUTS)[number]>(
     reservation?.statut ?? "confirmee",
@@ -201,8 +206,8 @@ export function ReservationForm({
       vehicule_id: vehiculeId,
       date_debut: dateDebut,
       date_fin: dateFin,
-      heure_debut: heureDebut || null,
-      heure_fin: heureFin || null,
+      ...(!editing || heureDebut !== heureDebutInitiale ? { heure_debut: heureDebut || null } : {}),
+      ...(!editing || heureFin !== heureFinInitiale ? { heure_fin: heureFin || null } : {}),
       lieu_prise_en_charge: lieu || null,
       statut,
       prix_total_usd: prixTotal ? Number(prixTotal) : null,

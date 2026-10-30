@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { lienClass } from "@/components/admin/admin-ui";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import type { CountryCode } from "libphonenumber-js/min";
@@ -276,7 +277,7 @@ function Formulaire({
             <ul className="mt-1 list-disc pl-5">
               {doublons.map((d) => (
                 <li key={d.id}>
-                  <Link href={`/admin/demandes?d=${d.id}`} target="_blank" className="font-semibold text-sky-800 underline underline-offset-2">
+                  <Link href={`/admin/demandes?d=${d.id}`} target="_blank" className={lienClass}>
                     {d.nom}
                   </Link>
                 </li>

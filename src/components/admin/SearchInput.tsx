@@ -14,16 +14,28 @@ export function SearchInput({ placeholder }: { placeholder: string }) {
   const [valeur, setValeur] = useState(searchParams.get("q") ?? "");
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
+  // Resynchronisé quand la page change, ou quand ?q change sans venir de ce champ (ex.
+  // « Effacer la recherche » sur Demandes). Une valeur que ce champ vient d'envoyer n'est pas
+  // réappliquée : la frappe en cours n'est jamais écrasée.
+  const qUrl = searchParams.get("q") ?? "";
+  const dernierEnvoi = useRef(qUrl);
   useEffect(() => {
     setValeur(searchParams.get("q") ?? "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
+  useEffect(() => {
+    if (qUrl !== dernierEnvoi.current) {
+      dernierEnvoi.current = qUrl;
+      setValeur(qUrl);
+    }
+  }, [qUrl]);
 
   function handleChange(v: string) {
     setValeur(v);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       const params = new URLSearchParams(searchParams);
+      dernierEnvoi.current = v;
       if (v) params.set("q", v);
       else params.delete("q");
       params.delete("page");

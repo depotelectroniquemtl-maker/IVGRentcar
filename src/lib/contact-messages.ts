@@ -13,8 +13,9 @@ export function contactLang(value: string | null | undefined): ContactLang {
 type Input = {
   nom: string;
   vehicule: string | null;
-  dateDebut: string;
-  dateFin: string;
+  // Dates absentes pour une saisie manuelle « à préciser » : la ligne des dates est omise.
+  dateDebut: string | null;
+  dateFin: string | null;
   prix: number | null;
   langue: string | null | undefined;
 };
@@ -34,8 +35,9 @@ function formatDate(iso: string, lang: ContactLang): string {
 
 export function buildContactMessage(input: Input): { subject: string; body: string } {
   const lang = contactLang(input.langue);
-  const du = formatDate(input.dateDebut, lang);
-  const au = formatDate(input.dateFin, lang);
+  const dates = input.dateDebut && input.dateFin;
+  const du = input.dateDebut ? formatDate(input.dateDebut, lang) : "";
+  const au = input.dateFin ? formatDate(input.dateFin, lang) : "";
   const prix = input.prix ? `US$ ${input.prix}` : null;
   const v = input.vehicule;
 
@@ -45,7 +47,7 @@ export function buildContactMessage(input: Input): { subject: string; body: stri
       "",
       "Thank you for your rental request with IVJ Rentcar in Las Terrenas.",
       v ? `Vehicle: ${v}` : null,
-      `Dates: from ${du} to ${au}`,
+      dates ? `Dates: from ${du} to ${au}` : null,
       prix ? `Estimated price: ${prix}` : null,
       "",
       "We will get back to you shortly to follow up on your request.",
@@ -62,7 +64,7 @@ export function buildContactMessage(input: Input): { subject: string; body: stri
       "",
       "Gracias por su solicitud de alquiler en IVJ Rentcar, Las Terrenas.",
       v ? `Vehículo: ${v}` : null,
-      `Fechas: del ${du} al ${au}`,
+      dates ? `Fechas: del ${du} al ${au}` : null,
       prix ? `Precio estimado: ${prix}` : null,
       "",
       "Nos pondremos en contacto con usted en breve para continuar con su solicitud.",
@@ -78,7 +80,7 @@ export function buildContactMessage(input: Input): { subject: string; body: stri
     "",
     "Merci pour votre demande de location chez IVJ Rentcar à Las Terrenas.",
     v ? `Véhicule : ${v}` : null,
-    `Dates : du ${du} au ${au}`,
+    dates ? `Dates : du ${du} au ${au}` : null,
     prix ? `Prix estimé : ${prix}` : null,
     "",
     "Nous revenons vers vous très bientôt pour donner suite à votre demande.",

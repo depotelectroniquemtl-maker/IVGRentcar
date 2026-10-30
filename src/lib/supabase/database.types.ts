@@ -61,6 +61,7 @@ export type Database = {
           created_by: string | null
           email: string | null
           id: string
+          langue: string | null
           nationalite: string | null
           nom: string
           notes: string | null
@@ -81,6 +82,7 @@ export type Database = {
           created_by?: string | null
           email?: string | null
           id?: string
+          langue?: string | null
           nationalite?: string | null
           nom: string
           notes?: string | null
@@ -101,6 +103,7 @@ export type Database = {
           created_by?: string | null
           email?: string | null
           id?: string
+          langue?: string | null
           nationalite?: string | null
           nom?: string
           notes?: string | null
@@ -230,9 +233,17 @@ export type Database = {
       }
       demandes_reservation: {
         Row: {
+          client_id: string | null
+          contacte_le: string | null
+          created_by: string | null
+          derniere_relance_le: string | null
+          motif_sans_suite: string | null
+          notes_internes: string | null
+          prochaine_relance_le: string | null
+          source: string
           created_at: string
-          date_debut: string
-          date_fin: string
+          date_debut: string | null
+          date_fin: string | null
           email: string | null
           heure_debut: string | null
           heure_fin: string | null
@@ -244,15 +255,23 @@ export type Database = {
           prix_estime_usd: number | null
           statut: string
           updated_at: string
-          vehicule_id: string
-          whatsapp: string
+          vehicule_id: string | null
+          whatsapp: string | null
           whatsapp_a_verifier: boolean
           whatsapp_original: string | null
         }
         Insert: {
+          client_id?: string | null
+          contacte_le?: string | null
+          created_by?: string | null
+          derniere_relance_le?: string | null
+          motif_sans_suite?: string | null
+          notes_internes?: string | null
+          prochaine_relance_le?: string | null
+          source?: string
           created_at?: string
-          date_debut: string
-          date_fin: string
+          date_debut?: string | null
+          date_fin?: string | null
           email?: string | null
           heure_debut?: string | null
           heure_fin?: string | null
@@ -264,15 +283,23 @@ export type Database = {
           prix_estime_usd?: number | null
           statut?: string
           updated_at?: string
-          vehicule_id: string
-          whatsapp: string
+          vehicule_id?: string | null
+          whatsapp?: string | null
           whatsapp_a_verifier?: boolean
           whatsapp_original?: string | null
         }
         Update: {
+          client_id?: string | null
+          contacte_le?: string | null
+          created_by?: string | null
+          derniere_relance_le?: string | null
+          motif_sans_suite?: string | null
+          notes_internes?: string | null
+          prochaine_relance_le?: string | null
+          source?: string
           created_at?: string
-          date_debut?: string
-          date_fin?: string
+          date_debut?: string | null
+          date_fin?: string | null
           email?: string | null
           heure_debut?: string | null
           heure_fin?: string | null
@@ -284,12 +311,19 @@ export type Database = {
           prix_estime_usd?: number | null
           statut?: string
           updated_at?: string
-          vehicule_id?: string
-          whatsapp?: string
+          vehicule_id?: string | null
+          whatsapp?: string | null
           whatsapp_a_verifier?: boolean
           whatsapp_original?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: "demandes_reservation_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "demandes_reservation_vehicule_id_fkey"
             columns: ["vehicule_id"]

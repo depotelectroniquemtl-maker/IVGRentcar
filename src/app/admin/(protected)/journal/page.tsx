@@ -8,8 +8,8 @@ import type { Json } from "@/lib/supabase/database.types";
 const PAGE_SIZE = 50;
 
 // Les 11 tables couvertes par le journal (voir supabase/migrations/0028_...).
-// demandes_reservation n'a pas de trigger INSERT — soumis anonymement depuis le site
-// public, ce n'est pas une action staff à journaliser.
+// demandes_reservation : les créations ne sont journalisées que pour les saisies manuelles du
+// personnel (0036) ; une demande envoyée depuis le site public n'est pas une action staff.
 const TABLES = [
   "profiles",
   "categories_vehicules",

@@ -23,7 +23,7 @@ export default async function EditarClientePage({
     supabase
       .from("clients")
       .select(
-        "id, nom, telephone, telephone_a_verifier, email, numero_permis, permis_expiration, cedula, passeport, passeport_expiration, nationalite, adresse, residencia, notes",
+        "id, nom, telephone, telephone_a_verifier, email, langue, numero_permis, permis_expiration, cedula, passeport, passeport_expiration, nationalite, adresse, residencia, notes",
       )
       .eq("id", id)
       .single(),

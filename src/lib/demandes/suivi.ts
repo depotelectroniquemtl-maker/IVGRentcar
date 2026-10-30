@@ -13,8 +13,8 @@ export const ONGLETS: Onglet[] = ["a_traiter", "en_discussion", "converties", "s
 
 const HEURE_MS = 3600_000;
 const JOUR_MS = 24 * HEURE_MS;
-// « Réponse en retard » : nouvelle depuis plus de 24 h. « À relancer » : contactée depuis
-// 3 jours ou plus (date du dernier contact = updated_at, faute de colonne dédiée).
+// « Réponse en retard » : nouvelle depuis plus de 24 h. « À relancer » : voir etatSuivi.
+// Ces durées sont des écarts absolus depuis un horodatage.
 export const DELAI_RETARD_MS = JOUR_MS;
 export const DELAI_RELANCE_MS = 3 * JOUR_MS;
 
@@ -25,10 +25,39 @@ export function estStatut(v: string): v is StatutDemande {
   return v === "nouvelle" || v === "contactee" || v === "convertie" || v === "rejetee";
 }
 
-export function alerteDe(statut: StatutDemande, createdAt: Date, updatedAt: Date, maintenant: Date): Alerte {
-  if (statut === "nouvelle" && maintenant.getTime() - createdAt.getTime() > DELAI_RETARD_MS) return "retard";
-  if (statut === "contactee" && maintenant.getTime() - updatedAt.getTime() >= DELAI_RELANCE_MS) return "relancer";
-  return null;
+// Date du jour (AAAA-MM-JJ) à Las Terrenas, jamais en UTC ni dans le fuseau du navigateur :
+// à 02:00 UTC, il est encore la veille à Santo Domingo (UTC−4).
+export function aujourdhuiSantoDomingo(maintenant: Date): string {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: FUSEAU, year: "numeric", month: "2-digit", day: "2-digit" }).format(maintenant);
+}
+
+export type Suivi = {
+  createdAt: Date;
+  contacteLe: Date | null;
+  derniereRelanceLe: Date | null;
+  prochaineRelance: string | null; // date AAAA-MM-JJ, jour de Santo Domingo
+};
+
+// Alerte et date de référence du suivi.
+// - nouvelle : « Réponse en retard » au-delà de 24 h depuis la réception ;
+// - contactée, par priorité :
+//   a. relance prévue renseignée : alerte seulement si cette date est aujourd'hui ou passée
+//      (le délai de 3 jours est alors ignoré) ;
+//   b. sinon, alerte si le dernier contact (dernière relance, ou premier contact à défaut)
+//      date de 3 jours ou plus ;
+//   c. sans aucune de ces dates (anciennes lignes) : pas d'alerte, date de contact inconnue.
+export function etatSuivi(statut: StatutDemande, suivi: Suivi, maintenant: Date) {
+  const dernierContact = suivi.derniereRelanceLe ?? suivi.contacteLe;
+  let alerte: Alerte = null;
+  if (statut === "nouvelle" && maintenant.getTime() - suivi.createdAt.getTime() > DELAI_RETARD_MS) alerte = "retard";
+  if (statut === "contactee") {
+    if (suivi.prochaineRelance) {
+      if (suivi.prochaineRelance <= aujourdhuiSantoDomingo(maintenant)) alerte = "relancer";
+    } else if (dernierContact && maintenant.getTime() - dernierContact.getTime() >= DELAI_RELANCE_MS) {
+      alerte = "relancer";
+    }
+  }
+  return { alerte, dernierContact };
 }
 
 export function ongletDe(statut: StatutDemande, alerte: Alerte): Onglet {
@@ -45,25 +74,21 @@ export function barreDe(statut: StatutDemande, alerte: Alerte): Barre {
   return null;
 }
 
-// Rattachement demande ↔ fiche client : téléphone EXACT uniquement (jamais le nom ni le
-// courriel). Un numéro « proche » (mêmes 8 derniers chiffres, mais pas identique) est signalé
-// avant de créer une fiche, pour éviter un doublon avec un numéro mal saisi.
+// Lien affiché vers la fiche client : client_id de la demande s'il est renseigné ; sinon (Lot 1)
+// l'unique fiche au téléphone EXACT de la demande. Jamais le nom.
 export type ClientRef = { id: string; nom: string; telephone: string };
-export type RattachementClient =
-  | { type: "unique"; id: string }
-  | { type: "plusieurs" }
-  | { type: "aucun"; proches: ClientRef[] };
+export type LienClient = { id: string; nom: string | null } | null;
 
-const chiffres = (tel: string) => tel.replace(/\D/g, "");
-
-export function rattacherClient(whatsapp: string, clients: ClientRef[]): RattachementClient {
+export function lienClient(
+  clientId: string | null,
+  clientNom: string | null,
+  whatsapp: string | null,
+  clients: ClientRef[],
+): LienClient {
+  if (clientId) return { id: clientId, nom: clientNom };
+  if (!whatsapp) return null;
   const exacts = clients.filter((c) => c.telephone === whatsapp);
-  if (exacts.length === 1) return { type: "unique", id: exacts[0].id };
-  if (exacts.length > 1) return { type: "plusieurs" };
-  const fin = chiffres(whatsapp).slice(-8);
-  const proches =
-    fin.length === 8 ? clients.filter((c) => chiffres(c.telephone).slice(-8) === fin) : [];
-  return { type: "aucun", proches };
+  return exacts.length === 1 ? { id: exacts[0].id, nom: exacts[0].nom } : null;
 }
 
 // --- Formats -------------------------------------------------------------------------------
@@ -83,7 +108,8 @@ function partieDate(d: Date, locale: AdminLocale, avecMois: boolean, avecAnnee: 
 // année seulement si différente de l'année en cours. Espaces insécables dans chaque date :
 // sur une colonne étroite, la seule coupure possible est après la flèche.
 const insecable = (s: string) => s.replace(/ /g, "\u00a0");
-export function datesCourtes(debut: string, fin: string, locale: AdminLocale, maintenant: Date): string {
+export function datesCourtes(debut: string | null, fin: string | null, locale: AdminLocale, maintenant: Date): string | null {
+  if (!debut || !fin) return null;
   const d1 = dateIso(debut);
   const d2 = dateIso(fin);
   const anneeCourante = Number(new Intl.DateTimeFormat("en-US", { year: "numeric", timeZone: FUSEAU }).format(maintenant));
@@ -129,6 +155,13 @@ export function ilYA(instant: Date, maintenant: Date, locale: AdminLocale): stri
   if (ecart < HEURE_MS) return rtf.format(-Math.max(1, Math.floor(ecart / 60_000)), "minute");
   if (ecart < JOUR_MS) return rtf.format(-Math.floor(ecart / HEURE_MS), "hour");
   return rtf.format(-Math.floor(ecart / JOUR_MS), "day");
+}
+
+// « 12 nov. » (année si différente de l'année en cours) pour une date AAAA-MM-JJ.
+export function dateCourte(iso: string, locale: AdminLocale, maintenant: Date): string {
+  const d = dateIso(iso);
+  const anneeCourante = Number(new Intl.DateTimeFormat("en-US", { year: "numeric", timeZone: FUSEAU }).format(maintenant));
+  return insecable(partieDate(d, locale, true, d.getUTCFullYear() !== anneeCourante));
 }
 
 export function prixCourt(prix: number | null): string | null {

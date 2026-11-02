@@ -335,6 +335,7 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
     // et jamais de donnée personnelle — seulement la catégorie de véhicule et la langue.
     if (!error) {
       trackEvent("generate_lead", {
+        lead_source: "site_form",
         vehicle_category: categoriaActual?.nom,
         site_language: locale,
       });

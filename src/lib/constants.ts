@@ -12,6 +12,13 @@ export const PHONE_DISPLAY = formatPhoneDisplay(WHATSAPP_NUMBER);
 export const WHATSAPP_NUMBER_2 = "15149947652";
 export const PHONE_2_DISPLAY = formatPhoneDisplay(WHATSAPP_NUMBER_2);
 export const BUSINESS_NAME = "IVJ Rentcar";
+
+// Fiche Google : valeurs statiques saisies à la main (note sur 5, nombre d'avis). À mettre à
+// jour ici quand les avis changent. Affichées par GoogleReviews ; jamais dans le JSON-LD.
+export const GOOGLE_RATING = 4.9;
+export const GOOGLE_REVIEWS_COUNT = 19;
+export const GOOGLE_MAPS_URL =
+  "https://www.google.com/maps/search/?api=1&query=IVJ%20Rentcar%20Las%20Terrenas&query_place_id=ChIJU1vGf-77ro4RIzLeBzA-Ej4";
 export const BUSINESS_EMAIL = "contact@ivjrentcar.com";
 
 // Domaine canonique du site public — utilisé par les metadata (canonical/hreflang/OG),

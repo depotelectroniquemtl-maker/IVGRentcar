@@ -10,6 +10,7 @@ import {
   whatsappUrl,
 } from "@/lib/constants";
 import { splitLines } from "@/lib/splitLines";
+import { GoogleReviews } from "@/components/site/GoogleReviews";
 import { CookieSettingsButton } from "@/components/site/CookieSettingsButton";
 
 // Zone cliquable d'au moins 36 px de haut (mobile), même teinte discrète qu'avant.
@@ -24,7 +25,7 @@ export function Footer({ showCookieSettings = false }: { showCookieSettings?: bo
   const t = useTranslations("site");
 
   return (
-    <footer className="mt-16 bg-ink text-white">
+    <footer className="mt-16 bg-ink pb-20 text-white md:pb-0">
       <div className="px-6 py-16 sm:px-10 sm:py-20 md:px-[6vw] md:py-24">
         <Image
           src="/logo.png"
@@ -127,6 +128,9 @@ export function Footer({ showCookieSettings = false }: { showCookieSettings?: bo
                 <address className="py-2 text-sm not-italic leading-relaxed text-white/60 break-words">
                   {BUSINESS_ADDRESS}
                 </address>
+              </li>
+              <li className="mt-2">
+                <GoogleReviews location="footer" />
               </li>
             </ul>
           </div>

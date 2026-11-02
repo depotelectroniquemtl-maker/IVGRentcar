@@ -26,6 +26,14 @@
       "link_conditions": "Condiciones de alquiler",
       "link_legal": "Aviso legal",
       "link_privacy": "Privacidad"
+    },
+    "reviews": {
+      "summary": "Calificación de {rating} sobre 5 según {count} reseñas de Google",
+      "link": "Ver reseñas de Google"
+    },
+    "floating_whatsapp": {
+      "label": "Escribir por WhatsApp",
+      "message": "Hola, quisiera información sobre el alquiler de un vehículo en Las Terrenas."
     }
   },
   "cookies": {
@@ -502,7 +510,7 @@
           "paragraphs": [
             "Con tu consentimiento, usamos Google Analytics 4 para medir las visitas al sitio.",
             "Por defecto todo está rechazado: no se envía ningún dato a Google hasta que hagas clic en «Aceptar». Si rechazas, no se envía ningún dato a Google Analytics y no se coloca ninguna cookie de medición.",
-            "Si aceptas, Google Analytics mide las páginas vistas y dos acciones: el clic en un botón de WhatsApp y el envío de una solicitud de reserva. Estas mediciones no contienen datos personales (ni nombre, ni teléfono, ni correo). Las cookies publicitarias siguen desactivadas.",
+            "Si aceptas, usamos Google Analytics para medir la audiencia del sitio, la procedencia de las visitas y ciertas acciones (envío del formulario, clics en WhatsApp, en el correo y en las reseñas de Google). Estas mediciones no contienen datos personales (ni nombre, ni teléfono, ni correo). Las cookies publicitarias siguen desactivadas.",
             "Tu elección se guarda en tu dispositivo. Puedes cambiarla en cualquier momento con el enlace «Gestionar cookies» al pie de cada página.",
             "El panel de administración interno nunca se rastrea."
           ]

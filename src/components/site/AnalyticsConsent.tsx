@@ -10,6 +10,9 @@ import {
   deleteAnalyticsCookies,
   disableTracking,
   ensureGtag,
+  isEmailLink,
+  isGoogleReviewsLink,
+  isPhoneLink,
   isWhatsAppLink,
   readConsent,
   saveConsent,
@@ -82,15 +85,24 @@ export function AnalyticsConsent({ gaId }: { gaId: string }) {
     if (consent === "granted") sendPageView(pathname);
   }, [consent, pathname]);
 
-  // Événement « whatsapp_click » : clic (ou clic du milieu) sur TOUT lien vers wa.me, où qu'il
-  // soit sur la vitrine. Écouteur global en phase de capture : couvre aussi les futurs
-  // boutons. Sans consentement, trackEvent ne fait rien. Paramètres : emplacement + langue.
+  // Événements de clic : « whatsapp_click » (lien wa.me), « phone_click » (tel:), « email_click »
+  // (mailto:) et « google_reviews_click » (lien des avis Google). Écouteur global en phase de
+  // capture : couvre aussi les futurs boutons. Un clic = un seul événement (un lien n'a qu'un
+  // seul type). Le clic du milieu est compté, pas le clic droit. Sans consentement, trackEvent
+  // ne fait rien. Paramètres : emplacement + langue, aucune donnée personnelle.
   useEffect(() => {
     function onClick(event: MouseEvent) {
-      const link = (event.target as Element | null)?.closest?.("a");
-      if (!link || !isWhatsAppLink(link as HTMLAnchorElement)) return;
-      trackEvent("whatsapp_click", {
-        button_location: whatsappLocation(link as HTMLAnchorElement),
+      if (event.type === "auxclick" && event.button !== 1) return;
+      const link = (event.target as Element | null)?.closest?.("a") as HTMLAnchorElement | null;
+      if (!link) return;
+      let name: string | null = null;
+      if (isWhatsAppLink(link)) name = "whatsapp_click";
+      else if (isPhoneLink(link)) name = "phone_click";
+      else if (isEmailLink(link)) name = "email_click";
+      else if (isGoogleReviewsLink(link)) name = "google_reviews_click";
+      if (!name) return;
+      trackEvent(name, {
+        button_location: whatsappLocation(link),
         // « language » est un champ réservé de gtag (langue du navigateur) : GA4 l'absorbe au
         // lieu d'en faire un paramètre d'événement. D'où « site_language ».
         site_language: locale,
@@ -103,6 +115,13 @@ export function AnalyticsConsent({ gaId }: { gaId: string }) {
       document.removeEventListener("auxclick", onClick, true);
     };
   }, [locale]);
+
+  // Expose l'état d'ouverture du bandeau (attribut sur <html>) : le bouton WhatsApp flottant
+  // se masque en CSS tant qu'il est ouvert.
+  useEffect(() => {
+    if (!ready) return;
+    document.documentElement.dataset.cookieBanner = open ? "open" : "closed";
+  }, [ready, open]);
 
   function choose(choice: ConsentChoice) {
     saveConsent(choice);

@@ -8,6 +8,7 @@ import { FleetGrid } from "@/components/site/FleetGrid";
 import { FleetHubLinks } from "@/components/site/FleetHubLinks";
 import { WhySection } from "@/components/site/WhySection";
 import { LasTerrenasBanner } from "@/components/site/LasTerrenasBanner";
+import { GoogleReviews } from "@/components/site/GoogleReviews";
 import { VideoSection } from "@/components/site/VideoSection";
 import { getCatalogue } from "@/lib/data/catalogue";
 import { getCurrentTemperature } from "@/lib/data/weather";
@@ -89,7 +90,8 @@ export default async function HomePage({
               {t("cta_flotte")} ↓
             </Link>
           </div>
-          <p className="mt-4 flex items-center gap-2 text-xs text-white/80">
+          <GoogleReviews location="hero" className="mt-2" />
+          <p className="mt-2 flex items-center gap-2 text-xs text-white/80">
             <span className="text-green-400">●</span> {t("reply")}
           </p>
         </div>

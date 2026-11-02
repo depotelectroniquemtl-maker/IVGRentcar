@@ -99,10 +99,23 @@ export function deleteAnalyticsCookies() {
   }
 }
 
+// Seuls les paramètres de campagne (utm_*, gclid) partent vers GA4 : GA4 en tire la source et
+// le support de la visite. Tout autre paramètre d'URL est retiré (jamais de donnée personnelle).
+export function campaignSearch(search: string): string {
+  const kept = new URLSearchParams();
+  new URLSearchParams(search).forEach((value, key) => {
+    const k = key.toLowerCase();
+    if (k.startsWith("utm_") || k === "gclid") kept.append(key, value);
+  });
+  const query = kept.toString();
+  return query ? `?${query}` : "";
+}
+
+// Un seul page_view par navigation : la configuration gtag est en `send_page_view: false`, tout
+// passe par cette fonction (appelée par AnalyticsConsent à chaque changement de route).
 export function sendPageView(pathname: string) {
-  // Chemin seul, sans paramètres d'URL : jamais de donnée personnelle dans les événements.
   ensureGtag()("event", "page_view", {
-    page_location: `${window.location.origin}${pathname}`,
+    page_location: `${window.location.origin}${pathname}${campaignSearch(window.location.search)}`,
     page_path: pathname,
   });
 }
@@ -134,9 +147,24 @@ export function isWhatsAppLink(link: HTMLAnchorElement): boolean {
   }
 }
 
-// Emplacement du bouton : data-wa-location posé sur le lien (header, hero, flotte, contact,
-// ...) ; à défaut, déduit de l'endroit de la page (en-tête, pied de page, page de réservation)
-// pour que tout futur lien wa.me soit suivi sans rien oublier.
+// Liens tel: et mailto: (le site n'en a pas encore pour tel: ; l'écouteur est prêt).
+export function isPhoneLink(link: HTMLAnchorElement): boolean {
+  return link.protocol === "tel:";
+}
+
+export function isEmailLink(link: HTMLAnchorElement): boolean {
+  return link.protocol === "mailto:";
+}
+
+// Lien vers la fiche Google (avis) : repéré par l'attribut data-google-reviews.
+export function isGoogleReviewsLink(link: HTMLAnchorElement): boolean {
+  return link.hasAttribute("data-google-reviews");
+}
+
+// Emplacement du lien : data-wa-location posé sur le lien (header, hero, flotte, contact,
+// floating_button...) ; à défaut, déduit de l'endroit de la page (en-tête, pied de page, page de
+// réservation) pour que tout futur lien soit suivi sans rien oublier. Sert aux événements
+// whatsapp_click, phone_click, email_click et google_reviews_click.
 export function whatsappLocation(link: HTMLAnchorElement): string {
   const declared = link.dataset.waLocation;
   if (declared) return declared;

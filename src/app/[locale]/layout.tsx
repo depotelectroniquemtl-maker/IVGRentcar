@@ -7,6 +7,7 @@ import { hasLocale, routing } from "@/i18n/routing";
 import { Header } from "@/components/site/Header";
 import { Footer } from "@/components/site/Footer";
 import { LocalBusinessJsonLd } from "@/components/site/LocalBusinessJsonLd";
+import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { AnalyticsConsent } from "@/components/site/AnalyticsConsent";
 import { BUSINESS_NAME, SITE_URL } from "@/lib/constants";
 import { OG_IMAGE } from "@/lib/seo";
@@ -81,6 +82,7 @@ export default async function LocaleLayout({
           <Header />
           <main className="flex-1">{children}</main>
           <Footer showCookieSettings={Boolean(gaId)} />
+          <FloatingWhatsApp />
           {gaId && <AnalyticsConsent gaId={gaId} />}
         </NextIntlClientProvider>
       </body>

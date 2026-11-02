@@ -26,6 +26,14 @@
       "link_conditions": "Rental conditions",
       "link_legal": "Legal notice",
       "link_privacy": "Privacy"
+    },
+    "reviews": {
+      "summary": "Rated {rating} out of 5 based on {count} Google reviews",
+      "link": "See Google reviews"
+    },
+    "floating_whatsapp": {
+      "label": "Message us on WhatsApp",
+      "message": "Hello, I would like information about renting a vehicle in Las Terrenas."
     }
   },
   "cookies": {
@@ -502,7 +510,7 @@
           "paragraphs": [
             "With your consent, we use Google Analytics 4 to measure visits to the site.",
             "By default, everything is refused: no data is sent to Google until you click “Accept”. If you decline, no data is sent to Google Analytics and no measurement cookie is set.",
-            "If you accept, Google Analytics measures page views and two actions: clicking a WhatsApp button and submitting a reservation request. These measurements contain no personal data (no name, phone or email). Advertising cookies stay disabled.",
+            "If you accept, we use Google Analytics to measure the site's audience, where visits come from and certain actions (submitting the form, clicks on WhatsApp, on email and on Google reviews). These measurements contain no personal data (no name, phone or email). Advertising cookies stay disabled.",
             "Your choice is remembered on your device. You can change it at any time with the “Manage cookies” link at the bottom of every page.",
             "The internal administration panel is never tracked."
           ]

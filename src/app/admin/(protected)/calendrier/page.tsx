@@ -291,6 +291,10 @@ export default async function CalendrierPage({
             </span>
           ))}
           <span className="flex items-center gap-1.5">
+            <span className="inline-block h-3 w-4 rounded-sm border border-pink-300 border-l-2 bg-pink-50" />
+            {t("today")}
+          </span>
+          <span className="flex items-center gap-1.5">
             <span className={`inline-block h-3 w-4 rounded-sm border ${BLOCAGE_BARRE}`} />
             {t("legend_indisponibilite")}
           </span>

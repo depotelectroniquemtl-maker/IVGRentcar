@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState, type CSSProperties } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import {
+  aujourdhui,
   diffDays,
   estWeekEnd,
   formatDate,
@@ -40,7 +41,7 @@ export function CalendrierGrid({
   groupes,
   jours,
   intervalles,
-  today,
+  today: todayServeur,
   vue,
   emptyLabel,
 }: {
@@ -56,6 +57,23 @@ export function CalendrierGrid({
   const locale = useLocale();
   const router = useRouter();
   const [selection, setSelection] = useState<Selection | null>(null);
+
+  // « Aujourd'hui » (fuseau de l'entreprise) : point de départ = valeur du serveur, puis
+  // vérification chaque minute pour suivre le passage à minuit sans recharger la page. Au
+  // changement de jour, router.refresh() recalcule aussi les statuts (à venir, en cours...).
+  const [today, setToday] = useState(todayServeur);
+  useEffect(() => setToday(todayServeur), [todayServeur]);
+  useEffect(() => {
+    const id = setInterval(() => {
+      const nouveau = aujourdhui();
+      setToday((actuel) => {
+        if (actuel === nouveau) return actuel;
+        router.refresh();
+        return nouveau;
+      });
+    }, 60_000);
+    return () => clearInterval(id);
+  }, [router]);
 
   // Cliquer-glisser sur les cases libres (comportement existant inchangé).
   const [dragVehiculeId, setDragVehiculeId] = useState<string | null>(null);
@@ -133,10 +151,13 @@ export function CalendrierGrid({
     formatDate(iso, locale, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
 
   function fondJour(jour: string) {
-    if (jour === today) return "bg-brand/[0.07]";
+    if (jour === today) return "bg-pink-50";
     if (estWeekEnd(jour)) return "bg-black/[0.035]";
     return "";
   }
+
+  // Colonne du jour actuel dans la période affichée (-1 = hors période : rien à dessiner).
+  const colonneAujourdhui = jours.indexOf(today);
 
   const isDragging = dragVehiculeId !== null;
   const totalVehicules = groupes.reduce((s, g) => s + g.vehicules.length, 0);
@@ -185,13 +206,14 @@ export function CalendrierGrid({
                     passe ? "opacity-50" : ""
                   }`}
                   aria-current={estAujourdhui ? "date" : undefined}
+                  aria-label={estAujourdhui ? `${t("today")} — ${fmtLong(jour)}` : undefined}
                 >
                   <span className="text-[10px] font-normal text-ink-soft">
                     {formatDate(jour, locale, { weekday: compact ? "narrow" : "short" })}
                   </span>
                   <span
                     className={`mt-0.5 flex h-6 min-w-6 items-center justify-center rounded-full px-1 font-semibold ${
-                      estAujourdhui ? "bg-brand text-white" : "text-ink"
+                      estAujourdhui ? "bg-pink-300 text-pink-950" : "text-ink"
                     }`}
                   >
                     {Number(jour.slice(8, 10))}
@@ -201,6 +223,19 @@ export function CalendrierGrid({
             })}
           </div>
 
+          {/* Corps de la grille : le trait rose du jour actuel est dessiné sur une grille
+              superposée (mêmes colonnes), décorative, SOUS les barres (z-10) et sans capter
+              les clics. */}
+          <div className="relative">
+          {colonneAujourdhui >= 0 && (
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 z-[5] grid"
+              style={rowStyle}
+            >
+              <div style={{ gridColumn: colonneAujourdhui + 2 }} className="border-l-2 border-pink-300" />
+            </div>
+          )}
           {groupes.map((groupe) => (
             <div key={groupe.cle}>
               {/* Ligne de synthèse du groupe : véhicules libres par jour */}
@@ -364,6 +399,8 @@ export function CalendrierGrid({
               })}
             </div>
           ))}
+
+          </div>
 
           {totalVehicules === 0 && (
             <p className="px-4 py-6 text-center text-sm text-ink-soft">{emptyLabel}</p>

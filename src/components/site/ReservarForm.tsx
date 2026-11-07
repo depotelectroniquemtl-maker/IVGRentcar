@@ -9,7 +9,7 @@ import { trackEvent } from "@/lib/analytics";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { whatsappUrl } from "@/lib/constants";
+import { BUSINESS_EMAIL, whatsappUrl } from "@/lib/constants";
 import { AvailabilityCalendar } from "@/components/site/AvailabilityCalendar";
 import { PhoneField } from "@/components/site/PhoneField";
 import { defaultCountryForLocale, normalizePhone } from "@/lib/phone";
@@ -667,6 +667,20 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
         <Link href="/confidentialite" className="font-medium text-brand underline">
           {t("privacy_link")}
         </Link>
+      </p>
+      <p className="text-xs text-ink-soft">
+        {t.rich("email_text", {
+          email: BUSINESS_EMAIL,
+          mail: (chunks) => (
+            <a
+              href={`mailto:${BUSINESS_EMAIL}`}
+              data-wa-location="reservation"
+              className="font-medium text-brand underline"
+            >
+              {chunks}
+            </a>
+          ),
+        })}
       </p>
     </form>
   );

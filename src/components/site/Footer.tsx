@@ -4,6 +4,7 @@ import { Link as LocaleLink } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import {
   BUSINESS_ADDRESS,
+  BUSINESS_EMAIL,
   PHONE_2_DISPLAY,
   PHONE_DISPLAY,
   WHATSAPP_NUMBER_2,
@@ -122,6 +123,15 @@ export function Footer({ showCookieSettings = false }: { showCookieSettings?: bo
                   className={LINK_CLASS}
                 >
                   <span className="break-words">WhatsApp: {PHONE_2_DISPLAY}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`mailto:${BUSINESS_EMAIL}`}
+                  data-wa-location="footer"
+                  className={LINK_CLASS}
+                >
+                  <span className="break-all">{BUSINESS_EMAIL}</span>
                 </a>
               </li>
               <li>

@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { BUSINESS_ADDRESS, PHONE_DISPLAY, whatsappUrl } from "@/lib/constants";
+import { BUSINESS_ADDRESS, BUSINESS_EMAIL, PHONE_DISPLAY, whatsappUrl } from "@/lib/constants";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
 
@@ -41,10 +41,22 @@ export default async function ContactPage({
         <p className="mt-3 text-lg text-ink-soft">{t("subtitle")}</p>
       </div>
 
-      <dl className="grid gap-6 sm:grid-cols-3">
+      <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <dt className="text-sm font-semibold text-ink-soft">{t("whatsapp")}</dt>
           <dd className="mt-1 text-ink">{PHONE_DISPLAY}</dd>
+        </div>
+        <div>
+          <dt className="text-sm font-semibold text-ink-soft">{t("email")}</dt>
+          <dd className="mt-1 break-words text-ink">
+            <a
+              href={`mailto:${BUSINESS_EMAIL}`}
+              data-wa-location="contact"
+              className="underline underline-offset-2 hover:text-brand"
+            >
+              {BUSINESS_EMAIL}
+            </a>
+          </dd>
         </div>
         <div>
           <dt className="text-sm font-semibold text-ink-soft">{t("address")}</dt>

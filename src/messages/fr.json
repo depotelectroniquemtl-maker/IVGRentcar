@@ -248,7 +248,7 @@
       },
       {
         "question": "Comment confirmer ?",
-        "answer": "IVJ confirme la disponibilité, le prix, le dépôt et les étapes de réservation."
+        "answer": "IVJ confirme la disponibilité, le prix, le dépôt et les étapes de réservation. La confirmation se fait aussi par courriel."
       },
       {
         "question": "Y a-t-il une limite de kilométrage ?",
@@ -312,6 +312,7 @@
     "calendar_end_hint": "Choisissez une date de fin",
     "calendar_reset": "Recommencer",
     "price_estimate": "Prix estimé",
+    "email_text": "Vous pouvez aussi nous écrire à <mail>{email}</mail>.",
     "privacy_text": "Les informations saisies servent à répondre à votre demande de réservation et à en assurer le suivi.",
     "privacy_link": "Politique de confidentialité",
     "price_note": "Le prix final est confirmé par WhatsApp.",
@@ -343,6 +344,7 @@
     "whatsapp": "WhatsApp",
     "address": "Adresse",
     "hours": "Horaires",
+    "email": "Courriel",
     "hours_value": "Tous les jours, sur réservation"
   },
   "legal": {

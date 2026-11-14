@@ -46,12 +46,12 @@
   },
   "seo": {
     "home": {
-      "title": "Alquiler de carros y quads en Las Terrenas | IVJ Rentcar",
-      "description": "Alquiler de carros, 4x4 y cuadriciclos en Las Terrenas. Tarifas por tramos claras, reserva en línea o por WhatsApp, respuesta rápida."
+      "title": "Rent a Car y quads en Las Terrenas | IVJ Rentcar",
+      "description": "Rent a Car en Las Terrenas: alquiler de carros, 4x4 y quads. Tarifas claras por día, reserva en línea o por WhatsApp, respuesta rápida."
     },
     "flotte": {
-      "title": "Flota y tarifas de alquiler | IVJ Rentcar",
-      "description": "Descubre nuestra flota de carros, 4x4 y cuadriciclos en Las Terrenas con tarifas por tramos (1-3 días, 4+ días, 15+ días). Reserva por WhatsApp."
+      "title": "Flota y tarifas: carros y quads, Las Terrenas | IVJ Rentcar",
+      "description": "Flota y tarifas de IVJ Rentcar en Las Terrenas: carros, 4x4 y quads con precio por día según la duración (1-3, 4+ y 15+ días)."
     },
     "lasTerrenas": {
       "title": "Descubre Las Terrenas | IVJ Rentcar",
@@ -94,6 +94,7 @@
       "cta_primary": "Solicitar vehículo",
       "cta_flotte": "Ver los vehículos",
       "cta_whatsapp": "Escribir por WhatsApp",
+      "image_alt": "Camioneta blanca frente a una playa con palmeras en Las Terrenas",
       "reply": "Respuesta rápida por WhatsApp"
     },
     "flotte_preview": {
@@ -101,6 +102,7 @@
       "see_all": "Ver todos los vehículos y tarifas"
     },
     "why": {
+      "image_alt": "Joven en un quad sobre la arena de una playa de Las Terrenas, con palmeras y el mar al fondo",
       "eyebrow": "Local, sencillo, personal",
       "title": "Menos tiempo alquilando.\nMás tiempo\nexplorando.",
       "item1_title": "Servicio directo",
@@ -190,6 +192,9 @@
     "places_title": "Lugares destacados",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Península de Samaná"],
     "cta": "Ver flota y tarifas",
+    "link_quads": "Renta de quads en Las Terrenas",
+    "link_cars": "Rent a Car: alquiler de carros en Las Terrenas",
+    "banner_alt": "Vista aérea del mar turquesa y tres catamaranes frente a la costa de Las Terrenas",
     "aeroport_link": "Llegar por el aeropuerto El Catey: cómo ir a Las Terrenas",
     "photo_credit": "© IVJ Rentcar",
     "gallery": [
@@ -345,7 +350,7 @@
     "address": "Dirección",
     "hours": "Horario",
     "email": "Correo electrónico",
-    "hours_value": "Todos los días, con reserva previa"
+    "hours_value": "Lunes a sábado, de 9:00 a.m. a 7:00 p.m. Domingo cerrado."
   },
   "legal": {
     "updated": "Última actualización: octubre de 2026",
@@ -1639,8 +1644,8 @@
     },
     "hubs": {
       "quads": {
-        "seo_title": "Alquiler de quads y cuatrimotos, Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquilar un quad en Las Terrenas: desde 1 día, casco incluido, edad mínima 16 años, entrega en Plaza Italia #22. Tarifas por día, reserva en línea o WhatsApp.",
+        "seo_title": "Renta de quads en Las Terrenas (cuatrimotos) | IVJ Rentcar",
+        "seo_description": "Renta de quads en Las Terrenas desde 1 día: casco incluido, edad mínima 16 años, entrega en Plaza Italia #22. Reserva en línea o por WhatsApp.",
         "h1": "Alquiler de quads y cuatrimotos en Las Terrenas",
         "intro": [
           "Alquilar un quad en Las Terrenas es sencillo: el alquiler empieza en un día, el casco está incluido y el conductor debe tener al menos 16 años. IVJ Rentcar está en Plaza Italia #22, donde se entrega y se devuelve el quad.",
@@ -1650,8 +1655,8 @@
         "cars_link": "¿Buscas un carro? Ver alquiler de carros en Las Terrenas"
       },
       "voitures": {
-        "seo_title": "Alquiler de carros en Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquila un carro en Las Terrenas, Samaná: Kia Seltos, Suzuki XL7 de 7 plazas, Tucson 4x4. Automáticos, gasolina, 25 años mínimo. Reserva en línea o WhatsApp.",
+        "seo_title": "Rent a Car Las Terrenas: alquiler de carros | IVJ Rentcar",
+        "seo_description": "Rent a car en Las Terrenas, Samaná: Kia Seltos, Suzuki XL7 de 7 plazas y Tucson 4x4. Automáticos, 25 años mínimo. Reserva en línea o WhatsApp.",
         "h1": "Alquiler de carros en Las Terrenas",
         "intro": [
           "Alquila un carro en Las Terrenas para recorrer la península de Samaná y el resto de la República Dominicana. Todos nuestros carros son automáticos, con aire acondicionado y de gasolina; el conductor debe tener al menos 25 años.",

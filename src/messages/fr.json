@@ -46,12 +46,12 @@
   },
   "seo": {
     "home": {
-      "title": "Location de voitures et quads à Las Terrenas | IVJ Rentcar",
-      "description": "Location de voitures, 4x4 et quads à Las Terrenas. Tarifs dégressifs clairs, réservation en ligne ou par WhatsApp, réponse rapide."
+      "title": "Location de voiture et de quad à Las Terrenas | IVJ Rentcar",
+      "description": "Location de voiture, 4x4 et quad à Las Terrenas (Rent a Car). Tarifs clairs par jour, réservation en ligne ou par WhatsApp, réponse rapide."
     },
     "flotte": {
-      "title": "Flotte et tarifs de location | IVJ Rentcar",
-      "description": "Découvrez notre flotte de voitures, 4x4 et quads à Las Terrenas avec nos tarifs par palier (1-3 jours, 4 jours et +, 15 jours et +). Réservez par WhatsApp."
+      "title": "Tarifs voitures et quads à Las Terrenas | IVJ Rentcar",
+      "description": "Flotte et tarifs IVJ Rentcar à Las Terrenas : voitures, 4x4 et quads, prix par jour selon la durée (1-3 jours, 4 jours et +, 15 jours et +)."
     },
     "lasTerrenas": {
       "title": "Découvrir Las Terrenas | IVJ Rentcar",
@@ -94,6 +94,7 @@
       "cta_primary": "Demander un véhicule",
       "cta_flotte": "Voir les véhicules",
       "cta_whatsapp": "Écrire sur WhatsApp",
+      "image_alt": "SUV blanc devant une plage bordée de palmiers à Las Terrenas",
       "reply": "Réponse rapide sur WhatsApp"
     },
     "flotte_preview": {
@@ -101,6 +102,7 @@
       "see_all": "Voir tous les véhicules et tarifs"
     },
     "why": {
+      "image_alt": "Jeune homme sur un quad sur le sable d'une plage de Las Terrenas, avec des palmiers et la mer en arrière-plan",
       "eyebrow": "Local, simple, personnel",
       "title": "Moins de temps à louer.\nPlus de temps\nà explorer.",
       "item1_title": "Service direct",
@@ -190,6 +192,9 @@
     "places_title": "Lieux à découvrir",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Péninsule de Samaná"],
     "cta": "Voir la flotte et les tarifs",
+    "link_quads": "Location de quad à Las Terrenas",
+    "link_cars": "Location de voiture à Las Terrenas",
+    "banner_alt": "Vue aérienne de la mer turquoise et de trois catamarans au large de Las Terrenas",
     "aeroport_link": "Arriver par l'aéroport El Catey : comment se rendre à Las Terrenas",
     "photo_credit": "© IVJ Rentcar",
     "gallery": [
@@ -345,7 +350,7 @@
     "address": "Adresse",
     "hours": "Horaires",
     "email": "Courriel",
-    "hours_value": "Tous les jours, sur réservation"
+    "hours_value": "Du lundi au samedi, de 9 h à 19 h. Fermé le dimanche."
   },
   "legal": {
     "updated": "Dernière mise à jour : octobre 2026",
@@ -1640,7 +1645,7 @@
     "hubs": {
       "quads": {
         "seo_title": "Location de quad à Las Terrenas | IVJ Rentcar",
-        "seo_description": "Louer un quad à Las Terrenas : dès 1 jour, casque fourni, 16 ans minimum, remise à Plaza Italia #22. Tarifs par jour, réservation en ligne ou WhatsApp.",
+        "seo_description": "Location de quad à Las Terrenas dès 1 jour : casque fourni, 16 ans minimum, remise à Plaza Italia #22. Réservation en ligne ou par WhatsApp.",
         "h1": "Location de quad à Las Terrenas",
         "intro": [
           "Louer un quad à Las Terrenas est simple : la location commence à une journée, le casque est fourni et le conducteur doit avoir 16 ans au moins. IVJ Rentcar est installé à Plaza Italia #22, où le quad est remis et rendu.",
@@ -1651,7 +1656,7 @@
       },
       "voitures": {
         "seo_title": "Location de voiture à Las Terrenas | IVJ Rentcar",
-        "seo_description": "Voitures à louer à Las Terrenas, Samaná : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, essence, 25 ans minimum. Réservation en ligne ou WhatsApp.",
+        "seo_description": "Rent a Car à Las Terrenas, Samaná : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, 25 ans minimum. Réservation en ligne ou WhatsApp.",
         "h1": "Location de voiture à Las Terrenas",
         "intro": [
           "Louez une voiture à Las Terrenas pour circuler dans la péninsule de Samaná et partout en République dominicaine. Toutes nos voitures sont automatiques, climatisées et à essence ; le conducteur doit avoir 25 ans au moins.",

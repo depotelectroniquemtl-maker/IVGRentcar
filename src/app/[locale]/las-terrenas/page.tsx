@@ -57,6 +57,18 @@ export default async function LasTerrenasPage({
 
         <div>
           <ButtonLink href="/flotte">{t("cta")}</ButtonLink>
+          <ul className="mt-6 flex flex-col gap-2 text-base font-semibold sm:flex-row sm:gap-8">
+            <li>
+              <Link href="/flotte/voitures" className="text-ink underline underline-offset-4 hover:text-brand">
+                {t("link_cars")} →
+              </Link>
+            </li>
+            <li>
+              <Link href="/flotte/quads" className="text-ink underline underline-offset-4 hover:text-brand">
+                {t("link_quads")} →
+              </Link>
+            </li>
+          </ul>
           <p className="mt-4 text-sm">
             <Link href="/aeroport-el-catey-las-terrenas" className="text-ink-soft underline hover:text-brand">
               {t("aeroport_link")}

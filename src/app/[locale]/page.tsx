@@ -54,7 +54,7 @@ export default async function HomePage({
       <section className="relative min-h-[600px] overflow-hidden bg-ink text-white sm:min-h-[650px] lg:min-h-[720px]">
         <Image
           src="/hero/hero-tropical-fleet.webp"
-          alt=""
+          alt={t("image_alt")}
           fill
           priority
           // object-bottom pur mangeait la mer sur les écrans très larges (la boîte

@@ -46,12 +46,12 @@
   },
   "seo": {
     "home": {
-      "title": "Car & Quad Rental in Las Terrenas | IVJ Rentcar",
-      "description": "Car, 4x4 and quad rental in Las Terrenas. Clear tiered rates, online booking or WhatsApp, fast reply."
+      "title": "Rent a Car & Quad Rental in Las Terrenas | IVJ Rentcar",
+      "description": "Rent a car, 4x4 or quad in Las Terrenas. Clear daily rates, online booking or WhatsApp, fast reply from a local team."
     },
     "flotte": {
-      "title": "Fleet & Rental Rates | IVJ Rentcar",
-      "description": "Browse our fleet of cars, 4x4s and quads in Las Terrenas with tiered rates (1-3 days, 4+ days, 15+ days). Book instantly via WhatsApp."
+      "title": "Fleet & Rates: Cars and Quads, Las Terrenas | IVJ Rentcar",
+      "description": "IVJ Rentcar fleet and rates in Las Terrenas: cars, 4x4s and quads priced per day by rental length (1-3, 4+ and 15+ days)."
     },
     "lasTerrenas": {
       "title": "Discover Las Terrenas | IVJ Rentcar",
@@ -94,6 +94,7 @@
       "cta_primary": "Request your ride",
       "cta_flotte": "Explore the fleet",
       "cta_whatsapp": "Message us on WhatsApp",
+      "image_alt": "White SUV in front of a palm-lined beach in Las Terrenas",
       "reply": "Fast replies on WhatsApp"
     },
     "flotte_preview": {
@@ -101,6 +102,7 @@
       "see_all": "See all vehicles and rates"
     },
     "why": {
+      "image_alt": "Young man on a quad on the sand of a Las Terrenas beach, with palm trees and the sea behind",
       "eyebrow": "Local, simple, personal",
       "title": "Spend less time\nrenting. More time\nexploring.",
       "item1_title": "Direct service",
@@ -190,6 +192,9 @@
     "places_title": "Featured spots",
     "places": ["Playa Bonita", "Pueblo de los Pescadores", "El Limón", "Samaná Peninsula"],
     "cta": "See fleet & rates",
+    "link_quads": "Quad & ATV rental in Las Terrenas",
+    "link_cars": "Rent a car in Las Terrenas",
+    "banner_alt": "Aerial view of the turquoise sea and three catamarans off the coast of Las Terrenas",
     "aeroport_link": "Arriving at El Catey Airport: how to get to Las Terrenas",
     "photo_credit": "© IVJ Rentcar",
     "gallery": [
@@ -345,7 +350,7 @@
     "address": "Address",
     "hours": "Hours",
     "email": "Email",
-    "hours_value": "Every day, by reservation"
+    "hours_value": "Monday to Saturday, 9:00 am to 7:00 pm. Closed on Sunday."
   },
   "legal": {
     "updated": "Last updated: October 2026",
@@ -1639,8 +1644,8 @@
     },
     "hubs": {
       "quads": {
-        "seo_title": "ATV & quad rental in Las Terrenas | IVJ Rentcar",
-        "seo_description": "Renting a quad in Las Terrenas: from one day, helmet provided, minimum age 16, pick-up at Plaza Italia #22. Daily rates, book online or on WhatsApp.",
+        "seo_title": "Quad & ATV Rental in Las Terrenas | IVJ Rentcar",
+        "seo_description": "Quad and ATV rental in Las Terrenas from one day: helmet provided, minimum age 16, pick-up at Plaza Italia #22. Book online or on WhatsApp.",
         "h1": "ATV & quad rental in Las Terrenas",
         "intro": [
           "Renting a quad in Las Terrenas is simple: rentals start at one day, the helmet is provided and the rider must be at least 16. IVJ Rentcar is based at Plaza Italia #22, where the quad is handed over and returned.",
@@ -1650,8 +1655,8 @@
         "cars_link": "Looking for a car instead? See car rental in Las Terrenas"
       },
       "voitures": {
-        "seo_title": "Car rental in Las Terrenas | IVJ Rentcar",
-        "seo_description": "Rent a car in Las Terrenas, Samaná: Kia Seltos, 7-seater Suzuki XL7, Hyundai Tucson 4x4. Automatic, petrol, minimum age 25. Book online or on WhatsApp.",
+        "seo_title": "Car Rental in Las Terrenas – Rent a Car | IVJ Rentcar",
+        "seo_description": "Rent a car in Las Terrenas, Samaná: Kia Seltos, 7-seater Suzuki XL7, Tucson 4x4. Automatic, minimum age 25. Book online or on WhatsApp.",
         "h1": "Car rental in Las Terrenas",
         "intro": [
           "Rent a car in Las Terrenas to get around the Samaná peninsula and the rest of the Dominican Republic. All of our cars are automatic, air-conditioned and petrol-powered; the driver must be at least 25.",

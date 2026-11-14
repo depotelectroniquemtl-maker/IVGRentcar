@@ -23,7 +23,7 @@ export async function LasTerrenasBanner({
     <section className="relative isolate overflow-hidden">
       <Image
         src="/gallery/las-terrenas-ocean-watermarked.webp"
-        alt=""
+        alt={t("banner_alt")}
         fill
         sizes="100vw"
         className="-z-10 object-cover"

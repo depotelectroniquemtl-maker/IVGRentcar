@@ -15,7 +15,7 @@ export async function WhySection() {
         <div className="relative min-h-[360px] md:min-h-0">
           <Image
             src="/fleet/quad-rider.JPG"
-            alt=""
+            alt={t("image_alt")}
             fill
             sizes="(min-width: 768px) 50vw, 100vw"
             className="object-cover"

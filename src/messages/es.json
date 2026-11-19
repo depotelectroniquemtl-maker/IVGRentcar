@@ -171,7 +171,7 @@
         "title": "Práctico para familias",
         "description": "Un vehículo cómodo para moverte por Las Terrenas."
       },
-      "Kia Seltos 2026": {
+      "Kia Seltos 2027": {
         "title": "Nueva llegada",
         "description": "Un SUV limpio y espacioso para parejas, familias y equipaje."
       },
@@ -1369,7 +1369,7 @@
       "c02_step2": "Haz clic en <b>Convertir en reserva</b> para crear la reserva: vehículo, fechas y datos del cliente ya están precargados.",
       "c02_step3": "Una solicitud sin seguimiento puede marcarse como <b>Rechazada</b> para sacarla de la lista activa.",
       "c03_badge": "Ejemplo real, probado en vivo",
-      "c03_exemple_intro": "<b>Sigamos un caso concreto.</b> Un cliente — Cliente Demo — reserva un Kia Seltos 2026 del 27 al 31 de agosto. Las capturas de abajo se reconstruyen exactamente a partir de esta prueba, paso a paso.",
+      "c03_exemple_intro": "<b>Sigamos un caso concreto.</b> Un cliente — Cliente Demo — reserva un Kia Seltos 2027 del 27 al 31 de agosto. Las capturas de abajo se reconstruyen exactamente a partir de esta prueba, paso a paso.",
       "c03_intro": "Una reserva pasa por varias etapas antes de estar realmente terminada: creación, seguimiento de su avance en la lista, contrato firmado por el cliente y luego la devolución del vehículo registrada en el panel. Aquí está el proceso completo, desde el primer clic hasta el cierre.",
       "c03_step1": "Dos formas de crear una reserva: <b>Nueva reserva</b> desde esta página (formulario en blanco), o <b>Convertir en reserva</b> desde una solicitud del sitio público — cliente, vehículo y fechas ya vienen rellenados.",
       "c03_step2": "Completa cliente, vehículo, fechas, horarios y lugar de entrega; el precio se calcula automáticamente según la tarifa y sigue siendo editable a mano.",
@@ -1503,18 +1503,18 @@
       },
       "kia-seltos": {
         "seo_title": "Alquiler de Kia Seltos en Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquila un Kia Seltos 2026 en Las Terrenas: automático, gasolina, 5 plazas, 2 a 3 maletas. Tarifas por duración, reserva en línea o por WhatsApp.",
+        "seo_description": "Alquila un Kia Seltos 2027 en Las Terrenas: automático, gasolina, 5 plazas, 2 a 3 maletas. Tarifas por duración, reserva en línea o por WhatsApp.",
         "h1": "Alquiler de Kia Seltos en Las Terrenas",
-        "eyebrow": "SUV · modelo 2026",
+        "eyebrow": "SUV · modelo 2027",
         "specs": [
-          "Modelo 2026",
+          "Modelo 2027",
           "Caja automática, gasolina",
           "Aire acondicionado",
           "Equipaje: 2 a 3 maletas y maletas pequeñas",
           "Edad mínima del conductor: 25 años"
         ],
         "intro": [
-          "El Kia Seltos 2026 es un SUV automático de gasolina para 5 personas. Lleva de 2 a 3 maletas más algunas maletas pequeñas: suficiente para una pareja o una familia.",
+          "El Kia Seltos 2027 es un SUV automático de gasolina para 5 personas. Lleva de 2 a 3 maletas más algunas maletas pequeñas: suficiente para una pareja o una familia.",
           "Sirve para moverte por Las Terrenas y por toda la República Dominicana, pensado sobre todo para uso familiar. Se retira y se devuelve en nuestro local de Plaza Italia #22.",
           "Las tarifas de abajo cambian según la duración del alquiler. Reserva en línea o escríbenos por WhatsApp; el conductor debe tener al menos 25 años."
         ],

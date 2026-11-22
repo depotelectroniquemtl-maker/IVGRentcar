@@ -8,6 +8,7 @@ export const FLEET_IMAGES: Record<string, string[]> = {
   "Chevrolet 4x4": ["/fleet/chevrolet-4x4.jpg"],
   "Suzuki XL 7 Personas": ["/fleet/suzuki-black.jpg"],
   "Quad 4 Roues 300cc": ["/fleet/quads-beach.JPG"],
+  "Kia Picanto 2027": ["/fleet/kia-picanto-front.jpg"],
   "Kia Seltos 2027": ["/fleet/kia-angle.jpeg"],
   "Pasola 175cc": ["/fleet/BWS-175-Lateral-derecho.png"],
 };

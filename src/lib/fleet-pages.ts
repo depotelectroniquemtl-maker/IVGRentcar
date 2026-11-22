@@ -15,6 +15,7 @@ export function isFleetHub(value: string): value is FleetHub {
 export const FLEET_PAGE_SLUGS = [
   "quad-300cc",
   "kia-seltos",
+  "kia-picanto",
   "suzuki-xl7",
   "hyundai-tucson-4x4",
 ] as const;
@@ -47,6 +48,16 @@ export const FLEET_PAGES: Record<FleetPageSlug, FleetPageConfig> = {
     label: "Kia Seltos",
     photos: [{ src: "/fleet/kia-angle.jpeg", width: 960, height: 1280 }],
     related: ["suzuki-xl7", "hyundai-tucson-4x4"],
+  },
+  "kia-picanto": {
+    hub: "voitures",
+    label: "Kia Picanto 2027",
+    photos: [
+      { src: "/fleet/kia-picanto-front.jpg", width: 1500, height: 1125 },
+      { src: "/fleet/kia-picanto-side.jpg", width: 1500, height: 1125 },
+      { src: "/fleet/kia-picanto-angle.jpg", width: 1500, height: 1125 },
+    ],
+    related: ["kia-seltos", "suzuki-xl7"],
   },
   "suzuki-xl7": {
     hub: "voitures",

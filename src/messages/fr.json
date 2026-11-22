@@ -176,8 +176,9 @@
         "description": "Une petite automatique climatisée, idéale pour circuler à Las Terrenas et aller à la plage."
       },
       "Kia Seltos 2027": {
-        "title": "Nouvelle arrivée",
-        "description": "Un SUV propre et spacieux pour les couples, familles et bagages."
+        "title": "SUV spacieux avec toit ouvrant",
+        "description": "Un SUV propre et spacieux pour les couples, familles et bagages.",
+        "amenity": "Toit ouvrant"
       },
       "Quad 4 Roues 300cc": {
         "title": "Pour vos aventures",
@@ -1556,18 +1557,19 @@
       },
       "kia-seltos": {
         "seo_title": "Location Kia Seltos à Las Terrenas | IVJ Rentcar",
-        "seo_description": "Louez un Kia Seltos 2027 à Las Terrenas : automatique, essence, 5 places, 2 à 3 bagages. Tarifs par durée, réservation en ligne ou par WhatsApp.",
+        "seo_description": "Louez un Kia Seltos 2027 à Las Terrenas : SUV automatique avec toit ouvrant, 5 places, 2 à 3 bagages. Tarifs par durée, réservation en ligne ou WhatsApp.",
         "h1": "Location Kia Seltos à Las Terrenas",
         "eyebrow": "SUV · modèle 2027",
         "specs": [
           "Modèle 2027",
           "Boîte automatique, essence",
           "Climatisation",
+          "Toit ouvrant",
           "Bagages : 2 à 3 bagages et de petites valises",
           "Âge minimum du conducteur : 25 ans"
         ],
         "intro": [
-          "Le Kia Seltos 2027 est un SUV automatique à essence qui accueille 5 personnes. Il prend 2 à 3 bagages, plus de petites valises : de quoi partir en couple ou en famille.",
+          "Découvrez Las Terrenas au volant de notre Kia Seltos 2027. Un SUV spacieux et confortable, équipé d'un toit ouvrant pour profiter pleinement de la lumière et de l'ambiance tropicale pendant vos déplacements.",
           "On l'utilise pour circuler à Las Terrenas comme partout en République dominicaine, avec un usage familial en tête. Il se récupère et se rend à notre local de Plaza Italia #22.",
           "Les tarifs ci-dessous varient selon la durée de la location. Réservez en ligne ou écrivez-nous sur WhatsApp ; le conducteur doit avoir 25 ans au moins."
         ],
@@ -1598,7 +1600,11 @@
           }
         ],
         "alts": [
-          "Kia Seltos blanc, vue de trois quarts avant"
+          "Kia Seltos 2027 blanc à louer à Las Terrenas, vue trois quarts avant devant la plage",
+          "Kia Seltos 2027 vu d'en haut avec son toit ouvrant ouvert",
+          "Intérieur du Kia Seltos 2027 avec toit ouvrant ouvert",
+          "Coffre ouvert du Kia Seltos 2027",
+          "Kia Seltos 2027 vue arrière"
         ]
       },
       "suzuki-xl7": {

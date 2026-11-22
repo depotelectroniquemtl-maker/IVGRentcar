@@ -46,7 +46,13 @@ export const FLEET_PAGES: Record<FleetPageSlug, FleetPageConfig> = {
   "kia-seltos": {
     hub: "voitures",
     label: "Kia Seltos",
-    photos: [{ src: "/fleet/kia-angle.jpeg", width: 960, height: 1280 }],
+    photos: [
+      { src: "/fleet/kia-seltos-2027-front.jpg", width: 1500, height: 1125 },
+      { src: "/fleet/kia-seltos-2027-toit.jpg", width: 1500, height: 1125 },
+      { src: "/fleet/kia-seltos-2027-sunroof.jpg", width: 1500, height: 1125 },
+      { src: "/fleet/kia-seltos-2027-trunk.jpg", width: 1500, height: 1125 },
+      { src: "/fleet/kia-seltos-2027-rear.jpg", width: 1500, height: 1125 },
+    ],
     related: ["suzuki-xl7", "hyundai-tucson-4x4"],
   },
   "kia-picanto": {

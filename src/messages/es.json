@@ -171,6 +171,10 @@
         "title": "Práctico para familias",
         "description": "Un vehículo cómodo para moverte por Las Terrenas."
       },
+      "Kia Picanto 2027": {
+        "title": "Compacto y económico",
+        "description": "Un carro pequeño automático y con aire acondicionado, ideal para moverse por Las Terrenas y llegar a la playa."
+      },
       "Kia Seltos 2027": {
         "title": "Nueva llegada",
         "description": "Un SUV limpio y espacioso para parejas, familias y equipaje."
@@ -1499,6 +1503,55 @@
           "Quads de 4 ruedas alineados junto al mar",
           "Grupo de conductores de quad en una playa con palmeras",
           "Quad circulando por una calle adoquinada bordeada de palmeras"
+        ]
+      },
+      "kia-picanto": {
+        "seo_title": "Alquiler de Kia Picanto en Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila un Kia Picanto 2027 en Las Terrenas: compacto, automático, gasolina, con aire, 5 plazas. Tarifas por duración, reserva en línea o WhatsApp.",
+        "h1": "Alquiler de Kia Picanto en Las Terrenas",
+        "eyebrow": "Compacto · modelo 2027",
+        "specs": [
+          "Modelo 2027, gris plata",
+          "Caja automática, gasolina",
+          "Aire acondicionado",
+          "Depósito: US$ 500",
+          "Edad mínima del conductor: 25 años"
+        ],
+        "intro": [
+          "Descubre Las Terrenas al volante de nuestro Kia Picanto 2027 gris plata. Compacto, automático y con aire acondicionado, es ideal para los trayectos diarios, las salidas a la playa y los viajeros que buscan un carro práctico y económico.",
+          "Se recoge y se devuelve en nuestro local de Plaza Italia #22, en Las Terrenas. No tenemos mostrador en el aeropuerto.",
+          "Las tarifas varían según la duración del alquiler. Reserva en línea o escríbenos por WhatsApp; el conductor debe tener al menos 25 años."
+        ],
+        "faq": [
+          {
+            "question": "¿El Kia Picanto es automático?",
+            "answer": "Sí, todos nuestros carros son automáticos y funcionan con gasolina."
+          },
+          {
+            "question": "¿Los carros tienen aire acondicionado?",
+            "answer": "Sí, todos nuestros carros tienen aire acondicionado."
+          },
+          {
+            "question": "¿Qué edad hay que tener para alquilarlo?",
+            "answer": "El conductor debe tener al menos 25 años."
+          },
+          {
+            "question": "¿Cuánto es el depósito?",
+            "answer": "El depósito es de US$ 500."
+          },
+          {
+            "question": "¿Cuántas personas caben?",
+            "answer": "El Kia Picanto tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Dónde se recoge el carro?",
+            "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          }
+        ],
+        "alts": [
+          "Kia Picanto gris plata estacionado en una playa de Las Terrenas, vista de tres cuartos delantera",
+          "Kia Picanto gris plata visto de perfil, sobre la arena frente al mar",
+          "Kia Picanto gris plata bajo las palmeras, vista de tres cuartos delantera"
         ]
       },
       "kia-seltos": {

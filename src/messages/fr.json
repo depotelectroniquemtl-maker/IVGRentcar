@@ -171,6 +171,10 @@
         "title": "Pratique pour la famille",
         "description": "Un véhicule confortable pour circuler à Las Terrenas."
       },
+      "Kia Picanto 2027": {
+        "title": "Compacte et économique",
+        "description": "Une petite automatique climatisée, idéale pour circuler à Las Terrenas et aller à la plage."
+      },
       "Kia Seltos 2027": {
         "title": "Nouvelle arrivée",
         "description": "Un SUV propre et spacieux pour les couples, familles et bagages."
@@ -1499,6 +1503,55 @@
           "Quads 4 roues alignés au bord de la mer",
           "Groupe de conducteurs à quad sur une plage bordée de palmiers",
           "Quad roulant sur une rue pavée bordée de palmiers"
+        ]
+      },
+      "kia-picanto": {
+        "seo_title": "Location Kia Picanto à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Louez une Kia Picanto 2027 à Las Terrenas : compacte, automatique, essence, climatisée, 5 places. Tarifs par durée, réservation en ligne ou par WhatsApp.",
+        "h1": "Location Kia Picanto à Las Terrenas",
+        "eyebrow": "Citadine · modèle 2027",
+        "specs": [
+          "Modèle 2027, gris argent",
+          "Boîte automatique, essence",
+          "Climatisation",
+          "Caution : 500 US$",
+          "Âge minimum du conducteur : 25 ans"
+        ],
+        "intro": [
+          "Découvrez Las Terrenas au volant de notre Kia Picanto 2027 gris argent. Compacte, automatique et climatisée, elle est idéale pour les trajets du quotidien, les sorties à la plage et les voyageurs qui veulent une voiture pratique et économique.",
+          "Elle se récupère et se rend à notre local de Plaza Italia #22, à Las Terrenas. Nous n'avons pas de comptoir à l'aéroport.",
+          "Les tarifs varient selon la durée de la location. Réservez en ligne ou écrivez-nous sur WhatsApp ; le conducteur doit avoir 25 ans au moins."
+        ],
+        "faq": [
+          {
+            "question": "La Kia Picanto est-elle automatique ?",
+            "answer": "Oui, toutes nos voitures sont automatiques et fonctionnent à l'essence."
+          },
+          {
+            "question": "Les voitures sont-elles climatisées ?",
+            "answer": "Oui, toutes nos voitures sont climatisées."
+          },
+          {
+            "question": "Quel âge faut-il avoir pour la louer ?",
+            "answer": "Le conducteur doit avoir au moins 25 ans."
+          },
+          {
+            "question": "Quel est le montant de la caution ?",
+            "answer": "La caution est de 500 US$."
+          },
+          {
+            "question": "Combien de personnes peut-elle accueillir ?",
+            "answer": "La Kia Picanto accueille {count} personnes."
+          },
+          {
+            "question": "Où récupère-t-on la voiture ?",
+            "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où elle est aussi rendue."
+          }
+        ],
+        "alts": [
+          "Kia Picanto gris argent garée sur une plage de Las Terrenas, vue de trois quarts avant",
+          "Kia Picanto gris argent vue de profil, sur le sable devant la mer",
+          "Kia Picanto gris argent sous les palmiers, vue de trois quarts avant"
         ]
       },
       "kia-seltos": {

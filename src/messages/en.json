@@ -171,6 +171,10 @@
         "title": "Family-friendly space",
         "description": "A practical vehicle for getting around Las Terrenas comfortably."
       },
+      "Kia Picanto 2027": {
+        "title": "Compact and economical",
+        "description": "A small automatic with air conditioning, ideal for getting around Las Terrenas and to the beach."
+      },
       "Kia Seltos 2027": {
         "title": "New arrival",
         "description": "A clean, spacious SUV for couples, families and luggage."
@@ -1499,6 +1503,55 @@
           "Four-wheel quads lined up by the sea",
           "Group of quad riders on a palm-fringed beach",
           "Quad riding along a paved street lined with palm trees"
+        ]
+      },
+      "kia-picanto": {
+        "seo_title": "Kia Picanto rental in Las Terrenas | IVJ Rentcar",
+        "seo_description": "Rent a 2027 Kia Picanto in Las Terrenas: compact, automatic, petrol, air-conditioned, 5 seats. Rates by rental length, book online or on WhatsApp.",
+        "h1": "Kia Picanto rental in Las Terrenas",
+        "eyebrow": "City car · 2027 model",
+        "specs": [
+          "2027 model, silver grey",
+          "Automatic gearbox, petrol",
+          "Air conditioning",
+          "Deposit: US$500",
+          "Minimum driver age: 25"
+        ],
+        "intro": [
+          "Explore Las Terrenas behind the wheel of our silver 2027 Kia Picanto. Compact, automatic and air-conditioned, it is ideal for everyday trips, beach outings and travellers looking for a practical, economical car.",
+          "Pick-up and return are at our office on Plaza Italia #22 in Las Terrenas. We have no desk at the airport.",
+          "Rates depend on the rental length. Book online or message us on WhatsApp; the driver must be at least 25."
+        ],
+        "faq": [
+          {
+            "question": "Is the Kia Picanto an automatic?",
+            "answer": "Yes, all our cars are automatic and run on petrol."
+          },
+          {
+            "question": "Are the cars air-conditioned?",
+            "answer": "Yes, all our cars have air conditioning."
+          },
+          {
+            "question": "How old do I need to be to rent it?",
+            "answer": "The driver must be at least 25 years old."
+          },
+          {
+            "question": "How much is the deposit?",
+            "answer": "The deposit is US$500."
+          },
+          {
+            "question": "How many people does it seat?",
+            "answer": "The Kia Picanto seats {count} people."
+          },
+          {
+            "question": "Where do I pick up the car?",
+            "answer": "At our office on Plaza Italia #22 in Las Terrenas, where it is also returned."
+          }
+        ],
+        "alts": [
+          "Silver Kia Picanto parked on a beach in Las Terrenas, front three-quarter view",
+          "Silver Kia Picanto seen from the side, on the sand by the sea",
+          "Silver Kia Picanto under palm trees, front three-quarter view"
         ]
       },
       "kia-seltos": {

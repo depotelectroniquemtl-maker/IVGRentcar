@@ -176,8 +176,9 @@
         "description": "A small automatic with air conditioning, ideal for getting around Las Terrenas and to the beach."
       },
       "Kia Seltos 2027": {
-        "title": "New arrival",
-        "description": "A clean, spacious SUV for couples, families and luggage."
+        "title": "Spacious SUV with sunroof",
+        "description": "A clean, spacious SUV for couples, families and luggage.",
+        "amenity": "Sunroof"
       },
       "Quad 4 Roues 300cc": {
         "title": "For your adventures",
@@ -1556,18 +1557,19 @@
       },
       "kia-seltos": {
         "seo_title": "Kia Seltos rental in Las Terrenas | IVJ Rentcar",
-        "seo_description": "Rent a 2027 Kia Seltos in Las Terrenas: automatic, petrol, 5 seats, room for 2 to 3 bags. Rates by rental length, book online or on WhatsApp.",
+        "seo_description": "Rent a 2027 Kia Seltos in Las Terrenas: automatic SUV with sunroof, 5 seats, room for 2 to 3 bags. Rates by rental length, book online or on WhatsApp.",
         "h1": "Kia Seltos rental in Las Terrenas",
         "eyebrow": "SUV · 2027 model",
         "specs": [
           "2027 model",
           "Automatic gearbox, petrol",
           "Air conditioning",
+          "Sunroof",
           "Luggage: 2 to 3 bags plus small suitcases",
           "Minimum driver age: 25"
         ],
         "intro": [
-          "The 2027 Kia Seltos is an automatic petrol SUV for 5 people. It takes 2 to 3 bags plus small suitcases, enough for a couple or a family heading off together.",
+          "Explore Las Terrenas in our 2027 Kia Seltos. A spacious and comfortable SUV featuring a sunroof, perfect for enjoying the tropical scenery during your stay.",
           "It is meant for getting around Las Terrenas and anywhere in the Dominican Republic, with family use in mind. You collect it and return it at our office on Plaza Italia #22.",
           "Rates below change with the length of the rental. Book online or message us on WhatsApp; the driver must be at least 25."
         ],
@@ -1598,7 +1600,11 @@
           }
         ],
         "alts": [
-          "White Kia Seltos, front three-quarter view"
+          "White 2027 Kia Seltos for rent in Las Terrenas, front three-quarter view by the beach",
+          "2027 Kia Seltos seen from above with its sunroof open",
+          "Interior of the 2027 Kia Seltos with the sunroof open",
+          "Open trunk of the 2027 Kia Seltos",
+          "2027 Kia Seltos, rear view"
         ]
       },
       "suzuki-xl7": {

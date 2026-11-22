@@ -29,7 +29,9 @@ export function FleetCard({
   const images = FLEET_IMAGES[categorie.nom];
   const vehicleCopy = t.raw("vehicle_copy") as Record<
     string,
-    { title: string; description: string }
+    // amenity : équipement propre à un véhicule (ex. toit ouvrant), affiché en étiquette en plus
+    // des étiquettes communes ; absent pour les autres véhicules.
+    { title: string; description: string; amenity?: string }
   >;
   const copy = vehicleCopy[categorie.nom];
   const [carouselIndex, setCarouselIndex] = useState(0);
@@ -116,6 +118,11 @@ export function FleetCard({
           <span className="rounded bg-black/[0.04] px-2 py-1 text-[11px] text-ink-soft">
             {isCar ? t("amenity_ac") : t("amenity_on_request")}
           </span>
+          {copy?.amenity && (
+            <span className="rounded bg-black/[0.04] px-2 py-1 text-[11px] text-ink-soft">
+              {copy.amenity}
+            </span>
+          )}
         </div>
 
         <div className="mt-auto border-t border-black/10 pt-3">

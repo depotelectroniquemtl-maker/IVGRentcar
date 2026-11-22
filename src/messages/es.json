@@ -176,8 +176,9 @@
         "description": "Un carro pequeño automático y con aire acondicionado, ideal para moverse por Las Terrenas y llegar a la playa."
       },
       "Kia Seltos 2027": {
-        "title": "Nueva llegada",
-        "description": "Un SUV limpio y espacioso para parejas, familias y equipaje."
+        "title": "SUV espacioso con techo corredizo",
+        "description": "Un SUV limpio y espacioso para parejas, familias y equipaje.",
+        "amenity": "Techo corredizo"
       },
       "Quad 4 Roues 300cc": {
         "title": "Para tus aventuras",
@@ -1556,18 +1557,19 @@
       },
       "kia-seltos": {
         "seo_title": "Alquiler de Kia Seltos en Las Terrenas | IVJ Rentcar",
-        "seo_description": "Alquila un Kia Seltos 2027 en Las Terrenas: automático, gasolina, 5 plazas, 2 a 3 maletas. Tarifas por duración, reserva en línea o por WhatsApp.",
+        "seo_description": "Alquila un Kia Seltos 2027 en Las Terrenas: SUV automático con techo corredizo, 5 plazas, 2 a 3 maletas. Tarifas por duración, reserva en línea o WhatsApp.",
         "h1": "Alquiler de Kia Seltos en Las Terrenas",
         "eyebrow": "SUV · modelo 2027",
         "specs": [
           "Modelo 2027",
           "Caja automática, gasolina",
           "Aire acondicionado",
+          "Techo corredizo",
           "Equipaje: 2 a 3 maletas y maletas pequeñas",
           "Edad mínima del conductor: 25 años"
         ],
         "intro": [
-          "El Kia Seltos 2027 es un SUV automático de gasolina para 5 personas. Lleva de 2 a 3 maletas más algunas maletas pequeñas: suficiente para una pareja o una familia.",
+          "Descubre Las Terrenas a bordo de nuestro Kia Seltos 2027. Un SUV espacioso y cómodo, equipado con techo corredizo para disfrutar del paisaje tropical durante tus desplazamientos.",
           "Sirve para moverte por Las Terrenas y por toda la República Dominicana, pensado sobre todo para uso familiar. Se retira y se devuelve en nuestro local de Plaza Italia #22.",
           "Las tarifas de abajo cambian según la duración del alquiler. Reserva en línea o escríbenos por WhatsApp; el conductor debe tener al menos 25 años."
         ],
@@ -1598,7 +1600,11 @@
           }
         ],
         "alts": [
-          "Kia Seltos blanco, vista de tres cuartos delantera"
+          "Kia Seltos 2027 blanco en alquiler en Las Terrenas, vista de tres cuartos delantera frente a la playa",
+          "Kia Seltos 2027 visto desde arriba con el techo corredizo abierto",
+          "Interior del Kia Seltos 2027 con el techo corredizo abierto",
+          "Maletero abierto del Kia Seltos 2027",
+          "Kia Seltos 2027, vista trasera"
         ]
       },
       "suzuki-xl7": {

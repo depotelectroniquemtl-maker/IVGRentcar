@@ -94,7 +94,7 @@
   "home": {
     "hero": {
       "eyebrow": "Vehicle rental · Las Terrenas",
-      "title": "Car and quad rental in Las Terrenas.",
+      "title": "Car & ATV rental in Las Terrenas.",
       "subtitle": "Simple, reliable rentals with direct service on WhatsApp. Ask for availability and today's price.",
       "cta_primary": "Request your ride",
       "cta_flotte": "Explore the fleet",
@@ -155,6 +155,10 @@
     "card_details": "View details",
     "hub_voitures": "Car rental in Las Terrenas",
     "hub_quads": "ATV & quad rental in Las Terrenas",
+    "vehicle_names": {
+      "Quad 4 Roues 300cc": "300cc ATV",
+      "Suzuki XL 7 Personas": "Suzuki XL7, 7 seats"
+    },
     "vehicle_copy": {
       "Hyundai": {
         "title": "Compact and practical",
@@ -1708,9 +1712,23 @@
     },
     "hubs": {
       "quads": {
-        "seo_title": "Quad & ATV Rental in Las Terrenas | IVJ Rentcar",
+        "faq": [
+          {
+            "question": "How much does it cost to rent a quad per day?",
+            "answer": "The rate is charged per day and goes down with the rental length (1 to 3 days, 4+ days, 15+ days). Prices are shown on the 300cc quad page; long rentals are negotiable."
+          },
+          {
+            "question": "What documents and minimum age do I need to rent a quad?",
+            "answer": "You need a valid driver's license and an ID. The driver must be at least 16, and a helmet is provided."
+          },
+          {
+            "question": "Where do I pick up the quad?",
+            "answer": "At our office on Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, where it is also returned. We have no desk at the airport."
+          }
+        ],
+        "seo_title": "ATV & Quad Rental in Las Terrenas | IVJ Rentcar",
         "seo_description": "Quad and ATV rental in Las Terrenas from one day: helmet provided, minimum age 16, pick-up at Plaza Italia #22. Book online or on WhatsApp.",
-        "h1": "ATV & quad rental in Las Terrenas",
+        "h1": "ATV and quad rental in Las Terrenas",
         "intro": [
           "Renting a quad in Las Terrenas is simple: rentals start at one day, the helmet is provided and the rider must be at least 16. IVJ Rentcar is based at Plaza Italia #22, where the quad is handed over and returned.",
           "The rate is per day and goes down with the length of the rental; a US$ 300 deposit is required for a quad. For long rentals, prices are negotiable.",
@@ -1719,6 +1737,20 @@
         "cars_link": "Looking for a car instead? See car rental in Las Terrenas"
       },
       "voitures": {
+        "faq": [
+          {
+            "question": "How much does it cost to rent a car per day?",
+            "answer": "The rate is charged per day and goes down with the rental length (1 to 3 days, 4+ days, 15+ days). Each model's prices are shown on its page; long rentals are negotiable."
+          },
+          {
+            "question": "What documents and minimum age do I need to rent a car?",
+            "answer": "You need a valid driver's license and an ID. The driver must be at least 25."
+          },
+          {
+            "question": "Where do I pick up the car?",
+            "answer": "At our office on Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, where it is also returned. We have no desk at the airport."
+          }
+        ],
         "seo_title": "Car Rental in Las Terrenas – Rent a Car | IVJ Rentcar",
         "seo_description": "Rent a car in Las Terrenas, Samaná: Kia Seltos, 7-seater Suzuki XL7, Tucson 4x4. Automatic, minimum age 25. Book online or on WhatsApp.",
         "h1": "Car rental in Las Terrenas",

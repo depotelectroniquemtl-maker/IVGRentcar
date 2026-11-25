@@ -155,6 +155,10 @@
     "card_details": "Voir la fiche",
     "hub_voitures": "Location de voiture à Las Terrenas",
     "hub_quads": "Location de quad à Las Terrenas",
+    "vehicle_names": {
+      "Quad 4 Roues 300cc": "Quad 300cc",
+      "Suzuki XL 7 Personas": "Suzuki XL7, 7 places"
+    },
     "vehicle_copy": {
       "Hyundai": {
         "title": "Compacte et pratique",
@@ -1708,7 +1712,21 @@
     },
     "hubs": {
       "quads": {
-        "seo_title": "Location de quad à Las Terrenas | IVJ Rentcar",
+        "faq": [
+          {
+            "question": "Combien coûte la location d'un quad par jour ?",
+            "answer": "Le tarif est calculé par jour et baisse avec la durée de la location (1 à 3 jours, 4 jours et plus, 15 jours et plus). Les prix sont affichés sur la fiche du Quad 300cc ; pour une longue durée, ils sont négociables."
+          },
+          {
+            "question": "Quels documents et quel âge faut-il pour louer un quad ?",
+            "answer": "Il faut un permis de conduire valide et une pièce d'identité. Le conducteur doit avoir au moins 16 ans, et le casque est fourni."
+          },
+          {
+            "question": "Où récupère-t-on le quad ?",
+            "answer": "À notre local de Plaza Italia #22, Avenida Juan Pablo Duarte, à Las Terrenas, où il est aussi rendu. Nous n'avons pas de comptoir à l'aéroport."
+          }
+        ],
+        "seo_title": "Location de quad à Las Terrenas dès 1 jour | IVJ Rentcar",
         "seo_description": "Location de quad à Las Terrenas dès 1 jour : casque fourni, 16 ans minimum, remise à Plaza Italia #22. Réservation en ligne ou par WhatsApp.",
         "h1": "Location de quad à Las Terrenas",
         "intro": [
@@ -1719,7 +1737,21 @@
         "cars_link": "Vous cherchez plutôt une voiture ? Voir la location de voiture à Las Terrenas"
       },
       "voitures": {
-        "seo_title": "Location de voiture à Las Terrenas | IVJ Rentcar",
+        "faq": [
+          {
+            "question": "Combien coûte la location d'une voiture par jour ?",
+            "answer": "Le tarif est calculé par jour et baisse avec la durée de la location (1 à 3 jours, 4 jours et plus, 15 jours et plus). Les prix de chaque modèle sont affichés sur sa fiche ; pour une longue durée, ils sont négociables."
+          },
+          {
+            "question": "Quels documents et quel âge faut-il pour louer une voiture ?",
+            "answer": "Il faut un permis de conduire valide et une pièce d'identité. Le conducteur doit avoir au moins 25 ans."
+          },
+          {
+            "question": "Où récupère-t-on la voiture ?",
+            "answer": "À notre local de Plaza Italia #22, Avenida Juan Pablo Duarte, à Las Terrenas, où elle est aussi rendue. Nous n'avons pas de comptoir à l'aéroport."
+          }
+        ],
+        "seo_title": "Location de voiture et de 4x4 à Las Terrenas | IVJ Rentcar",
         "seo_description": "Rent a Car à Las Terrenas, Samaná : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, 25 ans minimum. Réservation en ligne ou WhatsApp.",
         "h1": "Location de voiture à Las Terrenas",
         "intro": [

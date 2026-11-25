@@ -6,6 +6,7 @@ import { Link } from "@/i18n/navigation";
 import { Breadcrumb } from "@/components/site/Breadcrumb";
 import { BreadcrumbJsonLd } from "@/components/site/FleetPageJsonLd";
 import { FleetPageCard } from "@/components/site/FleetPageCard";
+import { FaqAccordion } from "@/components/site/FaqAccordion";
 import { getCatalogue } from "@/lib/data/catalogue";
 import { categoryForSlug, slugsForHub } from "@/lib/fleet-pages";
 import type { AppLocale } from "@/i18n/routing";
@@ -82,6 +83,11 @@ export default async function FleetHubPage({
       </div>
 
       <p className="max-w-3xl text-ink-soft">{tUi("other_models")}</p>
+
+      <FaqAccordion
+        title={tUi("faq_title")}
+        items={t.raw("faq") as { question: string; answer: string }[]}
+      />
 
       <div className="flex flex-wrap items-center gap-4">
         <ButtonLink href="/reservar">{tUi("reserve")} →</ButtonLink>

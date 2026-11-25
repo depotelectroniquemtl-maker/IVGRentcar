@@ -51,7 +51,7 @@
   },
   "seo": {
     "home": {
-      "title": "Rent a Car y quads en Las Terrenas | IVJ Rentcar",
+      "title": "Rent Car en Las Terrenas: carros, jeepetas y quads | IVJ",
       "description": "Rent a Car en Las Terrenas: alquiler de carros, 4x4 y quads. Tarifas claras por día, reserva en línea o por WhatsApp, respuesta rápida."
     },
     "flotte": {
@@ -94,7 +94,7 @@
   "home": {
     "hero": {
       "eyebrow": "Alquiler local · Las Terrenas",
-      "title": "Alquiler de carros y quads en Las Terrenas.",
+      "title": "Rent car en Las Terrenas: carros, jeepetas y quads.",
       "subtitle": "Servicio sencillo y directo por WhatsApp. Consulta disponibilidad y la tarifa de hoy.",
       "cta_primary": "Solicitar vehículo",
       "cta_flotte": "Ver los vehículos",
@@ -155,6 +155,10 @@
     "card_details": "Ver detalles",
     "hub_voitures": "Alquiler de carros en Las Terrenas",
     "hub_quads": "Alquiler de cuatrimotos en Las Terrenas",
+    "vehicle_names": {
+      "Quad 4 Roues 300cc": "Quad 300cc (four wheel)",
+      "Suzuki XL 7 Personas": "Suzuki XL 7 Personas"
+    },
     "vehicle_copy": {
       "Hyundai": {
         "title": "Compacto y práctico",
@@ -1708,9 +1712,23 @@
     },
     "hubs": {
       "quads": {
-        "seo_title": "Renta de quads en Las Terrenas (cuatrimotos) | IVJ Rentcar",
+        "faq": [
+          {
+            "question": "¿Cuánto cuesta alquilar un quad por día?",
+            "answer": "La tarifa es por día y baja según la duración del alquiler (1 a 3 días, 4 días o más, 15 días o más). Los precios están en la ficha del Quad 300cc; para alquileres largos son negociables."
+          },
+          {
+            "question": "¿Qué documentos y qué edad se necesitan para alquilar un quad?",
+            "answer": "Se necesita una licencia de conducir vigente y un documento de identidad. El conductor debe tener al menos 16 años, y el casco está incluido."
+          },
+          {
+            "question": "¿Dónde se recoge el quad?",
+            "answer": "En nuestro local de Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, donde también se devuelve. No tenemos mostrador en el aeropuerto."
+          }
+        ],
+        "seo_title": "Renta de quads y four wheel en Las Terrenas | IVJ Rentcar",
         "seo_description": "Renta de quads en Las Terrenas desde 1 día: casco incluido, edad mínima 16 años, entrega en Plaza Italia #22. Reserva en línea o por WhatsApp.",
-        "h1": "Alquiler de quads y cuatrimotos en Las Terrenas",
+        "h1": "Renta de quads (four wheel) en Las Terrenas",
         "intro": [
           "Alquilar un quad en Las Terrenas es sencillo: el alquiler empieza en un día, el casco está incluido y el conductor debe tener al menos 16 años. IVJ Rentcar está en Plaza Italia #22, donde se entrega y se devuelve el quad.",
           "La tarifa se calcula por día y baja con la duración del alquiler; para un quad se pide un depósito de US$ 300. Para alquileres de larga duración, los precios son negociables.",
@@ -1719,9 +1737,23 @@
         "cars_link": "¿Buscas un carro? Ver alquiler de carros en Las Terrenas"
       },
       "voitures": {
-        "seo_title": "Rent a Car Las Terrenas: alquiler de carros | IVJ Rentcar",
+        "faq": [
+          {
+            "question": "¿Cuánto cuesta alquilar un carro por día?",
+            "answer": "La tarifa es por día y baja según la duración del alquiler (1 a 3 días, 4 días o más, 15 días o más). Los precios de cada modelo están en su ficha; para alquileres largos son negociables."
+          },
+          {
+            "question": "¿Qué documentos y qué edad se necesitan para alquilar un carro?",
+            "answer": "Se necesita una licencia de conducir vigente y un documento de identidad. El conductor debe tener al menos 25 años."
+          },
+          {
+            "question": "¿Dónde se recoge el carro?",
+            "answer": "En nuestro local de Plaza Italia #22, Avenida Juan Pablo Duarte, Las Terrenas, donde también se devuelve. No tenemos mostrador en el aeropuerto."
+          }
+        ],
+        "seo_title": "Renta de carros y jeepetas en Las Terrenas | IVJ Rentcar",
         "seo_description": "Rent a car en Las Terrenas, Samaná: Kia Seltos, Suzuki XL7 de 7 plazas y Tucson 4x4. Automáticos, 25 años mínimo. Reserva en línea o WhatsApp.",
-        "h1": "Alquiler de carros en Las Terrenas",
+        "h1": "Renta de carros y jeepetas en Las Terrenas",
         "intro": [
           "Alquila un carro en Las Terrenas para recorrer la península de Samaná y el resto de la República Dominicana. Todos nuestros carros son automáticos, con aire acondicionado y de gasolina; el conductor debe tener al menos 25 años.",
           "Kia Seltos, Suzuki XL7 de 7 plazas, Hyundai Tucson 4x4: elige según el número de personas y de maletas. Las tarifas por duración están en la ficha de cada carro. La entrega y la devolución se hacen en nuestro local de Plaza Italia #22.",

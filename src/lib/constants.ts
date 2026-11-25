@@ -44,8 +44,8 @@ export function whatsappContactUrl(message?: string) {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
-// Numéro du bouton WhatsApp vert flottant et de sa fenêtre de bienvenue (+1 829 341 0539),
-// distinct des autres boutons de contact (WHATSAPP_CONTACT_NUMBER).
+// Numéro du bouton WhatsApp vert flottant, de sa fenêtre de bienvenue et du bouton noir du menu
+// (+1 829 341 0539), distinct des autres boutons de contact (WHATSAPP_CONTACT_NUMBER).
 export const WHATSAPP_FLOATING_NUMBER = "18293410539";
 
 export function whatsappFloatingUrl(message?: string) {

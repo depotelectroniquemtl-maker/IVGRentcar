@@ -44,6 +44,15 @@ export function whatsappContactUrl(message?: string) {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
+// Numéro du bouton WhatsApp vert flottant et de sa fenêtre de bienvenue (+1 829 341 0539),
+// distinct des autres boutons de contact (WHATSAPP_CONTACT_NUMBER).
+export const WHATSAPP_FLOATING_NUMBER = "18293410539";
+
+export function whatsappFloatingUrl(message?: string) {
+  const base = `https://wa.me/${WHATSAPP_FLOATING_NUMBER}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
+
 // Fiche Google Maps (identifiant 0x8eaefbee7fc65b53:0x9e123e3007de3223) : coordonnées lues sur
 // la fiche elle-même, horaires identiques à ceux de la fiche (lundi à samedi, dimanche fermé).
 export const BUSINESS_GEO = { latitude: 19.3119707, longitude: -69.5429003 };

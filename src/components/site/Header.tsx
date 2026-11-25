@@ -5,7 +5,7 @@ import { LocaleSwitcher } from "@/components/site/LocaleSwitcher";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { MobileMenu } from "@/components/site/MobileMenu";
-import { whatsappContactUrl } from "@/lib/constants";
+import { whatsappFloatingUrl } from "@/lib/constants";
 
 // Reproduit le header de l'ancien site (classe .topbar) : logo plus grand (le tagline est
 // déjà intégré dans public/logo.png, pas besoin d'un second texte), fine bordure rouge en
@@ -53,7 +53,7 @@ export function Header() {
           {/* Icône seule sous 640 px (le texte est masqué, d'où l'aria-label), icône + texte
               à partir de sm. */}
           <ExternalButtonLink
-            href={whatsappContactUrl()}
+            href={whatsappFloatingUrl()}
             variant="dark"
             aria-label="WhatsApp"
             data-wa-location="header"

@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { whatsappUrl } from "@/lib/constants";
+import { whatsappContactUrl } from "@/lib/constants";
 
 // `location` alimente l'événement GA4 « whatsapp_click » (emplacement du bouton).
 export function WhatsAppButton({
@@ -17,7 +17,7 @@ export function WhatsAppButton({
 
   return (
     <ExternalButtonLink
-      href={whatsappUrl(message)}
+      href={whatsappContactUrl(message)}
       variant="whatsapp"
       className={className}
       data-wa-location={location}

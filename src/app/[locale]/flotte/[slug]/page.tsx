@@ -11,7 +11,7 @@ import { BreadcrumbJsonLd, ProductJsonLd } from "@/components/site/FleetPageJson
 import { FaqJsonLd } from "@/components/site/FaqJsonLd";
 import { FleetPageCard } from "@/components/site/FleetPageCard";
 import { TierPrices } from "@/components/site/TierPrices";
-import { SITE_URL, whatsappUrl } from "@/lib/constants";
+import { SITE_URL, whatsappContactUrl } from "@/lib/constants";
 import { getCatalogue } from "@/lib/data/catalogue";
 import {
   FLEET_PAGES,
@@ -210,7 +210,7 @@ export default async function FleetVehiclePage({
               {t("ui.reserve")} →
             </ButtonLink>
             <ExternalButtonLink
-              href={whatsappUrl(t("ui.whatsapp_message", { vehicule: page.label }))}
+              href={whatsappContactUrl(t("ui.whatsapp_message", { vehicule: page.label }))}
               variant="whatsapp"
               className="min-h-[44px] flex-1"
               data-wa-location="vehicule"

@@ -6,7 +6,7 @@ import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { FleetGrid } from "@/components/site/FleetGrid";
 import { PriceTable } from "@/components/site/PriceTable";
 import { FleetHubLinks } from "@/components/site/FleetHubLinks";
-import { whatsappUrl } from "@/lib/constants";
+import { whatsappContactUrl } from "@/lib/constants";
 import { getCatalogue } from "@/lib/data/catalogue";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
@@ -57,7 +57,7 @@ export default async function FlottePage({
       <p className="text-sm text-ink-soft">{t("payment_note")}</p>
 
       <div>
-        <ExternalButtonLink href={whatsappUrl()} variant="whatsapp" data-wa-location="flotte">
+        <ExternalButtonLink href={whatsappContactUrl()} variant="whatsapp" data-wa-location="flotte">
           <WhatsAppIcon className="h-5 w-5" />
           {t("reserve")}
         </ExternalButtonLink>

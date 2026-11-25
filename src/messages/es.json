@@ -33,7 +33,12 @@
     },
     "floating_whatsapp": {
       "label": "Escribir por WhatsApp",
-      "message": "Hola, quisiera información sobre el alquiler de un vehículo en Las Terrenas."
+      "message": "Hola, quisiera información sobre el alquiler de un vehículo en Las Terrenas.",
+      "welcome_label": "Mensaje de bienvenida de IVJ Rentcar",
+      "welcome_title": "IVJ Rentcar",
+      "welcome_text": ["¡Hola! 👋 Somos IVJ Rentcar.", "¿Buscas alquilar un carro o un quad en Las Terrenas?", "¿En qué podemos ayudarte?"],
+      "welcome_cta": "Chatear por WhatsApp",
+      "welcome_close": "Cerrar el mensaje de bienvenida"
     }
   },
   "cookies": {

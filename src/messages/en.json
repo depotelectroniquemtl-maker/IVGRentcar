@@ -33,7 +33,12 @@
     },
     "floating_whatsapp": {
       "label": "Message us on WhatsApp",
-      "message": "Hello, I would like information about renting a vehicle in Las Terrenas."
+      "message": "Hello, I would like information about renting a vehicle in Las Terrenas.",
+      "welcome_label": "IVJ Rentcar welcome message",
+      "welcome_title": "IVJ Rentcar",
+      "welcome_text": ["Hello! 👋 Welcome to IVJ Rentcar.", "Looking to rent a car or quad in Las Terrenas?", "How can we help you?"],
+      "welcome_cta": "Chat on WhatsApp",
+      "welcome_close": "Close the welcome message"
     }
   },
   "cookies": {

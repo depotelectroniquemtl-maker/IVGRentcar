@@ -9,7 +9,7 @@ import { trackEvent } from "@/lib/analytics";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { Link } from "@/i18n/navigation";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { BUSINESS_EMAIL, whatsappUrl } from "@/lib/constants";
+import { BUSINESS_EMAIL, whatsappContactUrl } from "@/lib/constants";
 import { AvailabilityCalendar } from "@/components/site/AvailabilityCalendar";
 import { PhoneField } from "@/components/site/PhoneField";
 import { defaultCountryForLocale, normalizePhone } from "@/lib/phone";
@@ -383,7 +383,7 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
         >
           <p>{t("service_unavailable")}</p>
           <div>
-            <ExternalButtonLink href={whatsappUrl()} variant="whatsapp" data-wa-location="reservation">
+            <ExternalButtonLink href={whatsappContactUrl()} variant="whatsapp" data-wa-location="reservation">
               <WhatsAppIcon className="h-5 w-5" />
               {t("service_unavailable_cta")}
             </ExternalButtonLink>

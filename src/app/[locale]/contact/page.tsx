@@ -3,7 +3,12 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/ui/Container";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { BUSINESS_ADDRESS, BUSINESS_EMAIL, PHONE_DISPLAY, whatsappUrl } from "@/lib/constants";
+import {
+  BUSINESS_ADDRESS,
+  BUSINESS_EMAIL,
+  WHATSAPP_CONTACT_DISPLAY,
+  whatsappContactUrl,
+} from "@/lib/constants";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
 
@@ -44,7 +49,7 @@ export default async function ContactPage({
       <dl className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <dt className="text-sm font-semibold text-ink-soft">{t("whatsapp")}</dt>
-          <dd className="mt-1 text-ink">{PHONE_DISPLAY}</dd>
+          <dd className="mt-1 text-ink">{WHATSAPP_CONTACT_DISPLAY}</dd>
         </div>
         <div>
           <dt className="text-sm font-semibold text-ink-soft">{t("email")}</dt>
@@ -69,7 +74,7 @@ export default async function ContactPage({
       </dl>
 
       <div>
-        <ExternalButtonLink href={whatsappUrl()} variant="whatsapp" data-wa-location="contact">
+        <ExternalButtonLink href={whatsappContactUrl()} variant="whatsapp" data-wa-location="contact">
           <WhatsAppIcon className="h-5 w-5" />
           {t("whatsapp")}
         </ExternalButtonLink>

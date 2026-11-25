@@ -4,7 +4,7 @@ import { Container } from "@/components/ui/Container";
 import { ButtonLink, ExternalButtonLink } from "@/components/ui/Button";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
-import { whatsappUrl } from "@/lib/constants";
+import { whatsappContactUrl } from "@/lib/constants";
 
 export async function generateMetadata({
   params,
@@ -61,7 +61,7 @@ export default async function AeroportPage({
 
       <div className="flex flex-wrap gap-3">
         <ButtonLink href="/reservar">{t("cta_reserver")}</ButtonLink>
-        <ExternalButtonLink variant="whatsapp" href={whatsappUrl()} data-wa-location="aeroport">
+        <ExternalButtonLink variant="whatsapp" href={whatsappContactUrl()} data-wa-location="aeroport">
           {t("cta_whatsapp")}
         </ExternalButtonLink>
       </div>

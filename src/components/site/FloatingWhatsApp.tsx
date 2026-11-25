@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/navigation";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { whatsappContactUrl } from "@/lib/constants";
+import { whatsappFloatingUrl } from "@/lib/constants";
 
 const WELCOME_DELAY_MS = 5000;
 const WELCOME_STORAGE_KEY = "ivj_wa_welcome";
@@ -74,7 +74,7 @@ export function FloatingWhatsApp() {
 
   if (excluded) return null;
 
-  const href = whatsappContactUrl(t("message"));
+  const href = whatsappFloatingUrl(t("message"));
   const lines = t.raw("welcome_text") as string[];
 
   return (

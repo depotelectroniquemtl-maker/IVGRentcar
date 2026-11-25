@@ -53,6 +53,9 @@ const labelClass = "mb-1 block font-medium text-ink";
 export function ReservarForm({ categories: categoriesProp }: { categories: CategorieAvecTarifs[] | null }) {
   const categories = categoriesProp ?? [];
   const t = useTranslations("reservar");
+  const tFlotte = useTranslations("flotte");
+  // Libellé affiché seulement : la valeur envoyée reste l'identifiant de la catégorie.
+  const vehicleNames = tFlotte.raw("vehicle_names") as Record<string, string>;
   const locale = useLocale();
 
   const [nom, setNom] = useState("");
@@ -444,7 +447,7 @@ export function ReservarForm({ categories: categoriesProp }: { categories: Categ
           </option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
-              {cat.nom}
+              {vehicleNames[cat.nom] ?? cat.nom}
             </option>
           ))}
         </select>

@@ -155,6 +155,10 @@
     "card_details": "Voir la fiche",
     "hub_voitures": "Location de voiture à Las Terrenas",
     "hub_quads": "Location de quad à Las Terrenas",
+    "vehicle_names": {
+      "Quad 4 Roues 300cc": "Quad 300cc",
+      "Suzuki XL 7 Personas": "Suzuki XL7, 7 places"
+    },
     "vehicle_copy": {
       "Hyundai": {
         "title": "Compacte et pratique",
@@ -1560,6 +1564,81 @@
           "Kia Picanto gris argent sous les palmiers, vue de trois quarts avant"
         ]
       },
+      "changan": {
+        "seo_title": "Location Changan à Las Terrenas | IVJ Rentcar",
+        "seo_description": "Louez une Changan à Las Terrenas : SUV 5 places, climatisé, caution 500 US$, 25 ans minimum. Tarifs par durée, réservation en ligne ou par WhatsApp.",
+        "h1": "Location Changan à Las Terrenas",
+        "eyebrow": "SUV · 5 places",
+        "specs": [
+          "Climatisation",
+          "Caution : 500 US$",
+          "Permis de conduire exigé",
+          "Âge minimum du conducteur : 25 ans"
+        ],
+        "intro": [
+          "La Changan est un SUV climatisé de 5 places, pratique pour circuler à Las Terrenas et dans la péninsule de Samaná.",
+          "Elle se récupère et se rend à notre local de Plaza Italia #22, à Las Terrenas. Nous n'avons pas de comptoir à l'aéroport.",
+          "Les tarifs varient selon la durée de la location. Réservez en ligne ou écrivez-nous sur WhatsApp ; le conducteur doit avoir au moins 25 ans et un permis de conduire valide."
+        ],
+        "faq": [
+          {
+            "question": "Combien de personnes la Changan peut-elle accueillir ?",
+            "answer": "La Changan accueille {count} personnes."
+          },
+          {
+            "question": "Quelle est la caution ?",
+            "answer": "La caution est de 500 US$."
+          },
+          {
+            "question": "Quels documents et quel âge faut-il ?",
+            "answer": "Un permis de conduire valide et une pièce d'identité ; le conducteur doit avoir au moins 25 ans."
+          },
+          {
+            "question": "Où récupère-t-on la voiture ?",
+            "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où elle est aussi rendue."
+          }
+        ],
+        "alts": [
+          "Changan rouge, vue de trois quarts avant"
+        ]
+      },
+      "pasola-175cc": {
+        "seo_title": "Location scooter Las Terrenas : Pasola 175cc | IVJ Rentcar",
+        "seo_description": "Louez une Pasola 175cc à Las Terrenas : scooter pour 2 personnes, modèle récent, dès 16 ans, permis non exigé. Réservation en ligne ou par WhatsApp.",
+        "h1": "Location de scooter à Las Terrenas : Pasola 175cc",
+        "eyebrow": "Scooter · modèle récent",
+        "specs": [
+          "Modèle récent",
+          "Permis de conduire non exigé",
+          "Âge minimum du conducteur : 16 ans"
+        ],
+        "intro": [
+          "La Pasola 175cc est un scooter de modèle récent pour 2 personnes, pratique pour se déplacer en ville et rejoindre les plages de Las Terrenas.",
+          "Le permis de conduire n'est pas exigé ; le conducteur doit avoir au moins 16 ans. Le scooter se récupère et se rend à notre local de Plaza Italia #22.",
+          "Les tarifs varient selon la durée de la location. Réservez en ligne ou écrivez-nous sur WhatsApp."
+        ],
+        "faq": [
+          {
+            "question": "Faut-il un permis pour louer la Pasola ?",
+            "answer": "Non, le permis de conduire n'est pas exigé pour la Pasola 175cc."
+          },
+          {
+            "question": "Quel âge faut-il avoir ?",
+            "answer": "Le conducteur doit avoir au moins 16 ans."
+          },
+          {
+            "question": "Combien de personnes peuvent monter ?",
+            "answer": "La Pasola 175cc accueille {count} personnes."
+          },
+          {
+            "question": "Où récupère-t-on le scooter ?",
+            "answer": "À notre local de Plaza Italia #22, à Las Terrenas, où il est aussi rendu."
+          }
+        ],
+        "alts": [
+          "Scooter Pasola 175cc noir et vert, vue de profil"
+        ]
+      },
       "kia-seltos": {
         "seo_title": "Location Kia Seltos à Las Terrenas | IVJ Rentcar",
         "seo_description": "Louez un Kia Seltos 2027 à Las Terrenas : SUV automatique avec toit ouvrant, 5 places, 2 à 3 bagages. Tarifs par durée, réservation en ligne ou WhatsApp.",
@@ -1708,7 +1787,21 @@
     },
     "hubs": {
       "quads": {
-        "seo_title": "Location de quad à Las Terrenas | IVJ Rentcar",
+        "faq": [
+          {
+            "question": "Combien coûte la location d'un quad par jour ?",
+            "answer": "Le tarif est calculé par jour et baisse avec la durée de la location (1 à 3 jours, 4 jours et plus, 15 jours et plus). Les prix sont affichés sur la fiche du Quad 300cc ; pour une longue durée, ils sont négociables."
+          },
+          {
+            "question": "Quels documents et quel âge faut-il pour louer un quad ?",
+            "answer": "Il faut un permis de conduire valide et une pièce d'identité. Le conducteur doit avoir au moins 16 ans, et le casque est fourni."
+          },
+          {
+            "question": "Où récupère-t-on le quad ?",
+            "answer": "À notre local de Plaza Italia #22, Avenida Juan Pablo Duarte, à Las Terrenas, où il est aussi rendu. Nous n'avons pas de comptoir à l'aéroport."
+          }
+        ],
+        "seo_title": "Location de quad à Las Terrenas dès 1 jour | IVJ Rentcar",
         "seo_description": "Location de quad à Las Terrenas dès 1 jour : casque fourni, 16 ans minimum, remise à Plaza Italia #22. Réservation en ligne ou par WhatsApp.",
         "h1": "Location de quad à Las Terrenas",
         "intro": [
@@ -1719,7 +1812,21 @@
         "cars_link": "Vous cherchez plutôt une voiture ? Voir la location de voiture à Las Terrenas"
       },
       "voitures": {
-        "seo_title": "Location de voiture à Las Terrenas | IVJ Rentcar",
+        "faq": [
+          {
+            "question": "Combien coûte la location d'une voiture par jour ?",
+            "answer": "Le tarif est calculé par jour et baisse avec la durée de la location (1 à 3 jours, 4 jours et plus, 15 jours et plus). Les prix de chaque modèle sont affichés sur sa fiche ; pour une longue durée, ils sont négociables."
+          },
+          {
+            "question": "Quels documents et quel âge faut-il pour louer une voiture ?",
+            "answer": "Il faut un permis de conduire valide et une pièce d'identité. Le conducteur doit avoir au moins 25 ans."
+          },
+          {
+            "question": "Où récupère-t-on la voiture ?",
+            "answer": "À notre local de Plaza Italia #22, Avenida Juan Pablo Duarte, à Las Terrenas, où elle est aussi rendue. Nous n'avons pas de comptoir à l'aéroport."
+          }
+        ],
+        "seo_title": "Location de voiture et de 4x4 à Las Terrenas | IVJ Rentcar",
         "seo_description": "Rent a Car à Las Terrenas, Samaná : Kia Seltos, Suzuki XL7 7 places, Tucson 4x4. Automatiques, 25 ans minimum. Réservation en ligne ou WhatsApp.",
         "h1": "Location de voiture à Las Terrenas",
         "intro": [

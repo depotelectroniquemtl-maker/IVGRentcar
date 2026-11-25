@@ -34,6 +34,10 @@ export function FleetCard({
     { title: string; description: string; amenity?: string }
   >;
   const copy = vehicleCopy[categorie.nom];
+  // Nom affiché dans la langue de la page quand celui de la base est écrit dans une autre langue
+  // (ex. « Quad 4 Roues 300cc ») ; sinon le nom de la base, inchangé.
+  const vehicleNames = t.raw("vehicle_names") as Record<string, string>;
+  const nom = vehicleNames[categorie.nom] ?? categorie.nom;
   const [carouselIndex, setCarouselIndex] = useState(0);
 
   useEffect(() => {
@@ -63,7 +67,7 @@ export function FleetCard({
             <Image
               key={src}
               src={src}
-              alt={categorie.nom}
+              alt={nom}
               fill
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               className={`object-cover transition-opacity duration-700 ${
@@ -96,7 +100,7 @@ export function FleetCard({
 
       <div className="flex flex-1 flex-col gap-2 p-5">
         <p className="text-[11px] font-black uppercase tracking-wider text-brand">
-          {categorie.nom}
+          {nom}
         </p>
         {copy && <h3 className="text-xl font-bold leading-tight text-ink">{copy.title}</h3>}
         {copy && <p className="text-sm leading-relaxed text-ink-soft">{copy.description}</p>}

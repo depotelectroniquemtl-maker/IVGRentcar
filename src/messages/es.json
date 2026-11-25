@@ -51,7 +51,7 @@
   },
   "seo": {
     "home": {
-      "title": "Rent Car en Las Terrenas: carros, jeepetas y quads | IVJ",
+      "title": "Rent Car Las Terrenas: carros, jeepetas, quads | IVJ Rentcar",
       "description": "Rent a Car en Las Terrenas: alquiler de carros, 4x4 y quads. Tarifas claras por día, reserva en línea o por WhatsApp, respuesta rápida."
     },
     "flotte": {
@@ -1562,6 +1562,81 @@
           "Kia Picanto gris plata estacionado en una playa de Las Terrenas, vista de tres cuartos delantera",
           "Kia Picanto gris plata visto de perfil, sobre la arena frente al mar",
           "Kia Picanto gris plata bajo las palmeras, vista de tres cuartos delantera"
+        ]
+      },
+      "changan": {
+        "seo_title": "Renta de jeepeta Changan en Las Terrenas | IVJ Rentcar",
+        "seo_description": "Alquila una jeepeta Changan en Las Terrenas: 5 plazas, aire acondicionado, depósito US$ 500, 25 años mínimo. Reserva en línea o por WhatsApp.",
+        "h1": "Renta de jeepeta Changan en Las Terrenas",
+        "eyebrow": "Jeepeta · 5 plazas",
+        "specs": [
+          "Aire acondicionado",
+          "Depósito: US$ 500",
+          "Licencia de conducir requerida",
+          "Edad mínima del conductor: 25 años"
+        ],
+        "intro": [
+          "La Changan es una jeepeta de 5 plazas con aire acondicionado, práctica para moverse por Las Terrenas y la península de Samaná.",
+          "Se recoge y se devuelve en nuestro local de Plaza Italia #22, en Las Terrenas. No tenemos mostrador en el aeropuerto.",
+          "Las tarifas varían según la duración del alquiler. Reserva en línea o escríbenos por WhatsApp; el conductor debe tener al menos 25 años y una licencia de conducir vigente."
+        ],
+        "faq": [
+          {
+            "question": "¿Cuántas personas caben en la Changan?",
+            "answer": "La Changan tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Cuánto es el depósito?",
+            "answer": "El depósito es de US$ 500."
+          },
+          {
+            "question": "¿Qué documentos y qué edad se necesitan?",
+            "answer": "Una licencia de conducir vigente y un documento de identidad; el conductor debe tener al menos 25 años."
+          },
+          {
+            "question": "¿Dónde se recoge el carro?",
+            "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          }
+        ],
+        "alts": [
+          "Changan roja, vista de tres cuartos delantera"
+        ]
+      },
+      "pasola-175cc": {
+        "seo_title": "Renta de pasolas en Las Terrenas: Pasola 175cc | IVJ Rentcar",
+        "seo_description": "Alquila una pasola 175cc en Las Terrenas: para 2 personas, modelo reciente, desde 16 años, sin licencia de conducir. Reserva en línea o por WhatsApp.",
+        "h1": "Renta de pasolas en Las Terrenas: Pasola 175cc",
+        "eyebrow": "Pasola · modelo reciente",
+        "specs": [
+          "Modelo reciente",
+          "No se requiere licencia de conducir",
+          "Edad mínima del conductor: 16 años"
+        ],
+        "intro": [
+          "La Pasola 175cc es un motor de modelo reciente para 2 personas, práctico para moverse por el pueblo y llegar a las playas de Las Terrenas.",
+          "No se requiere licencia de conducir; el conductor debe tener al menos 16 años. Se recoge y se devuelve en nuestro local de Plaza Italia #22.",
+          "Las tarifas varían según la duración del alquiler. Reserva en línea o escríbenos por WhatsApp."
+        ],
+        "faq": [
+          {
+            "question": "¿Se necesita licencia para alquilar la pasola?",
+            "answer": "No, no se requiere licencia de conducir para la Pasola 175cc."
+          },
+          {
+            "question": "¿Qué edad hay que tener?",
+            "answer": "El conductor debe tener al menos 16 años."
+          },
+          {
+            "question": "¿Cuántas personas caben?",
+            "answer": "La Pasola 175cc tiene capacidad para {count} personas."
+          },
+          {
+            "question": "¿Dónde se recoge la pasola?",
+            "answer": "En nuestro local de Plaza Italia #22, en Las Terrenas, donde también se devuelve."
+          }
+        ],
+        "alts": [
+          "Pasola 175cc negra y verde, vista de perfil"
         ]
       },
       "kia-seltos": {

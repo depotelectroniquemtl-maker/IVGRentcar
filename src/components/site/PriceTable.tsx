@@ -22,6 +22,7 @@ function PerDay({ value, label }: { value: number | null; label: string }) {
  */
 export function PriceTable({ categories }: { categories: CategorieAvecTarifs[] }) {
   const t = useTranslations("flotte");
+  const vehicleNames = t.raw("vehicle_names") as Record<string, string>;
 
   return (
     <div className="overflow-x-auto rounded-lg border border-black/10">
@@ -47,7 +48,7 @@ export function PriceTable({ categories }: { categories: CategorieAvecTarifs[] }
               key={cat.id}
               className={i % 2 === 0 ? "bg-white" : "bg-black/[0.03]"}
             >
-              <td className="px-4 py-3 font-semibold text-ink">{cat.nom}</td>
+              <td className="px-4 py-3 font-semibold text-ink">{vehicleNames[cat.nom] ?? cat.nom}</td>
               <td className="px-4 py-3 text-ink-soft">
                 {cat.capacite_personnes
                   ? t("capacity_persons", { count: cat.capacite_personnes })

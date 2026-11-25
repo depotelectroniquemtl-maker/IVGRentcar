@@ -33,6 +33,17 @@ export function whatsappUrl(message?: string) {
   return message ? `${base}?text=${encodeURIComponent(message)}` : base;
 }
 
+// Numéro WhatsApp Business des boutons de contact du site public (+1 849 449 4922) : boutons du
+// menu, flottant, fiches, réservation, page Contact. Volontairement distinct de WHATSAPP_NUMBER,
+// qui reste celui du pied de page, des mentions légales et des données structurées.
+export const WHATSAPP_CONTACT_NUMBER = "18494494922";
+export const WHATSAPP_CONTACT_DISPLAY = formatPhoneDisplay(WHATSAPP_CONTACT_NUMBER);
+
+export function whatsappContactUrl(message?: string) {
+  const base = `https://wa.me/${WHATSAPP_CONTACT_NUMBER}`;
+  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
+}
+
 // Fiche Google Maps (identifiant 0x8eaefbee7fc65b53:0x9e123e3007de3223) : coordonnées lues sur
 // la fiche elle-même, horaires identiques à ceux de la fiche (lundi à samedi, dimanche fermé).
 export const BUSINESS_GEO = { latitude: 19.3119707, longitude: -69.5429003 };

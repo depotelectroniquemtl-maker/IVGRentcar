@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { LegalPage } from "@/components/site/LegalPage";
 import { ExternalButtonLink } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { whatsappUrl } from "@/lib/constants";
+import { whatsappContactUrl } from "@/lib/constants";
 import type { LegalContent } from "@/lib/legal";
 import type { AppLocale } from "@/i18n/routing";
 import { pageMetadata } from "@/lib/seo";
@@ -40,7 +40,7 @@ export default async function ConditionsPage({
         <div className="flex flex-col items-start gap-3">
           <p className="text-ink-soft">{content.cta}</p>
           <ExternalButtonLink
-            href={whatsappUrl()}
+            href={whatsappContactUrl()}
             variant="whatsapp"
             data-wa-location="conditions"
           >

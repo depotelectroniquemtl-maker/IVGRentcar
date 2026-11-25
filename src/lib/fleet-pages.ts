@@ -18,6 +18,8 @@ export const FLEET_PAGE_SLUGS = [
   "kia-picanto",
   "suzuki-xl7",
   "hyundai-tucson-4x4",
+  "changan",
+  "pasola-175cc",
 ] as const;
 
 export type FleetPageSlug = (typeof FLEET_PAGE_SLUGS)[number];
@@ -25,7 +27,8 @@ export type FleetPageSlug = (typeof FLEET_PAGE_SLUGS)[number];
 export type FleetPhoto = { src: string; width: number; height: number };
 
 type FleetPageConfig = {
-  hub: FleetHub;
+  // null : pas de page de catégorie (ex. le scooter) ; la fiche se rattache alors à /flotte.
+  hub: FleetHub | null;
   // Nom affiché (identique dans les 3 langues : nom de modèle).
   label: string;
   photos: FleetPhoto[];
@@ -76,6 +79,18 @@ export const FLEET_PAGES: Record<FleetPageSlug, FleetPageConfig> = {
     label: "Hyundai Tucson 4x4",
     photos: [{ src: "/fleet/hyundai-tucson-4x4.jpg", width: 1200, height: 800 }],
     related: ["kia-seltos", "suzuki-xl7"],
+  },
+  changan: {
+    hub: "voitures",
+    label: "Changan",
+    photos: [{ src: "/fleet/changan.jpg", width: 1200, height: 800 }],
+    related: ["kia-picanto", "kia-seltos"],
+  },
+  "pasola-175cc": {
+    hub: null,
+    label: "Pasola 175cc",
+    photos: [{ src: "/fleet/BWS-175-Lateral-derecho.png", width: 1080, height: 1080 }],
+    related: ["quad-300cc"],
   },
 };
 

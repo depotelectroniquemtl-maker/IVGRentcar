@@ -80,8 +80,11 @@ export default async function FleetVehiclePage({
   const count = categorie.capacite_personnes;
   const photo = page.photos[0];
   const extraPhotos = page.photos.slice(1);
-  const hubLabel = t(page.hub === "quads" ? "ui.hub_quads" : "ui.hub_voitures");
-  const hubPath = `/flotte/${page.hub}`;
+  // Fiche sans page de catégorie (scooter) : rattachée directement à /flotte.
+  const hubLabel = page.hub
+    ? t(page.hub === "quads" ? "ui.hub_quads" : "ui.hub_voitures")
+    : null;
+  const hubPath = page.hub ? `/flotte/${page.hub}` : "/flotte";
   const path = `/flotte/${slug}`;
 
   const intro = t.raw(`pages.${slug}.intro`) as string[];
@@ -113,7 +116,7 @@ export default async function FleetVehiclePage({
   const crumbs = [
     { name: t("ui.home"), path: "" },
     { name: t("ui.fleet"), path: "/flotte" },
-    { name: hubLabel, path: hubPath },
+    ...(hubLabel ? [{ name: hubLabel, path: hubPath }] : []),
     { name: page.label, path },
   ];
 
@@ -134,10 +137,10 @@ export default async function FleetVehiclePage({
 
       <Breadcrumb
         crumbs={[
-          { name: crumbs[0].name, href: "/" },
-          { name: crumbs[1].name, href: "/flotte" },
-          { name: crumbs[2].name, href: hubPath },
-          { name: crumbs[3].name },
+          { name: t("ui.home"), href: "/" },
+          { name: t("ui.fleet"), href: "/flotte" },
+          ...(hubLabel ? [{ name: hubLabel, href: hubPath }] : []),
+          { name: page.label },
         ]}
       />
 
@@ -280,9 +283,11 @@ export default async function FleetVehiclePage({
       )}
 
       <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-brand">
-        <Link href={hubPath} className="hover:underline">
-          {t(page.hub === "quads" ? "ui.see_all_quads" : "ui.see_all_cars")} →
-        </Link>
+        {page.hub && (
+          <Link href={hubPath} className="hover:underline">
+            {t(page.hub === "quads" ? "ui.see_all_quads" : "ui.see_all_cars")} →
+          </Link>
+        )}
         <Link href="/conditions" className="hover:underline">
           {t("ui.see_conditions")} →
         </Link>

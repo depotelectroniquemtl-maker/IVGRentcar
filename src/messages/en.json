@@ -1564,6 +1564,81 @@
           "Silver Kia Picanto under palm trees, front three-quarter view"
         ]
       },
+      "changan": {
+        "seo_title": "Changan SUV Rental in Las Terrenas | IVJ Rentcar",
+        "seo_description": "Rent a Changan in Las Terrenas: 5-seat SUV with air conditioning, US$500 deposit, minimum age 25. Rates by rental length, book online or on WhatsApp.",
+        "h1": "Changan SUV rental in Las Terrenas",
+        "eyebrow": "SUV · 5 seats",
+        "specs": [
+          "Air conditioning",
+          "Deposit: US$500",
+          "Driver's license required",
+          "Minimum driver age: 25"
+        ],
+        "intro": [
+          "The Changan is an air-conditioned 5-seat SUV, practical for getting around Las Terrenas and the Samaná peninsula.",
+          "Pick-up and return are at our office on Plaza Italia #22 in Las Terrenas. We have no desk at the airport.",
+          "Rates depend on the rental length. Book online or message us on WhatsApp; the driver must be at least 25 and hold a valid driver's license."
+        ],
+        "faq": [
+          {
+            "question": "How many people does the Changan seat?",
+            "answer": "The Changan seats {count} people."
+          },
+          {
+            "question": "How much is the deposit?",
+            "answer": "The deposit is US$500."
+          },
+          {
+            "question": "What documents and minimum age do I need?",
+            "answer": "A valid driver's license and an ID; the driver must be at least 25."
+          },
+          {
+            "question": "Where do I pick up the car?",
+            "answer": "At our office on Plaza Italia #22 in Las Terrenas, where it is also returned."
+          }
+        ],
+        "alts": [
+          "Red Changan, front three-quarter view"
+        ]
+      },
+      "pasola-175cc": {
+        "seo_title": "Scooter Rental in Las Terrenas: Pasola 175cc | IVJ Rentcar",
+        "seo_description": "Rent a Pasola 175cc scooter in Las Terrenas: seats 2, recent model, minimum age 16, no driver's license required. Book online or on WhatsApp.",
+        "h1": "Scooter rental in Las Terrenas: Pasola 175cc",
+        "eyebrow": "Scooter · recent model",
+        "specs": [
+          "Recent model",
+          "No driver's license required",
+          "Minimum driver age: 16"
+        ],
+        "intro": [
+          "The Pasola 175cc is a recent-model scooter for 2 people, handy for getting around town and reaching the beaches of Las Terrenas.",
+          "No driver's license is required; the driver must be at least 16. Pick-up and return are at our office on Plaza Italia #22.",
+          "Rates depend on the rental length. Book online or message us on WhatsApp."
+        ],
+        "faq": [
+          {
+            "question": "Do I need a license to rent the Pasola?",
+            "answer": "No, a driver's license is not required for the Pasola 175cc."
+          },
+          {
+            "question": "How old do I need to be?",
+            "answer": "The driver must be at least 16."
+          },
+          {
+            "question": "How many people can ride it?",
+            "answer": "The Pasola 175cc seats {count} people."
+          },
+          {
+            "question": "Where do I pick up the scooter?",
+            "answer": "At our office on Plaza Italia #22 in Las Terrenas, where it is also returned."
+          }
+        ],
+        "alts": [
+          "Black and green Pasola 175cc scooter, side view"
+        ]
+      },
       "kia-seltos": {
         "seo_title": "Kia Seltos rental in Las Terrenas | IVJ Rentcar",
         "seo_description": "Rent a 2027 Kia Seltos in Las Terrenas: automatic SUV with sunroof, 5 seats, room for 2 to 3 bags. Rates by rental length, book online or on WhatsApp.",
